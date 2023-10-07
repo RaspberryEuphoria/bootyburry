@@ -1,0 +1,44 @@
+[gd_scene load_steps=5 format=3 uid="uid://67x0aame80lq"]
+
+[ext_resource type="Script" path="res://Tile.cs" id="1_7f3pl"]
+[ext_resource type="Texture2D" uid="uid://d4f2a6h4yjwuy" path="res://assets/tile.png" id="1_e1eix"]
+[ext_resource type="PackedScene" uid="uid://b1qg5jsrtqi83" path="res://Selector.tscn" id="3_0thv4"]
+[ext_resource type="Texture2D" uid="uid://d18n3erbe8esj" path="res://assets/tile_active_border.png" id="3_mgbys"]
+
+[node name="Tile" type="StaticBody2D"]
+input_pickable = true
+script = ExtResource("1_7f3pl")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+position = Vector2(16, 16)
+polygon = PackedVector2Array(16, 16, -16, 16, -16, -16, 16, -16)
+
+[node name="Background" type="Sprite2D" parent="."]
+position = Vector2(16, 16)
+texture = ExtResource("1_e1eix")
+
+[node name="Border" type="Sprite2D" parent="."]
+position = Vector2(16, 16)
+texture = ExtResource("3_mgbys")
+
+[node name="SelectorUp" parent="." instance=ExtResource("3_0thv4")]
+visible = false
+position = Vector2(16, -1)
+
+[node name="SelectorRight" parent="." instance=ExtResource("3_0thv4")]
+visible = false
+position = Vector2(33, 16)
+rotation = 1.5708
+direction = 3
+
+[node name="SelectorDown" parent="." instance=ExtResource("3_0thv4")]
+visible = false
+position = Vector2(16, 33)
+rotation = 3.14159
+direction = 1
+
+[node name="SelectorLeft" parent="." instance=ExtResource("3_0thv4")]
+visible = false
+position = Vector2(-1, 16)
+rotation = -1.5708
+direction = 2

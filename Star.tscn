@@ -1,0 +1,38 @@
+[gd_scene load_steps=6 format=3 uid="uid://b52jnvgyagyv2"]
+
+[ext_resource type="Script" path="res://Star.cs" id="1_d5tv6"]
+[ext_resource type="Texture2D" uid="uid://b5avhmi2hwyq7" path="res://assets/star_active.png" id="1_gxpw2"]
+[ext_resource type="Texture2D" uid="uid://x2e11c0co4kk" path="res://assets/star_inactive.png" id="2_sdlsn"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y0ysh"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_6c2hb"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_gxpw2")
+}],
+"loop": true,
+"name": &"active",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_sdlsn")
+}],
+"loop": true,
+"name": &"inactive",
+"speed": 5.0
+}]
+
+[node name="Star" type="StaticBody2D"]
+input_pickable = true
+script = ExtResource("1_d5tv6")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_y0ysh")
+disabled = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_6c2hb")
+animation = &"active"

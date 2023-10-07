@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://b0cnsik6rv4mx"]
+
+[ext_resource type="Script" path="res://Bot.cs" id="1_q334r"]
+
+[node name="Bot" type="TextEdit"]
+offset_right = 465.0
+offset_bottom = 102.0
+editable = false
+script = ExtResource("1_q334r")

@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://b1qg5jsrtqi83"]
+
+[ext_resource type="Texture2D" uid="uid://ci50ne73vl22x" path="res://assets/tile_active_arrow.png" id="1_cdxbx"]
+[ext_resource type="Script" path="res://Selector.cs" id="1_fu52n"]
+
+[node name="Selector" type="StaticBody2D"]
+z_index = 10
+script = ExtResource("1_fu52n")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(4, 3.5, -4, 3.5, -4, -3.5, 4, -3.5)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_cdxbx")

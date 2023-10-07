@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://bf4f55wjd3ibh"]
+
+[ext_resource type="Script" path="res://BoardGenerator.cs" id="1_horrv"]
+[ext_resource type="Texture2D" uid="uid://cbwjfidvsn8lv" path="res://assets/background.png" id="2_vi21j"]
+
+[node name="BoardGenerator" type="Node2D"]
+position = Vector2(896, 512)
+script = ExtResource("1_horrv")
+columns = 5
+rows = 5
+
+[node name="Background" type="Sprite2D" parent="."]
+position = Vector2(65, 28)
+texture = ExtResource("2_vi21j")

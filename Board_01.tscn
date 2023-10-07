@@ -1,0 +1,58 @@
+[gd_scene load_steps=5 format=3 uid="uid://d36u5a2emo87d"]
+
+[ext_resource type="Script" path="res://Board.cs" id="1_pefg2"]
+[ext_resource type="Texture2D" uid="uid://cbwjfidvsn8lv" path="res://assets/background.png" id="2_rlptj"]
+[ext_resource type="PackedScene" uid="uid://67x0aame80lq" path="res://Tile.tscn" id="3_toyfv"]
+[ext_resource type="PackedScene" uid="uid://b52jnvgyagyv2" path="res://Star.tscn" id="4_ukfaf"]
+
+[node name="Board" type="Node2D"]
+position = Vector2(896, 512)
+script = ExtResource("1_pefg2")
+columns = 3
+rows = 3
+
+[node name="Background" type="Sprite2D" parent="."]
+position = Vector2(65, 28)
+texture = ExtResource("2_rlptj")
+
+[node name="Tile_0_0" parent="." instance=ExtResource("3_toyfv")]
+
+[node name="Star" parent="Tile_0_0" instance=ExtResource("4_ukfaf")]
+position = Vector2(16, 16)
+state = 0
+
+[node name="Tile_0_1" parent="." instance=ExtResource("3_toyfv")]
+position = Vector2(45, 0)
+
+[node name="Tile_0_2" parent="." instance=ExtResource("3_toyfv")]
+position = Vector2(90, 0)
+
+[node name="Tile_1_0" parent="." instance=ExtResource("3_toyfv")]
+position = Vector2(0, 45)
+
+[node name="Star" parent="Tile_1_0" instance=ExtResource("4_ukfaf")]
+position = Vector2(16, 16)
+
+[node name="Tile_1_1" parent="." instance=ExtResource("3_toyfv")]
+position = Vector2(45, 45)
+
+[node name="Tile_1_2" parent="." instance=ExtResource("3_toyfv")]
+position = Vector2(90, 45)
+
+[node name="Star" parent="Tile_1_2" instance=ExtResource("4_ukfaf")]
+position = Vector2(16, 16)
+
+[node name="Tile_2_0" parent="." instance=ExtResource("3_toyfv")]
+position = Vector2(0, 90)
+
+[node name="Star" parent="Tile_2_0" instance=ExtResource("4_ukfaf")]
+position = Vector2(16, 16)
+
+[node name="Tile_2_1" parent="." instance=ExtResource("3_toyfv")]
+position = Vector2(45, 90)
+
+[node name="Tile_2_2" parent="." instance=ExtResource("3_toyfv")]
+position = Vector2(90, 90)
+
+[node name="Star" parent="Tile_2_2" instance=ExtResource("4_ukfaf")]
+position = Vector2(16, 16)

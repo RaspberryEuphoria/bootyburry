@@ -1,0 +1,86 @@
+[gd_scene load_steps=5 format=3 uid="uid://d04g7ng381o8o"]
+
+[ext_resource type="Script" path="res://Board.cs" id="1_dg7r7"]
+[ext_resource type="Texture2D" uid="uid://cbwjfidvsn8lv" path="res://assets/background.png" id="2_wyvf7"]
+[ext_resource type="PackedScene" uid="uid://67x0aame80lq" path="res://Tile.tscn" id="3_h7was"]
+[ext_resource type="PackedScene" uid="uid://b52jnvgyagyv2" path="res://Star.tscn" id="4_rspnj"]
+
+[node name="Board" type="Node2D"]
+position = Vector2(896, 512)
+script = ExtResource("1_dg7r7")
+
+[node name="Background" type="Sprite2D" parent="."]
+position = Vector2(64, 28)
+texture = ExtResource("2_wyvf7")
+
+[node name="Tile" parent="." instance=ExtResource("3_h7was")]
+
+[node name="Star" parent="Tile" instance=ExtResource("4_rspnj")]
+position = Vector2(16, 16)
+
+[node name="Tile2" parent="." instance=ExtResource("3_h7was")]
+position = Vector2(45, 0)
+
+[node name="Tile3" parent="." instance=ExtResource("3_h7was")]
+position = Vector2(90, 0)
+
+[node name="Tile4" parent="." instance=ExtResource("3_h7was")]
+position = Vector2(135, 0)
+
+[node name="Tile5" parent="." instance=ExtResource("3_h7was")]
+position = Vector2(180, 0)
+
+[node name="Tile6" parent="." instance=ExtResource("3_h7was")]
+position = Vector2(225, 0)
+
+[node name="Tile7" parent="." instance=ExtResource("3_h7was")]
+position = Vector2(0, 45)
+
+[node name="Tile8" parent="." instance=ExtResource("3_h7was")]
+position = Vector2(45, 45)
+
+[node name="Tile9" parent="." instance=ExtResource("3_h7was")]
+position = Vector2(90, 45)
+
+[node name="Star" parent="Tile9" instance=ExtResource("4_rspnj")]
+position = Vector2(16, 16)
+state = 0
+
+[node name="Tile10" parent="." instance=ExtResource("3_h7was")]
+position = Vector2(135, 45)
+
+[node name="Tile11" parent="." instance=ExtResource("3_h7was")]
+position = Vector2(180, 45)
+
+[node name="Tile12" parent="." instance=ExtResource("3_h7was")]
+position = Vector2(225, 45)
+
+[node name="Star" parent="Tile12" instance=ExtResource("4_rspnj")]
+position = Vector2(16, 16)
+
+[node name="Tile13" parent="." instance=ExtResource("3_h7was")]
+position = Vector2(0, 90)
+
+[node name="Star" parent="Tile13" instance=ExtResource("4_rspnj")]
+position = Vector2(16, 16)
+
+[node name="Tile14" parent="." instance=ExtResource("3_h7was")]
+position = Vector2(45, 90)
+
+[node name="Tile15" parent="." instance=ExtResource("3_h7was")]
+position = Vector2(90, 90)
+
+[node name="Star" parent="Tile15" instance=ExtResource("4_rspnj")]
+position = Vector2(16, 16)
+
+[node name="Tile16" parent="." instance=ExtResource("3_h7was")]
+position = Vector2(135, 90)
+
+[node name="Tile17" parent="." instance=ExtResource("3_h7was")]
+position = Vector2(180, 90)
+
+[node name="Tile18" parent="." instance=ExtResource("3_h7was")]
+position = Vector2(225, 90)
+
+[node name="Star" parent="Tile18" instance=ExtResource("4_rspnj")]
+position = Vector2(16, 16)
