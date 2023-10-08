@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://b52jnvgyagyv2"]
+
+[ext_resource type="Script" path="res://Treasure.cs" id="1_lc5go"]
+[ext_resource type="Texture2D" uid="uid://oh8j572s6rb5" path="res://assets/gameplay/trasure_cross.png" id="2_brkaq"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y0ysh"]
+
+[node name="Treasure" type="StaticBody2D"]
+scale = Vector2(0.75, 0.75)
+input_pickable = true
+script = ExtResource("1_lc5go")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_y0ysh")
+disabled = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_brkaq")

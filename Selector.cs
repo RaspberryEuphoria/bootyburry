@@ -23,7 +23,7 @@ namespace Game
     public void OnTileSelected(Tile _tile)
     {
       if (tile.IsOnBorder(direction)) return;
-      if (!tile.HasAdjacentTileWithStarInDirection(direction)) return;
+      if (!tile.HasAdjacentTileWithTreasureInDirection(direction)) return;
       Visible = true;
     }
 

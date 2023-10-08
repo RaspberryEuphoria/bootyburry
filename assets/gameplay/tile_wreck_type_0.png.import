@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://7sx4h20ga8vd"
-path="res://.godot/imported/treasure_inactive_alt.png-d6e73fc46c6a3ac36f84b950eb0791fd.ctex"
+uid="uid://dnil32atat8yj"
+path="res://.godot/imported/tile_wreck_type_0.png-0ddc9d175f9e2fbb114b1bdf38ae5d23.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/treasure_inactive_alt.png"
-dest_files=["res://.godot/imported/treasure_inactive_alt.png-d6e73fc46c6a3ac36f84b950eb0791fd.ctex"]
+source_file="res://assets/gameplay/tile_wreck_type_0.png"
+dest_files=["res://.godot/imported/tile_wreck_type_0.png-0ddc9d175f9e2fbb114b1bdf38ae5d23.ctex"]
 
 [params]
 

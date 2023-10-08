@@ -1,4 +1,3 @@
-using System.Linq;
 using Godot;
 
 namespace Game
@@ -10,7 +9,7 @@ namespace Game
     [Export]
     private int rows;
     [Export]
-    private int gap = 45;
+    private int gap = 64 + 32;
 
     public override void _Ready()
     {

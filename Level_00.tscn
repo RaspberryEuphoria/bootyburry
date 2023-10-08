@@ -1,0 +1,52 @@
+[gd_scene load_steps=5 format=3 uid="uid://cg7hr73p5sl7l"]
+
+[ext_resource type="Script" path="res://Board.cs" id="1_gyoap"]
+[ext_resource type="Texture2D" uid="uid://bm34w84l1bqse" path="res://assets/gameplay/background_type_0.png" id="2_lwvdr"]
+[ext_resource type="PackedScene" uid="uid://67x0aame80lq" path="res://Tile.tscn" id="3_xsr66"]
+[ext_resource type="PackedScene" uid="uid://b52jnvgyagyv2" path="res://Treasure.tscn" id="4_jsg6l"]
+
+[node name="Board" type="Node2D"]
+position = Vector2(896, 512)
+script = ExtResource("1_gyoap")
+columns = 3
+rows = 3
+
+[node name="Background" type="Sprite2D" parent="."]
+position = Vector2(65, 28)
+texture = ExtResource("2_lwvdr")
+
+[node name="Tile_0_0" parent="." instance=ExtResource("3_xsr66")]
+Type = 1
+
+[node name="Treasure" parent="Tile_0_0" instance=ExtResource("4_jsg6l")]
+State = 0
+
+[node name="Tile_0_1" parent="." instance=ExtResource("3_xsr66")]
+position = Vector2(96, 0)
+
+[node name="Tile_0_2" parent="." instance=ExtResource("3_xsr66")]
+position = Vector2(192, 0)
+
+[node name="Tile_1_0" parent="." instance=ExtResource("3_xsr66")]
+position = Vector2(0, 96)
+
+[node name="Tile_1_1" parent="." instance=ExtResource("3_xsr66")]
+position = Vector2(96, 96)
+
+[node name="Tile_1_2" parent="." instance=ExtResource("3_xsr66")]
+position = Vector2(192, 96)
+
+[node name="Tile_2_0" parent="." instance=ExtResource("3_xsr66")]
+position = Vector2(0, 192)
+Type = 1
+
+[node name="Treasure" parent="Tile_2_0" instance=ExtResource("4_jsg6l")]
+
+[node name="Tile_2_1" parent="." instance=ExtResource("3_xsr66")]
+position = Vector2(96, 192)
+
+[node name="Tile_2_2" parent="." instance=ExtResource("3_xsr66")]
+position = Vector2(192, 192)
+Type = 1
+
+[node name="Treasure" parent="Tile_2_2" instance=ExtResource("4_jsg6l")]

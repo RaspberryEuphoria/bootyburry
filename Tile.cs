@@ -5,7 +5,9 @@ using Godot;
 namespace Game
 {
   public enum TileState { Selected, Unselected }
+  public enum TileType { Water, Island, Wreck }
 
+  [Tool]
   public partial class Tile : StaticBody2D
   {
     [Signal]
@@ -16,20 +18,36 @@ namespace Game
     [Export]
     public bool isDisabled = false;
 
+    private TileType type;
+
+    [Export]
+    public TileType Type
+    {
+      get { return type; }
+      set
+      {
+        type = value;
+
+        var texture = GetNode<TileTexture>("TileTexture");
+        texture.Type = value;
+      }
+    }
+
     public int Id { get; private set; }
     public int Row { get; private set; }
     public int Column { get; private set; }
-    static public readonly int Size = 32;
+    static public readonly int Size = 64;
 
     private Board board;
-    private Star star = null;
+    private Treasure treasure;
+    private Sprite2D boat;
     private Selector[] selectors;
-    private Sprite2D border;
-    private Sprite2D background;
     private TileState state = TileState.Unselected;
 
     public override void _Ready()
     {
+      if (Engine.IsEditorHint()) return;
+
       try
       {
         board = GetParent<Board>();
@@ -41,23 +59,28 @@ namespace Game
       }
 
       selectors = GetChildren().OfType<Selector>().ToArray();
-      border = GetNode<Sprite2D>("Border");
-      background = GetNode<Sprite2D>("Background");
+      boat = GetNode<Sprite2D>("Boat");
 
-      if (HasNode("Star"))
+      var hasTreasure = HasNode("Treasure");
+
+      if (type == TileType.Island)
       {
-        if (isDisabled)
+        if (hasTreasure)
         {
-          GD.PrintErr("It is not possible to have a star on a disabled tile, check tile " + Id + " on row " + Row + " and column " + Column + ".");
+          treasure = GetNode<Treasure>("Treasure");
         }
-
-        star = GetNode<Star>("Star");
+        else
+        {
+          throw new Exception("Tile must have a Treasure child node.");
+        }
       }
-
-      if (isDisabled)
+      else
       {
-        border.Visible = false;
-        background.Modulate = new Color(0.5f, 0.5f, 0.5f);
+        if (hasTreasure)
+        {
+          GetNode("Treasure").QueueFree();
+          GD.PrintErr("Tile has a Treasure child node but is not of type Island.");
+        }
       }
     }
 
@@ -89,19 +112,20 @@ namespace Game
       return null;
     }
 
-    public Tile GetAdjacentTileWithStarInDirection(Direction direction)
+    public Tile GetAdjacentTileWithTreasureInDirection(Direction direction)
     {
       var adjacentTile = GetAdjacentTile(direction);
 
       if (adjacentTile == null) return null;
-      if (!adjacentTile.HasStar()) return adjacentTile.GetAdjacentTileWithStarInDirection(direction);
+      if (adjacentTile.IsBlocker()) return null;
+      if (!adjacentTile.HasTreasure()) return adjacentTile.GetAdjacentTileWithTreasureInDirection(direction);
 
       return adjacentTile;
     }
 
-    public bool HasAdjacentTileWithStarInDirection(Direction direction)
+    public bool HasAdjacentTileWithTreasureInDirection(Direction direction)
     {
-      return GetAdjacentTileWithStarInDirection(direction) != null;
+      return GetAdjacentTileWithTreasureInDirection(direction) != null;
     }
 
     public bool IsAdjacentTo(Tile tile)
@@ -131,20 +155,26 @@ namespace Game
       return isOnBorder;
     }
 
-    public bool HasStar()
+    public bool HasTreasure()
     {
-      return star != null;
+      return treasure != null;
     }
 
-    public bool HasActiveStar()
+    public bool IsBlocker()
     {
-      return star != null && star.IsActive();
+      return Type == TileType.Wreck;
+    }
+
+    public bool HasActiveTreasure()
+    {
+      return treasure != null && treasure.IsActive();
     }
 
     public void Select()
     {
       state = TileState.Selected;
-      star.Activate();
+      treasure.Activate();
+      boat.Visible = true;
 
       EmitSignal(SignalName.TileSelected, this);
     }
@@ -152,13 +182,14 @@ namespace Game
     public void Unselect()
     {
       state = TileState.Unselected;
+      boat.Visible = false;
 
       EmitSignal(SignalName.TileUnselected, this);
     }
 
-    public void DeactivateStar()
+    public void DeactivateTreasure()
     {
-      star.Deactivate();
+      treasure.Deactivate();
     }
   }
 }

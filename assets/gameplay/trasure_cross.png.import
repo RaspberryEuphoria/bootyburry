@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://7sx4h20ga8vd"
-path="res://.godot/imported/treasure_inactive_alt.png-d6e73fc46c6a3ac36f84b950eb0791fd.ctex"
+uid="uid://oh8j572s6rb5"
+path="res://.godot/imported/trasure_cross.png-dbee4f1a30a65f89bbdd5395747e0da5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/treasure_inactive_alt.png"
-dest_files=["res://.godot/imported/treasure_inactive_alt.png-d6e73fc46c6a3ac36f84b950eb0791fd.ctex"]
+source_file="res://assets/gameplay/trasure_cross.png"
+dest_files=["res://.godot/imported/trasure_cross.png-dbee4f1a30a65f89bbdd5395747e0da5.ctex"]
 
 [params]
 

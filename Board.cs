@@ -28,7 +28,7 @@ namespace Game
     private Tile currentTile;
     private Tile previousTile;
     private IEnumerable<Tile> tiles;
-    private IEnumerable<Tile> tilesWithStars;
+    private IEnumerable<Tile> tilesWithTreasures;
     public readonly Dictionary<string, Direction> actionToDirection = new()
     {
         { "move_up", Direction.Up },
@@ -49,8 +49,8 @@ namespace Game
 
       PrepareBoard();
 
-      var tilesWithActiveStars = tilesWithStars.Where(t => t.HasActiveStar());
-      foreach (var tile in tilesWithActiveStars)
+      var tilesWithActiveTreasures = tilesWithTreasures.Where(t => t.HasActiveTreasure());
+      foreach (var tile in tilesWithActiveTreasures)
       {
         tile.Select();
       }
@@ -80,7 +80,7 @@ namespace Game
     public void PrepareBoard()
     {
       tiles = GetChildren().OfType<Tile>();
-      tilesWithStars = tiles.Where(t => t.HasStar());
+      tilesWithTreasures = tiles.Where(t => t.HasTreasure());
 
       for (int y = 0; y < rows; y++)
       {
@@ -103,15 +103,14 @@ namespace Game
       {
         if (Input.IsActionJustPressed(itr.Key))
         {
-          var nextTile = currentTile.GetAdjacentTileWithStarInDirection(itr.Value);
+          var nextTile = currentTile.GetAdjacentTileWithTreasureInDirection(itr.Value);
           if (nextTile == null) return;
           Moves = Moves.Append(itr.Value);
 
-          GD.Print("Moves: " + Moves.Count());
-          GD.Print("Last move: " + itr.Value);
-          GD.Print("---");
-
-          if (nextTile.HasActiveStar()) previousTile.DeactivateStar();
+          // @warning: previously, it was previousTile.DeactivateTreasure(), but this doesn't work
+          // when it's the first move of the game, because previousTile is null.
+          // We'll have to verify that this doesn't break anything.
+          if (nextTile.HasActiveTreasure()) currentTile.DeactivateTreasure();
           nextTile.Select();
 
           previousTile = currentTile;
@@ -124,7 +123,7 @@ namespace Game
       var availableActions = new List<string>();
       foreach (var itr in actionToDirection)
       {
-        var nextTile = currentTile.GetAdjacentTileWithStarInDirection(itr.Value);
+        var nextTile = currentTile.GetAdjacentTileWithTreasureInDirection(itr.Value);
         if (nextTile == null) continue;
         availableActions.Add(itr.Key);
       }
@@ -134,9 +133,8 @@ namespace Game
 
     public void CheckScore()
     {
-
-      var tilesWithActiveStars = tilesWithStars.Where(t => t.HasActiveStar());
-      if (tilesWithActiveStars.Count() == tilesWithStars.Count())
+      var tilesWithActiveTreasures = tilesWithTreasures.Where(t => t.HasActiveTreasure());
+      if (tilesWithActiveTreasures.Count() == tilesWithTreasures.Count())
       {
         IsWon = true;
 
@@ -171,7 +169,7 @@ namespace Game
       currentTile = tile;
 
       // We don't want to check the score the first time a tile is selected,
-      // since the board may not be ready yet if the star is on an early tile.
+      // since the board may not be ready yet if the treasure is on an early tile.
       if (!IsReady) return;
 
       CheckScore();
