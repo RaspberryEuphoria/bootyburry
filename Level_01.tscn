@@ -5,11 +5,12 @@
 [ext_resource type="PackedScene" uid="uid://67x0aame80lq" path="res://Tile.tscn" id="3_bj2sm"]
 [ext_resource type="PackedScene" uid="uid://b52jnvgyagyv2" path="res://Treasure.tscn" id="4_twf46"]
 
-[node name="Board" type="Node2D"]
+[node name="Board" type="Node2D" node_paths=PackedStringArray("startingTile")]
 position = Vector2(896, 512)
 script = ExtResource("1_3py4v")
 columns = 3
 rows = 3
+startingTile = NodePath("Tile_0_0/Treasure")
 
 [node name="Background" type="Sprite2D" parent="."]
 position = Vector2(65, 28)

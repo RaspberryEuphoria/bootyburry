@@ -5,6 +5,7 @@ using Godot;
 namespace Game
 {
   public enum Direction { Up, Down, Left, Right }
+  public enum GameState { Playing, Won, Lost }
 
   public partial class Board : Node2D
   {
@@ -12,6 +13,8 @@ namespace Game
     private int columns;
     [Export]
     private int rows;
+    [Export]
+    public Tile startingTile;
     [Export]
     public bool useBot = false;
     [Export]
@@ -22,7 +25,7 @@ namespace Game
     public int HammerType { get; set; }
 
     public bool IsReady { get; private set; } = false;
-    public bool IsWon { get; private set; } = false;
+    public GameState GameState { get; private set; } = GameState.Playing;
     public IEnumerable<Direction> Moves { get; private set; } = new List<Direction>();
 
     private Tile currentTile;
@@ -47,13 +50,14 @@ namespace Game
         return;
       }
 
-      PrepareBoard();
-
-      var tilesWithActiveTreasures = tilesWithTreasures.Where(t => t.HasActiveTreasure());
-      foreach (var tile in tilesWithActiveTreasures)
+      if (startingTile == null)
       {
-        tile.Select();
+        GD.PrintErr("Board must have a starting tile to be initialized.");
+        return;
       }
+
+      PrepareBoard();
+      startingTile.Dock();
     }
 
     public override void _Process(double delta)
@@ -64,7 +68,7 @@ namespace Game
         return;
       }
 
-      if (!IsReady || IsWon) return;
+      if (!IsReady || GameState != GameState.Playing) return;
       HandleInput();
     }
 
@@ -103,15 +107,21 @@ namespace Game
       {
         if (Input.IsActionJustPressed(itr.Key))
         {
-          var nextTile = currentTile.GetAdjacentTileWithTreasureInDirection(itr.Value);
+          var direction = itr.Value;
+          var nextTile = currentTile.GetTileWithTreasureInDirection(direction);
           if (nextTile == null) return;
-          Moves = Moves.Append(itr.Value);
 
-          // @warning: previously, it was previousTile.DeactivateTreasure(), but this doesn't work
-          // when it's the first move of the game, because previousTile is null.
-          // We'll have to verify that this doesn't break anything.
-          if (nextTile.HasActiveTreasure()) currentTile.DeactivateTreasure();
-          nextTile.Select();
+          Moves = Moves.Append(direction);
+
+          var hazardTile = currentTile.GetHazardTileInPath(direction, nextTile);
+          if (hazardTile != null)
+          {
+            hazardTile.Sunk();
+            Lose();
+            return;
+          }
+
+          nextTile.Dock();
 
           previousTile = currentTile;
         }
@@ -123,7 +133,7 @@ namespace Game
       var availableActions = new List<string>();
       foreach (var itr in actionToDirection)
       {
-        var nextTile = currentTile.GetAdjacentTileWithTreasureInDirection(itr.Value);
+        var nextTile = currentTile.GetTileWithTreasureInDirection(itr.Value);
         if (nextTile == null) continue;
         availableActions.Add(itr.Key);
       }
@@ -131,21 +141,39 @@ namespace Game
       return availableActions;
     }
 
-    public void CheckScore()
+    private void CheckScore()
     {
       var tilesWithActiveTreasures = tilesWithTreasures.Where(t => t.HasActiveTreasure());
       if (tilesWithActiveTreasures.Count() == tilesWithTreasures.Count())
       {
-        IsWon = true;
-
-        GD.Print("You won!");
-        string report = $"Moves ({Moves.Count()}): ";
-        for (int i = 0; i < Moves.Count(); i++)
-        {
-          report += Moves.ElementAt(i).ToString() + " / ";
-        }
-        GD.Print(report);
+        Win();
       }
+    }
+
+    private void Win()
+    {
+      GameState = GameState.Won;
+
+      GD.Print("You won!");
+      string report = $"Moves ({Moves.Count()}): ";
+      for (int i = 0; i < Moves.Count(); i++)
+      {
+        report += Moves.ElementAt(i).ToString() + " / ";
+      }
+      GD.Print(report);
+    }
+
+    private void Lose()
+    {
+      GameState = GameState.Lost;
+
+      GD.Print("You lost!");
+      string report = $"Moves ({Moves.Count()}): ";
+      for (int i = 0; i < Moves.Count(); i++)
+      {
+        report += Moves.ElementAt(i).ToString() + " / ";
+      }
+      GD.Print(report);
     }
 
     public int GetRows()
@@ -165,7 +193,7 @@ namespace Game
 
     private void OnTileSelected(Tile tile)
     {
-      currentTile?.Unselect();
+      currentTile?.Undock();
       currentTile = tile;
 
       // We don't want to check the score the first time a tile is selected,

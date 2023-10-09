@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://67x0aame80lq"]
+[gd_scene load_steps=7 format=3 uid="uid://67x0aame80lq"]
 
 [ext_resource type="Script" path="res://Tile.cs" id="1_7f3pl"]
 [ext_resource type="Texture2D" uid="uid://c2dny6i3b2hs3" path="res://assets/gameplay/tile_water_type_0.png" id="2_7iv2y"]
 [ext_resource type="PackedScene" uid="uid://b1qg5jsrtqi83" path="res://Selector.tscn" id="3_0thv4"]
 [ext_resource type="Script" path="res://TileTexture.cs" id="3_uao6c"]
+[ext_resource type="Texture2D" uid="uid://bvs6fm2ot404u" path="res://assets/gameplay/danger.png" id="5_3y63s"]
 [ext_resource type="PackedScene" uid="uid://b8541muxml3fi" path="res://Boat.tscn" id="5_fnj5r"]
 
 [node name="Tile" type="StaticBody2D"]
@@ -20,6 +21,11 @@ script = ExtResource("3_uao6c")
 [node name="Boat" parent="." instance=ExtResource("5_fnj5r")]
 visible = false
 position = Vector2(32, 24)
+
+[node name="Danger" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(-24, -32)
+texture = ExtResource("5_3y63s")
 
 [node name="SelectorUp" parent="." instance=ExtResource("3_0thv4")]
 visible = false

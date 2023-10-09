@@ -41,6 +41,7 @@ namespace Game
     private Board board;
     private Treasure treasure;
     private Sprite2D boat;
+    private Sprite2D danger;
     private Selector[] selectors;
     private TileState state = TileState.Unselected;
 
@@ -60,6 +61,7 @@ namespace Game
 
       selectors = GetChildren().OfType<Selector>().ToArray();
       boat = GetNode<Sprite2D>("Boat");
+      danger = GetNode<Sprite2D>("Danger");
 
       var hasTreasure = HasNode("Treasure");
 
@@ -112,20 +114,35 @@ namespace Game
       return null;
     }
 
-    public Tile GetAdjacentTileWithTreasureInDirection(Direction direction)
+    public Tile GetTileWithTreasureInDirection(Direction direction)
     {
       var adjacentTile = GetAdjacentTile(direction);
 
       if (adjacentTile == null) return null;
-      if (adjacentTile.IsBlocker()) return null;
-      if (!adjacentTile.HasTreasure()) return adjacentTile.GetAdjacentTileWithTreasureInDirection(direction);
+      if (board.useBot && adjacentTile.IsHazard()) return null;
+      if (!adjacentTile.HasTreasure()) return adjacentTile.GetTileWithTreasureInDirection(direction);
 
       return adjacentTile;
     }
 
-    public bool HasAdjacentTileWithTreasureInDirection(Direction direction)
+    public bool HasTileWithTreasureInDirection(Direction direction)
     {
-      return GetAdjacentTileWithTreasureInDirection(direction) != null;
+      return GetTileWithTreasureInDirection(direction) != null;
+    }
+    public Tile GetHazardTileInPath(Direction direction, Tile goalTile)
+    {
+      var adjacentTile = GetAdjacentTile(direction);
+
+      if (adjacentTile == null) return null;
+      if (adjacentTile == goalTile) return null;
+      if (adjacentTile.IsHazard()) return adjacentTile;
+
+      return adjacentTile.GetHazardTileInPath(direction, goalTile);
+    }
+
+    public bool HasTileWithHazardInDirection(Direction direction)
+    {
+      return GetHazardTileInPath(direction, null) != null;
     }
 
     public bool IsAdjacentTo(Tile tile)
@@ -155,14 +172,14 @@ namespace Game
       return isOnBorder;
     }
 
+    public bool IsHazard()
+    {
+      return Type == TileType.Wreck;
+    }
+
     public bool HasTreasure()
     {
       return treasure != null;
-    }
-
-    public bool IsBlocker()
-    {
-      return Type == TileType.Wreck;
     }
 
     public bool HasActiveTreasure()
@@ -170,26 +187,61 @@ namespace Game
       return treasure != null && treasure.IsActive();
     }
 
-    public void Select()
+    public void Dock()
     {
+      SurveyHazards();
+
       state = TileState.Selected;
-      treasure.Activate();
+      treasure.Toggle();
       boat.Visible = true;
 
       EmitSignal(SignalName.TileSelected, this);
     }
 
-    public void Unselect()
+    public void Undock()
     {
+      SurveyHazards();
+
       state = TileState.Unselected;
       boat.Visible = false;
 
       EmitSignal(SignalName.TileUnselected, this);
     }
 
+    public void Sunk()
+    {
+      state = TileState.Selected;
+
+      boat.Visible = true;
+      boat.Texture = ResourceLoader.Load<Texture2D>("res://assets/gameplay/wreck_standard.png");
+      boat.Position = new Vector2(0, 20);
+      boat.Scale = new Vector2(1, 1);
+
+      EmitSignal(SignalName.TileSelected, this);
+    }
+
     public void DeactivateTreasure()
     {
       treasure.Deactivate();
+    }
+
+    public void SurveyHazards()
+    {
+      foreach (Direction direction in Enum.GetValues(typeof(Direction)))
+      {
+        var nextTreasureTile = GetTileWithTreasureInDirection(direction);
+        if (nextTreasureTile == null) continue;
+
+        var nextHazardTile = GetHazardTileInPath(direction, nextTreasureTile);
+        if (nextHazardTile == null) continue;
+
+        nextHazardTile.ToggleDangerVisibility();
+      }
+    }
+
+    public void ToggleDangerVisibility()
+    {
+      danger.Visible = !danger.Visible;
     }
   }
 }

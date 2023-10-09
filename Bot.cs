@@ -43,7 +43,7 @@ namespace Game
       if (disabled) return;
       if (!board.IsReady || (delay > 0 && !timer.IsStopped())) return;
 
-      if (board.IsWon)
+      if (board.GameState == GameState.Won)
       {
         Text = "Board complete! Moves (" + board.Moves.Count() + "): \n";
 

@@ -39,24 +39,29 @@ namespace Game
       else { Activate(); }
     }
 
+    public void Toggle()
+    {
+      if (state == TreasureState.Active) { Deactivate(); }
+      else { Activate(); }
+    }
+
     public void Activate()
     {
       state = TreasureState.Active;
+      Visible = true;
 
-      if (Engine.IsEditorHint())
+      if (Engine.IsEditorHint() && sprite != null)
       {
         sprite.Modulate = new Color(1, 1, 1, 1f);
         return;
       }
-
-      Visible = true;
     }
 
     public void Deactivate()
     {
       state = TreasureState.Inactive;
 
-      if (Engine.IsEditorHint())
+      if (Engine.IsEditorHint() && sprite != null)
       {
         sprite.Modulate = new Color(0.5f, 0.5f, 0.5f, 0.5f);
         return;
