@@ -24,7 +24,7 @@ position = Vector2(32, 24)
 
 [node name="Danger" type="Sprite2D" parent="."]
 visible = false
-position = Vector2(-24, -32)
+position = Vector2(-32, -24)
 texture = ExtResource("5_3y63s")
 
 [node name="SelectorUp" parent="." instance=ExtResource("3_0thv4")]
