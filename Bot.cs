@@ -55,12 +55,6 @@ namespace Game
         return;
       }
 
-      if (board.Moves.Count() > maxTries)
-      {
-        GetTree().ReloadCurrentScene();
-        return;
-      }
-
       var availableActions = board.GetAvailableActions();
       var randomAction = availableActions.ElementAt((System.Index)(GD.Randi() % availableActions.Count));
       var randomDirection = board.actionToDirection[randomAction];
@@ -90,6 +84,12 @@ namespace Game
       Input.ParseInputEvent(release);
 
       lastAction = randomAction;
+
+      if (board.Moves.Count() == maxTries)
+      {
+        GetTree().ReloadCurrentScene();
+        return;
+      }
     }
 
     public static string MoveToArrowEmoji(Direction direction)
