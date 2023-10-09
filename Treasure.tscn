@@ -6,15 +6,18 @@
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_y0ysh"]
 
-[node name="Treasure" type="StaticBody2D"]
+[node name="Treasure" type="StaticBody2D" node_paths=PackedStringArray("burriedSprite", "diggedSprite")]
 input_pickable = true
 script = ExtResource("1_lc5go")
+burriedSprite = NodePath("Burried")
+diggedSprite = NodePath("Digged")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_y0ysh")
 disabled = true
 
 [node name="Digged" type="Sprite2D" parent="."]
+visible = false
 position = Vector2(-6, -3)
 texture = ExtResource("2_34rx5")
 

@@ -1,0 +1,102 @@
+[gd_scene load_steps=5 format=3 uid="uid://c68cqukrfhn5s"]
+
+[ext_resource type="Script" path="res://Board.cs" id="1_nq8v3"]
+[ext_resource type="Texture2D" uid="uid://bm34w84l1bqse" path="res://assets/gameplay/background_type_0.png" id="2_8uxs8"]
+[ext_resource type="PackedScene" uid="uid://67x0aame80lq" path="res://Tile.tscn" id="3_noknl"]
+[ext_resource type="PackedScene" uid="uid://b52jnvgyagyv2" path="res://Treasure.tscn" id="4_bvjkx"]
+
+[node name="Board" type="Node2D" node_paths=PackedStringArray("startingTile")]
+position = Vector2(896, 512)
+script = ExtResource("1_nq8v3")
+columns = 6
+rows = 3
+startingTile = NodePath("Tile_2_4")
+botMaxTries = 20
+botDelay = 0.0
+
+[node name="Background" type="Sprite2D" parent="."]
+position = Vector2(65, 28)
+texture = ExtResource("2_8uxs8")
+
+[node name="Tile_0_0" parent="." instance=ExtResource("3_noknl")]
+position = Vector2(-176, -32)
+Type = 1
+
+[node name="Treasure" parent="Tile_0_0" instance=ExtResource("4_bvjkx")]
+
+[node name="Tile_0_1" parent="." instance=ExtResource("3_noknl")]
+position = Vector2(-80, -32)
+
+[node name="Tile_0_2" parent="." instance=ExtResource("3_noknl")]
+position = Vector2(16, -32)
+Type = 1
+
+[node name="Treasure" parent="Tile_0_2" instance=ExtResource("4_bvjkx")]
+
+[node name="Tile_0_3" parent="." instance=ExtResource("3_noknl")]
+position = Vector2(112, -32)
+
+[node name="Tile_0_4" parent="." instance=ExtResource("3_noknl")]
+position = Vector2(208, -32)
+Type = 2
+
+[node name="Tile_0_5" parent="." instance=ExtResource("3_noknl")]
+position = Vector2(304, -32)
+Type = 1
+
+[node name="Treasure" parent="Tile_0_5" instance=ExtResource("4_bvjkx")]
+
+[node name="Tile_1_0" parent="." instance=ExtResource("3_noknl")]
+position = Vector2(-176, 64)
+Type = 2
+
+[node name="Tile_1_1" parent="." instance=ExtResource("3_noknl")]
+position = Vector2(-80, 64)
+Type = 1
+
+[node name="Treasure" parent="Tile_1_1" instance=ExtResource("4_bvjkx")]
+
+[node name="Tile_1_2" parent="." instance=ExtResource("3_noknl")]
+position = Vector2(16, 64)
+
+[node name="Tile_1_3" parent="." instance=ExtResource("3_noknl")]
+position = Vector2(112, 64)
+
+[node name="Tile_1_4" parent="." instance=ExtResource("3_noknl")]
+position = Vector2(208, 64)
+Type = 1
+
+[node name="Treasure" parent="Tile_1_4" instance=ExtResource("4_bvjkx")]
+
+[node name="Tile_1_5" parent="." instance=ExtResource("3_noknl")]
+position = Vector2(304, 64)
+Type = 1
+
+[node name="Treasure" parent="Tile_1_5" instance=ExtResource("4_bvjkx")]
+
+[node name="Tile_2_0" parent="." instance=ExtResource("3_noknl")]
+position = Vector2(-176, 160)
+Type = 1
+
+[node name="Treasure" parent="Tile_2_0" instance=ExtResource("4_bvjkx")]
+
+[node name="Tile_2_1" parent="." instance=ExtResource("3_noknl")]
+position = Vector2(-80, 160)
+
+[node name="Tile_2_2" parent="." instance=ExtResource("3_noknl")]
+position = Vector2(16, 160)
+Type = 1
+
+[node name="Treasure" parent="Tile_2_2" instance=ExtResource("4_bvjkx")]
+
+[node name="Tile_2_3" parent="." instance=ExtResource("3_noknl")]
+position = Vector2(112, 160)
+
+[node name="Tile_2_4" parent="." instance=ExtResource("3_noknl")]
+position = Vector2(208, 160)
+Type = 1
+
+[node name="Treasure" parent="Tile_2_4" instance=ExtResource("4_bvjkx")]
+
+[node name="Tile_2_5" parent="." instance=ExtResource("3_noknl")]
+position = Vector2(304, 160)
