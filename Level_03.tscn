@@ -11,7 +11,6 @@ script = ExtResource("1_3py4v")
 columns = 6
 rows = 3
 startingTile = NodePath("Tile_1_4")
-useBot = true
 botMaxTries = 10
 botDelay = 0.0
 

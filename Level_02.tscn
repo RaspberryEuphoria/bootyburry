@@ -50,6 +50,7 @@ visible = false
 
 [node name="Tile_2_1" parent="." instance=ExtResource("3_bj2sm")]
 position = Vector2(96, 192)
+Type = 2
 
 [node name="Tile_2_2" parent="." instance=ExtResource("3_bj2sm")]
 position = Vector2(192, 192)
