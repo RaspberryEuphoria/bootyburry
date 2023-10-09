@@ -10,7 +10,7 @@ position = Vector2(896, 512)
 script = ExtResource("1_3py4v")
 columns = 3
 rows = 3
-startingTile = NodePath("Tile_0_0/Treasure")
+startingTile = NodePath("Tile_0_0")
 
 [node name="Background" type="Sprite2D" parent="."]
 position = Vector2(65, 28)
@@ -20,7 +20,6 @@ texture = ExtResource("2_7siot")
 Type = 1
 
 [node name="Treasure" parent="Tile_0_0" instance=ExtResource("4_twf46")]
-State = 0
 
 [node name="Tile_0_1" parent="." instance=ExtResource("3_bj2sm")]
 position = Vector2(96, 0)

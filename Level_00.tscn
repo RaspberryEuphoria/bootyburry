@@ -20,7 +20,6 @@ texture = ExtResource("2_lwvdr")
 Type = 1
 
 [node name="Treasure" parent="Tile_0_0" instance=ExtResource("4_jsg6l")]
-State = 0
 
 [node name="Tile_0_1" parent="." instance=ExtResource("3_xsr66")]
 position = Vector2(96, 0)

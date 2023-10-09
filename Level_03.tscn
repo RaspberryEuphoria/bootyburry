@@ -10,8 +10,7 @@ position = Vector2(896, 512)
 script = ExtResource("1_3py4v")
 columns = 6
 rows = 3
-useBot = true
-startingTile = NodePath("Tile_0_0/Treasure")
+startingTile = NodePath("Tile_0_0")
 
 [node name="Background" type="Sprite2D" parent="."]
 position = Vector2(65, 28)
@@ -22,7 +21,6 @@ position = Vector2(-176, -32)
 Type = 1
 
 [node name="Treasure" parent="Tile_0_0" instance=ExtResource("4_twf46")]
-State = 0
 
 [node name="Tile_0_1" parent="." instance=ExtResource("3_bj2sm")]
 position = Vector2(-80, -32)
@@ -56,7 +54,6 @@ position = Vector2(208, 64)
 Type = 1
 
 [node name="Treasure" parent="Tile_1_4" instance=ExtResource("4_twf46")]
-visible = false
 
 [node name="Tile_1_5" parent="." instance=ExtResource("3_bj2sm")]
 position = Vector2(304, 64)
@@ -66,7 +63,6 @@ position = Vector2(-176, 160)
 Type = 1
 
 [node name="Treasure" parent="Tile_2_0" instance=ExtResource("4_twf46")]
-visible = false
 
 [node name="Tile_2_1" parent="." instance=ExtResource("3_bj2sm")]
 position = Vector2(-80, 160)
@@ -82,7 +78,6 @@ position = Vector2(208, 160)
 Type = 1
 
 [node name="Treasure" parent="Tile_2_4" instance=ExtResource("4_twf46")]
-visible = false
 
 [node name="Tile_2_5" parent="." instance=ExtResource("3_bj2sm")]
 position = Vector2(304, 160)
