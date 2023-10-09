@@ -30,7 +30,6 @@ position = Vector2(192, 0)
 Type = 1
 
 [node name="Treasure" parent="Tile_0_2" instance=ExtResource("4_twf46")]
-visible = false
 
 [node name="Tile_1_0" parent="." instance=ExtResource("3_bj2sm")]
 position = Vector2(0, 96)
@@ -46,7 +45,6 @@ position = Vector2(0, 192)
 Type = 1
 
 [node name="Treasure" parent="Tile_2_0" instance=ExtResource("4_twf46")]
-visible = false
 
 [node name="Tile_2_1" parent="." instance=ExtResource("3_bj2sm")]
 position = Vector2(96, 192)
@@ -57,4 +55,3 @@ position = Vector2(192, 192)
 Type = 1
 
 [node name="Treasure" parent="Tile_2_2" instance=ExtResource("4_twf46")]
-visible = false

@@ -220,11 +220,6 @@ namespace Game
       EmitSignal(SignalName.TileSelected, this);
     }
 
-    public void DeactivateTreasure()
-    {
-      treasure.Deactivate();
-    }
-
     public void SurveyHazards()
     {
       foreach (Direction direction in Enum.GetValues(typeof(Direction)))

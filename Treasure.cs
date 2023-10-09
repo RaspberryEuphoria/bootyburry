@@ -15,59 +15,78 @@ namespace Game
       {
         state = value;
 
-        if (value == TreasureState.Active) Activate();
-        else Deactivate();
+        if (value == TreasureState.Active) Burry();
+        else Dig();
       }
     }
 
-    private Sprite2D sprite;
+    private Sprite2D burriedSprite;
+    private Sprite2D diggedSprite;
     private TreasureState state = TreasureState.Inactive;
 
     public override void _EnterTree()
     {
-      sprite = GetNode<Sprite2D>("Sprite2D");
+      burriedSprite = GetNode<Sprite2D>("Burried");
+      diggedSprite = GetNode<Sprite2D>("Digged");
 
-      if (state == TreasureState.Inactive) { Deactivate(); }
-      else { Activate(); }
+      if (state == TreasureState.Active)
+      {
+        Burry();
+      }
+      else
+      {
+        CleanUp();
+      }
     }
 
     public override void _Ready()
     {
-      sprite = GetNode<Sprite2D>("Sprite2D");
+      burriedSprite = GetNode<Sprite2D>("Burried");
+      diggedSprite = GetNode<Sprite2D>("Digged");
 
-      if (state == TreasureState.Inactive) { Deactivate(); }
-      else { Activate(); }
+      if (state == TreasureState.Active)
+      {
+        Burry();
+      }
+      else
+      {
+        CleanUp();
+      }
     }
 
     public void Toggle()
     {
-      if (state == TreasureState.Active) { Deactivate(); }
-      else { Activate(); }
+      if (state == TreasureState.Active) { Dig(); }
+      else { Burry(); }
     }
 
-    public void Activate()
+    public void Burry()
     {
       state = TreasureState.Active;
-      Visible = true;
+      burriedSprite.Visible = true;
+      diggedSprite.Visible = false;
 
-      if (Engine.IsEditorHint() && sprite != null)
-      {
-        sprite.Modulate = new Color(1, 1, 1, 1f);
-        return;
-      }
+      burriedSprite.Modulate = new Color(1, 1, 1, 1f);
     }
 
-    public void Deactivate()
+    public void Dig()
     {
       state = TreasureState.Inactive;
 
-      if (Engine.IsEditorHint() && sprite != null)
+      if (Engine.IsEditorHint() && burriedSprite != null)
       {
-        sprite.Modulate = new Color(0.5f, 0.5f, 0.5f, 0.5f);
+        burriedSprite.Modulate = new Color(0.5f, 0.5f, 0.5f, 0.5f);
         return;
       }
 
-      Visible = false;
+      burriedSprite.Visible = false;
+      diggedSprite.Visible = true;
+    }
+
+    public void CleanUp()
+    {
+      burriedSprite.Visible = false;
+      diggedSprite.Visible = false;
     }
 
     public bool IsActive()
