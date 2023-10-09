@@ -19,16 +19,15 @@ namespace Game
         else Dig();
       }
     }
+    [Export]
+    public Sprite2D burriedSprite;
+    [Export]
+    public Sprite2D diggedSprite;
 
-    private Sprite2D burriedSprite;
-    private Sprite2D diggedSprite;
     private TreasureState state = TreasureState.Inactive;
 
     public override void _EnterTree()
     {
-      burriedSprite = GetNode<Sprite2D>("Burried");
-      diggedSprite = GetNode<Sprite2D>("Digged");
-
       if (state == TreasureState.Active)
       {
         Burry();
@@ -41,9 +40,6 @@ namespace Game
 
     public override void _Ready()
     {
-      burriedSprite = GetNode<Sprite2D>("Burried");
-      diggedSprite = GetNode<Sprite2D>("Digged");
-
       if (state == TreasureState.Active)
       {
         Burry();
@@ -73,7 +69,7 @@ namespace Game
     {
       state = TreasureState.Inactive;
 
-      if (Engine.IsEditorHint() && burriedSprite != null)
+      if (Engine.IsEditorHint())
       {
         burriedSprite.Modulate = new Color(0.5f, 0.5f, 0.5f, 0.5f);
         return;
@@ -85,8 +81,15 @@ namespace Game
 
     public void CleanUp()
     {
-      burriedSprite.Visible = false;
       diggedSprite.Visible = false;
+
+      if (Engine.IsEditorHint())
+      {
+        burriedSprite.Modulate = new Color(0.5f, 0.5f, 0.5f, 0.5f);
+        return;
+      }
+
+      burriedSprite.Visible = false;
     }
 
     public bool IsActive()
