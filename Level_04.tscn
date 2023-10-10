@@ -8,8 +8,6 @@
 [node name="Board" type="Node2D" node_paths=PackedStringArray("startingTile")]
 position = Vector2(896, 512)
 script = ExtResource("1_nq8v3")
-columns = 6
-rows = 3
 startingTile = NodePath("Tile_2_4")
 botMaxTries = 20
 botDelay = 0.0

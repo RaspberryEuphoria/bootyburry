@@ -8,8 +8,6 @@
 [node name="Board" type="Node2D" node_paths=PackedStringArray("startingTile")]
 position = Vector2(896, 512)
 script = ExtResource("1_3py4v")
-columns = 3
-rows = 3
 startingTile = NodePath("Tile_0_0")
 
 [node name="Background" type="Sprite2D" parent="."]

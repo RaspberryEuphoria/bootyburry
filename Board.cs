@@ -10,10 +10,6 @@ namespace Game
   public partial class Board : Node2D
   {
     [Export]
-    private int columns;
-    [Export]
-    private int rows;
-    [Export]
     public Tile startingTile;
     [Export]
     public bool useBot = false;
@@ -22,11 +18,11 @@ namespace Game
     [Export]
     public float botDelay = 0.5f;
 
-    public int HammerType { get; set; }
-
     public bool IsReady { get; private set; } = false;
     public GameState GameState { get; private set; } = GameState.Playing;
     public IEnumerable<Direction> Moves { get; private set; } = new List<Direction>();
+    private int columns;
+    private int rows;
 
     private Tile currentTile;
     private Tile previousTile;
@@ -43,12 +39,6 @@ namespace Game
     public override void _Ready()
     {
       if (useBot) SetupBot();
-
-      if (rows < 1 && columns < 1)
-      {
-        GD.PrintErr("Board rows and columns must be greater than 0 to be initialized.");
-        return;
-      }
 
       if (startingTile == null)
       {
@@ -85,6 +75,9 @@ namespace Game
     {
       tiles = GetChildren().OfType<Tile>();
       tilesWithTreasures = tiles.Where(t => t.HasTreasure());
+
+      columns = tiles.Select(t => t.Position[0]).Distinct().ToList().Count;
+      rows = tiles.Select(t => t.Position[1]).Distinct().ToList().Count;
 
       for (int y = 0; y < rows; y++)
       {
