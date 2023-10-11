@@ -9,6 +9,13 @@ namespace Game
 
   public partial class Board : Node2D
   {
+    [Signal]
+    public delegate void GameWonEventHandler();
+    [Signal]
+    public delegate void GameLostEventHandler();
+
+    [Export]
+    public PackedScene nextLevel;
     [Export]
     public Tile startingTile;
     [Export]
@@ -154,6 +161,12 @@ namespace Game
         report += Moves.ElementAt(i).ToString() + " / ";
       }
       GD.Print(report);
+
+      EmitSignal(SignalName.GameWon);
+
+      var victoryScreen = ResourceLoader.Load<PackedScene>("res://VictoryScreen.tscn").Instantiate<VictoryScreen>();
+      victoryScreen.Init(Moves, nextLevel);
+      AddChild(victoryScreen);
     }
 
     private void Lose()
@@ -167,6 +180,12 @@ namespace Game
         report += Moves.ElementAt(i).ToString() + " / ";
       }
       GD.Print(report);
+
+      EmitSignal(SignalName.GameLost);
+
+      var losingScreen = ResourceLoader.Load<PackedScene>("res://LosingScreen.tscn").Instantiate<LosingScreen>();
+      losingScreen.Init(Moves, nextLevel);
+      AddChild(losingScreen);
     }
 
     public int GetRows()

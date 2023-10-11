@@ -1,13 +1,15 @@
-[gd_scene load_steps=5 format=3 uid="uid://fqleqx2cn34q"]
+[gd_scene load_steps=6 format=3 uid="uid://fqleqx2cn34q"]
 
 [ext_resource type="Script" path="res://Board.cs" id="1_3py4v"]
 [ext_resource type="Texture2D" uid="uid://bm34w84l1bqse" path="res://assets/gameplay/background_type_0.png" id="2_7siot"]
+[ext_resource type="PackedScene" uid="uid://bmbrcb5704afu" path="res://Level_03.tscn" id="2_552hv"]
 [ext_resource type="PackedScene" uid="uid://67x0aame80lq" path="res://Tile.tscn" id="3_bj2sm"]
 [ext_resource type="PackedScene" uid="uid://b52jnvgyagyv2" path="res://Treasure.tscn" id="4_twf46"]
 
 [node name="Board" type="Node2D" node_paths=PackedStringArray("startingTile")]
 position = Vector2(896, 512)
 script = ExtResource("1_3py4v")
+nextLevel = ExtResource("2_552hv")
 startingTile = NodePath("Tile_2_0")
 
 [node name="Background" type="Sprite2D" parent="."]
