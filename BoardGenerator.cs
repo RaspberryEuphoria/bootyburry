@@ -32,7 +32,7 @@ namespace Game
 
           tile.SetProcess(false);
           tile.Position = new Vector2(gap * x, gap * y);
-          tile.Name = $"Tile_{y}_{x}";
+          tile.CallDeferred("set_name", $"Tile_{y}_{x}");
 
           AddChild(tile);
         }
