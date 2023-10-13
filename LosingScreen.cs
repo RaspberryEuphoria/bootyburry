@@ -32,7 +32,7 @@ namespace Game
 
     private string GetVictoryText()
     {
-      var report = $"The sea is harsh and unforgivable. Your ship sank after {moves.Count()} moves...\n";
+      var report = $"The sea is harsh and unforgiving. Your ship sank after {moves.Count()} moves...\n";
       report += "Press \"R\" to retry!";
 
       return report;
