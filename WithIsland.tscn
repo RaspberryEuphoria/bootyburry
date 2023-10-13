@@ -1,0 +1,41 @@
+[gd_scene load_steps=6 format=3 uid="uid://ch1bcttqi5hjk"]
+
+[ext_resource type="PackedScene" uid="uid://b52jnvgyagyv2" path="res://Treasure.tscn" id="1_7e3ft"]
+[ext_resource type="Script" path="res://WithIsland.cs" id="1_ky5is"]
+[ext_resource type="Texture2D" uid="uid://dufcejp1nw767" path="res://assets/gameplay/tile_island_type_0.png" id="2_l33wr"]
+[ext_resource type="PackedScene" uid="uid://b8541muxml3fi" path="res://Boat.tscn" id="4_limkt"]
+[ext_resource type="PackedScene" uid="uid://b1qg5jsrtqi83" path="res://Selector.tscn" id="6_ccuxg"]
+
+[node name="WithIsland" type="Node2D" groups=["island"]]
+script = ExtResource("1_ky5is")
+
+[node name="Texture" type="Sprite2D" parent="."]
+texture = ExtResource("2_l33wr")
+
+[node name="Boat" parent="." instance=ExtResource("4_limkt")]
+visible = false
+position = Vector2(32, 24)
+
+[node name="Treasure" parent="." instance=ExtResource("1_7e3ft")]
+
+[node name="SelectorUp" parent="." instance=ExtResource("6_ccuxg")]
+visible = false
+position = Vector2(0, -40)
+rotation = -1.5708
+
+[node name="SelectorRight" parent="." instance=ExtResource("6_ccuxg")]
+visible = false
+position = Vector2(40, 0)
+direction = 3
+
+[node name="SelectorDown" parent="." instance=ExtResource("6_ccuxg")]
+visible = false
+position = Vector2(0, 40)
+rotation = 1.5708
+direction = 1
+
+[node name="SelectorLeft" parent="." instance=ExtResource("6_ccuxg")]
+visible = false
+position = Vector2(-40, 0)
+rotation = -3.14159
+direction = 2

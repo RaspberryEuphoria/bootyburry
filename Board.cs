@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Godot;
@@ -9,6 +10,8 @@ namespace Game
 
   public partial class Board : Node2D
   {
+    [Signal]
+    public delegate void GameStartEventHandler();
     [Signal]
     public delegate void GameWonEventHandler();
     [Signal]
@@ -34,7 +37,7 @@ namespace Game
     private Tile currentTile;
     private Tile previousTile;
     private IEnumerable<Tile> tiles;
-    private IEnumerable<Tile> tilesWithTreasures;
+    private IEnumerable<Treasure> treasures;
     public readonly Dictionary<string, Direction> actionToDirection = new()
     {
         { "move_up", Direction.Up },
@@ -53,8 +56,16 @@ namespace Game
         return;
       }
 
+      if (!startingTile.IsIsland())
+      {
+        GD.PrintErr("Starting tile must be of Island type.");
+        return;
+      }
+
       PrepareBoard();
-      startingTile.Dock();
+      EmitSignal(SignalName.GameStart);
+
+      startingTile.Select();
     }
 
     public override void _Process(double delta)
@@ -81,7 +92,6 @@ namespace Game
     public void PrepareBoard()
     {
       tiles = GetChildren().OfType<Tile>();
-      tilesWithTreasures = tiles.Where(t => t.HasTreasure());
 
       columns = tiles.Select(t => t.Position[0]).Distinct().ToList().Count;
       rows = tiles.Select(t => t.Position[1]).Distinct().ToList().Count;
@@ -98,6 +108,7 @@ namespace Game
         }
       }
 
+      treasures = tiles.Where(t => t.HasIslandTerrain()).Select(t => t.Terrain.GetNode<Treasure>("Treasure"));
       IsReady = true;
     }
 
@@ -108,7 +119,7 @@ namespace Game
         if (Input.IsActionJustPressed(itr.Key))
         {
           var direction = itr.Value;
-          var nextTile = currentTile.GetTileWithTreasureInDirection(direction);
+          var nextTile = currentTile.GetTileWithIslandInDirection(direction);
           if (nextTile == null) return;
 
           Moves = Moves.Append(direction);
@@ -116,12 +127,13 @@ namespace Game
           var hazardTile = currentTile.GetHazardTileInPath(direction, nextTile);
           if (hazardTile != null)
           {
-            hazardTile.Sunk();
+            hazardTile.Select();
             Lose();
             return;
           }
 
-          nextTile.Dock();
+          currentTile.Unselect();
+          nextTile.Select();
 
           previousTile = currentTile;
         }
@@ -133,7 +145,7 @@ namespace Game
       var availableActions = new List<string>();
       foreach (var itr in actionToDirection)
       {
-        var nextTile = currentTile.GetTileWithTreasureInDirection(itr.Value);
+        var nextTile = currentTile.GetTileWithIslandInDirection(itr.Value);
         if (nextTile == null) continue;
         availableActions.Add(itr.Key);
       }
@@ -143,8 +155,8 @@ namespace Game
 
     private void CheckScore()
     {
-      var tilesWithActiveTreasures = tilesWithTreasures.Where(t => t.HasActiveTreasure());
-      if (tilesWithActiveTreasures.Count() == tilesWithTreasures.Count())
+      var burriedTreasures = treasures.Where(t => t.IsBurried());
+      if (burriedTreasures.Count() == treasures.Count())
       {
         Win();
       }
@@ -205,7 +217,6 @@ namespace Game
 
     private void OnTileSelected(Tile tile)
     {
-      currentTile?.Undock();
       currentTile = tile;
 
       // We don't want to check the score the first time a tile is selected,

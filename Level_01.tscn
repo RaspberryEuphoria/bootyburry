@@ -1,10 +1,14 @@
-[gd_scene load_steps=6 format=3 uid="uid://b1i880hkcmx50"]
+[gd_scene load_steps=10 format=3 uid="uid://b1i880hkcmx50"]
 
 [ext_resource type="Script" path="res://Board.cs" id="1_3py4v"]
 [ext_resource type="PackedScene" uid="uid://fqleqx2cn34q" path="res://Level_02.tscn" id="2_5je3h"]
 [ext_resource type="Texture2D" uid="uid://bm34w84l1bqse" path="res://assets/gameplay/background_type_0.png" id="2_7siot"]
 [ext_resource type="PackedScene" uid="uid://67x0aame80lq" path="res://Tile.tscn" id="3_bj2sm"]
-[ext_resource type="PackedScene" uid="uid://b52jnvgyagyv2" path="res://Treasure.tscn" id="4_twf46"]
+[ext_resource type="PackedScene" uid="uid://ch1bcttqi5hjk" path="res://WithIsland.tscn" id="5_0d6oq"]
+[ext_resource type="Script" path="res://WithIsland.cs" id="6_mer3w"]
+[ext_resource type="PackedScene" uid="uid://e2gu8wi641jf" path="res://WithWater.tscn" id="7_2l4fw"]
+[ext_resource type="PackedScene" uid="uid://bux2ffg7yyub3" path="res://WithWreck.tscn" id="7_ism3j"]
+[ext_resource type="Script" path="res://WithWreck.cs" id="8_qqwqb"]
 
 [node name="Board" type="Node2D" node_paths=PackedStringArray("startingTile")]
 position = Vector2(896, 512)
@@ -17,40 +21,59 @@ position = Vector2(65, 28)
 texture = ExtResource("2_7siot")
 
 [node name="Tile_0_0" parent="." instance=ExtResource("3_bj2sm")]
-Type = 1
+Type = 0
 
-[node name="Treasure" parent="Tile_0_0" instance=ExtResource("4_twf46")]
+[node name="WithIsland" type="Node2D" parent="Tile_0_0" instance=ExtResource("5_0d6oq")]
+script = ExtResource("6_mer3w")
 
 [node name="Tile_0_1" parent="." instance=ExtResource("3_bj2sm")]
 position = Vector2(96, 0)
 
+[node name="WithWater" type="StaticBody2D" parent="Tile_0_1" instance=ExtResource("7_2l4fw")]
+input_pickable = true
+
 [node name="Tile_0_2" parent="." instance=ExtResource("3_bj2sm")]
 position = Vector2(192, 0)
-Type = 1
+Type = 0
 
-[node name="Treasure" parent="Tile_0_2" instance=ExtResource("4_twf46")]
+[node name="WithIsland" type="Node2D" parent="Tile_0_2" instance=ExtResource("5_0d6oq")]
+script = ExtResource("6_mer3w")
 
 [node name="Tile_1_0" parent="." instance=ExtResource("3_bj2sm")]
 position = Vector2(0, 96)
 Type = 2
 
+[node name="WithWreck" type="Node2D" parent="Tile_1_0" instance=ExtResource("7_ism3j")]
+script = ExtResource("8_qqwqb")
+
 [node name="Tile_1_1" parent="." instance=ExtResource("3_bj2sm")]
 position = Vector2(96, 96)
+
+[node name="WithWater" type="StaticBody2D" parent="Tile_1_1" instance=ExtResource("7_2l4fw")]
+input_pickable = true
 
 [node name="Tile_1_2" parent="." instance=ExtResource("3_bj2sm")]
 position = Vector2(192, 96)
 
+[node name="WithWater" type="StaticBody2D" parent="Tile_1_2" instance=ExtResource("7_2l4fw")]
+input_pickable = true
+
 [node name="Tile_2_0" parent="." instance=ExtResource("3_bj2sm")]
 position = Vector2(0, 192)
-Type = 1
+Type = 0
 
-[node name="Treasure" parent="Tile_2_0" instance=ExtResource("4_twf46")]
+[node name="WithIsland" type="Node2D" parent="Tile_2_0" instance=ExtResource("5_0d6oq")]
+script = ExtResource("6_mer3w")
 
 [node name="Tile_2_1" parent="." instance=ExtResource("3_bj2sm")]
 position = Vector2(96, 192)
 
+[node name="WithWater" type="StaticBody2D" parent="Tile_2_1" instance=ExtResource("7_2l4fw")]
+input_pickable = true
+
 [node name="Tile_2_2" parent="." instance=ExtResource("3_bj2sm")]
 position = Vector2(192, 192)
-Type = 1
+Type = 0
 
-[node name="Treasure" parent="Tile_2_2" instance=ExtResource("4_twf46")]
+[node name="WithIsland" type="Node2D" parent="Tile_2_2" instance=ExtResource("5_0d6oq")]
+script = ExtResource("6_mer3w")

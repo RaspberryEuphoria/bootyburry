@@ -3,12 +3,9 @@
 [ext_resource type="Script" path="res://Selector.cs" id="1_fu52n"]
 [ext_resource type="Texture2D" uid="uid://dnnxyecyekemm" path="res://assets/gameplay/arrow.png" id="2_5flg5"]
 
-[node name="Selector" type="StaticBody2D"]
+[node name="Selector" type="Node2D"]
 z_index = 10
 script = ExtResource("1_fu52n")
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
-polygon = PackedVector2Array(4, 3.5, -4, 3.5, -4, -3.5, 4, -3.5)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.75, 0.75)

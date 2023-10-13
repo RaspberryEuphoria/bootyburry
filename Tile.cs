@@ -5,10 +5,20 @@ using Godot;
 namespace Game
 {
   public enum TileState { Selected, Unselected }
-  public enum TileType { Water, Island, Wreck }
+  public enum TileType { Island, Water, Wreck }
+
+  public partial class TileWithIsland : Tile
+  {
+    public new WithIsland Terrain { get; private set; }
+  }
+
+  public partial class TileWithWreck : Tile
+  {
+    public new WithWreck Terrain { get; private set; }
+  }
 
   [Tool]
-  public partial class Tile : StaticBody2D
+  public partial class Tile : Node2D
   {
     [Signal]
     public delegate void TileSelectedEventHandler(Tile tile);
@@ -16,34 +26,30 @@ namespace Game
     public delegate void TileUnselectedEventHandler(Tile tile);
 
     [Export]
-    public bool isDisabled = false;
-
-    private TileType type;
-
-    [Export]
     public TileType Type
     {
-      get { return type; }
+      get => type;
       set
       {
         type = value;
 
-        var texture = GetNode<TileTexture>("TileTexture");
-        texture.Type = value;
+        if (Engine.IsEditorHint())
+        {
+          GenerateTerrain();
+        }
       }
     }
-
+    public Node Terrain { get; private set; }
     public int Id { get; private set; }
     public int Row { get; private set; }
     public int Column { get; private set; }
     static public readonly int Size = 64;
 
     private Board board;
-    private Treasure treasure;
     private Sprite2D boat;
-    private Sprite2D danger;
     private Selector[] selectors;
     private TileState state = TileState.Unselected;
+    private TileType type = TileType.Water;
 
     public override void _Ready()
     {
@@ -58,32 +64,12 @@ namespace Game
         GD.PrintErr("Tile must be a child of Board to be initialized.");
         return;
       }
+    }
 
-      selectors = GetChildren().OfType<Selector>().ToArray();
-      boat = GetNode<Sprite2D>("Boat");
-      danger = GetNode<Sprite2D>("Danger");
-
-      var hasTreasure = HasNode("Treasure");
-
-      if (type == TileType.Island)
-      {
-        if (hasTreasure)
-        {
-          treasure = GetNode<Treasure>("Treasure");
-        }
-        else
-        {
-          throw new Exception("Tile must have a Treasure child node.");
-        }
-      }
-      else
-      {
-        if (hasTreasure)
-        {
-          GetNode("Treasure").QueueFree();
-          GD.PrintErr("Tile has a Treasure child node but is not of type Island.");
-        }
-      }
+    public override void _EnterTree()
+    {
+      if (!Engine.IsEditorHint()) return;
+      GenerateTerrain();
     }
 
     public void Init(int column, int row, int id)
@@ -91,6 +77,57 @@ namespace Game
       Id = id;
       Row = row;
       Column = column;
+
+      GenerateTerrain();
+    }
+
+    private void GenerateTerrain()
+    {
+      if (!IsInsideTree()) return;
+
+      var childCount = GetChildCount();
+      if (childCount == 1)
+      {
+        var child = GetChild(0);
+        var isChildRightType = type switch
+        {
+          TileType.Island => child.IsInGroup("island"),
+          TileType.Wreck => child.IsInGroup("wreck"),
+          TileType.Water => child.IsInGroup("water"),
+          _ => throw new Exception($"Invalid tile type {type}!")
+        };
+
+        if (isChildRightType)
+        {
+          Terrain = child;
+          return;
+        }
+      }
+
+      for (int i = 0; i < childCount; i++)
+      {
+        var child = GetChild(i);
+        child.Free();
+      }
+
+      var newTerrainPath = Type switch
+      {
+        TileType.Island => "WithIsland",
+        TileType.Wreck => "WithWreck",
+        _ => "WithWater"
+      };
+
+      var newTerrain = ResourceLoader.Load<PackedScene>($"res://{newTerrainPath}.tscn").Instantiate();
+      newTerrain.Name = newTerrainPath;
+
+      AddChild(newTerrain);
+
+      if (Engine.IsEditorHint())
+      {
+        newTerrain.Owner = GetTree().EditedSceneRoot;
+      }
+
+      Terrain = newTerrain;
     }
 
     public Tile GetAdjacentTile(Direction direction)
@@ -114,20 +151,20 @@ namespace Game
       return null;
     }
 
-    public Tile GetTileWithTreasureInDirection(Direction direction)
+    public Tile GetTileWithIslandInDirection(Direction direction)
     {
       var adjacentTile = GetAdjacentTile(direction);
 
       if (adjacentTile == null) return null;
-      if (board.useBot && adjacentTile.IsHazard()) return null;
-      if (!adjacentTile.HasTreasure()) return adjacentTile.GetTileWithTreasureInDirection(direction);
+      if (board.useBot && adjacentTile.HasHazardTerrain()) return null;
+      if (!adjacentTile.HasIslandTerrain()) return adjacentTile.GetTileWithIslandInDirection(direction);
 
       return adjacentTile;
     }
 
     public bool HasTileWithTreasureInDirection(Direction direction)
     {
-      return GetTileWithTreasureInDirection(direction) != null;
+      return GetTileWithIslandInDirection(direction) != null;
     }
     public Tile GetHazardTileInPath(Direction direction, Tile goalTile)
     {
@@ -135,9 +172,9 @@ namespace Game
 
       if (adjacentTile == null) return null;
       if (adjacentTile == goalTile) return null;
-      if (adjacentTile.IsHazard()) return adjacentTile;
+      if (!adjacentTile.HasHazardTerrain()) return adjacentTile.GetHazardTileInPath(direction, goalTile);
 
-      return adjacentTile.GetHazardTileInPath(direction, goalTile);
+      return adjacentTile;
     }
 
     public bool HasTileWithHazardInDirection(Direction direction)
@@ -172,71 +209,31 @@ namespace Game
       return isOnBorder;
     }
 
-    public bool IsHazard()
+    public bool HasHazardTerrain()
     {
-      return Type == TileType.Wreck;
+      return Terrain is WithWreck;
     }
 
-    public bool HasTreasure()
+    public bool HasIslandTerrain()
     {
-      return treasure != null;
+      return Terrain is WithIsland;
     }
 
-    public bool HasActiveTreasure()
+    public bool IsIsland()
     {
-      return treasure != null && treasure.IsActive();
+      return Type == TileType.Island;
     }
 
-    public void Dock()
+    public void Select()
     {
-      SurveyHazards();
-
       state = TileState.Selected;
-      treasure.Toggle();
-      boat.Visible = true;
-
       EmitSignal(SignalName.TileSelected, this);
     }
 
-    public void Undock()
+    public void Unselect()
     {
-      SurveyHazards();
-
       state = TileState.Unselected;
-      boat.Visible = false;
-
       EmitSignal(SignalName.TileUnselected, this);
-    }
-
-    public void Sunk()
-    {
-      state = TileState.Selected;
-
-      boat.Visible = true;
-      boat.Texture = ResourceLoader.Load<Texture2D>("res://assets/gameplay/wreck_standard.png");
-      boat.Position = new Vector2(0, 20);
-      boat.Scale = new Vector2(1, 1);
-
-      EmitSignal(SignalName.TileSelected, this);
-    }
-
-    public void SurveyHazards()
-    {
-      foreach (Direction direction in Enum.GetValues(typeof(Direction)))
-      {
-        var nextTreasureTile = GetTileWithTreasureInDirection(direction);
-        if (nextTreasureTile == null) continue;
-
-        var nextHazardTile = GetHazardTileInPath(direction, nextTreasureTile);
-        if (nextHazardTile == null) continue;
-
-        nextHazardTile.ToggleDangerVisibility();
-      }
-    }
-
-    public void ToggleDangerVisibility()
-    {
-      danger.Visible = !danger.Visible;
     }
   }
 }

@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://e2gu8wi641jf"]
+
+[ext_resource type="Texture2D" uid="uid://c2dny6i3b2hs3" path="res://assets/gameplay/tile_water_type_0.png" id="2_og5vf"]
+
+[node name="WithWater" type="StaticBody2D" groups=["water"]]
+input_pickable = true
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(32, 32, -32, 32, -32, -32, 32, -32)
+
+[node name="Texture" type="Sprite2D" parent="."]
+texture = ExtResource("2_og5vf")

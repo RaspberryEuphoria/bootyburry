@@ -2,63 +2,32 @@ using Godot;
 
 namespace Game
 {
-  public enum TreasureState { Active, Inactive }
+  public enum TreasureState { Burried, Digged }
 
-  [Tool]
-  public partial class Treasure : StaticBody2D
+  public partial class Treasure : Node2D
   {
     [Export]
-    public TreasureState State
-    {
-      get { return state; }
-      set
-      {
-        state = value;
-
-        if (value == TreasureState.Active) Burry();
-        else Dig();
-      }
-    }
+    public TreasureState state = TreasureState.Digged;
     [Export]
     public Sprite2D burriedSprite;
     [Export]
     public Sprite2D diggedSprite;
 
-    private TreasureState state = TreasureState.Inactive;
-
-    public override void _EnterTree()
-    {
-      if (state == TreasureState.Active)
-      {
-        Burry();
-      }
-      else
-      {
-        CleanUp();
-      }
-    }
-
-    public override void _Ready()
-    {
-      if (state == TreasureState.Active)
-      {
-        Burry();
-      }
-      else
-      {
-        CleanUp();
-      }
-    }
-
     public void Toggle()
     {
-      if (state == TreasureState.Active) { Dig(); }
-      else { Burry(); }
+      if (state == TreasureState.Burried)
+      {
+        Dig();
+      }
+      else
+      {
+        Burry();
+      }
     }
 
     public void Burry()
     {
-      state = TreasureState.Active;
+      state = TreasureState.Burried;
       burriedSprite.Visible = true;
       diggedSprite.Visible = false;
 
@@ -67,14 +36,7 @@ namespace Game
 
     public void Dig()
     {
-      state = TreasureState.Inactive;
-
-      if (Engine.IsEditorHint())
-      {
-        burriedSprite.Modulate = new Color(0.5f, 0.5f, 0.5f, 0.5f);
-        return;
-      }
-
+      state = TreasureState.Digged;
       burriedSprite.Visible = false;
       diggedSprite.Visible = true;
     }
@@ -82,19 +44,12 @@ namespace Game
     public void CleanUp()
     {
       diggedSprite.Visible = false;
-
-      if (Engine.IsEditorHint())
-      {
-        burriedSprite.Modulate = new Color(0.5f, 0.5f, 0.5f, 0.5f);
-        return;
-      }
-
       burriedSprite.Visible = false;
     }
 
-    public bool IsActive()
+    public bool IsBurried()
     {
-      return state == TreasureState.Active;
+      return state == TreasureState.Burried;
     }
   }
 }

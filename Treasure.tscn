@@ -1,27 +1,20 @@
-[gd_scene load_steps=5 format=3 uid="uid://b52jnvgyagyv2"]
+[gd_scene load_steps=4 format=3 uid="uid://b52jnvgyagyv2"]
 
 [ext_resource type="Script" path="res://Treasure.cs" id="1_lc5go"]
 [ext_resource type="Texture2D" uid="uid://davj77w05y5oj" path="res://assets/gameplay/treasure_digged.png" id="2_34rx5"]
 [ext_resource type="Texture2D" uid="uid://oh8j572s6rb5" path="res://assets/gameplay/trasure_cross.png" id="2_brkaq"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_y0ysh"]
-
-[node name="Treasure" type="StaticBody2D" node_paths=PackedStringArray("burriedSprite", "diggedSprite")]
-input_pickable = true
+[node name="Treasure" type="Node2D" node_paths=PackedStringArray("burriedSprite", "diggedSprite")]
 script = ExtResource("1_lc5go")
 burriedSprite = NodePath("Burried")
 diggedSprite = NodePath("Digged")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_y0ysh")
-disabled = true
-
-[node name="Digged" type="Sprite2D" parent="."]
-visible = false
-position = Vector2(-6, -3)
-texture = ExtResource("2_34rx5")
 
 [node name="Burried" type="Sprite2D" parent="."]
 visible = false
 modulate = Color(0.5, 0.5, 0.5, 0.5)
 texture = ExtResource("2_brkaq")
+
+[node name="Digged" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(-6, -3)
+texture = ExtResource("2_34rx5")

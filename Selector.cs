@@ -3,27 +3,20 @@ using Godot;
 namespace Game
 {
 
-  public partial class Selector : StaticBody2D
+  public partial class Selector : Node2D
   {
     [Export]
     public Direction direction;
 
-    private Tile tile;
-
     public override void _Ready()
     {
       Visible = false;
-
-      tile = GetParent<Tile>();
-
-      tile.TileSelected += OnTileSelected;
-      tile.TileUnselected += OnTileUnselected;
     }
 
-    public void OnTileSelected(Tile _tile)
+    public void OnTileSelected(Tile tile)
     {
       if (tile.IsOnBorder(direction)) return;
-      if (tile.IsHazard()) return;
+      if (tile.HasHazardTerrain()) return;
       if (!tile.HasTileWithTreasureInDirection(direction)) return;
       Visible = true;
     }
