@@ -46,8 +46,6 @@ namespace Game
         { "move_down", Direction.Down },
         { "move_right", Direction.Right }
     };
-    private bool waitingForInput = true;
-    private float inputDelay = 0.25f;
 
     public override void _Ready()
     {
@@ -129,10 +127,8 @@ namespace Game
       IsReady = true;
     }
 
-    public async void HandleInput()
+    public void HandleInput()
     {
-      if (!waitingForInput) return;
-
       foreach (var itr in actionToDirection)
       {
         if (Input.IsActionJustPressed(itr.Key))
@@ -165,9 +161,7 @@ namespace Game
           nextTile.Select();
 
           previousTile = currentTile;
-
-          await ToSignal(GetTree().CreateTimer(inputDelay), SceneTreeTimer.SignalName.Timeout);
-          waitingForInput = true;
+          return;
         }
       }
     }
