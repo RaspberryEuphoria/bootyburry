@@ -33,11 +33,10 @@ namespace Game
       {
         type = value;
 
-        if (Engine.IsEditorHint())
-        {
-          GenerateTerrain();
-        }
+        if (!Engine.IsEditorHint()) return;
+        GenerateTerrain();
       }
+    }
     }
     public Node Terrain { get; private set; }
     public int Id { get; private set; }
@@ -85,6 +84,13 @@ namespace Game
     {
       if (!IsInsideTree()) return;
 
+      /**
+        * DON'T GENERATE A TERRAIN WHEN VIEWING THE TILE DIRECTLY IN THE EDITOR!
+        * This will cause issues when working on a level, since the tiles will have
+        * a hidden terrain that doesn't appear in the tree.
+        */
+      if (GetOwner<Node>() == null) return;
+
       var childCount = GetChildCount();
       if (childCount == 1)
       {
@@ -104,7 +110,10 @@ namespace Game
         }
       }
 
-      for (int i = 0; i < childCount; i++)
+      GD.Print($"Generating a new terrain for {Name}.");
+
+      var children = GetChildren();
+      foreach (var child in children)
       {
         var child = GetChild(i);
         child.Free();
