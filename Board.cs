@@ -138,14 +138,7 @@ namespace Game
           if (nextTile == null) return;
 
           Moves = Moves.Append(direction);
-
-          var hazardTile = currentTile.GetHazardTileInPath(direction, nextTile);
-          if (hazardTile != null)
-          {
-            hazardTile.Select();
-            Lose();
-            return;
-          }
+          currentTile.Unselect();
 
           var navigationPath = GetNavigationPath(currentTile, nextTile);
           if (navigationPath != null)
@@ -157,11 +150,16 @@ namespace Game
           HidePreviousNavigationPath();
           DrawNavigationPath(currentTile, nextTile);
 
-          currentTile.Unselect();
-          nextTile.Select();
+          var hazardTile = currentTile.GetHazardTileInPath(direction, nextTile);
+          if (hazardTile != null)
+          {
+            hazardTile.Select();
+            Lose();
+            return;
+          }
 
+          nextTile.Select();
           previousTile = currentTile;
-          return;
         }
       }
     }

@@ -29,7 +29,6 @@ namespace Game
     public void Sunk()
     {
       boat.Visible = true;
-      tile.Select();
     }
 
     public void ToggleDangerVisibility()
@@ -44,8 +43,6 @@ namespace Game
 
     public void OnTileSelected(Tile tile)
     {
-      if (!IsInsideTree()) return;
-
       danger.Visible = false;
       Sunk();
     }
