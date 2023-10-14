@@ -38,6 +38,7 @@ namespace Game
     private Tile previousTile;
     private IEnumerable<Tile> tiles;
     private IEnumerable<Treasure> treasures;
+    private IEnumerable<NavigationPath> navigationPaths = new List<NavigationPath>();
     public readonly Dictionary<string, Direction> actionToDirection = new()
     {
         { "move_up", Direction.Up },
@@ -45,6 +46,8 @@ namespace Game
         { "move_down", Direction.Down },
         { "move_right", Direction.Right }
     };
+    private bool waitingForInput = true;
+    private float inputDelay = 0.25f;
 
     public override void _Ready()
     {
@@ -68,11 +71,25 @@ namespace Game
       startingTile.Select();
     }
 
+    public override void _ExitTree()
+    {
+      foreach (var tile in tiles)
+      {
+        tile.TileSelected -= OnTileSelected;
+      }
+    }
+
     public override void _Process(double delta)
     {
       if (Input.IsActionJustPressed("reset"))
       {
         GetTree().ReloadCurrentScene();
+        return;
+      }
+
+      if (Input.IsActionJustPressed("next_level") && GameState == GameState.Won && nextLevel != null)
+      {
+        GetTree().ChangeSceneToPacked(nextLevel);
         return;
       }
 
@@ -112,8 +129,10 @@ namespace Game
       IsReady = true;
     }
 
-    public void HandleInput()
+    public async void HandleInput()
     {
+      if (!waitingForInput) return;
+
       foreach (var itr in actionToDirection)
       {
         if (Input.IsActionJustPressed(itr.Key))
@@ -132,10 +151,23 @@ namespace Game
             return;
           }
 
+          var navigationPath = GetNavigationPath(currentTile, nextTile);
+          if (navigationPath != null)
+          {
+            navigationPath.QueueFree();
+            navigationPaths = navigationPaths.Where(np => np != navigationPath);
+          }
+
+          HidePreviousNavigationPath();
+          DrawNavigationPath(currentTile, nextTile);
+
           currentTile.Unselect();
           nextTile.Select();
 
           previousTile = currentTile;
+
+          await ToSignal(GetTree().CreateTimer(inputDelay), SceneTreeTimer.SignalName.Timeout);
+          waitingForInput = true;
         }
       }
     }
@@ -151,6 +183,48 @@ namespace Game
       }
 
       return availableActions;
+    }
+
+    private void HidePreviousNavigationPath()
+    {
+      if (!navigationPaths.Any()) return;
+      navigationPaths.Last().Fade();
+    }
+
+    private void ShowEveryNavigationPath()
+    {
+      var delayInSec = 0.25f;
+      foreach (var navigationPath in navigationPaths)
+      {
+        navigationPath.ShowAfterDelay(delayInSec);
+        delayInSec += 0.25f;
+      }
+    }
+
+    private NavigationPath GetNavigationPath(Tile startingTile, Tile targetTile)
+    {
+      if (!navigationPaths.Any()) return null;
+
+      try
+      {
+        return navigationPaths.First(np =>
+          np.Points.SequenceEqual(new Vector2[] { startingTile.Position, targetTile.Position })
+          || np.Points.SequenceEqual(new Vector2[] { targetTile.Position, startingTile.Position }
+        ));
+      }
+      catch (Exception)
+      {
+        return null;
+      }
+    }
+
+    private void DrawNavigationPath(Tile startingTile, Tile targetTile)
+    {
+      var navigationPath = ResourceLoader.Load<PackedScene>("res://NavigationPath.tscn").Instantiate<NavigationPath>();
+      navigationPath.Init(startingTile, targetTile);
+      AddChild(navigationPath);
+
+      navigationPaths = navigationPaths.Append(navigationPath);
     }
 
     private void CheckScore()

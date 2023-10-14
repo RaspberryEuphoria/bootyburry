@@ -39,7 +39,6 @@ namespace Game
 
     public override void _ExitTree()
     {
-      GD.Print("ExitTree");
       tile.TileSelected -= OnTileSelected;
       tile.TileUnselected -= OnTileUnselected;
 

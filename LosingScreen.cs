@@ -16,14 +16,6 @@ namespace Game
       label.Text = GetVictoryText();
     }
 
-    public override void _Process(double delta)
-    {
-      if (Input.IsActionJustPressed("next_level") && nextLevel != null)
-      {
-        GetTree().ChangeSceneToPacked(nextLevel);
-      }
-    }
-
     public void Init(IEnumerable<Direction> moves, PackedScene nextLevel)
     {
       this.moves = moves;

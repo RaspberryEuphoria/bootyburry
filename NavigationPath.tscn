@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://dnf52vba6q512"]
+
+[ext_resource type="Texture2D" uid="uid://dfbvyh20qcswr" path="res://assets/gameplay/dots.png" id="1_j4y3b"]
+[ext_resource type="Script" path="res://NavigationPath.cs" id="2_j0kx0"]
+
+[node name="NavigationPath" type="Line2D" groups=["navigation_path"]]
+texture_repeat = 2
+points = PackedVector2Array(0, 0, 0, 192)
+texture = ExtResource("1_j4y3b")
+texture_mode = 1
+script = ExtResource("2_j0kx0")
