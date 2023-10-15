@@ -1,12 +1,24 @@
-[gd_scene load_steps=2 format=3 uid="uid://e2gu8wi641jf"]
+[gd_scene load_steps=5 format=3 uid="uid://e2gu8wi641jf"]
 
+[ext_resource type="Script" path="res://WithWater.cs" id="1_6him3"]
+[ext_resource type="Shader" path="res://assets/shaders/wind.gdshader" id="2_odgmj"]
 [ext_resource type="Texture2D" uid="uid://c2dny6i3b2hs3" path="res://assets/gameplay/tile_water_type_0.png" id="2_og5vf"]
 
-[node name="WithWater" type="StaticBody2D" groups=["water"]]
-input_pickable = true
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_a3yfj"]
+shader = ExtResource("2_odgmj")
+shader_parameter/speed = 1.0
+shader_parameter/minStrength = 0.05
+shader_parameter/maxStrength = 0.1
+shader_parameter/strengthScale = 100.0
+shader_parameter/interval = 3.5
+shader_parameter/detail = 1.0
+shader_parameter/distortion = 0.0
+shader_parameter/heightOffset = 0.0
+shader_parameter/offset = 0.0
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
-polygon = PackedVector2Array(32, 32, -32, 32, -32, -32, 32, -32)
+[node name="WithWater" type="Node2D" groups=["water"]]
+script = ExtResource("1_6him3")
 
 [node name="Texture" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_a3yfj")
 texture = ExtResource("2_og5vf")
