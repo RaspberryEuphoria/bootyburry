@@ -134,8 +134,8 @@ namespace Game
         if (Input.IsActionJustPressed(itr.Key))
         {
           var direction = itr.Value;
-          var nextTile = currentTile.GetTileWithIslandInDirection(direction);
-          if (nextTile == null) return;
+          var nextTile = currentTile.GetDockableTileInDirection(direction);
+          if (nextTile == null || currentTile == nextTile) return;
 
           Moves = Moves.Append(direction);
           currentTile.Unselect();
@@ -167,12 +167,19 @@ namespace Game
       }
     }
 
+    public void TriggerInputInDirection(Direction direction)
+    {
+      var action = actionToDirection.FirstOrDefault(itr => itr.Value == direction).Key;
+      Input.ActionPress(action);
+      Input.ActionRelease(action);
+    }
+
     public List<string> GetAvailableActions()
     {
       var availableActions = new List<string>();
       foreach (var itr in actionToDirection)
       {
-        var nextTile = currentTile.GetTileWithIslandInDirection(itr.Value);
+        var nextTile = currentTile.GetDockableTileInDirection(itr.Value);
         if (nextTile == null) continue;
         availableActions.Add(itr.Key);
       }
@@ -230,7 +237,6 @@ namespace Game
         Win();
       }
     }
-
     private void Win()
     {
       GameState = GameState.Won;

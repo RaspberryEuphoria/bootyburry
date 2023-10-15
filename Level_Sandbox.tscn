@@ -7,8 +7,8 @@
 [ext_resource type="PackedScene" uid="uid://e2gu8wi641jf" path="res://WithWater.tscn" id="5_b1in0"]
 [ext_resource type="PackedScene" uid="uid://ch1bcttqi5hjk" path="res://WithIsland.tscn" id="5_u02cq"]
 [ext_resource type="PackedScene" uid="uid://bux2ffg7yyub3" path="res://WithWreck.tscn" id="7_3wvu2"]
-[ext_resource type="Script" path="res://WithCurrent.cs" id="9_ejwol"]
-[ext_resource type="PackedScene" uid="uid://orhcibrfyl0r" path="res://WithCurrent.tscn" id="10_jbe4p"]
+[ext_resource type="Script" path="res://WithIsland.cs" id="8_luvjt"]
+[ext_resource type="PackedScene" uid="uid://6oclnkije4cp" path="res://WithCurrent.tscn" id="10_jbe4p"]
 
 [node name="Board" type="Node2D" node_paths=PackedStringArray("startingTile")]
 position = Vector2(896, 512)
@@ -38,37 +38,32 @@ position = Vector2(192, 0)
 
 [node name="Tile_1_0" parent="." instance=ExtResource("4_i31k6")]
 position = Vector2(0, 96)
-Type = 3
 
-[node name="WithCurrent" parent="Tile_1_0" instance=ExtResource("10_jbe4p")]
+[node name="WithWater" parent="Tile_1_0" instance=ExtResource("5_b1in0")]
 
 [node name="Tile_1_1" parent="." instance=ExtResource("4_i31k6")]
 position = Vector2(96, 96)
-Type = 3
 
-[node name="WithCurrent" type="Node2D" parent="Tile_1_1" groups=["current"] instance=ExtResource("10_jbe4p")]
-script = ExtResource("9_ejwol")
-direction = 3
+[node name="WithWater" parent="Tile_1_1" instance=ExtResource("5_b1in0")]
 
 [node name="Tile_1_2" parent="." instance=ExtResource("4_i31k6")]
 position = Vector2(192, 96)
+Type = 0
 
-[node name="WithWater" parent="Tile_1_2" instance=ExtResource("5_b1in0")]
+[node name="WithIsland" type="Node2D" parent="Tile_1_2" groups=["island"] instance=ExtResource("5_u02cq")]
+script = ExtResource("8_luvjt")
 
 [node name="Tile_2_0" parent="." instance=ExtResource("4_i31k6")]
 position = Vector2(0, 192)
 Type = 3
 
-[node name="WithCurrent" type="Node2D" parent="Tile_2_0" groups=["current"] instance=ExtResource("10_jbe4p")]
-script = ExtResource("9_ejwol")
-direction = 1
+[node name="WithCurrent" parent="Tile_2_0" instance=ExtResource("10_jbe4p")]
+Direction = 3
 
 [node name="Tile_2_1" parent="." instance=ExtResource("4_i31k6")]
 position = Vector2(96, 192)
-Type = 3
 
-[node name="WithCurrent" parent="Tile_2_1" instance=ExtResource("10_jbe4p")]
-direction = 2
+[node name="WithWater" parent="Tile_2_1" instance=ExtResource("5_b1in0")]
 
 [node name="Tile_2_2" parent="." instance=ExtResource("4_i31k6")]
 position = Vector2(192, 192)

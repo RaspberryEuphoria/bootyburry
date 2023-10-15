@@ -151,20 +151,21 @@ namespace Game
       return null;
     }
 
-    public Tile GetTileWithIslandInDirection(Direction direction)
+    public Tile GetDockableTileInDirection(Direction direction)
     {
       var adjacentTile = GetAdjacentTile(direction);
 
       if (adjacentTile == null) return null;
       if (board.useBot && adjacentTile.HasHazardTerrain()) return null;
-      if (!adjacentTile.HasIslandTerrain()) return adjacentTile.GetTileWithIslandInDirection(direction);
 
-      return adjacentTile;
+      if (adjacentTile.HasDockableTerrain(direction)) return adjacentTile;
+
+      return adjacentTile.GetDockableTileInDirection(direction);
     }
 
-    public bool HasTileWithTreasureInDirection(Direction direction)
+    public bool HasDockableTileInDirection(Direction direction)
     {
-      return GetTileWithIslandInDirection(direction) != null;
+      return GetDockableTileInDirection(direction) != null;
     }
     public Tile GetHazardTileInPath(Direction direction, Tile goalTile)
     {
@@ -209,9 +210,31 @@ namespace Game
       return isOnBorder;
     }
 
+    public bool HasDockableTerrain(Direction direction)
+    {
+      if (HasIslandTerrain()) return true;
+      if (HasCurrentTerrain())
+      {
+        var terrain = Terrain as WithCurrent;
+        if (terrain.Direction != Board.GetOpposedDirection(direction)) return true;
+      }
+
+      return false;
+    }
+
+    public T GetTerrain<T>() where T : Node
+    {
+      return Terrain as T;
+    }
+
     public bool HasHazardTerrain()
     {
       return Terrain is WithWreck;
+    }
+
+    public bool HasCurrentTerrain()
+    {
+      return Terrain is WithCurrent;
     }
 
     public bool HasIslandTerrain()

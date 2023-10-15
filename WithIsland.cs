@@ -68,7 +68,7 @@ namespace Game
     {
       foreach (Direction direction in Enum.GetValues(typeof(Direction)))
       {
-        var nextIslandTile = tile.GetTileWithIslandInDirection(direction);
+        var nextIslandTile = tile.GetDockableTileInDirection(direction);
         if (nextIslandTile == null) continue;
 
         var nextHazardTile = tile.GetHazardTileInPath(direction, nextIslandTile);

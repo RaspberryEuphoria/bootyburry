@@ -17,7 +17,9 @@ namespace Game
     {
       if (tile.IsOnBorder(direction)) return;
       if (tile.HasHazardTerrain()) return;
-      if (!tile.HasTileWithTreasureInDirection(direction)) return;
+      var tileWithTreasureInDirection = tile.GetDockableTileInDirection(direction);
+      var hasTileWithHazardInDirection = tileWithTreasureInDirection != null && tileWithTreasureInDirection != tile;
+      if (!hasTileWithHazardInDirection) return;
       Visible = true;
     }
 
