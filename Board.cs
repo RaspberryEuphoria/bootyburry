@@ -148,17 +148,20 @@ namespace Game
           }
 
           HidePreviousNavigationPath();
-          DrawNavigationPath(currentTile, nextTile);
 
           var hazardTile = currentTile.GetHazardTileInPath(direction, nextTile);
           if (hazardTile != null)
           {
-            hazardTile.Select();
+            DrawNavigationPath(currentTile, hazardTile);
             Lose();
+
+            hazardTile.Select();
             return;
           }
 
+          DrawNavigationPath(currentTile, nextTile);
           nextTile.Select();
+
           previousTile = currentTile;
         }
       }
