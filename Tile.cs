@@ -5,17 +5,7 @@ using Godot;
 namespace Game
 {
   public enum TileState { Selected, Unselected }
-  public enum TileType { Island, Water, Wreck }
-
-  public partial class TileWithIsland : Tile
-  {
-    public new WithIsland Terrain { get; private set; }
-  }
-
-  public partial class TileWithWreck : Tile
-  {
-    public new WithWreck Terrain { get; private set; }
-  }
+  public enum TileType { Island, Water, Wreck, Current }
 
   [Tool]
   public partial class Tile : Node2D
@@ -36,7 +26,6 @@ namespace Game
         if (!Engine.IsEditorHint()) return;
         GenerateTerrain();
       }
-    }
     }
     public Node Terrain { get; private set; }
     public int Id { get; private set; }
@@ -100,7 +89,8 @@ namespace Game
           TileType.Island => child.IsInGroup("island"),
           TileType.Wreck => child.IsInGroup("wreck"),
           TileType.Water => child.IsInGroup("water"),
-          _ => throw new Exception($"Invalid tile type {type}!")
+          TileType.Current => child.IsInGroup("current"),
+          _ => throw new Exception($"Invalid tile type {type} on tile {Name}!")
         };
 
         if (isChildRightType)
@@ -115,7 +105,6 @@ namespace Game
       var children = GetChildren();
       foreach (var child in children)
       {
-        var child = GetChild(i);
         child.Free();
       }
 
@@ -123,6 +112,8 @@ namespace Game
       {
         TileType.Island => "WithIsland",
         TileType.Wreck => "WithWreck",
+        TileType.Water => "WithWater",
+        TileType.Current => "WithCurrent",
         _ => "WithWater"
       };
 
