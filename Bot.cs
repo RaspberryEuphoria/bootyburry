@@ -55,11 +55,14 @@ namespace Game
         return;
       }
 
+      if (board.GameState == GameState.Lost)
+      {
+        GetTree().ReloadCurrentScene();
+        return;
+      }
+
       var availableActions = board.GetAvailableActions();
       var randomAction = availableActions.ElementAt((System.Index)(GD.Randi() % availableActions.Count));
-      var randomDirection = board.actionToDirection[randomAction];
-
-      if (randomDirection == Board.GetOpposedDirection(randomDirection)) return;
 
       timer.Start(delay);
 
