@@ -10,7 +10,6 @@ namespace Game
     [Export]
     private float moveSpeed = 0.5f;
 
-    private Board board;
     private Tile tile;
     private Sprite2D currentTexture;
     private Sprite2D foamTexture;
@@ -22,7 +21,6 @@ namespace Game
       foamTexture = waterTexture.GetNode<Sprite2D>("FoamTexture");
 
       tile = GetParent<Tile>();
-      board = tile.GetParent<Board>();
 
       tile.TileSelected += OnTileSelected;
 
@@ -60,7 +58,7 @@ namespace Game
 
     public void OnTileSelected(Tile tile)
     {
-      board.TriggerInputInDirection(Direction);
+      Board.TriggerInputInDirection(Direction);
     }
   }
 }

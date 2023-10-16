@@ -151,21 +151,21 @@ namespace Game
       return null;
     }
 
-    public Tile GetDockableTileInDirection(Direction direction)
+    public Tile GetNavigableTileInDirection(Direction direction)
     {
       var adjacentTile = GetAdjacentTile(direction);
 
       if (adjacentTile == null) return null;
-      if (board.useBot && adjacentTile.HasHazardTerrain()) return null;
+      if (IsBlockedByCurrent(direction)) return null;
 
-      if (adjacentTile.HasDockableTerrain(direction)) return adjacentTile;
+      if (adjacentTile.HasNavigableTerrain(direction)) return adjacentTile;
 
-      return adjacentTile.GetDockableTileInDirection(direction);
+      return adjacentTile.GetNavigableTileInDirection(direction);
     }
 
-    public bool HasDockableTileInDirection(Direction direction)
+    public bool HasNavigableTileInDirection(Direction direction)
     {
-      return GetDockableTileInDirection(direction) != null;
+      return GetNavigableTileInDirection(direction) != null;
     }
     public Tile GetHazardTileInPath(Direction direction, Tile goalTile)
     {
@@ -210,7 +210,7 @@ namespace Game
       return isOnBorder;
     }
 
-    public bool HasDockableTerrain(Direction direction)
+    public bool HasNavigableTerrain(Direction direction)
     {
       if (HasIslandTerrain()) return true;
       if (HasCurrentTerrain())
@@ -222,9 +222,22 @@ namespace Game
       return false;
     }
 
+    public bool HasDockableTerrain()
+    {
+      return HasIslandTerrain();
+    }
+
     public T GetTerrain<T>() where T : Node
     {
       return Terrain as T;
+    }
+
+    public bool IsBlockedByCurrent(Direction direction)
+    {
+      if (!HasCurrentTerrain()) return false;
+
+      var terrain = Terrain as WithCurrent;
+      return terrain.Direction == Board.GetOpposedDirection(direction);
     }
 
     public bool HasHazardTerrain()
@@ -235,6 +248,11 @@ namespace Game
     public bool HasCurrentTerrain()
     {
       return Terrain is WithCurrent;
+    }
+
+    public bool HasWreckTerrain()
+    {
+      return Terrain is WithWreck;
     }
 
     public bool HasIslandTerrain()

@@ -39,7 +39,7 @@ namespace Game
     private IEnumerable<Tile> tiles;
     private IEnumerable<Treasure> treasures;
     private IEnumerable<NavigationPath> navigationPaths = new List<NavigationPath>();
-    public readonly Dictionary<string, Direction> actionToDirection = new()
+    public static readonly Dictionary<string, Direction> actionToDirection = new()
     {
         { "move_up", Direction.Up },
         { "move_left", Direction.Left },
@@ -133,45 +133,38 @@ namespace Game
       {
         if (Input.IsActionJustPressed(itr.Key))
         {
-          var direction = itr.Value;
-          var nextTile = currentTile.GetDockableTileInDirection(direction);
-          if (nextTile == null || currentTile == nextTile) return;
+          var isMovePlayerControlled = NavigateInDirection(itr.Value);
+          if (isMovePlayerControlled) Moves = Moves.Append(itr.Value);
 
-          Moves = Moves.Append(direction);
-          currentTile.Unselect();
+          /*
+           * When navigating through a WithCurrent tile, if the WithCurrent direction
+           * is identical to the action just pressed, the input can't be
+           * registered unless we release the action in the same frame!
+           */
+          Input.ActionRelease(itr.Key);
 
-          var navigationPath = GetNavigationPath(currentTile, nextTile);
-          if (navigationPath != null)
-          {
-            navigationPath.QueueFree();
-            navigationPaths = navigationPaths.Where(np => np != navigationPath);
-          }
-
-          HidePreviousNavigationPath();
-
-          var hazardTile = currentTile.GetHazardTileInPath(direction, nextTile);
-          if (hazardTile != null)
-          {
-            DrawNavigationPath(currentTile, hazardTile);
-            Lose();
-
-            hazardTile.Select();
-            return;
-          }
-
-          DrawNavigationPath(currentTile, nextTile);
-          nextTile.Select();
-
-          previousTile = currentTile;
+          CheckScore();
         }
       }
     }
 
-    public void TriggerInputInDirection(Direction direction)
+    public static void TriggerInputInDirection(Direction direction)
     {
       var action = actionToDirection.FirstOrDefault(itr => itr.Value == direction).Key;
-      Input.ActionPress(action);
-      Input.ActionRelease(action);
+
+      var press = new InputEventAction
+      {
+        Action = action,
+        Pressed = true,
+      };
+      Input.ParseInputEvent(press);
+
+      var release = new InputEventAction
+      {
+        Action = action,
+        Pressed = false
+      };
+      Input.ParseInputEvent(release);
     }
 
     public List<string> GetAvailableActions()
@@ -179,12 +172,53 @@ namespace Game
       var availableActions = new List<string>();
       foreach (var itr in actionToDirection)
       {
-        var nextTile = currentTile.GetDockableTileInDirection(itr.Value);
+        var nextTile = currentTile.GetNavigableTileInDirection(itr.Value);
         if (nextTile == null) continue;
         availableActions.Add(itr.Key);
       }
 
       return availableActions;
+    }
+
+    /**
+     * Attempts to navigate in given direction.
+     * Returns true if the move was player controlled (.ie from a dockable tile),
+     * false otherwise (.ie from a tile that forces movement)
+     */
+    private bool NavigateInDirection(Direction direction)
+    {
+      var nextTile = currentTile.GetNavigableTileInDirection(direction);
+      if (nextTile == null || currentTile == nextTile) return false;
+
+      var isMovePlayerControlled = currentTile.HasDockableTerrain();
+
+      currentTile.Unselect();
+
+      var navigationPath = GetNavigationPath(currentTile, nextTile);
+      if (navigationPath != null)
+      {
+        navigationPath.QueueFree();
+        navigationPaths = navigationPaths.Where(np => np != navigationPath);
+      }
+
+      HidePreviousNavigationPath();
+
+      var hazardTile = currentTile.GetHazardTileInPath(direction, nextTile);
+      if (hazardTile != null)
+      {
+        DrawNavigationPath(currentTile, hazardTile);
+        Lose();
+
+        hazardTile.Select();
+        return isMovePlayerControlled;
+      }
+
+      DrawNavigationPath(currentTile, nextTile);
+
+      nextTile.Select();
+      previousTile = currentTile;
+
+      return isMovePlayerControlled;
     }
 
     private void HidePreviousNavigationPath()
@@ -232,10 +266,7 @@ namespace Game
     private void CheckScore()
     {
       var burriedTreasures = treasures.Where(t => t.IsBurried());
-      if (burriedTreasures.Count() == treasures.Count())
-      {
-        Win();
-      }
+      if (burriedTreasures.Count() == treasures.Count()) Win();
     }
     private void Win()
     {
@@ -297,8 +328,6 @@ namespace Game
       // We don't want to check the score the first time a tile is selected,
       // since the board may not be ready yet if the treasure is on an early tile.
       if (!IsReady) return;
-
-      CheckScore();
     }
 
     public static Direction GetOpposedDirection(Direction direction)
