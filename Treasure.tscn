@@ -12,9 +12,10 @@ diggedSprite = NodePath("Digged")
 [node name="Burried" type="Sprite2D" parent="."]
 visible = false
 modulate = Color(0.5, 0.5, 0.5, 0.5)
+z_index = 1
 texture = ExtResource("2_brkaq")
 
 [node name="Digged" type="Sprite2D" parent="."]
 visible = false
-position = Vector2(-6, -3)
+z_index = 1
 texture = ExtResource("2_34rx5")
