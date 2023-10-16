@@ -20,5 +20,10 @@ namespace Game
       shaderMaterial.SetShaderParameter("max_strength", GD.RandRange(0.10, 0.12));
       shaderMaterial.SetShaderParameter("interval", GD.RandRange(3, 3.2));
     }
+
+    public bool CanNavigateTo()
+    {
+      return false;
+    }
   }
 }

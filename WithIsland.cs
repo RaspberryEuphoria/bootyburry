@@ -49,6 +49,11 @@ namespace Game
       }
     }
 
+    public bool CanNavigateTo()
+    {
+      return true;
+    }
+
     public void Dock()
     {
       SurveyHazards();

@@ -26,6 +26,11 @@ namespace Game
       tile.TileSelected -= OnTileSelected;
     }
 
+    public bool CanNavigateTo()
+    {
+      return false;
+    }
+
     public void Sunk()
     {
       boat.Visible = true;

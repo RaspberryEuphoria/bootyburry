@@ -37,6 +37,11 @@ namespace Game
       AnimateSprites();
     }
 
+    public bool CanNavigateTo(Direction direction)
+    {
+      return Direction != Board.GetOpposedDirection(direction);
+    }
+
     public void SetupRotation()
     {
       currentTexture.RotationDegrees = Direction switch

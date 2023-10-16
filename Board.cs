@@ -123,7 +123,7 @@ namespace Game
         }
       }
 
-      treasures = tiles.Where(t => t.HasIslandTerrain()).Select(t => t.Terrain.GetNode<Treasure>("Treasure"));
+      treasures = tiles.Where(t => t.IsIsland()).Select(t => t.Terrain.GetNode<Treasure>("Treasure"));
       IsReady = true;
     }
 
@@ -190,7 +190,7 @@ namespace Game
       var nextTile = currentTile.GetNavigableTileInDirection(direction);
       if (nextTile == null || currentTile == nextTile) return false;
 
-      var isMovePlayerControlled = currentTile.HasDockableTerrain();
+      var isMovePlayerControlled = currentTile.CanDockTo();
 
       currentTile.Unselect();
 
@@ -290,6 +290,8 @@ namespace Game
     private void Lose()
     {
       GameState = GameState.Lost;
+
+      if (useBot) return;
 
       GD.Print("You lost!");
       string report = $"Moves ({Moves.Count()}): ";

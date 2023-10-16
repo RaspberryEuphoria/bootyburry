@@ -158,7 +158,7 @@ namespace Game
       if (adjacentTile == null) return null;
       if (IsBlockedByCurrent(direction)) return null;
 
-      if (adjacentTile.HasNavigableTerrain(direction)) return adjacentTile;
+      if (adjacentTile.CanNavigateTo(direction)) return adjacentTile;
 
       return adjacentTile.GetNavigableTileInDirection(direction);
     }
@@ -183,18 +183,6 @@ namespace Game
       return GetHazardTileInPath(direction, null) != null;
     }
 
-    public bool IsAdjacentTo(Tile tile)
-    {
-      var isAdjacent = false;
-
-      if (tile.Row == Row && tile.Column == Column - 1) isAdjacent = true;
-      if (tile.Row == Row && tile.Column == Column + 1) isAdjacent = true;
-      if (tile.Column == Column && tile.Row == Row - 1) isAdjacent = true;
-      if (tile.Column == Column && tile.Row == Row + 1) isAdjacent = true;
-
-      return isAdjacent;
-    }
-
     public bool IsOnBorder(Direction direction)
     {
       var board = GetParent<Board>();
@@ -210,54 +198,35 @@ namespace Game
       return isOnBorder;
     }
 
-    public bool HasNavigableTerrain(Direction direction)
+    private bool CanNavigateTo(Direction direction)
     {
-      if (HasIslandTerrain()) return true;
-      if (HasCurrentTerrain())
+      return Terrain switch
       {
-        var terrain = Terrain as WithCurrent;
-        if (terrain.Direction != Board.GetOpposedDirection(direction)) return true;
-      }
-
-      return false;
+        WithIsland island => island.CanNavigateTo(),
+        WithCurrent current => current.CanNavigateTo(direction),
+        WithWreck wreck => wreck.CanNavigateTo(),
+        WithWater water => water.CanNavigateTo(),
+        _ => throw new Exception($"Invalid terrain type {Terrain.GetType()} on tile {Name}!"),
+      };
     }
 
-    public bool HasDockableTerrain()
+    public bool CanDockTo()
     {
-      return HasIslandTerrain();
+      return Terrain.HasMethod("Dock");
     }
 
-    public T GetTerrain<T>() where T : Node
+    private bool IsBlockedByCurrent(Direction direction)
     {
-      return Terrain as T;
-    }
-
-    public bool IsBlockedByCurrent(Direction direction)
-    {
-      if (!HasCurrentTerrain()) return false;
+      if (Terrain is not WithCurrent) return false;
 
       var terrain = Terrain as WithCurrent;
       return terrain.Direction == Board.GetOpposedDirection(direction);
     }
 
+    /** Hazards are deadly terrains */
     public bool HasHazardTerrain()
     {
       return Terrain is WithWreck;
-    }
-
-    public bool HasCurrentTerrain()
-    {
-      return Terrain is WithCurrent;
-    }
-
-    public bool HasWreckTerrain()
-    {
-      return Terrain is WithWreck;
-    }
-
-    public bool HasIslandTerrain()
-    {
-      return Terrain is WithIsland;
     }
 
     public bool IsIsland()
