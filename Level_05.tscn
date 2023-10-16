@@ -1,17 +1,23 @@
-[gd_scene load_steps=7 format=3 uid="uid://bgbjtiqfpr23s"]
+[gd_scene load_steps=12 format=3 uid="uid://bgbjtiqfpr23s"]
 
 [ext_resource type="Script" path="res://Board.cs" id="1_46kfr"]
 [ext_resource type="Texture2D" uid="uid://bm34w84l1bqse" path="res://assets/gameplay/background_type_0.png" id="2_0bk2t"]
+[ext_resource type="PackedScene" uid="uid://bcqy2f6b21caq" path="res://Level_06.tscn" id="2_ayy0b"]
 [ext_resource type="PackedScene" uid="uid://67x0aame80lq" path="res://Tile.tscn" id="3_tkl7r"]
 [ext_resource type="PackedScene" uid="uid://e2gu8wi641jf" path="res://WithWater.tscn" id="4_x5rqs"]
 [ext_resource type="PackedScene" uid="uid://ch1bcttqi5hjk" path="res://WithIsland.tscn" id="5_i4tkf"]
 [ext_resource type="PackedScene" uid="uid://bux2ffg7yyub3" path="res://WithWreck.tscn" id="5_xebwi"]
+[ext_resource type="PackedScene" uid="uid://6oclnkije4cp" path="res://WithCurrent.tscn" id="6_87u1u"]
+[ext_resource type="Script" path="res://WithCurrent.cs" id="7_opvmb"]
+[ext_resource type="Script" path="res://WithWater.cs" id="7_w0ais"]
+[ext_resource type="Script" path="res://WithWreck.cs" id="9_4mq75"]
 
 [node name="Board" type="Node2D" node_paths=PackedStringArray("startingTile")]
 position = Vector2(896, 512)
 script = ExtResource("1_46kfr")
+nextLevel = ExtResource("2_ayy0b")
 startingTile = NodePath("Tile_2_1")
-botMaxTries = 17
+botMaxTries = 18
 botDelay = 0.0
 
 [node name="Background" type="Sprite2D" parent="."]
@@ -34,12 +40,13 @@ isTreasureBurriedOnStart = true
 [node name="Tile_0_2" parent="." instance=ExtResource("3_tkl7r")]
 position = Vector2(80, -128)
 
-[node name="WithWater" parent="Tile_0_2" instance=ExtResource("4_x5rqs")]
+[node name="WithWater" type="Node2D" parent="Tile_0_2" groups=["water"] instance=ExtResource("4_x5rqs")]
+script = ExtResource("7_w0ais")
 
 [node name="Tile_0_3" parent="." instance=ExtResource("3_tkl7r")]
 position = Vector2(176, -128)
 
-[node name="WithWater" parent="Tile_0_3" instance=ExtResource("4_x5rqs")]
+[node name="WithWater2" parent="Tile_0_3" instance=ExtResource("4_x5rqs")]
 
 [node name="Tile_0_4" parent="." instance=ExtResource("3_tkl7r")]
 position = Vector2(272, -128)
@@ -50,12 +57,12 @@ Type = 0
 [node name="Tile_1_0" parent="." instance=ExtResource("3_tkl7r")]
 position = Vector2(-112, -32)
 
-[node name="WithWater" parent="Tile_1_0" instance=ExtResource("4_x5rqs")]
+[node name="WithWater2" parent="Tile_1_0" instance=ExtResource("4_x5rqs")]
 
 [node name="Tile_1_1" parent="." instance=ExtResource("3_tkl7r")]
 position = Vector2(-16, -32)
 
-[node name="WithWater" parent="Tile_1_1" instance=ExtResource("4_x5rqs")]
+[node name="WithWater2" parent="Tile_1_1" instance=ExtResource("4_x5rqs")]
 
 [node name="Tile_1_2" parent="." instance=ExtResource("3_tkl7r")]
 position = Vector2(80, -32)
@@ -66,7 +73,7 @@ Type = 0
 [node name="Tile_1_3" parent="." instance=ExtResource("3_tkl7r")]
 position = Vector2(176, -32)
 
-[node name="WithWater" parent="Tile_1_3" instance=ExtResource("4_x5rqs")]
+[node name="WithWater2" parent="Tile_1_3" instance=ExtResource("4_x5rqs")]
 
 [node name="Tile_1_4" parent="." instance=ExtResource("3_tkl7r")]
 position = Vector2(272, -32)
@@ -77,7 +84,7 @@ Type = 0
 [node name="Tile_2_0" parent="." instance=ExtResource("3_tkl7r")]
 position = Vector2(-112, 64)
 
-[node name="WithWater" parent="Tile_2_0" instance=ExtResource("4_x5rqs")]
+[node name="WithWater2" parent="Tile_2_0" instance=ExtResource("4_x5rqs")]
 
 [node name="Tile_2_1" parent="." instance=ExtResource("3_tkl7r")]
 position = Vector2(-16, 64)
@@ -94,12 +101,14 @@ Type = 2
 [node name="Tile_2_3" parent="." instance=ExtResource("3_tkl7r")]
 position = Vector2(176, 64)
 
-[node name="WithWater" parent="Tile_2_3" instance=ExtResource("4_x5rqs")]
+[node name="WithWater2" parent="Tile_2_3" instance=ExtResource("4_x5rqs")]
 
 [node name="Tile_2_4" parent="." instance=ExtResource("3_tkl7r")]
 position = Vector2(272, 64)
+Type = 2
 
-[node name="WithWater" parent="Tile_2_4" instance=ExtResource("4_x5rqs")]
+[node name="WithWreck" type="Node2D" parent="Tile_2_4" groups=["wreck"] instance=ExtResource("5_xebwi")]
+script = ExtResource("9_4mq75")
 
 [node name="Tile_3_0" parent="." instance=ExtResource("3_tkl7r")]
 position = Vector2(-112, 160)
@@ -110,12 +119,12 @@ Type = 2
 [node name="Tile_3_1" parent="." instance=ExtResource("3_tkl7r")]
 position = Vector2(-16, 160)
 
-[node name="WithWater" parent="Tile_3_1" instance=ExtResource("4_x5rqs")]
+[node name="WithWater2" parent="Tile_3_1" instance=ExtResource("4_x5rqs")]
 
 [node name="Tile_3_2" parent="." instance=ExtResource("3_tkl7r")]
 position = Vector2(80, 160)
 
-[node name="WithWater" parent="Tile_3_2" instance=ExtResource("4_x5rqs")]
+[node name="WithWater2" parent="Tile_3_2" instance=ExtResource("4_x5rqs")]
 
 [node name="Tile_3_3" parent="." instance=ExtResource("3_tkl7r")]
 position = Vector2(176, 160)
@@ -131,28 +140,31 @@ Type = 0
 
 [node name="Tile_4_0" parent="." instance=ExtResource("3_tkl7r")]
 position = Vector2(-112, 256)
-Type = 0
+Type = 2
 
-[node name="WithIsland" parent="Tile_4_0" instance=ExtResource("5_i4tkf")]
+[node name="WithWreck" type="Node2D" parent="Tile_4_0" groups=["wreck"] instance=ExtResource("5_xebwi")]
+script = ExtResource("9_4mq75")
 
 [node name="Tile_4_1" parent="." instance=ExtResource("3_tkl7r")]
 position = Vector2(-16, 256)
 Type = 0
 
 [node name="WithIsland" parent="Tile_4_1" instance=ExtResource("5_i4tkf")]
-isTreasureBurriedOnStart = true
 
 [node name="Tile_4_2" parent="." instance=ExtResource("3_tkl7r")]
 position = Vector2(80, 256)
 
-[node name="WithWater" parent="Tile_4_2" instance=ExtResource("4_x5rqs")]
+[node name="WithWater2" parent="Tile_4_2" instance=ExtResource("4_x5rqs")]
 
 [node name="Tile_4_3" parent="." instance=ExtResource("3_tkl7r")]
 position = Vector2(176, 256)
 
-[node name="WithWater" parent="Tile_4_3" instance=ExtResource("4_x5rqs")]
+[node name="WithWater2" parent="Tile_4_3" instance=ExtResource("4_x5rqs")]
 
 [node name="Tile_4_4" parent="." instance=ExtResource("3_tkl7r")]
 position = Vector2(272, 256)
+Type = 3
 
-[node name="WithWater" parent="Tile_4_4" instance=ExtResource("4_x5rqs")]
+[node name="WithCurrent" type="Node2D" parent="Tile_4_4" groups=["current"] instance=ExtResource("6_87u1u")]
+script = ExtResource("7_opvmb")
+moveSpeed = 0.75

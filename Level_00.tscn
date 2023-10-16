@@ -25,27 +25,27 @@ Type = 0
 [node name="Tile_0_1" parent="." instance=ExtResource("3_xsr66")]
 position = Vector2(96, 0)
 
-[node name="WithWater2" parent="Tile_0_1" instance=ExtResource("6_rgcdj")]
+[node name="WithWater" parent="Tile_0_1" instance=ExtResource("6_rgcdj")]
 
 [node name="Tile_0_2" parent="." instance=ExtResource("3_xsr66")]
 position = Vector2(192, 0)
 
-[node name="WithWater2" parent="Tile_0_2" instance=ExtResource("6_rgcdj")]
+[node name="WithWater" parent="Tile_0_2" instance=ExtResource("6_rgcdj")]
 
 [node name="Tile_1_0" parent="." instance=ExtResource("3_xsr66")]
 position = Vector2(0, 96)
 
-[node name="WithWater2" parent="Tile_1_0" instance=ExtResource("6_rgcdj")]
+[node name="WithWater" parent="Tile_1_0" instance=ExtResource("6_rgcdj")]
 
 [node name="Tile_1_1" parent="." instance=ExtResource("3_xsr66")]
 position = Vector2(96, 96)
 
-[node name="WithWater2" parent="Tile_1_1" instance=ExtResource("6_rgcdj")]
+[node name="WithWater" parent="Tile_1_1" instance=ExtResource("6_rgcdj")]
 
 [node name="Tile_1_2" parent="." instance=ExtResource("3_xsr66")]
 position = Vector2(192, 96)
 
-[node name="WithWater2" parent="Tile_1_2" instance=ExtResource("6_rgcdj")]
+[node name="WithWater" parent="Tile_1_2" instance=ExtResource("6_rgcdj")]
 
 [node name="Tile_2_0" parent="." instance=ExtResource("3_xsr66")]
 position = Vector2(0, 192)
@@ -56,7 +56,7 @@ Type = 0
 [node name="Tile_2_1" parent="." instance=ExtResource("3_xsr66")]
 position = Vector2(96, 192)
 
-[node name="WithWater2" parent="Tile_2_1" instance=ExtResource("6_rgcdj")]
+[node name="WithWater" parent="Tile_2_1" instance=ExtResource("6_rgcdj")]
 
 [node name="Tile_2_2" parent="." instance=ExtResource("3_xsr66")]
 position = Vector2(192, 192)
