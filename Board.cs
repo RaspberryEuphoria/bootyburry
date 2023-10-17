@@ -203,19 +203,19 @@ namespace Game
         navigationPaths = navigationPaths.Where(np => np != navigationPath);
       }
 
-      HidePreviousNavigationPath();
+      if (isMovePlayerControlled) HidePreviousNavigationPath();
 
       var hazardTile = currentTile.GetHazardTileInPath(direction, nextTile);
       if (hazardTile != null)
       {
-        DrawNavigationPath(currentTile, hazardTile);
+        DrawNavigationPath(currentTile, hazardTile, expandPreviousPath: !isMovePlayerControlled);
         Lose();
 
         hazardTile.Select();
         return isMovePlayerControlled;
       }
 
-      DrawNavigationPath(currentTile, nextTile);
+      DrawNavigationPath(currentTile, nextTile, expandPreviousPath: !isMovePlayerControlled);
 
       nextTile.Select();
       previousTile = currentTile;
@@ -246,9 +246,8 @@ namespace Game
       try
       {
         return navigationPaths.First(np =>
-          np.Points.SequenceEqual(new Vector2[] { startingTile.Position, targetTile.Position })
-          || np.Points.SequenceEqual(new Vector2[] { targetTile.Position, startingTile.Position }
-        ));
+           np.Points.Contains(startingTile.Position) && np.Points.Contains(targetTile.Position)
+        );
       }
       catch (Exception)
       {
@@ -256,9 +255,18 @@ namespace Game
       }
     }
 
-    private void DrawNavigationPath(Tile startingTile, Tile targetTile)
+    private void DrawNavigationPath(Tile startingTile, Tile targetTile, bool expandPreviousPath)
     {
-      var navigationPath = ResourceLoader.Load<PackedScene>("res://NavigationPath.tscn").Instantiate<NavigationPath>();
+      var navigationPath = expandPreviousPath
+        ? navigationPaths.Last()
+        : ResourceLoader.Load<PackedScene>("res://NavigationPath.tscn").Instantiate<NavigationPath>();
+
+      if (expandPreviousPath)
+      {
+        navigationPath.AddTileToPoints(targetTile);
+        return;
+      }
+
       navigationPath.Init(startingTile, targetTile);
       AddChild(navigationPath);
 

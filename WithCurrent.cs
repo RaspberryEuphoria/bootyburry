@@ -68,8 +68,6 @@ namespace Game
     public void OnTileSelected(Tile tile)
     {
       Board.TriggerInputInDirection(Direction);
-
-      GD.Print("Force move!");
     }
   }
 }
