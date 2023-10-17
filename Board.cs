@@ -27,18 +27,6 @@ namespace Game
     public int botMaxTries = 50;
     [Export]
     public float botDelay = 0.5f;
-
-    public bool IsReady { get; private set; } = false;
-    public GameState GameState { get; private set; } = GameState.Playing;
-    public IEnumerable<Direction> Moves { get; private set; } = new List<Direction>();
-    private int columns;
-    private int rows;
-
-    private Tile currentTile;
-    private Tile previousTile;
-    private IEnumerable<Tile> tiles;
-    private IEnumerable<Treasure> treasures;
-    private IEnumerable<NavigationPath> navigationPaths = new List<NavigationPath>();
     public static readonly Dictionary<string, Direction> actionToDirection = new()
     {
         { "move_up", Direction.Up },
@@ -46,6 +34,17 @@ namespace Game
         { "move_down", Direction.Down },
         { "move_right", Direction.Right }
     };
+
+    public bool IsReady { get; private set; } = false;
+    public GameState GameState { get; private set; } = GameState.Playing;
+    public IEnumerable<Direction> Moves { get; private set; } = new List<Direction>();
+    private int columns;
+    private int rows;
+    private Tile currentTile;
+    private Tile previousTile;
+    private IEnumerable<Tile> tiles;
+    private IEnumerable<Treasure> treasures;
+    private IEnumerable<NavigationPath> navigationPaths = new List<NavigationPath>();
 
     public override void _Ready()
     {
@@ -134,7 +133,7 @@ namespace Game
         if (Input.IsActionJustPressed(itr.Key))
         {
           var isMovePlayerControlled = NavigateInDirection(itr.Value);
-          if (isMovePlayerControlled) Moves = Moves.Append(itr.Value);
+          if (isMovePlayerControlled == true) Moves = Moves.Append(itr.Value);
 
           /*
            * When navigating through a WithCurrent tile, if the WithCurrent direction
@@ -183,12 +182,15 @@ namespace Game
     /**
      * Attempts to navigate in given direction.
      * Returns true if the move was player controlled (.ie from a dockable tile),
-     * false otherwise (.ie from a tile that forces movement)
+     * false otherwise (.ie from a tile that forces movement),
+     * null if the move is invalid.
      */
-    private bool NavigateInDirection(Direction direction)
+    private bool? NavigateInDirection(Direction direction)
     {
+      if (!currentTile.CanUndockInDirection(direction)) return null;
+
       var nextTile = currentTile.GetNavigableTileInDirection(direction);
-      if (nextTile == null || currentTile == nextTile) return false;
+      if (nextTile == null || currentTile == nextTile) return null;
 
       var isMovePlayerControlled = currentTile.CanDockTo();
 

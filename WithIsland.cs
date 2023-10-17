@@ -49,7 +49,12 @@ namespace Game
       }
     }
 
-    public bool CanNavigateTo()
+    public bool CanBeDockedFromDirection(Direction direction)
+    {
+      return true;
+    }
+
+    public bool CanUndockInDirection(Direction direction)
     {
       return true;
     }

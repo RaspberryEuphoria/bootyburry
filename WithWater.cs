@@ -21,7 +21,12 @@ namespace Game
       shaderMaterial.SetShaderParameter("interval", GD.RandRange(3, 3.2));
     }
 
-    public bool CanNavigateTo()
+    public bool CanBeDockedFromDirection(Direction direction)
+    {
+      return false;
+    }
+
+    public bool CanUndockInDirection(Direction direction)
     {
       return false;
     }

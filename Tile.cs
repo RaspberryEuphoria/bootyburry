@@ -158,7 +158,7 @@ namespace Game
       if (adjacentTile == null) return null;
       if (IsBlockedByCurrent(direction)) return null;
 
-      if (adjacentTile.CanNavigateTo(direction)) return adjacentTile;
+      if (adjacentTile.CanBeDockedFromDirection(direction)) return adjacentTile;
 
       return adjacentTile.GetNavigableTileInDirection(direction);
     }
@@ -198,14 +198,26 @@ namespace Game
       return isOnBorder;
     }
 
-    private bool CanNavigateTo(Direction direction)
+    public bool CanBeDockedFromDirection(Direction direction)
     {
       return Terrain switch
       {
-        WithIsland island => island.CanNavigateTo(),
-        WithCurrent current => current.CanNavigateTo(direction),
-        WithWreck wreck => wreck.CanNavigateTo(),
-        WithWater water => water.CanNavigateTo(),
+        WithIsland island => island.CanBeDockedFromDirection(direction),
+        WithCurrent current => current.CanBeDockedFromDirection(direction),
+        WithWreck wreck => wreck.CanBeDockedFromDirection(direction),
+        WithWater water => water.CanBeDockedFromDirection(direction),
+        _ => throw new Exception($"Invalid terrain type {Terrain.GetType()} on tile {Name}!"),
+      };
+    }
+
+    public bool CanUndockInDirection(Direction direction)
+    {
+      return Terrain switch
+      {
+        WithIsland island => island.CanUndockInDirection(direction),
+        WithCurrent current => current.CanUndockInDirection(direction),
+        WithWreck wreck => wreck.CanUndockInDirection(direction),
+        WithWater water => water.CanUndockInDirection(direction),
         _ => throw new Exception($"Invalid terrain type {Terrain.GetType()} on tile {Name}!"),
       };
     }

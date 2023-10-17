@@ -21,7 +21,6 @@ namespace Game
       foamTexture = waterTexture.GetNode<Sprite2D>("FoamTexture");
 
       tile = GetParent<Tile>();
-
       tile.TileSelected += OnTileSelected;
 
       SetupRotation();
@@ -37,9 +36,14 @@ namespace Game
       AnimateSprites();
     }
 
-    public bool CanNavigateTo(Direction direction)
+    public bool CanBeDockedFromDirection(Direction direction)
     {
       return Direction != Board.GetOpposedDirection(direction);
+    }
+
+    public bool CanUndockInDirection(Direction direction)
+    {
+      return Direction == direction;
     }
 
     public void SetupRotation()
@@ -64,6 +68,8 @@ namespace Game
     public void OnTileSelected(Tile tile)
     {
       Board.TriggerInputInDirection(Direction);
+
+      GD.Print("Force move!");
     }
   }
 }

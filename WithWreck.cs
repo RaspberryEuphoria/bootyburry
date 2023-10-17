@@ -26,7 +26,12 @@ namespace Game
       tile.TileSelected -= OnTileSelected;
     }
 
-    public bool CanNavigateTo()
+    public bool CanBeDockedFromDirection(Direction direction)
+    {
+      return false;
+    }
+
+    public bool CanUndockInDirection(Direction direction)
     {
       return false;
     }
