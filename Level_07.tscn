@@ -1,28 +1,26 @@
-[gd_scene load_steps=13 format=3 uid="uid://brmf1fxffofd7"]
+[gd_scene load_steps=9 format=3 uid="uid://brmf1fxffofd7"]
 
 [ext_resource type="Script" path="res://Board.cs" id="1_i63w1"]
-[ext_resource type="PackedScene" uid="uid://bgbjtiqfpr23s" path="res://Level_05.tscn" id="2_61c7r"]
+[ext_resource type="PackedScene" uid="uid://d0mrskclosgl2" path="res://Level_08.tscn" id="2_on7yr"]
 [ext_resource type="Texture2D" uid="uid://bm34w84l1bqse" path="res://assets/gameplay/background_type_0.png" id="3_vioh3"]
 [ext_resource type="PackedScene" uid="uid://67x0aame80lq" path="res://Tile.tscn" id="4_jhqlp"]
 [ext_resource type="PackedScene" uid="uid://ch1bcttqi5hjk" path="res://WithIsland.tscn" id="5_r1777"]
 [ext_resource type="PackedScene" uid="uid://e2gu8wi641jf" path="res://WithWater.tscn" id="6_212pf"]
 [ext_resource type="PackedScene" uid="uid://bux2ffg7yyub3" path="res://WithWreck.tscn" id="7_kgspk"]
 [ext_resource type="PackedScene" uid="uid://6oclnkije4cp" path="res://WithCurrent.tscn" id="8_6on1c"]
-[ext_resource type="Script" path="res://WithIsland.cs" id="9_t3i7l"]
-[ext_resource type="Script" path="res://WithWreck.cs" id="9_xcddn"]
-[ext_resource type="Script" path="res://WithWater.cs" id="11_7gxlh"]
-[ext_resource type="Script" path="res://WithCurrent.cs" id="12_codox"]
 
 [node name="Board" type="Node2D" node_paths=PackedStringArray("startingTile")]
 position = Vector2(896, 512)
 script = ExtResource("1_i63w1")
-nextLevel = ExtResource("2_61c7r")
+nextLevel = ExtResource("2_on7yr")
 startingTile = NodePath("Tile_1_4")
-botMaxTries = 21
+botMaxTries = 23
 botDelay = 0.0
 
 [node name="Background" type="Sprite2D" parent="."]
-position = Vector2(65, 28)
+texture_repeat = 2
+position = Vector2(-208, 4)
+scale = Vector2(30, 16.875)
 texture = ExtResource("3_vioh3")
 
 [node name="Tile_0_0" parent="." instance=ExtResource("4_jhqlp")]
@@ -47,22 +45,19 @@ isTreasureBurriedOnStart = true
 position = Vector2(16, -24)
 Type = 2
 
-[node name="WithWreck" type="Node2D" parent="Tile_0_3" groups=["wreck"] instance=ExtResource("7_kgspk")]
-script = ExtResource("9_xcddn")
+[node name="WithWreck" parent="Tile_0_3" instance=ExtResource("7_kgspk")]
 
 [node name="Tile_0_4" parent="." instance=ExtResource("4_jhqlp")]
 position = Vector2(112, -24)
 Type = 0
 
-[node name="WithIsland" type="Node2D" parent="Tile_0_4" groups=["island"] instance=ExtResource("5_r1777")]
-script = ExtResource("9_t3i7l")
+[node name="WithIsland" parent="Tile_0_4" instance=ExtResource("5_r1777")]
 
 [node name="Tile_0_5" parent="." instance=ExtResource("4_jhqlp")]
 position = Vector2(208, -24)
 Type = 2
 
-[node name="WithWreck" type="Node2D" parent="Tile_0_5" groups=["wreck"] instance=ExtResource("7_kgspk")]
-script = ExtResource("9_xcddn")
+[node name="WithWreck" parent="Tile_0_5" instance=ExtResource("7_kgspk")]
 
 [node name="Tile_0_6" parent="." instance=ExtResource("4_jhqlp")]
 position = Vector2(304, -24)
@@ -103,8 +98,7 @@ position = Vector2(16, 72)
 position = Vector2(112, 72)
 Type = 0
 
-[node name="WithIsland" type="Node2D" parent="Tile_1_4" groups=["island"] instance=ExtResource("5_r1777")]
-script = ExtResource("9_t3i7l")
+[node name="WithIsland" parent="Tile_1_4" instance=ExtResource("5_r1777")]
 
 [node name="Tile_1_5" parent="." instance=ExtResource("4_jhqlp")]
 position = Vector2(208, 72)
@@ -115,8 +109,7 @@ Type = 0
 [node name="Tile_1_6" parent="." instance=ExtResource("4_jhqlp")]
 position = Vector2(304, 72)
 
-[node name="WithWater" type="Node2D" parent="Tile_1_6" groups=["water"] instance=ExtResource("6_212pf")]
-script = ExtResource("11_7gxlh")
+[node name="WithWater" parent="Tile_1_6" instance=ExtResource("6_212pf")]
 
 [node name="Tile_1_7" parent="." instance=ExtResource("4_jhqlp")]
 position = Vector2(400, 72)
@@ -134,10 +127,8 @@ Type = 0
 position = Vector2(-176, 168)
 Type = 3
 
-[node name="WithCurrent" type="Node2D" parent="Tile_2_1" groups=["current"] instance=ExtResource("8_6on1c")]
-script = ExtResource("12_codox")
+[node name="WithCurrent" parent="Tile_2_1" instance=ExtResource("8_6on1c")]
 Direction = 3
-moveSpeed = 0.75
 
 [node name="Tile_2_2" parent="." instance=ExtResource("4_jhqlp")]
 position = Vector2(-80, 168)
@@ -152,8 +143,7 @@ position = Vector2(16, 168)
 [node name="Tile_2_4" parent="." instance=ExtResource("4_jhqlp")]
 position = Vector2(112, 168)
 
-[node name="WithWater" type="Node2D" parent="Tile_2_4" groups=["water"] instance=ExtResource("6_212pf")]
-script = ExtResource("11_7gxlh")
+[node name="WithWater" parent="Tile_2_4" instance=ExtResource("6_212pf")]
 
 [node name="Tile_2_5" parent="." instance=ExtResource("4_jhqlp")]
 position = Vector2(208, 168)
@@ -164,13 +154,10 @@ position = Vector2(208, 168)
 position = Vector2(304, 168)
 Type = 0
 
-[node name="WithIsland" type="Node2D" parent="Tile_2_6" groups=["island"] instance=ExtResource("5_r1777")]
-script = ExtResource("9_t3i7l")
+[node name="WithIsland" parent="Tile_2_6" instance=ExtResource("5_r1777")]
 
 [node name="Tile_2_7" parent="." instance=ExtResource("4_jhqlp")]
 position = Vector2(400, 168)
 Type = 3
 
-[node name="WithCurrent" type="Node2D" parent="Tile_2_7" groups=["current"] instance=ExtResource("8_6on1c")]
-script = ExtResource("12_codox")
-moveSpeed = 0.75
+[node name="WithCurrent" parent="Tile_2_7" instance=ExtResource("8_6on1c")]

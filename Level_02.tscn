@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Board.cs" id="1_3py4v"]
 [ext_resource type="Texture2D" uid="uid://bm34w84l1bqse" path="res://assets/gameplay/background_type_0.png" id="2_7siot"]
-[ext_resource type="PackedScene" uid="uid://bmbrcb5704afu" path="res://Level_03.tscn" id="2_552hv"]
+[ext_resource type="PackedScene" uid="uid://bmbrcb5704afu" path="res://Level_03.tscn" id="2_jbcnm"]
 [ext_resource type="PackedScene" uid="uid://67x0aame80lq" path="res://Tile.tscn" id="3_bj2sm"]
 [ext_resource type="PackedScene" uid="uid://ch1bcttqi5hjk" path="res://WithIsland.tscn" id="5_owoer"]
 [ext_resource type="PackedScene" uid="uid://e2gu8wi641jf" path="res://WithWater.tscn" id="7_dktpo"]
@@ -11,11 +11,13 @@
 [node name="Board" type="Node2D" node_paths=PackedStringArray("startingTile")]
 position = Vector2(896, 512)
 script = ExtResource("1_3py4v")
-nextLevel = ExtResource("2_552hv")
+nextLevel = ExtResource("2_jbcnm")
 startingTile = NodePath("Tile_2_0")
 
 [node name="Background" type="Sprite2D" parent="."]
-position = Vector2(65, 28)
+texture_repeat = 2
+position = Vector2(63.9999, 28)
+scale = Vector2(30, 16.875)
 texture = ExtResource("2_7siot")
 
 [node name="Tile_0_0" parent="." instance=ExtResource("3_bj2sm")]

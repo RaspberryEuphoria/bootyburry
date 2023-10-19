@@ -1,8 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://bcqy2f6b21caq"]
+[gd_scene load_steps=9 format=3 uid="uid://t44hvggcdygj"]
 
 [ext_resource type="Script" path="res://Board.cs" id="1_hqjmi"]
 [ext_resource type="Texture2D" uid="uid://bm34w84l1bqse" path="res://assets/gameplay/background_type_0.png" id="2_8ujfr"]
-[ext_resource type="PackedScene" uid="uid://brmf1fxffofd7" path="res://Level_07.tscn" id="2_yfmwd"]
+[ext_resource type="PackedScene" uid="uid://brmf1fxffofd7" path="res://Level_07.tscn" id="2_ceqfw"]
 [ext_resource type="PackedScene" uid="uid://67x0aame80lq" path="res://Tile.tscn" id="3_busqj"]
 [ext_resource type="PackedScene" uid="uid://ch1bcttqi5hjk" path="res://WithIsland.tscn" id="4_ok1ew"]
 [ext_resource type="PackedScene" uid="uid://e2gu8wi641jf" path="res://WithWater.tscn" id="5_p5dah"]
@@ -12,13 +12,15 @@
 [node name="Board" type="Node2D" node_paths=PackedStringArray("startingTile")]
 position = Vector2(896, 512)
 script = ExtResource("1_hqjmi")
-nextLevel = ExtResource("2_yfmwd")
+nextLevel = ExtResource("2_ceqfw")
 startingTile = NodePath("Tile_2_1")
 botMaxTries = 13
 botDelay = 0.0
 
 [node name="Background" type="Sprite2D" parent="."]
-position = Vector2(65, 28)
+texture_repeat = 2
+position = Vector2(63.9999, 28)
+scale = Vector2(30, 16.875)
 texture = ExtResource("2_8ujfr")
 
 [node name="Tile_0_0" parent="." instance=ExtResource("3_busqj")]
