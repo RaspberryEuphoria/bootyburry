@@ -4,18 +4,18 @@
 [ext_resource type="Texture2D" uid="uid://davj77w05y5oj" path="res://assets/gameplay/treasure_digged.png" id="2_34rx5"]
 [ext_resource type="Texture2D" uid="uid://oh8j572s6rb5" path="res://assets/gameplay/trasure_cross.png" id="2_brkaq"]
 
-[node name="Treasure" type="Node2D" node_paths=PackedStringArray("burriedSprite", "diggedSprite")]
+[node name="Treasure" type="Node2D"]
 script = ExtResource("1_lc5go")
-burriedSprite = NodePath("Burried")
-diggedSprite = NodePath("Digged")
 
 [node name="Burried" type="Sprite2D" parent="."]
+unique_name_in_owner = true
 visible = false
 modulate = Color(0.5, 0.5, 0.5, 0.5)
 z_index = 1
 texture = ExtResource("2_brkaq")
 
 [node name="Digged" type="Sprite2D" parent="."]
+unique_name_in_owner = true
 visible = false
 z_index = 1
 texture = ExtResource("2_34rx5")

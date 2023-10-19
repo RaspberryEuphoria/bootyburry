@@ -7,15 +7,19 @@ namespace Game
   public partial class Treasure : Node2D
   {
     [Export]
-    public TreasureState state = TreasureState.Digged;
-    [Export]
-    public Sprite2D burriedSprite;
-    [Export]
-    public Sprite2D diggedSprite;
+    public TreasureState State { get; private set; } = TreasureState.Digged;
+    private Sprite2D burriedSprite;
+    private Sprite2D diggedSprite;
+
+    public override void _Ready()
+    {
+      burriedSprite = GetNode<Sprite2D>("%Burried");
+      diggedSprite = GetNode<Sprite2D>("%Digged");
+    }
 
     public void Toggle()
     {
-      if (state == TreasureState.Burried)
+      if (State == TreasureState.Burried)
       {
         Dig();
       }
@@ -27,7 +31,7 @@ namespace Game
 
     public void Burry()
     {
-      state = TreasureState.Burried;
+      State = TreasureState.Burried;
       burriedSprite.Visible = true;
       diggedSprite.Visible = false;
 
@@ -36,7 +40,7 @@ namespace Game
 
     public void Dig()
     {
-      state = TreasureState.Digged;
+      State = TreasureState.Digged;
       burriedSprite.Visible = false;
       diggedSprite.Visible = true;
     }
@@ -49,7 +53,7 @@ namespace Game
 
     public bool IsBurried()
     {
-      return state == TreasureState.Burried;
+      return State == TreasureState.Burried;
     }
   }
 }
