@@ -1,0 +1,73 @@
+[gd_scene load_steps=4 format=3 uid="uid://dbl0tiuqxnci4"]
+
+[ext_resource type="Texture2D" uid="uid://j310svc4f8yj" path="res://assets/ui/level_header.png" id="1_8f52o"]
+[ext_resource type="Script" path="res://LevelUI.cs" id="1_bhc1g"]
+[ext_resource type="Theme" uid="uid://cgruyese0ddm7" path="res://assets/ui/themes/label.tres" id="2_vrj2x"]
+
+[node name="LevelUI" type="CanvasLayer"]
+script = ExtResource("1_bhc1g")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 32
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/MarginContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/MarginContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Header" type="TextureRect" parent="Control/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("1_8f52o")
+
+[node name="MarginContainer" type="MarginContainer" parent="Control/MarginContainer/VBoxContainer/HBoxContainer/Header"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 150
+theme_override_constants/margin_top = 25
+theme_override_constants/margin_right = 150
+theme_override_constants/margin_bottom = 25
+
+[node name="MarginContainer" type="MarginContainer" parent="Control/MarginContainer/VBoxContainer/HBoxContainer/Header/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_constants/margin_right = 125
+
+[node name="ScoreLabel" type="Label" parent="Control/MarginContainer/VBoxContainer/HBoxContainer/Header/MarginContainer/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 8
+theme = ExtResource("2_vrj2x")
+text = "0"
+
+[node name="MovesLabel" type="Label" parent="Control/MarginContainer/VBoxContainer/HBoxContainer/Header/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+theme = ExtResource("2_vrj2x")
+theme_override_colors/font_color = Color(1, 0.811765, 0.309804, 1)
+text = "Moves
+"
