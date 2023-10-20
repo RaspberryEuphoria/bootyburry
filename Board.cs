@@ -16,6 +16,8 @@ namespace Game
     public delegate void GameWonEventHandler();
     [Signal]
     public delegate void GameLostEventHandler();
+    [Signal]
+    public delegate void PlayerMovedEventHandler();
 
     [Export]
     public PackedScene nextLevel;
@@ -133,7 +135,7 @@ namespace Game
         if (Input.IsActionJustPressed(itr.Key))
         {
           var isMovePlayerControlled = NavigateInDirection(itr.Value);
-          if (isMovePlayerControlled == true) Moves = Moves.Append(itr.Value);
+          if (isMovePlayerControlled == true) AddMove(itr.Value);
 
           /*
            * When navigating through a WithCurrent tile, if the WithCurrent direction
@@ -145,6 +147,12 @@ namespace Game
           CheckScore();
         }
       }
+    }
+
+    private void AddMove(Direction direction)
+    {
+      Moves = Moves.Append(direction);
+      EmitSignal(SignalName.PlayerMoved);
     }
 
     public static void TriggerInputInDirection(Direction direction)
