@@ -1,70 +1,75 @@
-[gd_scene load_steps=8 format=3 uid="uid://b1i880hkcmx50"]
+[gd_scene load_steps=9 format=3 uid="uid://b1i880hkcmx50"]
 
 [ext_resource type="Script" path="res://Board.cs" id="1_3py4v"]
 [ext_resource type="Texture2D" uid="uid://bm34w84l1bqse" path="res://assets/gameplay/background_type_0.png" id="2_7siot"]
 [ext_resource type="PackedScene" uid="uid://fqleqx2cn34q" path="res://Level_02.tscn" id="2_f2pqk"]
 [ext_resource type="PackedScene" uid="uid://67x0aame80lq" path="res://Tile.tscn" id="3_bj2sm"]
+[ext_resource type="PackedScene" uid="uid://dbl0tiuqxnci4" path="res://LevelUI.tscn" id="4_23kbk"]
 [ext_resource type="PackedScene" uid="uid://ch1bcttqi5hjk" path="res://WithIsland.tscn" id="5_0d6oq"]
 [ext_resource type="PackedScene" uid="uid://e2gu8wi641jf" path="res://WithWater.tscn" id="7_2l4fw"]
 [ext_resource type="PackedScene" uid="uid://bux2ffg7yyub3" path="res://WithWreck.tscn" id="7_ism3j"]
 
 [node name="Board" type="Node2D" node_paths=PackedStringArray("startingTile")]
-position = Vector2(896, 512)
 script = ExtResource("1_3py4v")
 nextLevel = ExtResource("2_f2pqk")
 startingTile = NodePath("Tile_0_0")
 
 [node name="Background" type="Sprite2D" parent="."]
 texture_repeat = 2
-position = Vector2(63.9999, 28)
 scale = Vector2(30, 16.875)
 texture = ExtResource("2_7siot")
+centered = false
+
+[node name="LevelUI" parent="." instance=ExtResource("4_23kbk")]
+helperText = "To protect your adventure from grief,
+Listen closely, and steer clear of the reef."
 
 [node name="Tile_0_0" parent="." instance=ExtResource("3_bj2sm")]
+position = Vector2(864, 488)
 Type = 0
 
 [node name="WithIsland" parent="Tile_0_0" instance=ExtResource("5_0d6oq")]
 
 [node name="Tile_0_1" parent="." instance=ExtResource("3_bj2sm")]
-position = Vector2(96, 0)
+position = Vector2(960, 488)
 
 [node name="WithWater" parent="Tile_0_1" instance=ExtResource("7_2l4fw")]
 
 [node name="Tile_0_2" parent="." instance=ExtResource("3_bj2sm")]
-position = Vector2(192, 0)
+position = Vector2(1056, 488)
 Type = 0
 
 [node name="WithIsland" parent="Tile_0_2" instance=ExtResource("5_0d6oq")]
 
 [node name="Tile_1_0" parent="." instance=ExtResource("3_bj2sm")]
-position = Vector2(0, 96)
+position = Vector2(864, 584)
 Type = 2
 
 [node name="WithWreck" parent="Tile_1_0" instance=ExtResource("7_ism3j")]
 
 [node name="Tile_1_1" parent="." instance=ExtResource("3_bj2sm")]
-position = Vector2(96, 96)
+position = Vector2(960, 584)
 
 [node name="WithWater" parent="Tile_1_1" instance=ExtResource("7_2l4fw")]
 
 [node name="Tile_1_2" parent="." instance=ExtResource("3_bj2sm")]
-position = Vector2(192, 96)
+position = Vector2(1056, 584)
 
 [node name="WithWater" parent="Tile_1_2" instance=ExtResource("7_2l4fw")]
 
 [node name="Tile_2_0" parent="." instance=ExtResource("3_bj2sm")]
-position = Vector2(0, 192)
+position = Vector2(864, 680)
 Type = 0
 
 [node name="WithIsland" parent="Tile_2_0" instance=ExtResource("5_0d6oq")]
 
 [node name="Tile_2_1" parent="." instance=ExtResource("3_bj2sm")]
-position = Vector2(96, 192)
+position = Vector2(960, 680)
 
 [node name="WithWater" parent="Tile_2_1" instance=ExtResource("7_2l4fw")]
 
 [node name="Tile_2_2" parent="." instance=ExtResource("3_bj2sm")]
-position = Vector2(192, 192)
+position = Vector2(1056, 680)
 Type = 0
 
 [node name="WithIsland" parent="Tile_2_2" instance=ExtResource("5_0d6oq")]

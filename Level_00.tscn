@@ -20,6 +20,9 @@ texture = ExtResource("2_lwvdr")
 centered = false
 
 [node name="LevelUI" parent="." instance=ExtResource("4_fgq5k")]
+helperText = "On desert isles, where treasures lie,
+With \"[color=\"#ff0000\"]Z,Q,S,D[/color]\" let your ship comply
+"
 
 [node name="Tile_0_0" parent="." instance=ExtResource("3_xsr66")]
 position = Vector2(864, 488)

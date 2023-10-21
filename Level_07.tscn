@@ -10,7 +10,6 @@
 [ext_resource type="PackedScene" uid="uid://6oclnkije4cp" path="res://WithCurrent.tscn" id="8_6on1c"]
 
 [node name="Board" type="Node2D" node_paths=PackedStringArray("startingTile")]
-position = Vector2(896, 512)
 script = ExtResource("1_i63w1")
 nextLevel = ExtResource("2_on7yr")
 startingTile = NodePath("Tile_1_4")
@@ -19,145 +18,145 @@ botDelay = 0.0
 
 [node name="Background" type="Sprite2D" parent="."]
 texture_repeat = 2
-position = Vector2(-208, 4)
 scale = Vector2(30, 16.875)
 texture = ExtResource("3_vioh3")
+centered = false
 
 [node name="Tile_0_0" parent="." instance=ExtResource("4_jhqlp")]
-position = Vector2(-272, -24)
+position = Vector2(584, 496)
 Type = 0
 
 [node name="WithIsland" parent="Tile_0_0" instance=ExtResource("5_r1777")]
 
 [node name="Tile_0_1" parent="." instance=ExtResource("4_jhqlp")]
-position = Vector2(-176, -24)
+position = Vector2(680, 496)
 
 [node name="WithWater" parent="Tile_0_1" instance=ExtResource("6_212pf")]
 
 [node name="Tile_0_2" parent="." instance=ExtResource("4_jhqlp")]
-position = Vector2(-80, -24)
+position = Vector2(776, 496)
 Type = 0
 
 [node name="WithIsland" parent="Tile_0_2" instance=ExtResource("5_r1777")]
 isTreasureBurriedOnStart = true
 
 [node name="Tile_0_3" parent="." instance=ExtResource("4_jhqlp")]
-position = Vector2(16, -24)
+position = Vector2(872, 496)
 Type = 2
 
 [node name="WithWreck" parent="Tile_0_3" instance=ExtResource("7_kgspk")]
 
 [node name="Tile_0_4" parent="." instance=ExtResource("4_jhqlp")]
-position = Vector2(112, -24)
+position = Vector2(968, 496)
 Type = 0
 
 [node name="WithIsland" parent="Tile_0_4" instance=ExtResource("5_r1777")]
 
 [node name="Tile_0_5" parent="." instance=ExtResource("4_jhqlp")]
-position = Vector2(208, -24)
+position = Vector2(1064, 496)
 Type = 2
 
 [node name="WithWreck" parent="Tile_0_5" instance=ExtResource("7_kgspk")]
 
 [node name="Tile_0_6" parent="." instance=ExtResource("4_jhqlp")]
-position = Vector2(304, -24)
+position = Vector2(1160, 496)
 Type = 0
 
 [node name="WithIsland" parent="Tile_0_6" instance=ExtResource("5_r1777")]
 
 [node name="Tile_0_7" parent="." instance=ExtResource("4_jhqlp")]
-position = Vector2(400, -24)
+position = Vector2(1256, 496)
 Type = 0
 
 [node name="WithIsland" parent="Tile_0_7" instance=ExtResource("5_r1777")]
 isTreasureBurriedOnStart = true
 
 [node name="Tile_1_0" parent="." instance=ExtResource("4_jhqlp")]
-position = Vector2(-272, 72)
+position = Vector2(584, 592)
 
 [node name="WithWater" parent="Tile_1_0" instance=ExtResource("6_212pf")]
 
 [node name="Tile_1_1" parent="." instance=ExtResource("4_jhqlp")]
-position = Vector2(-176, 72)
+position = Vector2(680, 592)
 Type = 2
 
 [node name="WithWreck" parent="Tile_1_1" instance=ExtResource("7_kgspk")]
 
 [node name="Tile_1_2" parent="." instance=ExtResource("4_jhqlp")]
-position = Vector2(-80, 72)
+position = Vector2(776, 592)
 Type = 3
 
 [node name="WithCurrent" parent="Tile_1_2" instance=ExtResource("8_6on1c")]
 
 [node name="Tile_1_3" parent="." instance=ExtResource("4_jhqlp")]
-position = Vector2(16, 72)
+position = Vector2(872, 592)
 
 [node name="WithWater" parent="Tile_1_3" instance=ExtResource("6_212pf")]
 
 [node name="Tile_1_4" parent="." instance=ExtResource("4_jhqlp")]
-position = Vector2(112, 72)
+position = Vector2(968, 592)
 Type = 0
 
 [node name="WithIsland" parent="Tile_1_4" instance=ExtResource("5_r1777")]
 
 [node name="Tile_1_5" parent="." instance=ExtResource("4_jhqlp")]
-position = Vector2(208, 72)
+position = Vector2(1064, 592)
 Type = 0
 
 [node name="WithIsland" parent="Tile_1_5" instance=ExtResource("5_r1777")]
 
 [node name="Tile_1_6" parent="." instance=ExtResource("4_jhqlp")]
-position = Vector2(304, 72)
+position = Vector2(1160, 592)
 
 [node name="WithWater" parent="Tile_1_6" instance=ExtResource("6_212pf")]
 
 [node name="Tile_1_7" parent="." instance=ExtResource("4_jhqlp")]
-position = Vector2(400, 72)
+position = Vector2(1256, 592)
 Type = 0
 
 [node name="WithIsland" parent="Tile_1_7" instance=ExtResource("5_r1777")]
 
 [node name="Tile_2_0" parent="." instance=ExtResource("4_jhqlp")]
-position = Vector2(-272, 168)
+position = Vector2(584, 688)
 Type = 0
 
 [node name="WithIsland" parent="Tile_2_0" instance=ExtResource("5_r1777")]
 
 [node name="Tile_2_1" parent="." instance=ExtResource("4_jhqlp")]
-position = Vector2(-176, 168)
+position = Vector2(680, 688)
 Type = 3
 
 [node name="WithCurrent" parent="Tile_2_1" instance=ExtResource("8_6on1c")]
 Direction = 3
 
 [node name="Tile_2_2" parent="." instance=ExtResource("4_jhqlp")]
-position = Vector2(-80, 168)
+position = Vector2(776, 688)
 
 [node name="WithWater" parent="Tile_2_2" instance=ExtResource("6_212pf")]
 
 [node name="Tile_2_3" parent="." instance=ExtResource("4_jhqlp")]
-position = Vector2(16, 168)
+position = Vector2(872, 688)
 
 [node name="WithWater" parent="Tile_2_3" instance=ExtResource("6_212pf")]
 
 [node name="Tile_2_4" parent="." instance=ExtResource("4_jhqlp")]
-position = Vector2(112, 168)
+position = Vector2(968, 688)
 
 [node name="WithWater" parent="Tile_2_4" instance=ExtResource("6_212pf")]
 
 [node name="Tile_2_5" parent="." instance=ExtResource("4_jhqlp")]
-position = Vector2(208, 168)
+position = Vector2(1064, 688)
 
 [node name="WithWater" parent="Tile_2_5" instance=ExtResource("6_212pf")]
 
 [node name="Tile_2_6" parent="." instance=ExtResource("4_jhqlp")]
-position = Vector2(304, 168)
+position = Vector2(1160, 688)
 Type = 0
 
 [node name="WithIsland" parent="Tile_2_6" instance=ExtResource("5_r1777")]
 
 [node name="Tile_2_7" parent="." instance=ExtResource("4_jhqlp")]
-position = Vector2(400, 168)
+position = Vector2(1256, 688)
 Type = 3
 
 [node name="WithCurrent" parent="Tile_2_7" instance=ExtResource("8_6on1c")]

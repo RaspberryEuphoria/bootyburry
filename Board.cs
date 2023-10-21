@@ -17,18 +17,22 @@ namespace Game
     [Signal]
     public delegate void GameLostEventHandler();
     [Signal]
-    public delegate void PlayerMovedEventHandler();
+    public delegate void PlayerMovedEventHandler(int score);
 
     [Export]
     public PackedScene nextLevel;
     [Export]
     public Tile startingTile;
     [Export]
+    /** The values correspond to [gold, silver, bronze] */
+    public int[] medals = new int[] { 0, 0, 0 };
+
+    [ExportGroup("Bot Properties")]
+    [Export]
     public bool useBot = false;
     [Export]
-    public int botMaxTries = 50;
-    [Export]
     public float botDelay = 0.5f;
+
     public static readonly Dictionary<string, Direction> actionToDirection = new()
     {
         { "move_up", Direction.Up },
@@ -40,6 +44,7 @@ namespace Game
     public bool IsReady { get; private set; } = false;
     public GameState GameState { get; private set; } = GameState.Playing;
     public IEnumerable<Direction> Moves { get; private set; } = new List<Direction>();
+    public int score = 0;
     private int columns;
     private int rows;
     private Tile currentTile;
@@ -99,7 +104,7 @@ namespace Game
     public void SetupBot()
     {
       var bot = ResourceLoader.Load<PackedScene>("res://Bot.tscn").Instantiate<Bot>();
-      bot.maxTries = botMaxTries;
+      bot.maxTries = medals[0];
       bot.delay = botDelay;
       bot.disabled = false;
       AddChild(bot);
@@ -151,8 +156,10 @@ namespace Game
 
     private void AddMove(Direction direction)
     {
+      score++;
       Moves = Moves.Append(direction);
-      EmitSignal(SignalName.PlayerMoved);
+
+      EmitSignal(SignalName.PlayerMoved, score);
     }
 
     public static void TriggerInputInDirection(Direction direction)
