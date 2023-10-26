@@ -142,13 +142,6 @@ namespace Game
           var isMovePlayerControlled = NavigateInDirection(itr.Value);
           if (isMovePlayerControlled == true) AddMove(itr.Value);
 
-          /*
-           * When navigating through a WithCurrent tile, if the WithCurrent direction
-           * is identical to the action just pressed, the input can't be
-           * registered unless we release the action in the same frame!
-           */
-          Input.ActionRelease(itr.Key);
-
           CheckScore();
         }
       }
@@ -164,6 +157,13 @@ namespace Game
 
     public static void TriggerInputInDirection(Direction direction)
     {
+      /*
+       * When navigating through a WithCurrent tile, if the WithCurrent direction
+       * is identical to the action just pressed, the input can't be
+       * registered unless we release the action in the same frame!
+       */
+      Input.ActionRelease(actionToDirection.FirstOrDefault(itr => itr.Value == direction).Key);
+
       var action = actionToDirection.FirstOrDefault(itr => itr.Value == direction).Key;
 
       var press = new InputEventAction
