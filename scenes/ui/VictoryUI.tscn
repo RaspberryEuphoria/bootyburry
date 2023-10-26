@@ -1,0 +1,170 @@
+[gd_scene load_steps=9 format=3 uid="uid://dyly8uhhlu2ry"]
+
+[ext_resource type="Texture2D" uid="uid://brwtli7c5nbgq" path="res://assets/ui/ending_body.png" id="1_f6s72"]
+[ext_resource type="Texture2D" uid="uid://dhgwjs2eyr25r" path="res://assets/ui/ending_body_sides.png" id="1_shgsj"]
+[ext_resource type="Texture2D" uid="uid://cppypgehh61m0" path="res://assets/ui/victory_background.png" id="3_ext1k"]
+[ext_resource type="Theme" uid="uid://cgruyese0ddm7" path="res://assets/ui/themes/label.tres" id="4_5und7"]
+[ext_resource type="Texture2D" uid="uid://dolra0c8q18bd" path="res://assets/ui/victory_effects.png" id="5_q1opr"]
+[ext_resource type="Theme" uid="uid://dca1unmi3vy5x" path="res://assets/ui/themes/button.tres" id="6_6yxqk"]
+[ext_resource type="Texture2D" uid="uid://bte4uaeny4b6g" path="res://assets/ui/cta_background.png" id="6_vvrdk"]
+[ext_resource type="Texture2D" uid="uid://bsal116m1jy8y" path="res://assets/ui/cta_background_sm.png" id="8_v3ajf"]
+
+[node name="VictoryUI" type="CanvasLayer"]
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -466.0
+offset_bottom = 466.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = 0
+
+[node name="LeftSide" type="TextureRect" parent="Control/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+texture = ExtResource("1_shgsj")
+stretch_mode = 1
+
+[node name="Body" type="TextureRect" parent="Control/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("1_f6s72")
+
+[node name="MarginContainer" type="MarginContainer" parent="Control/VBoxContainer/HBoxContainer/Body"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Header" type="VBoxContainer" parent="Control/VBoxContainer/HBoxContainer/Body/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+
+[node name="Victory" type="Control" parent="Control/VBoxContainer/HBoxContainer/Body/MarginContainer/Header"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="VictoryEffects" type="TextureRect" parent="Control/VBoxContainer/HBoxContainer/Body/MarginContainer/Header/Victory"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -149.0
+offset_top = -38.0
+offset_right = 132.0
+offset_bottom = 71.0
+grow_horizontal = 2
+grow_vertical = 0
+texture = ExtResource("5_q1opr")
+
+[node name="VictoryBackground" type="TextureRect" parent="Control/VBoxContainer/HBoxContainer/Body/MarginContainer/Header/Victory"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -96.5
+offset_top = 10.0
+offset_right = 96.5
+offset_bottom = 69.0
+grow_horizontal = 2
+texture = ExtResource("3_ext1k")
+
+[node name="VictoryLabel" type="Label" parent="Control/VBoxContainer/HBoxContainer/Body/MarginContainer/Header/Victory"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -74.0
+offset_right = 74.0
+offset_bottom = 68.0
+grow_horizontal = 2
+theme = ExtResource("4_5und7")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0.0196078, 0.572549, 0.870588, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 48
+text = "Victory!"
+horizontal_alignment = 1
+
+[node name="Moves" type="Control" parent="Control/VBoxContainer/HBoxContainer/Body/MarginContainer/Header"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="CompletedLabel" type="Label" parent="Control/VBoxContainer/HBoxContainer/Body/MarginContainer/Header/Moves"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -84.5
+offset_top = 75.0
+offset_right = 84.5
+offset_bottom = 101.0
+grow_horizontal = 2
+theme = ExtResource("4_5und7")
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 24
+text = "completed in x moves"
+
+[node name="RightSide" type="TextureRect" parent="Control/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+texture = ExtResource("1_shgsj")
+stretch_mode = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="Control/VBoxContainer/HBoxContainer/RightSide"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -12.0
+offset_bottom = 12.0
+grow_vertical = 2
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="CTAs" type="VBoxContainer" parent="Control/VBoxContainer/HBoxContainer/RightSide/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+theme_override_constants/separation = 25
+alignment = 1
+
+[node name="RetryButton" type="Button" parent="Control/VBoxContainer/HBoxContainer/RightSide/MarginContainer/CTAs"]
+layout_mode = 2
+theme = ExtResource("6_6yxqk")
+text = "retry"
+icon = ExtResource("8_v3ajf")
+icon_alignment = 1
+
+[node name="NextButton" type="Button" parent="Control/VBoxContainer/HBoxContainer/RightSide/MarginContainer/CTAs"]
+layout_mode = 2
+theme = ExtResource("6_6yxqk")
+text = "next sea
+"
+icon = ExtResource("6_vvrdk")
+icon_alignment = 1
