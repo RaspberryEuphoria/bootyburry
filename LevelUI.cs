@@ -14,7 +14,7 @@ namespace UI
     private Board board;
     private NavigationPath navigationPath;
     private Control helperControl;
-    private IEnumerable<MedalUI> medals;
+    private IEnumerable<MedalWithScore> medals;
     private Label scoreLabel;
     private Sprite2D shipWheel;
     private float rotationSpeed = 2f;
@@ -23,7 +23,7 @@ namespace UI
     public override void _Ready()
     {
       var medalsContainer = GetNode<BoxContainer>("%MedalsContainer");
-      medals = medalsContainer.GetChildren().OfType<MedalUI>();
+      medals = medalsContainer.GetChildren().OfType<MedalWithScore>();
 
       helperControl = GetNode<Control>("%HelperControl");
       scoreLabel = GetNode<Label>("%ScoreLabel");

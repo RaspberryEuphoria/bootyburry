@@ -85,15 +85,9 @@ namespace Game
 
     public override void _Process(double delta)
     {
-      if (Input.IsActionJustPressed("reset"))
+      if (Input.IsActionJustPressed("retry"))
       {
         GetTree().ReloadCurrentScene();
-        return;
-      }
-
-      if (Input.IsActionJustPressed("next_level") && GameState == GameState.Won && nextLevel != null)
-      {
-        GetTree().ChangeSceneToPacked(nextLevel);
         return;
       }
 
@@ -307,9 +301,9 @@ namespace Game
 
       EmitSignal(SignalName.GameWon);
 
-      var victoryScreen = ResourceLoader.Load<PackedScene>("res://VictoryScreen.tscn").Instantiate<VictoryScreen>();
-      victoryScreen.Init(Moves, nextLevel);
-      AddChild(victoryScreen);
+      var victoryUI = ResourceLoader.Load<PackedScene>("res://scenes/ui/VictoryUI.tscn").Instantiate<UI.VictoryUI>();
+      victoryUI.Init(nextLevel, Moves.Count());
+      AddChild(victoryUI);
     }
 
     private void Lose()

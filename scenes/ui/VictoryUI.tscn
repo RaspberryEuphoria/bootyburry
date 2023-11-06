@@ -1,5 +1,6 @@
-[gd_scene load_steps=9 format=3 uid="uid://dyly8uhhlu2ry"]
+[gd_scene load_steps=16 format=3 uid="uid://dyly8uhhlu2ry"]
 
+[ext_resource type="Script" path="res://scenes/ui/VictoryUI.cs" id="1_bqx3b"]
 [ext_resource type="Texture2D" uid="uid://brwtli7c5nbgq" path="res://assets/ui/ending_body.png" id="1_f6s72"]
 [ext_resource type="Texture2D" uid="uid://dhgwjs2eyr25r" path="res://assets/ui/ending_body_sides.png" id="1_shgsj"]
 [ext_resource type="Texture2D" uid="uid://cppypgehh61m0" path="res://assets/ui/victory_background.png" id="3_ext1k"]
@@ -7,9 +8,20 @@
 [ext_resource type="Texture2D" uid="uid://dolra0c8q18bd" path="res://assets/ui/victory_effects.png" id="5_q1opr"]
 [ext_resource type="Theme" uid="uid://dca1unmi3vy5x" path="res://assets/ui/themes/button.tres" id="6_6yxqk"]
 [ext_resource type="Texture2D" uid="uid://bte4uaeny4b6g" path="res://assets/ui/cta_background.png" id="6_vvrdk"]
+[ext_resource type="PackedScene" uid="uid://bfrph45l8moa3" path="res://MedalWithScore.tscn" id="7_xahe5"]
+[ext_resource type="Texture2D" uid="uid://bxlg6lm38shc3" path="res://assets/ui/medal_bronze.png" id="8_1xmqq"]
 [ext_resource type="Texture2D" uid="uid://bsal116m1jy8y" path="res://assets/ui/cta_background_sm.png" id="8_v3ajf"]
+[ext_resource type="Script" path="res://scenes/ui/ActionButton.cs" id="9_eitwp"]
+[ext_resource type="Texture2D" uid="uid://crh2osmpckwy4" path="res://assets/ui/medal_silver.png" id="9_fmrxt"]
 
-[node name="VictoryUI" type="CanvasLayer"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pmg6s"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_p3fub"]
+
+[node name="VictoryUI" type="CanvasLayer" node_paths=PackedStringArray("retryButton", "nextButton")]
+script = ExtResource("1_bqx3b")
+retryButton = NodePath("Control/VBoxContainer/HBoxContainer/RightSide/MarginContainer/CTAs/RetryButton")
+nextButton = NodePath("Control/VBoxContainer/HBoxContainer/RightSide/MarginContainer/CTAs/NextButton")
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
@@ -57,49 +69,30 @@ grow_vertical = 2
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="Header" type="VBoxContainer" parent="Control/VBoxContainer/HBoxContainer/Body/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/VBoxContainer/HBoxContainer/Body/MarginContainer"]
 layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 0
-
-[node name="Victory" type="Control" parent="Control/VBoxContainer/HBoxContainer/Body/MarginContainer/Header"]
-layout_mode = 2
-size_flags_horizontal = 4
 size_flags_vertical = 4
+theme_override_constants/separation = 20
 
-[node name="VictoryEffects" type="TextureRect" parent="Control/VBoxContainer/HBoxContainer/Body/MarginContainer/Header/Victory"]
-layout_mode = 1
-anchors_preset = -1
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -149.0
-offset_top = -38.0
-offset_right = 132.0
-offset_bottom = 71.0
-grow_horizontal = 2
-grow_vertical = 0
-texture = ExtResource("5_q1opr")
+[node name="Header" type="VBoxContainer" parent="Control/VBoxContainer/HBoxContainer/Body/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
 
-[node name="VictoryBackground" type="TextureRect" parent="Control/VBoxContainer/HBoxContainer/Body/MarginContainer/Header/Victory"]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -96.5
-offset_top = 10.0
-offset_right = 96.5
-offset_bottom = 69.0
-grow_horizontal = 2
+[node name="Victory" type="TextureRect" parent="Control/VBoxContainer/HBoxContainer/Body/MarginContainer/VBoxContainer/Header"]
+material = SubResource("ShaderMaterial_pmg6s")
+layout_mode = 2
 texture = ExtResource("3_ext1k")
+stretch_mode = 3
 
-[node name="VictoryLabel" type="Label" parent="Control/VBoxContainer/HBoxContainer/Body/MarginContainer/Header/Victory"]
+[node name="Label" type="Label" parent="Control/VBoxContainer/HBoxContainer/Body/MarginContainer/VBoxContainer/Header/Victory"]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -74.0
-offset_right = 74.0
-offset_bottom = 68.0
+offset_left = -256.0
+offset_top = -10.0
+offset_right = 256.0
+offset_bottom = 58.0
 grow_horizontal = 2
 theme = ExtResource("4_5und7")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
@@ -109,25 +102,60 @@ theme_override_font_sizes/font_size = 48
 text = "Victory!"
 horizontal_alignment = 1
 
-[node name="Moves" type="Control" parent="Control/VBoxContainer/HBoxContainer/Body/MarginContainer/Header"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-
-[node name="CompletedLabel" type="Label" parent="Control/VBoxContainer/HBoxContainer/Body/MarginContainer/Header/Moves"]
+[node name="Effects" type="TextureRect" parent="Control/VBoxContainer/HBoxContainer/Body/MarginContainer/VBoxContainer/Header/Victory"]
+material = SubResource("ShaderMaterial_p3fub")
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -84.5
-offset_top = 75.0
-offset_right = 84.5
-offset_bottom = 101.0
+offset_left = -140.5
+offset_top = -35.0
+offset_right = 140.5
+offset_bottom = 74.0
 grow_horizontal = 2
+texture = ExtResource("5_q1opr")
+
+[node name="CompletedLabel" type="RichTextLabel" parent="Control/VBoxContainer/HBoxContainer/Body/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
 theme = ExtResource("4_5und7")
+theme_override_colors/default_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 5
-theme_override_font_sizes/font_size = 24
-text = "completed in x moves"
+theme_override_font_sizes/normal_font_size = 24
+bbcode_enabled = true
+text = "completed in [color=\"#ffcf4f\"]{{movesCount}}[/color] moves"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+
+[node name="MedalsContainer" type="HBoxContainer" parent="Control/VBoxContainer/HBoxContainer/Body/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+theme_override_constants/separation = 25
+
+[node name="BronzeMedal" parent="Control/VBoxContainer/HBoxContainer/Body/MarginContainer/VBoxContainer/MedalsContainer" instance=ExtResource("7_xahe5")]
+layout_mode = 2
+texture = ExtResource("8_1xmqq")
+
+[node name="Label" parent="Control/VBoxContainer/HBoxContainer/Body/MarginContainer/VBoxContainer/MedalsContainer/BronzeMedal/LabelContainer" index="0"]
+visible = false
+
+[node name="SilverMedal" parent="Control/VBoxContainer/HBoxContainer/Body/MarginContainer/VBoxContainer/MedalsContainer" instance=ExtResource("7_xahe5")]
+layout_mode = 2
+texture = ExtResource("9_fmrxt")
+
+[node name="Label" parent="Control/VBoxContainer/HBoxContainer/Body/MarginContainer/VBoxContainer/MedalsContainer/SilverMedal/LabelContainer" index="0"]
+visible = false
+
+[node name="GoldMedal" parent="Control/VBoxContainer/HBoxContainer/Body/MarginContainer/VBoxContainer/MedalsContainer" instance=ExtResource("7_xahe5")]
+layout_mode = 2
+
+[node name="Label" parent="Control/VBoxContainer/HBoxContainer/Body/MarginContainer/VBoxContainer/MedalsContainer/GoldMedal/LabelContainer" index="0"]
+visible = false
 
 [node name="RightSide" type="TextureRect" parent="Control/VBoxContainer/HBoxContainer"]
 layout_mode = 2
@@ -160,6 +188,7 @@ theme = ExtResource("6_6yxqk")
 text = "retry"
 icon = ExtResource("8_v3ajf")
 icon_alignment = 1
+script = ExtResource("9_eitwp")
 
 [node name="NextButton" type="Button" parent="Control/VBoxContainer/HBoxContainer/RightSide/MarginContainer/CTAs"]
 layout_mode = 2
@@ -168,3 +197,9 @@ text = "next sea
 "
 icon = ExtResource("6_vvrdk")
 icon_alignment = 1
+script = ExtResource("9_eitwp")
+autoFocus = true
+
+[editable path="Control/VBoxContainer/HBoxContainer/Body/MarginContainer/VBoxContainer/MedalsContainer/BronzeMedal"]
+[editable path="Control/VBoxContainer/HBoxContainer/Body/MarginContainer/VBoxContainer/MedalsContainer/SilverMedal"]
+[editable path="Control/VBoxContainer/HBoxContainer/Body/MarginContainer/VBoxContainer/MedalsContainer/GoldMedal"]

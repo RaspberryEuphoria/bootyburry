@@ -2,7 +2,11 @@ using Godot;
 
 namespace UI
 {
-  public partial class MedalUI : TextureRect
+  /**
+   * This is the Medal from the LevelUI.
+   * For the Medal from the VictoryUI, see MedalVictoryUI.cs
+   */
+  public partial class MedalWithScore : TextureRect
   {
     private int value = 0;
 

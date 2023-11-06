@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://c033582xe16pm"]
+[gd_scene load_steps=9 format=3 uid="uid://c033582xe16pm"]
 
 [ext_resource type="Script" path="res://Board.cs" id="1_34qdc"]
 [ext_resource type="PackedScene" uid="uid://b1i880hkcmx50" path="res://Level_01.tscn" id="2_o6ys0"]
@@ -7,7 +7,6 @@
 [ext_resource type="PackedScene" uid="uid://e2gu8wi641jf" path="res://WithWater.tscn" id="5_b1in0"]
 [ext_resource type="PackedScene" uid="uid://ch1bcttqi5hjk" path="res://WithIsland.tscn" id="5_u02cq"]
 [ext_resource type="PackedScene" uid="uid://bux2ffg7yyub3" path="res://WithWreck.tscn" id="7_3wvu2"]
-[ext_resource type="Script" path="res://WithIsland.cs" id="8_luvjt"]
 [ext_resource type="PackedScene" uid="uid://6oclnkije4cp" path="res://WithCurrent.tscn" id="10_jbe4p"]
 
 [node name="Board" type="Node2D" node_paths=PackedStringArray("startingTile")]
@@ -33,8 +32,9 @@ Type = 2
 
 [node name="Tile_0_2" parent="." instance=ExtResource("4_i31k6")]
 position = Vector2(192, 0)
+Type = 0
 
-[node name="WithWater" parent="Tile_0_2" instance=ExtResource("5_b1in0")]
+[node name="WithIsland" parent="Tile_0_2" instance=ExtResource("5_u02cq")]
 
 [node name="Tile_1_0" parent="." instance=ExtResource("4_i31k6")]
 position = Vector2(0, 96)
@@ -50,8 +50,7 @@ position = Vector2(96, 96)
 position = Vector2(192, 96)
 Type = 0
 
-[node name="WithIsland" type="Node2D" parent="Tile_1_2" groups=["island"] instance=ExtResource("5_u02cq")]
-script = ExtResource("8_luvjt")
+[node name="WithIsland" parent="Tile_1_2" instance=ExtResource("5_u02cq")]
 
 [node name="Tile_2_0" parent="." instance=ExtResource("4_i31k6")]
 position = Vector2(0, 192)

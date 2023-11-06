@@ -1,17 +1,17 @@
 [gd_scene load_steps=5 format=3 uid="uid://bfrph45l8moa3"]
 
 [ext_resource type="Texture2D" uid="uid://wukvn8oin7t7" path="res://assets/ui/medal_gold.png" id="1_2tv17"]
-[ext_resource type="Script" path="res://MedalUI.cs" id="2_oca1h"]
+[ext_resource type="Script" path="res://MedalWithScore.cs" id="2_hvwrb"]
 [ext_resource type="Theme" uid="uid://cgruyese0ddm7" path="res://assets/ui/themes/label.tres" id="2_u43i4"]
 [ext_resource type="Texture2D" uid="uid://dmbrb6eenktbr" path="res://assets/ui/medal_cross.png" id="4_weebt"]
 
-[node name="MedalUI" type="TextureRect"]
+[node name="MedalWithScore" type="TextureRect"]
 offset_right = 71.0
 offset_bottom = 72.0
 size_flags_vertical = 4
 texture = ExtResource("1_2tv17")
 stretch_mode = 2
-script = ExtResource("2_oca1h")
+script = ExtResource("2_hvwrb")
 
 [node name="LabelContainer" type="MarginContainer" parent="."]
 layout_mode = 2

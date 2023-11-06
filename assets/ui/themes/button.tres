@@ -13,7 +13,7 @@
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_j0l3c"]
 
 [resource]
-Button/colors/icon_focus_color = Color(0, 0.584314, 0.886275, 0)
+Button/colors/icon_focus_color = Color(0, 0.584314, 0.886275, 1)
 Button/colors/icon_hover_color = Color(0, 0.584314, 0.886275, 1)
 Button/colors/icon_hover_pressed_color = Color(0, 0.584314, 0.886275, 1)
 Button/colors/icon_normal_color = Color(0.266667, 0.282353, 1, 0)

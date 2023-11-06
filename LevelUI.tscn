@@ -5,7 +5,7 @@
 [ext_resource type="Theme" uid="uid://cgruyese0ddm7" path="res://assets/ui/themes/label.tres" id="2_vrj2x"]
 [ext_resource type="Texture2D" uid="uid://8ukfx4h1ma6a" path="res://assets/ui/level_header_wheel.png" id="4_27hqj"]
 [ext_resource type="PackedScene" uid="uid://dnf52vba6q512" path="res://NavigationPath.tscn" id="4_kcv2q"]
-[ext_resource type="PackedScene" uid="uid://bfrph45l8moa3" path="res://MedalUI.tscn" id="6_f2nwh"]
+[ext_resource type="PackedScene" uid="uid://bfrph45l8moa3" path="res://MedalWithScore.tscn" id="6_f2nwh"]
 [ext_resource type="Texture2D" uid="uid://crh2osmpckwy4" path="res://assets/ui/medal_silver.png" id="7_wamov"]
 [ext_resource type="Texture2D" uid="uid://bxlg6lm38shc3" path="res://assets/ui/medal_bronze.png" id="8_pimjr"]
 
