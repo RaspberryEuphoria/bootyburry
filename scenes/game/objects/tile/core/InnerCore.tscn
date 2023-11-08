@@ -1,0 +1,79 @@
+[gd_scene load_steps=6 format=3 uid="uid://b52jnvgyagyv2"]
+
+[ext_resource type="Script" path="res://scenes/game/objects/tile/core/InnerCore.cs" id="1_lc5go"]
+[ext_resource type="Texture2D" uid="uid://ck8chakl5mwfp" path="res://assets/game/objects/tile/core/inner_texture.png" id="2_kiaa7"]
+
+[sub_resource type="Animation" id="Animation_1nr6p"]
+resource_name = "disable"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0.564706, 0.984314, 0.423529, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_t4nxh"]
+resource_name = "enable"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:scale")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(0.564706, 0.984314, 0.423529, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_8wk6d"]
+_data = {
+"disable": SubResource("Animation_1nr6p"),
+"enable": SubResource("Animation_t4nxh")
+}
+
+[node name="InnerCore" type="Node2D"]
+script = ExtResource("1_lc5go")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = 1
+scale = Vector2(1e-05, 1e-05)
+texture = ExtResource("2_kiaa7")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_8wk6d")
+}

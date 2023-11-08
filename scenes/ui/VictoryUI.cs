@@ -13,7 +13,7 @@ namespace UI
     private Button nextButton;
     private IEnumerable<MedalWithScore> medals;
 
-    private Board board;
+    private Level level;
     private int movesCount = 0;
     private PackedScene nextLevel;
 
@@ -28,7 +28,7 @@ namespace UI
       var medalsContainer = GetNode<BoxContainer>("%MedalsContainer");
       medals = medalsContainer.GetChildren().OfType<MedalWithScore>();
 
-      board = GetParent<Board>();
+      level = GetParent<Level>();
 
       SetupMedals();
     }

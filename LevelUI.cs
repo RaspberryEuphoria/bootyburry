@@ -11,7 +11,7 @@ namespace UI
     [Export(PropertyHint.MultilineText)]
     private string helperText;
 
-    private Board board;
+    private Level level;
     private NavigationPath navigationPath;
     private Control helperControl;
     private IEnumerable<MedalWithScore> medals;
@@ -30,8 +30,8 @@ namespace UI
       shipWheel = GetNode<Sprite2D>("%ShipWheel");
       navigationPath = GetNode<NavigationPath>("%NavigationPath");
 
-      board = GetParent<Board>();
-      board.PlayerMoved += OnPlayerMoved;
+      level = GetParent<Level>();
+      level.PlayerMoved += OnPlayerMoved;
 
       SetupHelperText();
       SetupMedals();
@@ -65,9 +65,9 @@ namespace UI
 
     private void SetupMedals()
     {
-      if (board.medals.Length != medals.Count())
+      if (level.medals.Length != medals.Count())
       {
-        GD.PrintErr($"Medals count ({medals.Count()}) in LevelUI does not match the medals count ({board.medals.Length}) on Board.");
+        GD.PrintErr($"Medals count ({medals.Count()}) in LevelUI does not match the medals count ({level.medals.Length}) on Level.");
         return;
       }
 
@@ -75,14 +75,14 @@ namespace UI
       {
         var medal = medals.ElementAt(i);
 
-        if (board.medals[i] == 0)
+        if (level.medals[i] == 0)
         {
           medal.Remove();
           continue;
         }
 
-        medal.Init(board.medals[i]);
-        board.PlayerMoved += medal.OnPlayerMoved;
+        medal.Init(level.medals[i]);
+        level.PlayerMoved += medal.OnPlayerMoved;
       }
     }
 

@@ -15,7 +15,7 @@ namespace Game
     {
       if (rows < 1 && columns < 1)
       {
-        GD.PrintErr("Board rows and columns must be greater than 0 to be initialized.");
+        GD.PrintErr("Level rows and columns must be greater than 0 to be initialized.");
         return;
       }
 
@@ -28,7 +28,7 @@ namespace Game
       {
         for (int x = 0; x < columns; x++)
         {
-          var tile = ResourceLoader.Load<PackedScene>("res://Tile.tscn").Instantiate<Tile>();
+          var tile = ResourceLoader.Load<PackedScene>("res://scenes/game/objects/tile/Tile.tscn").Instantiate<Tile>();
 
           tile.SetProcess(false);
           tile.Position = new Vector2(gap * x, gap * y);
@@ -38,7 +38,7 @@ namespace Game
         }
       }
 
-      Name = "Board";
+      Name = "Level";
     }
   }
 }

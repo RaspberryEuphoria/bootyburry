@@ -1,7 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://b8541muxml3fi"]
-
-[ext_resource type="Texture2D" uid="uid://bwu612tg3adhd" path="res://assets/gameplay/boat_standard.png" id="1_eln7o"]
-
-[node name="Boat" type="Sprite2D"]
-scale = Vector2(0.75, 0.75)
-texture = ExtResource("1_eln7o")

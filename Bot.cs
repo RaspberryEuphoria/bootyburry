@@ -12,7 +12,7 @@ namespace Game
     [Export]
     public bool disabled = true;
 
-    private Board board;
+    private Level level;
     private string lastAction;
     private Timer timer = null;
     private string thinking = ".";
@@ -28,7 +28,7 @@ namespace Game
       var viewportWidth = GetViewportRect().Size[0];
       GlobalPosition = new Vector2(viewportWidth / 2 - Size[0] / 2, 15);
 
-      board = GetParent<Board>();
+      level = GetParent<Level>();
       timer = new Timer
       {
         OneShot = true
@@ -41,27 +41,27 @@ namespace Game
     public override void _Process(double delta)
     {
       if (disabled) return;
-      if (!board.IsReady || (delay > 0 && !timer.IsStopped())) return;
+      if (!level.IsReady || (delay > 0 && !timer.IsStopped())) return;
 
-      if (board.GameState == GameState.Won)
+      if (level.GameState == GameState.Won)
       {
-        Text = "Board complete! Moves (" + board.Moves.Count() + "): \n";
+        Text = "Level complete! Moves (" + level.Moves.Count() + "): \n";
 
-        for (int i = 0; i < board.Moves.Count(); i++)
+        for (int i = 0; i < level.Moves.Count(); i++)
         {
-          Text += MoveToArrowEmoji(board.Moves.ElementAt(i)) + " ";
+          Text += MoveToArrowEmoji(level.Moves.ElementAt(i)) + " ";
         }
 
         return;
       }
 
-      if (board.GameState == GameState.Lost)
+      if (level.GameState == GameState.Lost)
       {
         GetTree().ReloadCurrentScene();
         return;
       }
 
-      var availableActions = board.GetAvailableActions();
+      var availableActions = level.GetAvailableActions();
       var randomAction = availableActions.ElementAt((System.Index)(GD.Randi() % availableActions.Count));
 
       timer.Start(delay);
@@ -88,7 +88,7 @@ namespace Game
 
       lastAction = randomAction;
 
-      if (board.Moves.Count() == maxTries)
+      if (level.Moves.Count() == maxTries)
       {
         GetTree().ReloadCurrentScene();
         return;

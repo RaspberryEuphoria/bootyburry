@@ -1,0 +1,164 @@
+[gd_scene load_steps=10 format=3 uid="uid://t44hvggcdygj"]
+
+[ext_resource type="Script" path="res://scenes/game/level/Level.cs" id="1_hqjmi"]
+[ext_resource type="PackedScene" uid="uid://brmf1fxffofd7" path="res://scenes/game/level/Level_07.tscn" id="2_ceqfw"]
+[ext_resource type="PackedScene" uid="uid://67x0aame80lq" path="res://scenes/game/objects/tile/Tile.tscn" id="3_busqj"]
+[ext_resource type="PackedScene" uid="uid://btkws4lwu8fi1" path="res://LevelBackground.tscn" id="3_rg2r1"]
+[ext_resource type="PackedScene" uid="uid://dbl0tiuqxnci4" path="res://LevelUI.tscn" id="4_hfr1c"]
+[ext_resource type="PackedScene" uid="uid://ch1bcttqi5hjk" path="res://scenes/game/objects/tile/core/Core.tscn" id="4_ok1ew"]
+[ext_resource type="PackedScene" uid="uid://e2gu8wi641jf" path="res://Empty.tscn" id="5_p5dah"]
+[ext_resource type="PackedScene" uid="uid://bux2ffg7yyub3" path="res://scenes/game/objects/tile/firewall/Firewall" id="6_jkwmb"]
+[ext_resource type="PackedScene" uid="uid://6oclnkije4cp" path="res://Router.tscn" id="7_1iaos"]
+
+[node name="Level" type="Node2D" node_paths=PackedStringArray("startingTile")]
+script = ExtResource("1_hqjmi")
+nextLevel = ExtResource("2_ceqfw")
+startingTile = NodePath("Tile_2_1")
+medals = PackedInt32Array(13, 19, 31)
+botDelay = 0.0
+
+[node name="Background" parent="." instance=ExtResource("3_rg2r1")]
+
+[node name="LevelUI" parent="." instance=ExtResource("4_hfr1c")]
+
+[node name="Tile_0_0" parent="." instance=ExtResource("3_busqj")]
+position = Vector2(720, 376)
+Type = 0
+
+[node name="Core" parent="Tile_0_0" instance=ExtResource("4_ok1ew")]
+
+[node name="Tile_0_1" parent="." instance=ExtResource("3_busqj")]
+position = Vector2(816, 376)
+Type = 0
+
+[node name="Core" parent="Tile_0_1" instance=ExtResource("4_ok1ew")]
+isTreasureBurriedOnStart = true
+
+[node name="Tile_0_2" parent="." instance=ExtResource("3_busqj")]
+position = Vector2(912, 376)
+
+[node name="Empty2" parent="Tile_0_2" instance=ExtResource("5_p5dah")]
+
+[node name="Tile_0_3" parent="." instance=ExtResource("3_busqj")]
+position = Vector2(1008, 376)
+
+[node name="Empty2" parent="Tile_0_3" instance=ExtResource("5_p5dah")]
+
+[node name="Tile_0_4" parent="." instance=ExtResource("3_busqj")]
+position = Vector2(1104, 376)
+Type = 0
+
+[node name="Core" parent="Tile_0_4" instance=ExtResource("4_ok1ew")]
+
+[node name="Tile_1_0" parent="." instance=ExtResource("3_busqj")]
+position = Vector2(720, 472)
+Type = 3
+
+[node name="Router" parent="Tile_1_0" instance=ExtResource("7_1iaos")]
+Direction = 3
+
+[node name="Tile_1_1" parent="." instance=ExtResource("3_busqj")]
+position = Vector2(816, 472)
+
+[node name="Empty2" parent="Tile_1_1" instance=ExtResource("5_p5dah")]
+
+[node name="Tile_1_2" parent="." instance=ExtResource("3_busqj")]
+position = Vector2(912, 472)
+Type = 0
+
+[node name="Core" parent="Tile_1_2" instance=ExtResource("4_ok1ew")]
+
+[node name="Tile_1_3" parent="." instance=ExtResource("3_busqj")]
+position = Vector2(1008, 472)
+
+[node name="Empty2" parent="Tile_1_3" instance=ExtResource("5_p5dah")]
+
+[node name="Tile_1_4" parent="." instance=ExtResource("3_busqj")]
+position = Vector2(1104, 472)
+Type = 0
+
+[node name="Core" parent="Tile_1_4" instance=ExtResource("4_ok1ew")]
+
+[node name="Tile_2_0" parent="." instance=ExtResource("3_busqj")]
+position = Vector2(720, 568)
+
+[node name="Empty" parent="Tile_2_0" instance=ExtResource("5_p5dah")]
+
+[node name="Tile_2_1" parent="." instance=ExtResource("3_busqj")]
+position = Vector2(816, 568)
+Type = 0
+
+[node name="Core" parent="Tile_2_1" instance=ExtResource("4_ok1ew")]
+
+[node name="Tile_2_2" parent="." instance=ExtResource("3_busqj")]
+position = Vector2(912, 568)
+Type = 3
+
+[node name="Router" parent="Tile_2_2" instance=ExtResource("7_1iaos")]
+Direction = 1
+
+[node name="Tile_2_3" parent="." instance=ExtResource("3_busqj")]
+position = Vector2(1008, 568)
+
+[node name="Empty2" parent="Tile_2_3" instance=ExtResource("5_p5dah")]
+
+[node name="Tile_2_4" parent="." instance=ExtResource("3_busqj")]
+position = Vector2(1104, 568)
+
+[node name="Empty2" parent="Tile_2_4" instance=ExtResource("5_p5dah")]
+
+[node name="Tile_3_0" parent="." instance=ExtResource("3_busqj")]
+position = Vector2(720, 664)
+Type = 2
+
+[node name="Firewall" parent="Tile_3_0" instance=ExtResource("6_jkwmb")]
+
+[node name="Tile_3_1" parent="." instance=ExtResource("3_busqj")]
+position = Vector2(816, 664)
+Type = 2
+
+[node name="Firewall" parent="Tile_3_1" instance=ExtResource("6_jkwmb")]
+
+[node name="Tile_3_2" parent="." instance=ExtResource("3_busqj")]
+position = Vector2(912, 664)
+
+[node name="Empty2" parent="Tile_3_2" instance=ExtResource("5_p5dah")]
+
+[node name="Tile_3_3" parent="." instance=ExtResource("3_busqj")]
+position = Vector2(1008, 664)
+Type = 2
+
+[node name="Firewall" parent="Tile_3_3" instance=ExtResource("6_jkwmb")]
+
+[node name="Tile_3_4" parent="." instance=ExtResource("3_busqj")]
+position = Vector2(1104, 664)
+Type = 0
+
+[node name="Core" parent="Tile_3_4" instance=ExtResource("4_ok1ew")]
+
+[node name="Tile_4_0" parent="." instance=ExtResource("3_busqj")]
+position = Vector2(720, 760)
+Type = 0
+
+[node name="Core" parent="Tile_4_0" instance=ExtResource("4_ok1ew")]
+
+[node name="Tile_4_1" parent="." instance=ExtResource("3_busqj")]
+position = Vector2(816, 760)
+
+[node name="Empty" parent="Tile_4_1" instance=ExtResource("5_p5dah")]
+
+[node name="Tile_4_2" parent="." instance=ExtResource("3_busqj")]
+position = Vector2(912, 760)
+Type = 0
+
+[node name="Core" parent="Tile_4_2" instance=ExtResource("4_ok1ew")]
+
+[node name="Tile_4_3" parent="." instance=ExtResource("3_busqj")]
+position = Vector2(1008, 760)
+
+[node name="Empty2" parent="Tile_4_3" instance=ExtResource("5_p5dah")]
+
+[node name="Tile_4_4" parent="." instance=ExtResource("3_busqj")]
+position = Vector2(1104, 760)
+
+[node name="Empty2" parent="Tile_4_4" instance=ExtResource("5_p5dah")]

@@ -1,0 +1,85 @@
+[gd_scene load_steps=9 format=3 uid="uid://ch1bcttqi5hjk"]
+
+[ext_resource type="Script" path="res://scenes/game/objects/tile/core/Core.cs" id="1_ocx0v"]
+[ext_resource type="Texture2D" uid="uid://d36ywp4mlllxu" path="res://assets/game/objects/tile/texture.png" id="2_fvhh6"]
+[ext_resource type="Texture2D" uid="uid://clvqnqb1qgalk" path="res://assets/game/objects/tile/core/outer_texture.png" id="2_nt7fn"]
+[ext_resource type="PackedScene" uid="uid://b52jnvgyagyv2" path="res://scenes/game/objects/tile/core/InnerCore.tscn" id="3_jrwbd"]
+[ext_resource type="PackedScene" uid="uid://b1qg5jsrtqi83" path="res://scenes/game/objects/tile/core/Selector.tscn" id="4_tl3v0"]
+
+[sub_resource type="Animation" id="Animation_j7g1c"]
+resource_name = "disable"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0.564706, 0.984314, 0.423529, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_ys1n6"]
+resource_name = "enable"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(0.564706, 0.984314, 0.423529, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_fqg57"]
+_data = {
+"disable": SubResource("Animation_j7g1c"),
+"enable": SubResource("Animation_ys1n6")
+}
+
+[node name="Core" type="Node2D" groups=["core"]]
+script = ExtResource("1_ocx0v")
+
+[node name="Background" type="Sprite2D" parent="."]
+modulate = Color(0.00014103, 0.000112033, 5.24913e-05, 0.290196)
+texture = ExtResource("2_fvhh6")
+
+[node name="Circle" type="Sprite2D" parent="."]
+texture = ExtResource("2_nt7fn")
+
+[node name="InnerCore" parent="." instance=ExtResource("3_jrwbd")]
+
+[node name="SelectorUp" parent="." instance=ExtResource("4_tl3v0")]
+visible = false
+position = Vector2(0, -50)
+rotation = -1.5708
+
+[node name="SelectorRight" parent="." instance=ExtResource("4_tl3v0")]
+visible = false
+position = Vector2(50, 0)
+direction = 3
+
+[node name="SelectorDown" parent="." instance=ExtResource("4_tl3v0")]
+visible = false
+position = Vector2(0, 50)
+rotation = 1.5708
+direction = 1
+
+[node name="SelectorLeft" parent="." instance=ExtResource("4_tl3v0")]
+visible = false
+position = Vector2(-50, 0)
+rotation = -3.14159
+direction = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../Circle")
+libraries = {
+"": SubResource("AnimationLibrary_fqg57")
+}
