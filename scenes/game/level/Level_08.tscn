@@ -1,13 +1,13 @@
 [gd_scene load_steps=9 format=3 uid="uid://d0mrskclosgl2"]
 
 [ext_resource type="Script" path="res://scenes/game/level/Level.cs" id="1_igvo4"]
-[ext_resource type="PackedScene" uid="uid://btkws4lwu8fi1" path="res://LevelBackground.tscn" id="2_t3ne7"]
+[ext_resource type="PackedScene" uid="uid://btkws4lwu8fi1" path="res://scenes/game/level/LevelBackground.tscn" id="2_t3ne7"]
 [ext_resource type="PackedScene" uid="uid://dbl0tiuqxnci4" path="res://LevelUI.tscn" id="3_b5s7n"]
 [ext_resource type="PackedScene" uid="uid://67x0aame80lq" path="res://scenes/game/objects/tile/Tile.tscn" id="3_javoo"]
 [ext_resource type="PackedScene" uid="uid://ch1bcttqi5hjk" path="res://scenes/game/objects/tile/core/Core.tscn" id="4_ibm2w"]
-[ext_resource type="PackedScene" uid="uid://e2gu8wi641jf" path="res://Empty.tscn" id="5_jhll1"]
-[ext_resource type="PackedScene" uid="uid://bux2ffg7yyub3" path="res://scenes/game/objects/tile/firewall/Firewall" id="6_rkwpp"]
-[ext_resource type="PackedScene" uid="uid://6oclnkije4cp" path="res://Router.tscn" id="7_th0rv"]
+[ext_resource type="PackedScene" uid="uid://e2gu8wi641jf" path="res://scenes/game/objects/tile/empty/Empty.tscn" id="5_jhll1"]
+[ext_resource type="PackedScene" uid="uid://bux2ffg7yyub3" path="res://scenes/game/objects/tile/firewall/Firewall.tscn" id="6_rkwpp"]
+[ext_resource type="PackedScene" uid="uid://6oclnkije4cp" path="res://scenes/game/objects/tile/router/Router.tscn" id="7_th0rv"]
 
 [node name="Level" type="Node2D" node_paths=PackedStringArray("startingTile")]
 script = ExtResource("1_igvo4")

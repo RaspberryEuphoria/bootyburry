@@ -7,18 +7,13 @@ namespace Game
   {
     [Export]
     public Direction Direction { get; private set; } = Direction.Up;
-    [Export]
-    private float moveSpeed = 0.5f;
 
     private Tile tile;
-    private Sprite2D currentTexture;
-    private Sprite2D foamTexture;
+    private Sprite2D arrows;
 
     public override void _Ready()
     {
-      var emptyTexture = GetNode<Sprite2D>("WaterTexture");
-      currentTexture = emptyTexture.GetNode<Sprite2D>("CurrentTexture");
-      foamTexture = emptyTexture.GetNode<Sprite2D>("FoamTexture");
+      arrows = GetNode<Sprite2D>("Arrows");
 
       tile = GetParent<Tile>();
       tile.TileSelected += OnTileSelected;
@@ -29,11 +24,6 @@ namespace Game
     public override void _ExitTree()
     {
       tile.TileSelected -= OnTileSelected;
-    }
-
-    public override void _PhysicsProcess(double delta)
-    {
-      AnimateSprites();
     }
 
     public bool CanBeDockedFromDirection(Direction direction)
@@ -48,7 +38,7 @@ namespace Game
 
     public void SetupRotation()
     {
-      currentTexture.RotationDegrees = Direction switch
+      arrows.RotationDegrees = Direction switch
       {
         Direction.Up => 90,
         Direction.Down => -90,
@@ -56,13 +46,6 @@ namespace Game
         Direction.Right => -180,
         _ => 90,
       };
-      foamTexture.RotationDegrees = currentTexture.RotationDegrees;
-    }
-
-    public void AnimateSprites()
-    {
-      currentTexture.RegionRect = new Rect2(currentTexture.RegionRect.Position + new Vector2(moveSpeed, 0f), currentTexture.RegionRect.Size);
-      foamTexture.RegionRect = new Rect2(foamTexture.RegionRect.Position + new Vector2(moveSpeed * 0.5f, 0f), foamTexture.RegionRect.Size);
     }
 
     public void OnTileSelected(Tile tile)
