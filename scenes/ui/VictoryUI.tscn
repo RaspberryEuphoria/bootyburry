@@ -30,19 +30,18 @@ grow_vertical = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Control"]
 layout_mode = 1
-anchors_preset = 14
-anchor_top = 0.5
+anchors_preset = 12
+anchor_top = 1.0
 anchor_right = 1.0
-anchor_bottom = 0.5
-offset_top = -466.0
-offset_bottom = 466.0
+anchor_bottom = 1.0
+offset_top = -308.0
 grow_horizontal = 2
-grow_vertical = 2
+grow_vertical = 0
 alignment = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Control/VBoxContainer"]
 layout_mode = 2
-size_flags_vertical = 4
+size_flags_vertical = 8
 theme_override_constants/separation = 0
 
 [node name="LeftSide" type="TextureRect" parent="Control/VBoxContainer/HBoxContainer"]
@@ -81,6 +80,19 @@ layout_mode = 2
 texture = ExtResource("3_ext1k")
 stretch_mode = 3
 
+[node name="Effects" type="TextureRect" parent="Control/VBoxContainer/HBoxContainer/Body/MarginContainer/VBoxContainer/Header/Victory"]
+material = SubResource("ShaderMaterial_p3fub")
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -140.5
+offset_top = -35.0
+offset_right = 140.5
+offset_bottom = 74.0
+grow_horizontal = 2
+texture = ExtResource("5_q1opr")
+
 [node name="Label" type="Label" parent="Control/VBoxContainer/HBoxContainer/Body/MarginContainer/VBoxContainer/Header/Victory"]
 layout_mode = 1
 anchors_preset = 5
@@ -99,30 +111,18 @@ theme_override_font_sizes/font_size = 48
 text = "Victory!"
 horizontal_alignment = 1
 
-[node name="Effects" type="TextureRect" parent="Control/VBoxContainer/HBoxContainer/Body/MarginContainer/VBoxContainer/Header/Victory"]
-material = SubResource("ShaderMaterial_p3fub")
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -140.5
-offset_top = -35.0
-offset_right = 140.5
-offset_bottom = 74.0
-grow_horizontal = 2
-texture = ExtResource("5_q1opr")
-
 [node name="CompletedLabel" type="RichTextLabel" parent="Control/VBoxContainer/HBoxContainer/Body/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
+size_flags_vertical = 4
 theme = ExtResource("4_5und7")
 theme_override_colors/default_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 5
 theme_override_font_sizes/normal_font_size = 24
 bbcode_enabled = true
-text = "completed in [color=\"#ffcf4f\"]{{movesCount}}[/color] moves"
+text = "completed with [color=\"#ffcf4f\"]{{movesCount}}[/color] computations"
 fit_content = true
 scroll_active = false
 autowrap_mode = 0
@@ -155,7 +155,7 @@ alignment = 1
 [node name="RetryButton" type="Button" parent="Control/VBoxContainer/HBoxContainer/RightSide/MarginContainer/CTAs"]
 layout_mode = 2
 theme = ExtResource("6_6yxqk")
-text = "retry"
+text = "reload"
 icon = ExtResource("8_v3ajf")
 icon_alignment = 1
 script = ExtResource("9_eitwp")
@@ -163,7 +163,7 @@ script = ExtResource("9_eitwp")
 [node name="NextButton" type="Button" parent="Control/VBoxContainer/HBoxContainer/RightSide/MarginContainer/CTAs"]
 layout_mode = 2
 theme = ExtResource("6_6yxqk")
-text = "next sea
+text = "next task
 "
 icon = ExtResource("6_vvrdk")
 icon_alignment = 1
