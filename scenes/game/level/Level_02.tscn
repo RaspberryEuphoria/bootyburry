@@ -13,6 +13,9 @@
 script = ExtResource("1_3py4v")
 nextLevel = ExtResource("2_jbcnm")
 startingTile = NodePath("Tile_2_0")
+OptimalScore = 4
+LevelTitle = "Level 02"
+LevelSubtitle = "// Unfinished Work"
 
 [node name="Background" parent="." instance=ExtResource("4_xvaq6")]
 
@@ -37,7 +40,7 @@ Type = 0
 
 [node name="Core" parent="Tile_0_2" instance=ExtResource("5_owoer")]
 scale = Vector2(1, 1.02003)
-isTreasureBurriedOnStart = true
+isCoreEnabledOnStart = true
 
 [node name="Tile_1_0" parent="." instance=ExtResource("3_bj2sm")]
 position = Vector2(864, 584)

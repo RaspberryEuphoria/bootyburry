@@ -45,7 +45,7 @@ namespace UI
 
     private void SetInitialLabelsText()
     {
-      levelTitleLabel.Text = level.Name;
+      levelTitleLabel.Text = level.LevelTitle + " " + level.LevelSubtitle;
       loadingLabel.Text = "";
       actualComputationsLabel.Text = "0";
       optimalComputationsLabel.Text = level.OptimalScore.ToString();
@@ -111,7 +111,6 @@ namespace UI
 
     private void OnCoresUpdated()
     {
-      GD.Print("OnCoresUpdated");
       SetCoresText();
     }
   }

@@ -13,6 +13,9 @@
 script = ExtResource("1_3py4v")
 nextLevel = ExtResource("2_0eqrr")
 startingTile = NodePath("Tile_1_4")
+OptimalScore = 10
+LevelTitle = "Level 03"
+LevelSubtitle = "// There's Always More"
 botDelay = 0.0
 
 [node name="Background" parent="." instance=ExtResource("3_tjdiv")]

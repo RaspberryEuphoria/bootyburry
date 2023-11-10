@@ -28,6 +28,10 @@ namespace Game
     public Tile startingTile;
     [Export]
     public int OptimalScore { get; private set; } = 0;
+    [Export]
+    public string LevelTitle;
+    [Export]
+    public string LevelSubtitle;
 
     [ExportGroup("Bot Properties")]
     [Export]
