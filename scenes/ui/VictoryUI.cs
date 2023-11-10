@@ -23,19 +23,12 @@ namespace UI
       nextButton.Pressed += OnNext;
 
       level = GetParent<Level>();
-
-      SetupMedals();
     }
 
     public void Init(PackedScene nextLevel, int movesCount)
     {
       this.movesCount = movesCount;
       this.nextLevel = nextLevel;
-    }
-
-    private void SetupMedals()
-    {
-
     }
 
     private void OnRetry()

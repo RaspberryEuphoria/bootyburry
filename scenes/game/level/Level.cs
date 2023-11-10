@@ -320,7 +320,14 @@ namespace Game
 
       EmitSignal(SignalName.GameWon);
 
-      var victoryUI = ResourceLoader.Load<PackedScene>("res://scenes/ui/VictoryUI.tscn").Instantiate<UI.VictoryUI>();
+      if (nextLevel == null)
+      {
+        var ending = ResourceLoader.Load<PackedScene>("res://scenes/ui/EndScreen.tscn").Instantiate<Node>();
+        AddChild(ending);
+        return;
+      }
+
+      var victoryUI = ResourceLoader.Load<PackedScene>("res://scenes/ui/VictoryUI.tscn").Instantiate<VictoryUI>();
       victoryUI.Init(nextLevel, Moves.Count());
       AddChild(victoryUI);
     }
