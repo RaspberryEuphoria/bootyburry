@@ -156,6 +156,7 @@ namespace Game
 
       if (adjacentTile == null) return null;
       if (IsBlockedByCurrent(direction)) return null;
+      if (adjacentTile.IsFirewall()) return null;
 
       if (adjacentTile.CanBeDockedFromDirection(direction)) return adjacentTile;
 
@@ -172,7 +173,7 @@ namespace Game
 
       if (adjacentTile == null) return null;
       if (adjacentTile == goalTile) return null;
-      if (!adjacentTile.HasHazardTerrain()) return adjacentTile.GetHazardTileInPath(direction, goalTile);
+      if (!adjacentTile.IsFirewall()) return adjacentTile.GetHazardTileInPath(direction, goalTile);
 
       return adjacentTile;
     }
@@ -234,8 +235,7 @@ namespace Game
       return terrain.Direction == Level.GetOpposedDirection(direction);
     }
 
-    /** Hazards are deadly terrains */
-    public bool HasHazardTerrain()
+    public bool IsFirewall()
     {
       return Terrain is Firewall;
     }

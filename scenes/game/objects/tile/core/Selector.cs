@@ -20,7 +20,7 @@ namespace Game
     public void OnTileSelected(Tile tile)
     {
       if (tile.IsOnBorder(direction)) return;
-      if (tile.HasHazardTerrain()) return;
+      if (tile.IsFirewall()) return;
 
       var tileWithTreasureInDirection = tile.GetNavigableTileInDirection(direction);
       var hasTileWithHazardInDirection = tileWithTreasureInDirection != null && tileWithTreasureInDirection != tile;
