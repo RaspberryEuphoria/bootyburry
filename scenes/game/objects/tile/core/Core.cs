@@ -7,7 +7,7 @@ namespace Game
   public partial class Core : Node2D
   {
     [Export]
-    private bool isTreasureBurriedOnStart = false;
+    private bool isCoreEnabledOnStart = false;
 
     private AnimationPlayer animationPlayer;
     private InnerCore innerCore;
@@ -31,7 +31,7 @@ namespace Game
         tile.TileUnselected += selectors[i].OnTileUnselected;
       }
 
-      if (isTreasureBurriedOnStart)
+      if (isCoreEnabledOnStart)
       {
         innerCore.Toggle();
         animationPlayer.Play("enable");

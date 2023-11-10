@@ -4,7 +4,6 @@ namespace Game
 {
   public enum CoreState { Enabled, Disabled }
 
-  // @tdoo rename trasure into core
   public partial class InnerCore : Node2D
   {
     [Export]
