@@ -19,7 +19,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.3),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Color(0.564706, 0.984314, 0.423529, 1), Color(1, 1, 1, 1)]
+"values": [Color(0.56, 0.98, 0.42, 1), Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_ys1n6"]
@@ -35,7 +35,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.3),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Color(1, 1, 1, 1), Color(0.564706, 0.984314, 0.423529, 1)]
+"values": [Color(1, 1, 1, 1), Color(0.56, 0.98, 0.42, 1)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_fqg57"]

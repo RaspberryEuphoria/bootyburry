@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-using System.Linq;
 using Game;
 using Godot;
 
@@ -11,7 +9,6 @@ namespace UI
     private Button retryButton;
     [Export]
     private Button nextButton;
-    private IEnumerable<MedalWithScore> medals;
 
     private Level level;
     private int movesCount = 0;
@@ -24,9 +21,6 @@ namespace UI
 
       retryButton.Pressed += OnRetry;
       nextButton.Pressed += OnNext;
-
-      var medalsContainer = GetNode<BoxContainer>("%MedalsContainer");
-      medals = medalsContainer.GetChildren().OfType<MedalWithScore>();
 
       level = GetParent<Level>();
 

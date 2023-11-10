@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://b1i880hkcmx50" path="res://scenes/game/level/Level_01.tscn" id="2_jnlk2"]
 [ext_resource type="PackedScene" uid="uid://btkws4lwu8fi1" path="res://scenes/game/level/LevelBackground.tscn" id="3_o8lm3"]
 [ext_resource type="PackedScene" uid="uid://67x0aame80lq" path="res://scenes/game/objects/tile/Tile.tscn" id="3_xsr66"]
-[ext_resource type="PackedScene" uid="uid://dbl0tiuqxnci4" path="res://LevelUI.tscn" id="4_fgq5k"]
+[ext_resource type="PackedScene" uid="uid://dbl0tiuqxnci4" path="res://scenes/ui/LevelUI.tscn" id="4_fgq5k"]
 [ext_resource type="PackedScene" uid="uid://ch1bcttqi5hjk" path="res://scenes/game/objects/tile/core/Core.tscn" id="6_86uui"]
 [ext_resource type="PackedScene" uid="uid://e2gu8wi641jf" path="res://scenes/game/objects/tile/empty/Empty.tscn" id="6_rgcdj"]
 
@@ -16,9 +16,6 @@ startingTile = NodePath("Tile_0_0")
 [node name="Background" parent="." instance=ExtResource("3_o8lm3")]
 
 [node name="LevelUI" parent="." instance=ExtResource("4_fgq5k")]
-helperText = "On desert isles, where treasures lie,
-With \"[color=\"#ff0000\"]Z,Q,S,D[/color]\" let your ship comply
-"
 
 [node name="Tile_0_0" parent="." instance=ExtResource("3_xsr66")]
 position = Vector2(864, 488)

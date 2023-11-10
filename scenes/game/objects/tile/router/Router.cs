@@ -2,7 +2,6 @@ using Godot;
 
 namespace Game
 {
-  [Tool]
   public partial class Router : Node2D
   {
     [Export]

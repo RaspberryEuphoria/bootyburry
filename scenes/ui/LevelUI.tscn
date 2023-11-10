@@ -1,0 +1,211 @@
+[gd_scene load_steps=8 format=3 uid="uid://dbl0tiuqxnci4"]
+
+[ext_resource type="Texture2D" uid="uid://crq44tibmvmta" path="res://assets/fx/holographic_pattern.png" id="1_ba2eh"]
+[ext_resource type="Script" path="res://scenes/ui/LevelUI.cs" id="1_egn7x"]
+[ext_resource type="Texture2D" uid="uid://o46g14085m5w" path="res://assets/ui/levelUI/texture.png" id="2_dwe1a"]
+[ext_resource type="Theme" uid="uid://cgruyese0ddm7" path="res://assets/ui/themes/label.tres" id="2_vrj2x"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jlbxm"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8ehk2"]
+
+[sub_resource type="Environment" id="Environment_dfevx"]
+background_mode = 3
+background_canvas_max_layer = 1
+glow_enabled = true
+glow_levels/1 = 2.0
+glow_levels/3 = 0.0
+glow_levels/5 = 0.0
+glow_strength = 0.8
+glow_bloom = 0.1
+glow_blend_mode = 0
+
+[node name="LevelUI" type="CanvasLayer"]
+script = ExtResource("1_egn7x")
+
+[node name="Holo" type="TextureRect" parent="."]
+modulate = Color(0, 0, 0, 1)
+texture_repeat = 2
+offset_left = 645.0
+offset_top = 38.0
+offset_right = 1276.0
+offset_bottom = 284.0
+texture = ExtResource("1_ba2eh")
+stretch_mode = 1
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 32
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/MarginContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/MarginContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Header" type="TextureRect" parent="Control/MarginContainer/VBoxContainer/HBoxContainer"]
+material = SubResource("ShaderMaterial_jlbxm")
+layout_mode = 2
+texture = ExtResource("2_dwe1a")
+
+[node name="MarginContainer" type="MarginContainer" parent="Control/MarginContainer/VBoxContainer/HBoxContainer/Header"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -121.5
+offset_right = 357.0
+offset_bottom = 121.5
+grow_vertical = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/MarginContainer/VBoxContainer/HBoxContainer/Header/MarginContainer"]
+material = SubResource("ShaderMaterial_8ehk2")
+layout_mode = 2
+
+[node name="LevelTitleContainer" type="HBoxContainer" parent="Control/MarginContainer/VBoxContainer/HBoxContainer/Header/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="[" type="Label" parent="Control/MarginContainer/VBoxContainer/HBoxContainer/Header/MarginContainer/VBoxContainer/LevelTitleContainer"]
+modulate = Color(1.2, 1.2, 1.2, 1)
+layout_mode = 2
+theme = ExtResource("2_vrj2x")
+theme_override_colors/font_color = Color(0.517647, 0.27451, 0.298039, 1)
+theme_override_font_sizes/font_size = 24
+text = "["
+
+[node name="LevelTitleLabel2" type="Label" parent="Control/MarginContainer/VBoxContainer/HBoxContainer/Header/MarginContainer/VBoxContainer/LevelTitleContainer"]
+unique_name_in_owner = true
+modulate = Color(1.2, 1.2, 1.2, 1)
+layout_mode = 2
+theme = ExtResource("2_vrj2x")
+theme_override_colors/font_color = Color(0.635294, 0.282353, 0.466667, 1)
+theme_override_font_sizes/font_size = 24
+text = "{{level}}"
+
+[node name="]" type="Label" parent="Control/MarginContainer/VBoxContainer/HBoxContainer/Header/MarginContainer/VBoxContainer/LevelTitleContainer"]
+modulate = Color(1.2, 1.2, 1.2, 1)
+layout_mode = 2
+theme = ExtResource("2_vrj2x")
+theme_override_colors/font_color = Color(0.517647, 0.27451, 0.298039, 1)
+theme_override_font_sizes/font_size = 24
+text = "]"
+
+[node name="Separator1" type="Label" parent="Control/MarginContainer/VBoxContainer/HBoxContainer/Header/MarginContainer/VBoxContainer"]
+modulate = Color(1.2, 1.2, 1.2, 1)
+layout_mode = 2
+theme = ExtResource("2_vrj2x")
+theme_override_font_sizes/font_size = 18
+text = "--------------"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/MarginContainer/VBoxContainer/HBoxContainer/Header/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="SynchronizationLabel" type="Label" parent="Control/MarginContainer/VBoxContainer/HBoxContainer/Header/MarginContainer/VBoxContainer/HBoxContainer"]
+modulate = Color(1.2, 1.2, 1.2, 1)
+layout_mode = 2
+theme = ExtResource("2_vrj2x")
+theme_override_colors/font_color = Color(0.635294, 0.282353, 0.466667, 1)
+theme_override_font_sizes/font_size = 18
+text = "Cores synchronizing"
+
+[node name="LoadingLabel" type="Label" parent="Control/MarginContainer/VBoxContainer/HBoxContainer/Header/MarginContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+modulate = Color(1.2, 1.2, 1.2, 1)
+layout_mode = 2
+theme = ExtResource("2_vrj2x")
+theme_override_colors/font_color = Color(0.635294, 0.282353, 0.466667, 1)
+theme_override_font_sizes/font_size = 18
+text = "{{loader}}"
+
+[node name="CoresContainer" type="HBoxContainer" parent="Control/MarginContainer/VBoxContainer/HBoxContainer/Header/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="ActiveCoresLabel" type="Label" parent="Control/MarginContainer/VBoxContainer/HBoxContainer/Header/MarginContainer/VBoxContainer/CoresContainer"]
+unique_name_in_owner = true
+modulate = Color(1.2, 1.2, 1.2, 1)
+layout_mode = 2
+theme = ExtResource("2_vrj2x")
+theme_override_colors/font_color = Color(0.564706, 0.984314, 0.423529, 1)
+theme_override_font_sizes/font_size = 18
+text = "* * *"
+
+[node name="RemaningCoresLabel" type="Label" parent="Control/MarginContainer/VBoxContainer/HBoxContainer/Header/MarginContainer/VBoxContainer/CoresContainer"]
+unique_name_in_owner = true
+modulate = Color(1.2, 1.2, 1.2, 1)
+layout_mode = 2
+theme = ExtResource("2_vrj2x")
+theme_override_font_sizes/font_size = 18
+text = "* * *"
+
+[node name="Separator2" type="Label" parent="Control/MarginContainer/VBoxContainer/HBoxContainer/Header/MarginContainer/VBoxContainer"]
+modulate = Color(1.2, 1.2, 1.2, 1)
+layout_mode = 2
+theme = ExtResource("2_vrj2x")
+theme_override_font_sizes/font_size = 18
+text = "--------------"
+
+[node name="ComputationsLabel" type="Label" parent="Control/MarginContainer/VBoxContainer/HBoxContainer/Header/MarginContainer/VBoxContainer"]
+modulate = Color(1.2, 1.2, 1.2, 1)
+layout_mode = 2
+theme = ExtResource("2_vrj2x")
+theme_override_colors/font_color = Color(0.635294, 0.282353, 0.466667, 1)
+theme_override_font_sizes/font_size = 18
+text = "Computations (Actual / Optimal)
+"
+
+[node name="ComputationsContainer" type="HBoxContainer" parent="Control/MarginContainer/VBoxContainer/HBoxContainer/Header/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="ActualComputationsLabel" type="Label" parent="Control/MarginContainer/VBoxContainer/HBoxContainer/Header/MarginContainer/VBoxContainer/ComputationsContainer"]
+unique_name_in_owner = true
+modulate = Color(1.2, 1.2, 1.2, 1)
+layout_mode = 2
+theme = ExtResource("2_vrj2x")
+theme_override_colors/font_color = Color(0.564706, 0.984314, 0.423529, 1)
+theme_override_font_sizes/font_size = 18
+text = "{{actual}}"
+
+[node name="Separator" type="Label" parent="Control/MarginContainer/VBoxContainer/HBoxContainer/Header/MarginContainer/VBoxContainer/ComputationsContainer"]
+modulate = Color(1.2, 1.2, 1.2, 1)
+layout_mode = 2
+theme = ExtResource("2_vrj2x")
+theme_override_colors/font_color = Color(0.564706, 0.984314, 0.423529, 1)
+theme_override_font_sizes/font_size = 18
+text = "/
+"
+
+[node name="OptimalComputationsLabel" type="Label" parent="Control/MarginContainer/VBoxContainer/HBoxContainer/Header/MarginContainer/VBoxContainer/ComputationsContainer"]
+unique_name_in_owner = true
+modulate = Color(1.2, 1.2, 1.2, 1)
+layout_mode = 2
+theme = ExtResource("2_vrj2x")
+theme_override_colors/font_color = Color(0.564706, 0.984314, 0.423529, 1)
+theme_override_font_sizes/font_size = 18
+text = "{{optimal}}"
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_dfevx")

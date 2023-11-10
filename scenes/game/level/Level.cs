@@ -50,7 +50,7 @@ namespace Game
     private Tile currentTile;
     private Tile previousTile;
     private IEnumerable<Tile> tiles;
-    private IEnumerable<InnerCore> treasures;
+    private IEnumerable<InnerCore> cores;
     private IEnumerable<NavigationPath> navigationPaths = new List<NavigationPath>();
 
     public override void _Ready()
@@ -123,7 +123,7 @@ namespace Game
         }
       }
 
-      treasures = tiles.Where(t => t.IsCore()).Select(t => t.Terrain.GetNode<InnerCore>("InnerCore"));
+      cores = tiles.Where(t => t.IsCore()).Select(t => t.Terrain.GetNode<InnerCore>("InnerCore"));
       IsReady = true;
     }
 
@@ -284,9 +284,10 @@ namespace Game
 
     private void CheckScore()
     {
-      var burriedTreasures = treasures.Where(t => t.IsEnabled());
-      if (burriedTreasures.Count() == treasures.Count()) Win();
+      var enabledCores = cores.Where(t => t.IsEnabled());
+      if (enabledCores.Count() == cores.Count()) Win();
     }
+
     private void Win()
     {
       GameState = GameState.Won;
@@ -321,10 +322,6 @@ namespace Game
       GD.Print(report);
 
       EmitSignal(SignalName.GameLost);
-
-      var losingScreen = ResourceLoader.Load<PackedScene>("res://LosingScreen.tscn").Instantiate<LosingScreen>();
-      losingScreen.Init(Moves, nextLevel);
-      AddChild(losingScreen);
     }
 
     public int GetRows()
