@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://dyly8uhhlu2ry"]
+[gd_scene load_steps=13 format=3 uid="uid://dyly8uhhlu2ry"]
 
 [ext_resource type="Script" path="res://scenes/ui/VictoryUI.cs" id="1_bqx3b"]
 [ext_resource type="Texture2D" uid="uid://brwtli7c5nbgq" path="res://assets/ui/ending_body.png" id="1_f6s72"]
@@ -8,11 +8,8 @@
 [ext_resource type="Texture2D" uid="uid://dolra0c8q18bd" path="res://assets/ui/victory_effects.png" id="5_q1opr"]
 [ext_resource type="Theme" uid="uid://dca1unmi3vy5x" path="res://assets/ui/themes/button.tres" id="6_6yxqk"]
 [ext_resource type="Texture2D" uid="uid://bte4uaeny4b6g" path="res://assets/ui/cta_background.png" id="6_vvrdk"]
-[ext_resource type="PackedScene" uid="uid://bfrph45l8moa3" path="res://MedalWithScore.tscn" id="7_xahe5"]
-[ext_resource type="Texture2D" uid="uid://bxlg6lm38shc3" path="res://assets/ui/medal_bronze.png" id="8_1xmqq"]
 [ext_resource type="Texture2D" uid="uid://bsal116m1jy8y" path="res://assets/ui/cta_background_sm.png" id="8_v3ajf"]
 [ext_resource type="Script" path="res://scenes/ui/ActionButton.cs" id="9_eitwp"]
-[ext_resource type="Texture2D" uid="uid://crh2osmpckwy4" path="res://assets/ui/medal_silver.png" id="9_fmrxt"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_pmg6s"]
 
@@ -130,33 +127,6 @@ fit_content = true
 scroll_active = false
 autowrap_mode = 0
 
-[node name="MedalsContainer" type="HBoxContainer" parent="Control/VBoxContainer/HBoxContainer/Body/MarginContainer/VBoxContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 8
-theme_override_constants/separation = 25
-
-[node name="BronzeMedal" parent="Control/VBoxContainer/HBoxContainer/Body/MarginContainer/VBoxContainer/MedalsContainer" instance=ExtResource("7_xahe5")]
-layout_mode = 2
-texture = ExtResource("8_1xmqq")
-
-[node name="Label" parent="Control/VBoxContainer/HBoxContainer/Body/MarginContainer/VBoxContainer/MedalsContainer/BronzeMedal/LabelContainer" index="0"]
-visible = false
-
-[node name="SilverMedal" parent="Control/VBoxContainer/HBoxContainer/Body/MarginContainer/VBoxContainer/MedalsContainer" instance=ExtResource("7_xahe5")]
-layout_mode = 2
-texture = ExtResource("9_fmrxt")
-
-[node name="Label" parent="Control/VBoxContainer/HBoxContainer/Body/MarginContainer/VBoxContainer/MedalsContainer/SilverMedal/LabelContainer" index="0"]
-visible = false
-
-[node name="GoldMedal" parent="Control/VBoxContainer/HBoxContainer/Body/MarginContainer/VBoxContainer/MedalsContainer" instance=ExtResource("7_xahe5")]
-layout_mode = 2
-
-[node name="Label" parent="Control/VBoxContainer/HBoxContainer/Body/MarginContainer/VBoxContainer/MedalsContainer/GoldMedal/LabelContainer" index="0"]
-visible = false
-
 [node name="RightSide" type="TextureRect" parent="Control/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
@@ -199,7 +169,3 @@ icon = ExtResource("6_vvrdk")
 icon_alignment = 1
 script = ExtResource("9_eitwp")
 autoFocus = true
-
-[editable path="Control/VBoxContainer/HBoxContainer/Body/MarginContainer/VBoxContainer/MedalsContainer/BronzeMedal"]
-[editable path="Control/VBoxContainer/HBoxContainer/Body/MarginContainer/VBoxContainer/MedalsContainer/SilverMedal"]
-[editable path="Control/VBoxContainer/HBoxContainer/Body/MarginContainer/VBoxContainer/MedalsContainer/GoldMedal"]

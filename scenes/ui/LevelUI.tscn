@@ -96,7 +96,7 @@ theme_override_colors/font_color = Color(0.517647, 0.27451, 0.298039, 1)
 theme_override_font_sizes/font_size = 24
 text = "["
 
-[node name="LevelTitleLabel2" type="Label" parent="Control/MarginContainer/VBoxContainer/HBoxContainer/Header/MarginContainer/VBoxContainer/LevelTitleContainer"]
+[node name="LevelTitleLabel" type="Label" parent="Control/MarginContainer/VBoxContainer/HBoxContainer/Header/MarginContainer/VBoxContainer/LevelTitleContainer"]
 unique_name_in_owner = true
 modulate = Color(1.2, 1.2, 1.2, 1)
 layout_mode = 2
@@ -120,10 +120,10 @@ theme = ExtResource("2_vrj2x")
 theme_override_font_sizes/font_size = 18
 text = "--------------"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Control/MarginContainer/VBoxContainer/HBoxContainer/Header/MarginContainer/VBoxContainer"]
+[node name="SynchronizationContainer" type="HBoxContainer" parent="Control/MarginContainer/VBoxContainer/HBoxContainer/Header/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="SynchronizationLabel" type="Label" parent="Control/MarginContainer/VBoxContainer/HBoxContainer/Header/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="SynchronizationLabel" type="Label" parent="Control/MarginContainer/VBoxContainer/HBoxContainer/Header/MarginContainer/VBoxContainer/SynchronizationContainer"]
 modulate = Color(1.2, 1.2, 1.2, 1)
 layout_mode = 2
 theme = ExtResource("2_vrj2x")
@@ -131,18 +131,48 @@ theme_override_colors/font_color = Color(0.635294, 0.282353, 0.466667, 1)
 theme_override_font_sizes/font_size = 18
 text = "Cores synchronizing"
 
-[node name="LoadingLabel" type="Label" parent="Control/MarginContainer/VBoxContainer/HBoxContainer/Header/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="LoadingLabel" type="Label" parent="Control/MarginContainer/VBoxContainer/HBoxContainer/Header/MarginContainer/VBoxContainer/SynchronizationContainer"]
 unique_name_in_owner = true
 modulate = Color(1.2, 1.2, 1.2, 1)
 layout_mode = 2
 theme = ExtResource("2_vrj2x")
 theme_override_colors/font_color = Color(0.635294, 0.282353, 0.466667, 1)
 theme_override_font_sizes/font_size = 18
-text = "{{loader}}"
+text = "⠋"
+justification_flags = 160
+
+[node name="LoadingOverContainer" type="HBoxContainer" parent="Control/MarginContainer/VBoxContainer/HBoxContainer/Header/MarginContainer/VBoxContainer/SynchronizationContainer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+
+[node name="[" type="Label" parent="Control/MarginContainer/VBoxContainer/HBoxContainer/Header/MarginContainer/VBoxContainer/SynchronizationContainer/LoadingOverContainer"]
+modulate = Color(1.2, 1.2, 1.2, 1)
+layout_mode = 2
+theme = ExtResource("2_vrj2x")
+theme_override_colors/font_color = Color(0.517647, 0.27451, 0.298039, 1)
+theme_override_font_sizes/font_size = 24
+text = "["
+
+[node name="DoneLabel" type="Label" parent="Control/MarginContainer/VBoxContainer/HBoxContainer/Header/MarginContainer/VBoxContainer/SynchronizationContainer/LoadingOverContainer"]
+modulate = Color(1.2, 1.2, 1.2, 1)
+layout_mode = 2
+theme = ExtResource("2_vrj2x")
+theme_override_colors/font_color = Color(0.564706, 0.984314, 0.423529, 1)
+theme_override_font_sizes/font_size = 18
+text = "OK"
+
+[node name="]" type="Label" parent="Control/MarginContainer/VBoxContainer/HBoxContainer/Header/MarginContainer/VBoxContainer/SynchronizationContainer/LoadingOverContainer"]
+modulate = Color(1.2, 1.2, 1.2, 1)
+layout_mode = 2
+theme = ExtResource("2_vrj2x")
+theme_override_colors/font_color = Color(0.517647, 0.27451, 0.298039, 1)
+theme_override_font_sizes/font_size = 24
+text = "]"
 
 [node name="CoresContainer" type="HBoxContainer" parent="Control/MarginContainer/VBoxContainer/HBoxContainer/Header/MarginContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_constants/separation = 15
+theme_override_constants/separation = 10
 
 [node name="ActiveCoresLabel" type="Label" parent="Control/MarginContainer/VBoxContainer/HBoxContainer/Header/MarginContainer/VBoxContainer/CoresContainer"]
 unique_name_in_owner = true
@@ -151,15 +181,15 @@ layout_mode = 2
 theme = ExtResource("2_vrj2x")
 theme_override_colors/font_color = Color(0.564706, 0.984314, 0.423529, 1)
 theme_override_font_sizes/font_size = 18
-text = "* * *"
+text = "◉ ◉"
 
-[node name="RemaningCoresLabel" type="Label" parent="Control/MarginContainer/VBoxContainer/HBoxContainer/Header/MarginContainer/VBoxContainer/CoresContainer"]
+[node name="RemainingCoresLabel" type="Label" parent="Control/MarginContainer/VBoxContainer/HBoxContainer/Header/MarginContainer/VBoxContainer/CoresContainer"]
 unique_name_in_owner = true
 modulate = Color(1.2, 1.2, 1.2, 1)
 layout_mode = 2
 theme = ExtResource("2_vrj2x")
 theme_override_font_sizes/font_size = 18
-text = "* * *"
+text = "◉"
 
 [node name="Separator2" type="Label" parent="Control/MarginContainer/VBoxContainer/HBoxContainer/Header/MarginContainer/VBoxContainer"]
 modulate = Color(1.2, 1.2, 1.2, 1)

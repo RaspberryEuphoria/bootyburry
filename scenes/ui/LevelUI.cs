@@ -1,4 +1,5 @@
 
+using System;
 using Game;
 using Godot;
 
@@ -12,39 +13,71 @@ namespace UI
     private Control helperControl;
     private Level level;
     private Label levelTitleLabel;
-    private Label synchronizationLabel;
+    private Label loadingLabel;
+    private BoxContainer loadingOverContainer;
     private Label activeCoresLabel;
     private Label remainingCoresLabel;
     private Label actualComputationsLabel;
     private Label optimalComputationsLabel;
+    private string[] loadingFrames = new string[] { "⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏" };
 
     public override void _Ready()
     {
-      // var medalsContainer = GetNode<BoxContainer>("%MedalsContainer");
-      // medals = medalsContainer.GetChildren().OfType<MedalWithScore>();
-
-      // helperControl = GetNode<Control>("%HelperControl");
-      // scoreLabel = GetNode<Label>("%ScoreLabel");
-      // shipWheel = GetNode<Sprite2D>("%ShipWheel");
-      // navigationPath = GetNode<NavigationPath>("%NavigationPath");
-
       level = GetParent<Level>();
+      level.GameStart += OnGameStart;
+      level.GameWon += OnGameWon;
       level.PlayerMoved += OnPlayerMoved;
+      level.CoresUpdated += OnCoresUpdated;
 
       levelTitleLabel = GetNode<Label>("%LevelTitleLabel");
-      synchronizationLabel = GetNode<Label>("%SynchronizationLabel");
+      loadingLabel = GetNode<Label>("%LoadingLabel");
+      loadingOverContainer = GetNode<BoxContainer>("%LoadingOverContainer");
       activeCoresLabel = GetNode<Label>("%ActiveCoresLabel");
       remainingCoresLabel = GetNode<Label>("%RemainingCoresLabel");
       actualComputationsLabel = GetNode<Label>("%ActualComputationsLabel");
       optimalComputationsLabel = GetNode<Label>("%OptimalComputationsLabel");
-
-      // SetupHelperText();
-      // SetupMedals();
     }
 
-    public override void _Process(double delta)
+    private void Init()
     {
+      SetInitialLabelsText();
+    }
 
+    private void SetInitialLabelsText()
+    {
+      levelTitleLabel.Text = level.Name;
+      loadingLabel.Text = "";
+      actualComputationsLabel.Text = "0";
+      optimalComputationsLabel.Text = level.OptimalScore.ToString();
+    }
+
+    private void SetCoresText()
+    {
+      if (loadingLabel.Text.Length > 3) loadingLabel.Text = "•";
+
+      var activeCoresCount = level.GetActiveCoresCount();
+      var coresCount = level.GetCoresCount();
+
+      SetCoresLabel(activeCoresLabel, activeCoresCount);
+      SetCoresLabel(remainingCoresLabel, coresCount - activeCoresCount);
+    }
+
+    private static void SetCoresLabel(Label label, int coresCount)
+    {
+      var cores = "";
+      for (int i = 0; i < coresCount; i++)
+      {
+        cores += "◉ ";
+      }
+
+      label.Text = cores.Trim();
+      label.Visible = coresCount > 0;
+    }
+
+    private void SetComputationsText()
+    {
+      loadingLabel.Text = loadingFrames[level.Score % loadingFrames.Length];
+      actualComputationsLabel.Text = level.Score.ToString();
     }
 
     private void SetupHelperText()
@@ -60,9 +93,26 @@ namespace UI
       helpLabel.Text = helperText;
     }
 
-    private void OnPlayerMoved(int score)
+    private void OnGameStart()
     {
-      scoreLabel.Text = score.ToString();
+      Init();
+    }
+
+    private void OnGameWon()
+    {
+      loadingLabel.Visible = false;
+      loadingOverContainer.Visible = true;
+    }
+
+    private void OnPlayerMoved(int _score)
+    {
+      SetComputationsText();
+    }
+
+    private void OnCoresUpdated()
+    {
+      GD.Print("OnCoresUpdated");
+      SetCoresText();
     }
   }
 }

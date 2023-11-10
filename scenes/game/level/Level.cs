@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Godot;
+using UI;
 
 namespace Game
 {
@@ -18,14 +19,15 @@ namespace Game
     public delegate void GameLostEventHandler();
     [Signal]
     public delegate void PlayerMovedEventHandler(int score);
+    [Signal]
+    public delegate void CoresUpdatedEventHandler();
 
     [Export]
     public PackedScene nextLevel;
     [Export]
     public Tile startingTile;
     [Export]
-    /** The values correspond to [gold, silver, bronze] */
-    public int[] medals = new int[] { 0, 0, 0 };
+    public int OptimalScore { get; private set; } = 0;
 
     [ExportGroup("Bot Properties")]
     [Export]
@@ -44,7 +46,8 @@ namespace Game
     public bool IsReady { get; private set; } = false;
     public GameState GameState { get; private set; } = GameState.Playing;
     public IEnumerable<Direction> Moves { get; private set; } = new List<Direction>();
-    public int score = 0;
+    public int Score = 0;
+
     private int columns;
     private int rows;
     private Tile currentTile;
@@ -98,7 +101,7 @@ namespace Game
     public void SetupBot()
     {
       var bot = ResourceLoader.Load<PackedScene>("res://Bot.tscn").Instantiate<Bot>();
-      bot.maxTries = medals[0];
+      bot.maxTries = OptimalScore;
       bot.delay = botDelay;
       bot.disabled = false;
       AddChild(bot);
@@ -143,10 +146,10 @@ namespace Game
 
     private void AddMove(Direction direction)
     {
-      score++;
+      Score++;
       Moves = Moves.Append(direction);
 
-      EmitSignal(SignalName.PlayerMoved, score);
+      EmitSignal(SignalName.PlayerMoved, Score);
     }
 
     public static void TriggerInputInDirection(Direction direction)
@@ -282,10 +285,21 @@ namespace Game
       navigationPaths = navigationPaths.Append(navigationPath);
     }
 
+    public int GetCoresCount()
+    {
+      if (cores == null) return 0;
+      return cores.Count();
+    }
+
+    public int GetActiveCoresCount()
+    {
+      if (cores == null) return 0;
+      return cores.Where(t => t.IsEnabled()).Count();
+    }
+
     private void CheckScore()
     {
-      var enabledCores = cores.Where(t => t.IsEnabled());
-      if (enabledCores.Count() == cores.Count()) Win();
+      if (GetActiveCoresCount() == GetCoresCount()) Win();
     }
 
     private void Win()
@@ -341,11 +355,9 @@ namespace Game
 
     private void OnTileSelected(Tile tile)
     {
+      GD.Print("Level:OnTileSelected");
       currentTile = tile;
-
-      // We don't want to check the score the first time a tile is selected,
-      // since the level may not be ready yet if the innerCore is on an early tile.
-      if (!IsReady) return;
+      EmitSignal(SignalName.CoresUpdated);
     }
 
     public static Direction GetOpposedDirection(Direction direction)
