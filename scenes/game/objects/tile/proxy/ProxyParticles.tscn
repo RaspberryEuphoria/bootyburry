@@ -1,0 +1,31 @@
+[gd_scene load_steps=3 format=3 uid="uid://bbqsuuxr821rb"]
+
+[ext_resource type="Texture2D" uid="uid://ck8chakl5mwfp" path="res://assets/game/objects/tile/core/inner_texture.png" id="1_mpgi3"]
+
+[sub_resource type="Curve" id="Curve_jd7f7"]
+min_value = -200.0
+max_value = 200.0
+_data = [Vector2(0, 48.4211), 0.0, 0.0, 0, 0, Vector2(1, -27.3684), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[node name="Particles" type="CPUParticles2D"]
+modulate = Color(0.564706, 0.984314, 0.423529, 1)
+amount = 50
+lifetime = 0.5
+speed_scale = 0.2
+texture = ExtResource("1_mpgi3")
+emission_shape = 5
+emission_points = PackedVector2Array(25, 0, 0, 25, 0, -25, -25, 0, 25, 25, -25, -25, 25, -25, -25, 25)
+emission_normals = PackedVector2Array()
+emission_colors = PackedColorArray()
+direction = Vector2(5, 5)
+spread = 134.09
+gravity = Vector2(0, 0)
+initial_velocity_min = 1.0
+initial_velocity_max = 2.0
+orbit_velocity_max = 0.4
+linear_accel_max = 5.0
+radial_accel_min = -20.0
+radial_accel_curve = SubResource("Curve_jd7f7")
+scale_amount_min = 0.2
+scale_amount_max = 0.3

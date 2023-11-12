@@ -27,7 +27,7 @@ namespace UI
       level.GameStart += OnGameStart;
       level.GameWon += OnGameWon;
       level.PlayerMoved += OnPlayerMoved;
-      level.CoresUpdated += OnCoresUpdated;
+      level.CurrentTileUpdated += OnCurrentTileUpdated;
 
       levelTitleLabel = GetNode<Label>("%LevelTitleLabel");
       loadingLabel = GetNode<Label>("%LoadingLabel");
@@ -109,7 +109,7 @@ namespace UI
       SetComputationsText();
     }
 
-    private void OnCoresUpdated()
+    private void OnCurrentTileUpdated(Tile _currentTile, Tile _previousTile, Direction _direction)
     {
       SetCoresText();
     }

@@ -12,8 +12,8 @@
 [node name="Level" type="Node2D" node_paths=PackedStringArray("startingTile")]
 script = ExtResource("1_igvo4")
 startingTile = NodePath("Tile_1_4")
-OptimalScore = 21
-LevelTitle = "Level 08"
+OptimalScore = 17
+LevelTitle = "Level 0.8"
 LevelSubtitle = "// A* Would Have Helped"
 botDelay = 0.0
 

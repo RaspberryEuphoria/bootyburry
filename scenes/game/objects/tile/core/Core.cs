@@ -38,18 +38,6 @@ namespace Game
       }
     }
 
-    public override void _ExitTree()
-    {
-      tile.TileSelected -= OnTileSelected;
-      tile.TileUnselected -= OnTileUnselected;
-
-      for (int i = 0; i < selectors.Length; i++)
-      {
-        tile.TileSelected -= selectors[i].OnTileSelected;
-        tile.TileUnselected -= selectors[i].OnTileUnselected;
-      }
-    }
-
     public bool CanBeDockedFromDirection(Direction direction)
     {
       return true;
@@ -98,7 +86,7 @@ namespace Game
       return innerCore.IsEnabled();
     }
 
-    public void OnTileSelected(Tile tile)
+    public void OnTileSelected(Tile _tile, Tile _previousTile, Direction _direction)
     {
       Dock();
     }

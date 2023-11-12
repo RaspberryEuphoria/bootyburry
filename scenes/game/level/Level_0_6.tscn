@@ -15,7 +15,7 @@ script = ExtResource("1_hqjmi")
 nextLevel = ExtResource("2_ceqfw")
 startingTile = NodePath("Tile_2_1")
 OptimalScore = 13
-LevelTitle = "Level 06"
+LevelTitle = "Level 0.6"
 LevelSubtitle = "// Undefined Behavior"
 botDelay = 0.0
 

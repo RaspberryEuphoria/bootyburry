@@ -47,7 +47,7 @@ namespace Game
       };
     }
 
-    public void OnTileSelected(Tile tile)
+    public void OnTileSelected(Tile _tile, Tile _previousTile, Direction _direction)
     {
       Level.TriggerInputInDirection(Direction);
     }

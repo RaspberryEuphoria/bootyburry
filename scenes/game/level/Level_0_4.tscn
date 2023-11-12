@@ -15,7 +15,7 @@ script = ExtResource("1_nq8v3")
 nextLevel = ExtResource("2_2fxfa")
 startingTile = NodePath("Tile_1_4")
 OptimalScore = 9
-LevelTitle = "Level 04"
+LevelTitle = "Level 0.4"
 LevelSubtitle = "// Comes With a Free Router"
 botDelay = 0.0
 

@@ -14,7 +14,7 @@ script = ExtResource("1_3py4v")
 nextLevel = ExtResource("2_0eqrr")
 startingTile = NodePath("Tile_1_4")
 OptimalScore = 10
-LevelTitle = "Level 03"
+LevelTitle = "Level 0.3"
 LevelSubtitle = "// There's Always More"
 botDelay = 0.0
 

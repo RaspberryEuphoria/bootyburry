@@ -14,7 +14,7 @@ script = ExtResource("1_3py4v")
 nextLevel = ExtResource("2_f2pqk")
 startingTile = NodePath("Tile_0_0")
 OptimalScore = 3
-LevelTitle = "Level 01"
+LevelTitle = "Level 0.1"
 LevelSubtitle = "// Beware The Firewall"
 
 [node name="Background" parent="." instance=ExtResource("3_1am38")]

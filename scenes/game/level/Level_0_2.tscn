@@ -14,7 +14,7 @@ script = ExtResource("1_3py4v")
 nextLevel = ExtResource("2_jbcnm")
 startingTile = NodePath("Tile_2_0")
 OptimalScore = 4
-LevelTitle = "Level 02"
+LevelTitle = "Level 0.2"
 LevelSubtitle = "// Unfinished Work"
 
 [node name="Background" parent="." instance=ExtResource("4_xvaq6")]

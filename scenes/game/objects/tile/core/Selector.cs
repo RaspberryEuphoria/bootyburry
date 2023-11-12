@@ -1,4 +1,3 @@
-using System;
 using Godot;
 
 namespace Game
@@ -7,23 +6,32 @@ namespace Game
   public partial class Selector : Node2D
   {
     [Export]
-    public Direction direction;
+    private Direction direction;
 
     private AnimationPlayer animationPlayer;
+    private Tile parentTile;
 
     public override void _Ready()
     {
       Visible = false;
+
       animationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
+
+      parentTile = GetParent<Core>().GetParent<Tile>();
+      var level = parentTile.GetParent<Level>();
+
+      level.GameWon += OnGameWon;
+      parentTile.TileSelected += OnTileSelected;
+      parentTile.TileUnselected += OnTileUnselected;
     }
 
-    public void OnTileSelected(Tile tile)
+    public void OnTileSelected(Tile _tile, Tile _previousTile, Direction _direction)
     {
-      if (tile.IsOnBorder(direction)) return;
-      if (tile.IsFirewall()) return;
+      if (parentTile.IsOnBorder(direction)) return;
+      if (parentTile.IsFirewall()) return;
 
-      var tileWithTreasureInDirection = tile.GetNavigableTileInDirection(direction);
-      var hasTileWithHazardInDirection = tileWithTreasureInDirection != null && tileWithTreasureInDirection != tile;
+      var tileWithTreasureInDirection = parentTile.GetNavigableTileInDirection(direction);
+      var hasTileWithHazardInDirection = tileWithTreasureInDirection != null && tileWithTreasureInDirection != parentTile;
       if (!hasTileWithHazardInDirection) return;
 
       Visible = true;
@@ -45,6 +53,11 @@ namespace Game
     }
 
     public void OnTileUnselected(Tile _tile)
+    {
+      Visible = false;
+    }
+
+    public void OnGameWon()
     {
       Visible = false;
     }

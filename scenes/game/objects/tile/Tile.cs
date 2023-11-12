@@ -5,13 +5,13 @@ using Godot;
 namespace Game
 {
   public enum TileState { Selected, Unselected }
-  public enum TileType { Core, Empty, Firewall, Router }
+  public enum TileType { Core, Empty, Firewall, Router, Proxy }
 
   [Tool]
   public partial class Tile : Node2D
   {
     [Signal]
-    public delegate void TileSelectedEventHandler(Tile tile);
+    public delegate void TileSelectedEventHandler(Tile tile, Tile previousTile, Direction direction);
     [Signal]
     public delegate void TileUnselectedEventHandler(Tile tile);
 
@@ -89,6 +89,7 @@ namespace Game
           TileType.Firewall => child.IsInGroup("firewall"),
           TileType.Empty => child.IsInGroup("empty"),
           TileType.Router => child.IsInGroup("router"),
+          TileType.Proxy => child.IsInGroup("proxy"),
           _ => throw new Exception($"Invalid tile type {type} on tile {Name}!")
         };
 
@@ -113,6 +114,7 @@ namespace Game
         TileType.Firewall => "firewall/Firewall",
         TileType.Empty => "empty/Empty",
         TileType.Router => "router/Router",
+        TileType.Proxy => "proxy/Proxy",
         _ => "Empty"
       };
 
@@ -206,6 +208,7 @@ namespace Game
         Router router => router.CanBeDockedFromDirection(direction),
         Firewall firewall => firewall.CanBeDockedFromDirection(direction),
         Empty empty => empty.CanBeDockedFromDirection(direction),
+        Proxy proxy => proxy.CanBeDockedFromDirection(direction),
         _ => throw new Exception($"Invalid terrain type {Terrain.GetType()} on tile {Name}!"),
       };
     }
@@ -218,6 +221,7 @@ namespace Game
         Router router => router.CanUndockInDirection(direction),
         Firewall firewall => firewall.CanUndockInDirection(direction),
         Empty empty => empty.CanUndockInDirection(direction),
+        Proxy proxy => proxy.CanUndockInDirection(direction),
         _ => throw new Exception($"Invalid terrain type {Terrain.GetType()} on tile {Name}!"),
       };
     }
@@ -245,10 +249,11 @@ namespace Game
       return Type == TileType.Core;
     }
 
-    public void Select()
+    public void Select(Tile previousTile, Direction direction)
     {
+      GD.Print($"{Name} selected from {previousTile?.Name} in direction {direction}.");
       state = TileState.Selected;
-      EmitSignal(SignalName.TileSelected, this);
+      EmitSignal(SignalName.TileSelected, this, previousTile, (int)direction);
     }
 
     public void Unselect()

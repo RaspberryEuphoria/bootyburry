@@ -20,7 +20,7 @@ namespace Game
     [Signal]
     public delegate void PlayerMovedEventHandler(int score);
     [Signal]
-    public delegate void CoresUpdatedEventHandler();
+    public delegate void CurrentTileUpdatedEventHandler(Tile currentTile, Tile previousTile, Direction direction);
 
     [Export]
     public PackedScene nextLevel;
@@ -79,15 +79,7 @@ namespace Game
       PrepareBoard();
       EmitSignal(SignalName.GameStart);
 
-      startingTile.Select();
-    }
-
-    public override void _ExitTree()
-    {
-      foreach (var tile in tiles)
-      {
-        tile.TileSelected -= OnTileSelected;
-      }
+      startingTile.Select(null, Direction.Up);
     }
 
     public override void _Process(double delta)
@@ -212,6 +204,8 @@ namespace Game
 
       currentTile.Unselect();
 
+      GD.Print($"{currentTile.Name} -> ${nextTile.Name} (direction {direction}).");
+
       var navigationPath = GetNavigationPath(currentTile, nextTile);
       if (navigationPath != null)
       {
@@ -220,20 +214,9 @@ namespace Game
       }
 
       if (isMovePlayerControlled) HidePreviousNavigationPath();
-
-      var hazardTile = currentTile.GetHazardTileInPath(direction, nextTile);
-      if (hazardTile != null)
-      {
-        DrawNavigationPath(currentTile, hazardTile, expandPreviousPath: !isMovePlayerControlled);
-        Lose();
-
-        hazardTile.Select();
-        return isMovePlayerControlled;
-      }
-
       DrawNavigationPath(currentTile, nextTile, expandPreviousPath: !isMovePlayerControlled);
 
-      nextTile.Select();
+      nextTile.Select(currentTile, direction);
       previousTile = currentTile;
 
       return isMovePlayerControlled;
@@ -243,16 +226,6 @@ namespace Game
     {
       if (!navigationPaths.Any()) return;
       navigationPaths.Last().Fade();
-    }
-
-    private void ShowEveryNavigationPath()
-    {
-      var delayInSec = 0.25f;
-      foreach (var navigationPath in navigationPaths)
-      {
-        navigationPath.ShowAfterDelay(delayInSec);
-        delayInSec += 0.25f;
-      }
     }
 
     private NavigationPath GetNavigationPath(Tile startingTile, Tile targetTile)
@@ -273,6 +246,7 @@ namespace Game
 
     private void DrawNavigationPath(Tile startingTile, Tile targetTile, bool expandPreviousPath)
     {
+      GD.Print("::DrawNavigationPath", " ", startingTile.Name, " ", targetTile.Name, " ", expandPreviousPath);
       var navigationPath = expandPreviousPath
         ? navigationPaths.Last()
         : ResourceLoader.Load<PackedScene>("res://NavigationPath.tscn").Instantiate<NavigationPath>();
@@ -299,6 +273,11 @@ namespace Game
     {
       if (cores == null) return 0;
       return cores.Where(t => t.IsEnabled()).Count();
+    }
+
+    public Direction GetLastDirection()
+    {
+      return Moves.Last();
     }
 
     private void CheckScore()
@@ -364,11 +343,10 @@ namespace Game
       return tiles;
     }
 
-    private void OnTileSelected(Tile tile)
+    private void OnTileSelected(Tile tile, Tile previousTile, Direction direction)
     {
-      GD.Print("Level:OnTileSelected");
       currentTile = tile;
-      EmitSignal(SignalName.CoresUpdated);
+      EmitSignal(SignalName.CurrentTileUpdated, currentTile, previousTile, (int)direction);
     }
 
     public static Direction GetOpposedDirection(Direction direction)

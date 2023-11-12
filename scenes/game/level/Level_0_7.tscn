@@ -15,7 +15,7 @@ script = ExtResource("1_i63w1")
 nextLevel = ExtResource("2_on7yr")
 startingTile = NodePath("Tile_0_6")
 OptimalScore = 15
-LevelTitle = "Level 07"
+LevelTitle = "Level 0.7"
 LevelSubtitle = "// Blazing Fast"
 botDelay = 0.0
 

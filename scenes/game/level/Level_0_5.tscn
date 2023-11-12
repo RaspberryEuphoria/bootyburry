@@ -15,7 +15,7 @@ script = ExtResource("1_46kfr")
 nextLevel = ExtResource("2_h1t8n")
 startingTile = NodePath("Tile_2_1")
 OptimalScore = 16
-LevelTitle = "Level 05"
+LevelTitle = "Level 0.5"
 LevelSubtitle = "// Now With More Grid"
 botDelay = 0.0
 

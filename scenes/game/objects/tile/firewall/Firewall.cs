@@ -11,32 +11,20 @@ namespace Game
     {
       tile = GetParent<Tile>();
       level = tile.GetParent<Level>();
-
-      tile.TileSelected += OnTileSelected;
     }
 
-    public override void _ExitTree()
-    {
-      tile.TileSelected -= OnTileSelected;
-    }
-
-    public bool CanBeDockedFromDirection(Direction direction)
+    public bool CanBeDockedFromDirection(Direction _direction)
     {
       return false;
     }
 
-    public bool CanUndockInDirection(Direction direction)
+    public bool CanUndockInDirection(Direction _direction)
     {
       return false;
     }
 
     public void Sunk()
     {
-    }
-
-    public void OnTileSelected(Tile tile)
-    {
-      Sunk();
     }
   }
 }

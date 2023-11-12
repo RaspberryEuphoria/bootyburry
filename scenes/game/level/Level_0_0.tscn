@@ -13,7 +13,7 @@ script = ExtResource("1_gyoap")
 nextLevel = ExtResource("2_jnlk2")
 startingTile = NodePath("Tile_0_0")
 OptimalScore = 2
-LevelTitle = "Level 00"
+LevelTitle = "Level 0.0"
 LevelSubtitle = "// Hello Cores"
 
 [node name="Background" parent="." instance=ExtResource("3_o8lm3")]

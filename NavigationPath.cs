@@ -26,11 +26,5 @@ namespace Game
     {
       Modulate = new Color(1, 1, 1, 1);
     }
-
-    public async void ShowAfterDelay(float delay)
-    {
-      await ToSignal(GetTree().CreateTimer(delay), SceneTreeTimer.SignalName.Timeout);
-      Show();
-    }
   }
 }
