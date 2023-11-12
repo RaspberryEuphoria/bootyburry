@@ -20,12 +20,12 @@ namespace Game
       SetupRotation();
     }
 
-    public override void _ExitTree()
+    public bool IsBlockedFromDirection(Direction direction)
     {
-      tile.TileSelected -= OnTileSelected;
+      return Direction == Level.GetOpposedDirection(direction);
     }
 
-    public bool CanBeDockedFromDirection(Direction direction)
+    public bool IsSelectableFromDirection(Direction direction)
     {
       return Direction != Level.GetOpposedDirection(direction);
     }
@@ -33,6 +33,11 @@ namespace Game
     public bool CanUndockInDirection(Direction direction)
     {
       return Direction == direction;
+    }
+
+    public Direction GetForcedDirection()
+    {
+      return Direction;
     }
 
     public void SetupRotation()
@@ -49,6 +54,7 @@ namespace Game
 
     public void OnTileSelected(Tile _tile, Tile _previousTile, Direction _direction)
     {
+      GD.Print($"Router {tile.Name} selected from {_previousTile.Name} in direction {_direction}");
       Level.TriggerInputInDirection(Direction);
     }
   }

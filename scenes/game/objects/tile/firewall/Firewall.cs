@@ -13,7 +13,12 @@ namespace Game
       level = tile.GetParent<Level>();
     }
 
-    public bool CanBeDockedFromDirection(Direction _direction)
+    public bool IsBlockedFromDirection(Direction _direction)
+    {
+      return true;
+    }
+
+    public bool IsSelectableFromDirection(Direction _direction)
     {
       return false;
     }
@@ -21,6 +26,11 @@ namespace Game
     public bool CanUndockInDirection(Direction _direction)
     {
       return false;
+    }
+
+    public Direction? GetForcedDirection()
+    {
+      return null;
     }
 
     public void Sunk()

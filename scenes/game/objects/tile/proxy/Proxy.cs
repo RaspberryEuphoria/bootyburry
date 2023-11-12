@@ -2,24 +2,32 @@ using Godot;
 
 namespace Game
 {
+  /**
+   * A Proxy is a special type of Tile that is used to connect two Tiles.
+   * 1. The player moves to the tile with Proxy A
+   * 2. The Proxy A automatically selects Proxy B (through the "ExitTile" property)
+   * 3. The Proxy B triggers an input with the same direction the player used
+     when moving to Proxy A
+   * 4. Finally, the player is stopped at the next selectable tile.
+   */
   public partial class Proxy : Node2D
   {
     [Export]
-    private Tile exitTile;
+    public Tile ExitTile;
 
     private Level level;
-    private Tile tile;
+    private Tile rootTile;
 
     public override void _Ready()
     {
-      tile = GetParent<Tile>();
-      level = tile.GetParent<Level>();
+      rootTile = GetParent<Tile>();
+      level = rootTile.GetParent<Level>();
 
       level.CurrentTileUpdated += OnCurrentTileUpdated;
 
-      if (exitTile == null)
+      if (ExitTile == null)
       {
-        GD.PrintErr($"Proxy on tile {tile.Name} doesn't have an exit.");
+        GD.PrintErr($"Proxy on tile {rootTile.Name} doesn't have an exit.");
       }
     }
 
@@ -28,29 +36,39 @@ namespace Game
       return true;
     }
 
-    public bool CanBeDockedFromDirection(Direction direction)
+    public bool IsBlockedFromDirection(Direction _direction)
+    {
+      return false;
+    }
+
+    public bool IsSelectableFromDirection(Direction _direction)
     {
       return true;
     }
 
-    public bool CanUndockInDirection(Direction direction)
+    public bool CanUndockInDirection(Direction _direction)
     {
       return true;
     }
 
-    public void OnCurrentTileUpdated(Tile _tile, Tile previousTile, Direction direction)
+    public Direction? GetForcedDirection()
     {
-      if (previousTile == null) return;
+      return null;
+    }
 
-      // We don't want to trigger an infinite recursion by going back and forth between two proxies;
-      // The proxy should only be triggered if the tile we're coming from is not a proxy itself.
-      if (previousTile.Terrain is Proxy)
+    public void OnCurrentTileUpdated(Tile tile, Tile previousTile, Direction direction)
+    {
+      if (previousTile == null || tile != rootTile) return;
+
+      // Case 1: this Proxy was selected by the player
+      if (previousTile.Terrain is not Proxy)
       {
-        Level.TriggerInputInDirection(direction);
+        ExitTile.Select(rootTile, direction);
         return;
       }
 
-      exitTile.Select(tile, direction);
+      // Case 2: this Proxy was selected by its twin
+      Level.TriggerInputInDirection(direction);
     }
   }
 }

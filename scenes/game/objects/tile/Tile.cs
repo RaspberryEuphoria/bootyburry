@@ -152,37 +152,61 @@ namespace Game
       return null;
     }
 
-    public Tile GetNavigableTileInDirection(Direction direction)
+    public Tile GetNextSelectableTileInDirection(Direction direction)
     {
       var adjacentTile = GetAdjacentTile(direction);
 
       if (adjacentTile == null) return null;
-      if (IsBlockedByCurrent(direction)) return null;
-      if (adjacentTile.IsFirewall()) return null;
+      if (adjacentTile.IsBlockedFromDirection(direction)) return null;
+      if (adjacentTile.IsSelectableFromDirection(direction)) return adjacentTile;
 
-      if (adjacentTile.CanBeDockedFromDirection(direction)) return adjacentTile;
-
-      return adjacentTile.GetNavigableTileInDirection(direction);
+      return adjacentTile.Terrain switch
+      {
+        Router router => adjacentTile.GetNextSelectableTileInDirection(router.Direction),
+        Proxy proxy => proxy.ExitTile.GetNextSelectableTileInDirection(direction),
+        _ => adjacentTile.GetNextSelectableTileInDirection(direction)
+      };
     }
 
-    public bool HasNavigableTileInDirection(Direction direction)
+    public Tile GetNextCoreTileInDirection(Direction direction)
     {
-      return GetNavigableTileInDirection(direction) != null;
+      var adjacentTile = GetAdjacentTile(direction);
+
+      if (adjacentTile == null) return null;
+
+      return adjacentTile.Terrain switch
+      {
+        Core => adjacentTile,
+        Router router => adjacentTile.GetNextCoreTileInDirection(router.Direction),
+        Proxy proxy => proxy.ExitTile.GetNextSelectableTileInDirection(direction),
+        _ => adjacentTile.GetNextCoreTileInDirection(direction)
+      };
     }
-    public Tile GetHazardTileInPath(Direction direction, Tile goalTile)
+
+    public Tile GetNextTileOfTypeInDirection(Direction direction, TileType type)
+    {
+      var adjacentTile = GetAdjacentTile(direction);
+
+      if (adjacentTile == null) return null;
+      if (adjacentTile.Type != type) return adjacentTile.GetNextTileOfTypeInDirection(direction, type);
+
+      return adjacentTile;
+    }
+
+    public Tile GetBlockerInPathToTile(Direction direction, Tile goalTile)
     {
       var adjacentTile = GetAdjacentTile(direction);
 
       if (adjacentTile == null) return null;
       if (adjacentTile == goalTile) return null;
-      if (!adjacentTile.IsFirewall()) return adjacentTile.GetHazardTileInPath(direction, goalTile);
+      if (!adjacentTile.IsBlockedFromDirection(direction)) return adjacentTile.GetBlockerInPathToTile(direction, goalTile);
 
       return adjacentTile;
     }
 
-    public bool HasTileWithHazardInDirection(Direction direction)
+    public bool HasBlockerInPathToTile(Direction direction, Tile goalTile)
     {
-      return GetHazardTileInPath(direction, null) != null;
+      return GetBlockerInPathToTile(direction, goalTile) != null;
     }
 
     public bool IsOnBorder(Direction direction)
@@ -200,15 +224,28 @@ namespace Game
       return isOnBorder;
     }
 
-    public bool CanBeDockedFromDirection(Direction direction)
+    public bool IsBlockedFromDirection(Direction direction)
     {
       return Terrain switch
       {
-        Core core => core.CanBeDockedFromDirection(direction),
-        Router router => router.CanBeDockedFromDirection(direction),
-        Firewall firewall => firewall.CanBeDockedFromDirection(direction),
-        Empty empty => empty.CanBeDockedFromDirection(direction),
-        Proxy proxy => proxy.CanBeDockedFromDirection(direction),
+        Core core => core.IsBlockedFromDirection(direction),
+        Router router => router.IsBlockedFromDirection(direction),
+        Firewall firewall => firewall.IsBlockedFromDirection(direction),
+        Empty empty => empty.IsBlockedFromDirection(direction),
+        Proxy proxy => proxy.IsBlockedFromDirection(direction),
+        _ => throw new Exception($"Invalid terrain type {Terrain.GetType()} on tile {Name}!"),
+      };
+    }
+
+    public bool IsSelectableFromDirection(Direction direction)
+    {
+      return Terrain switch
+      {
+        Core core => core.IsSelectableFromDirection(direction),
+        Router router => router.IsSelectableFromDirection(direction),
+        Firewall firewall => firewall.IsSelectableFromDirection(direction),
+        Empty empty => empty.IsSelectableFromDirection(direction),
+        Proxy proxy => proxy.IsSelectableFromDirection(direction),
         _ => throw new Exception($"Invalid terrain type {Terrain.GetType()} on tile {Name}!"),
       };
     }
@@ -222,6 +259,19 @@ namespace Game
         Firewall firewall => firewall.CanUndockInDirection(direction),
         Empty empty => empty.CanUndockInDirection(direction),
         Proxy proxy => proxy.CanUndockInDirection(direction),
+        _ => throw new Exception($"Invalid terrain type {Terrain.GetType()} on tile {Name}!"),
+      };
+    }
+
+    public Direction? GetForcedDirection()
+    {
+      return Terrain switch
+      {
+        Core core => core.GetForcedDirection(),
+        Router router => router.GetForcedDirection(),
+        Firewall firewall => firewall.GetForcedDirection(),
+        Empty empty => empty.GetForcedDirection(),
+        Proxy proxy => proxy.GetForcedDirection(),
         _ => throw new Exception($"Invalid terrain type {Terrain.GetType()} on tile {Name}!"),
       };
     }

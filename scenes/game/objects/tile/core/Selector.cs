@@ -28,28 +28,17 @@ namespace Game
     public void OnTileSelected(Tile _tile, Tile _previousTile, Direction _direction)
     {
       if (parentTile.IsOnBorder(direction)) return;
-      if (parentTile.IsFirewall()) return;
+      if (parentTile.IsBlockedFromDirection(direction)) return;
 
-      var tileWithTreasureInDirection = parentTile.GetNavigableTileInDirection(direction);
-      var hasTileWithHazardInDirection = tileWithTreasureInDirection != null && tileWithTreasureInDirection != parentTile;
-      if (!hasTileWithHazardInDirection) return;
+      var nextTileWithCore = parentTile.GetNextCoreTileInDirection(direction);
+      if (nextTileWithCore == null) return;
+      if (parentTile.HasBlockerInPathToTile(direction, nextTileWithCore)) return;
+
+      var tileCore = nextTileWithCore.GetNode<Core>("Core");
+      var animationToPlay = tileCore.IsEnabled() ? "disable" : "enable";
+      animationPlayer.Play(animationToPlay);
 
       Visible = true;
-
-      var hasTileCore = tileWithTreasureInDirection.HasNode("Core");
-      if (!hasTileCore) return;
-
-      var tileCore = tileWithTreasureInDirection.GetNode<Core>("Core");
-
-      var hasBurriedTreasure = tileCore.HasBurriedTreasure();
-      if (hasBurriedTreasure)
-      {
-        animationPlayer.Play("disable");
-      }
-      else
-      {
-        animationPlayer.Play("enable");
-      }
     }
 
     public void OnTileUnselected(Tile _tile)

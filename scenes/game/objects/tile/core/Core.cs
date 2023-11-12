@@ -38,20 +38,28 @@ namespace Game
       }
     }
 
-    public bool CanBeDockedFromDirection(Direction direction)
+    public bool IsBlockedFromDirection(Direction _direction)
+    {
+      return false;
+    }
+
+    public bool IsSelectableFromDirection(Direction direction)
     {
       return true;
     }
 
-    public bool CanUndockInDirection(Direction direction)
+    public bool CanUndockInDirection(Direction _direction)
     {
       return true;
+    }
+
+    public Direction? GetForcedDirection()
+    {
+      return null;
     }
 
     public void Dock()
     {
-      SurveyHazards();
-
       innerCore.Toggle();
 
       if (innerCore.IsEnabled())
@@ -66,22 +74,9 @@ namespace Game
 
     public void Undock()
     {
-      SurveyHazards();
     }
 
-    public void SurveyHazards()
-    {
-      foreach (Direction direction in Enum.GetValues(typeof(Direction)))
-      {
-        var nextCoreTile = tile.GetNavigableTileInDirection(direction);
-        if (nextCoreTile == null) continue;
-
-        var nextHazardTile = tile.GetHazardTileInPath(direction, nextCoreTile);
-        if (nextHazardTile == null) continue;
-      }
-    }
-
-    public bool HasBurriedTreasure()
+    public bool IsEnabled()
     {
       return innerCore.IsEnabled();
     }

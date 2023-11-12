@@ -179,7 +179,7 @@ namespace Game
       var availableActions = new List<string>();
       foreach (var itr in actionToDirection)
       {
-        var nextTile = currentTile.GetNavigableTileInDirection(itr.Value);
+        var nextTile = currentTile.GetNextSelectableTileInDirection(itr.Value);
         if (nextTile == null) continue;
         availableActions.Add(itr.Key);
       }
@@ -195,16 +195,12 @@ namespace Game
      */
     private bool? NavigateInDirection(Direction direction)
     {
-      if (!currentTile.CanUndockInDirection(direction)) return null;
-
-      var nextTile = currentTile.GetNavigableTileInDirection(direction);
+      var nextTile = currentTile.GetNextSelectableTileInDirection(direction);
       if (nextTile == null || currentTile == nextTile) return null;
 
       var isMovePlayerControlled = currentTile.CanDockTo();
 
       currentTile.Unselect();
-
-      GD.Print($"{currentTile.Name} -> ${nextTile.Name} (direction {direction}).");
 
       var navigationPath = GetNavigationPath(currentTile, nextTile);
       if (navigationPath != null)
@@ -246,7 +242,6 @@ namespace Game
 
     private void DrawNavigationPath(Tile startingTile, Tile targetTile, bool expandPreviousPath)
     {
-      GD.Print("::DrawNavigationPath", " ", startingTile.Name, " ", targetTile.Name, " ", expandPreviousPath);
       var navigationPath = expandPreviousPath
         ? navigationPaths.Last()
         : ResourceLoader.Load<PackedScene>("res://NavigationPath.tscn").Instantiate<NavigationPath>();

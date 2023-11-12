@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://baftsx7qrc6n8"]
+[gd_scene load_steps=12 format=3 uid="uid://baftsx7qrc6n8"]
 
 [ext_resource type="Script" path="res://scenes/game/level/Level.cs" id="1_h4huj"]
 [ext_resource type="PackedScene" uid="uid://b1i880hkcmx50" path="res://scenes/game/level/Level_0_1.tscn" id="2_mjbht"]
@@ -10,9 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://bux2ffg7yyub3" path="res://scenes/game/objects/tile/firewall/Firewall.tscn" id="7_4436y"]
 [ext_resource type="Texture2D" uid="uid://be4svj8nr5n1a" path="res://assets/game/objects/tile/router/texture.png" id="9_wbuna"]
 [ext_resource type="PackedScene" uid="uid://cl2lm1lsl8j8i" path="res://scenes/game/objects/tile/proxy/Proxy.tscn" id="10_epi0j"]
-[ext_resource type="Script" path="res://scenes/game/objects/tile/core/Core.cs" id="11_mic5n"]
-[ext_resource type="PackedScene" uid="uid://6oclnkije4cp" path="res://scenes/game/objects/tile/router/Router.tscn" id="12_8gt4l"]
-[ext_resource type="Script" path="res://scenes/game/objects/tile/router/Router.cs" id="13_g4hb5"]
+[ext_resource type="Script" path="res://scenes/game/objects/tile/empty/Empty.cs" id="11_ebswy"]
 
 [node name="Level" type="Node2D" node_paths=PackedStringArray("startingTile")]
 script = ExtResource("1_h4huj")
@@ -42,8 +40,8 @@ Type = 2
 position = Vector2(1056, 488)
 Type = 4
 
-[node name="Proxy" parent="Tile_0_2" node_paths=PackedStringArray("exitTile") instance=ExtResource("10_epi0j")]
-exitTile = NodePath("../../Tile_2_0")
+[node name="Proxy" parent="Tile_0_2" node_paths=PackedStringArray("ExitTile") instance=ExtResource("10_epi0j")]
+ExitTile = NodePath("../../Tile_2_0")
 
 [node name="Arrow" type="Sprite2D" parent="Tile_0_2/Proxy"]
 modulate = Color(0.144459, 0.47561, 0.929498, 1)
@@ -59,10 +57,9 @@ position = Vector2(864, 584)
 
 [node name="Tile_1_1" parent="." instance=ExtResource("5_ewbo5")]
 position = Vector2(960, 584)
-Type = 0
 
-[node name="Core" type="Node2D" parent="Tile_1_1" groups=["core"] instance=ExtResource("6_ihv14")]
-script = ExtResource("11_mic5n")
+[node name="Empty" type="Node2D" parent="Tile_1_1" groups=["empty"] instance=ExtResource("7_7vav0")]
+script = ExtResource("11_ebswy")
 
 [node name="Tile_1_2" parent="." instance=ExtResource("5_ewbo5")]
 position = Vector2(1056, 584)
@@ -73,8 +70,8 @@ position = Vector2(1056, 584)
 position = Vector2(864, 680)
 Type = 4
 
-[node name="Proxy" parent="Tile_2_0" node_paths=PackedStringArray("exitTile") instance=ExtResource("10_epi0j")]
-exitTile = NodePath("../../Tile_0_2")
+[node name="Proxy" parent="Tile_2_0" node_paths=PackedStringArray("ExitTile") instance=ExtResource("10_epi0j")]
+ExitTile = NodePath("../../Tile_0_2")
 
 [node name="Arrow" type="Sprite2D" parent="Tile_2_0/Proxy"]
 modulate = Color(0.144459, 0.47561, 0.929498, 1)
@@ -85,10 +82,9 @@ texture = ExtResource("9_wbuna")
 
 [node name="Tile_2_1" parent="." instance=ExtResource("5_ewbo5")]
 position = Vector2(960, 680)
-Type = 3
 
-[node name="Router" type="Node2D" parent="Tile_2_1" groups=["router"] instance=ExtResource("12_8gt4l")]
-script = ExtResource("13_g4hb5")
+[node name="Empty" type="Node2D" parent="Tile_2_1" groups=["empty"] instance=ExtResource("7_7vav0")]
+script = ExtResource("11_ebswy")
 
 [node name="Tile_2_2" parent="." instance=ExtResource("5_ewbo5")]
 position = Vector2(1056, 680)
