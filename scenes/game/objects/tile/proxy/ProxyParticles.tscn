@@ -12,6 +12,7 @@ point_count = 2
 modulate = Color(0.564706, 0.984314, 0.423529, 1)
 amount = 50
 lifetime = 0.5
+preprocess = 2.0
 speed_scale = 0.2
 texture = ExtResource("1_mpgi3")
 emission_shape = 5
