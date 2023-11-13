@@ -1,0 +1,182 @@
+[gd_scene load_steps=13 format=3 uid="uid://bpkkxlbdllil8"]
+
+[ext_resource type="Script" path="res://scenes/game/level/Level.cs" id="1_xn8kp"]
+[ext_resource type="PackedScene" uid="uid://btkws4lwu8fi1" path="res://scenes/game/level/LevelBackground.tscn" id="2_fwxk1"]
+[ext_resource type="PackedScene" uid="uid://67x0aame80lq" path="res://scenes/game/objects/tile/Tile.tscn" id="3_0cryg"]
+[ext_resource type="PackedScene" uid="uid://dbl0tiuqxnci4" path="res://scenes/ui/LevelUI.tscn" id="3_lo8hx"]
+[ext_resource type="PackedScene" uid="uid://ch1bcttqi5hjk" path="res://scenes/game/objects/tile/core/Core.tscn" id="4_x870s"]
+[ext_resource type="Script" path="res://scenes/game/objects/tile/core/Core.cs" id="5_otdpp"]
+[ext_resource type="PackedScene" uid="uid://e2gu8wi641jf" path="res://scenes/game/objects/tile/empty/Empty.tscn" id="6_rmh5j"]
+[ext_resource type="Script" path="res://scenes/game/objects/tile/empty/Empty.cs" id="7_lwge3"]
+[ext_resource type="PackedScene" uid="uid://cl2lm1lsl8j8i" path="res://scenes/game/objects/tile/proxy/Proxy.tscn" id="9_43h6n"]
+[ext_resource type="Script" path="res://scenes/game/objects/tile/proxy/Proxy.cs" id="10_1vgn2"]
+[ext_resource type="PackedScene" uid="uid://bux2ffg7yyub3" path="res://scenes/game/objects/tile/firewall/Firewall.tscn" id="11_o1g8h"]
+[ext_resource type="Script" path="res://scenes/game/objects/tile/firewall/Firewall.cs" id="12_h8vjn"]
+
+[node name="Level" type="Node2D" node_paths=PackedStringArray("startingTile")]
+script = ExtResource("1_xn8kp")
+startingTile = NodePath("Tile_1_1")
+LevelTitle = "Level 1.1"
+LevelSubtitle = "// From a Certain Point of View"
+
+[node name="Background" parent="." instance=ExtResource("2_fwxk1")]
+
+[node name="LevelUI" parent="." instance=ExtResource("3_lo8hx")]
+
+[node name="Tile_0_0" parent="." instance=ExtResource("3_0cryg")]
+position = Vector2(759, 422)
+
+[node name="Empty" type="Node2D" parent="Tile_0_0" groups=["empty"] instance=ExtResource("6_rmh5j")]
+script = ExtResource("7_lwge3")
+
+[node name="Tile_0_1" parent="." instance=ExtResource("3_0cryg")]
+position = Vector2(855, 422)
+
+[node name="Empty" type="Node2D" parent="Tile_0_1" groups=["empty"] instance=ExtResource("6_rmh5j")]
+script = ExtResource("7_lwge3")
+
+[node name="Tile_0_2" parent="." instance=ExtResource("3_0cryg")]
+position = Vector2(951, 422)
+
+[node name="Empty" type="Node2D" parent="Tile_0_2" groups=["empty"] instance=ExtResource("6_rmh5j")]
+script = ExtResource("7_lwge3")
+
+[node name="Tile_0_3" parent="." instance=ExtResource("3_0cryg")]
+position = Vector2(1047, 422)
+
+[node name="Empty" type="Node2D" parent="Tile_0_3" groups=["empty"] instance=ExtResource("6_rmh5j")]
+script = ExtResource("7_lwge3")
+
+[node name="Tile_0_4" parent="." instance=ExtResource("3_0cryg")]
+position = Vector2(1143, 422)
+
+[node name="Empty" type="Node2D" parent="Tile_0_4" groups=["empty"] instance=ExtResource("6_rmh5j")]
+script = ExtResource("7_lwge3")
+
+[node name="Tile_1_0" parent="." instance=ExtResource("3_0cryg")]
+position = Vector2(759, 518)
+
+[node name="Empty" type="Node2D" parent="Tile_1_0" groups=["empty"] instance=ExtResource("6_rmh5j")]
+script = ExtResource("7_lwge3")
+
+[node name="Tile_1_1" parent="." instance=ExtResource("3_0cryg")]
+position = Vector2(855, 518)
+Type = 0
+
+[node name="Core" type="Node2D" parent="Tile_1_1" groups=["core"] instance=ExtResource("4_x870s")]
+script = ExtResource("5_otdpp")
+
+[node name="Tile_1_2" parent="." instance=ExtResource("3_0cryg")]
+position = Vector2(951, 518)
+
+[node name="Empty" type="Node2D" parent="Tile_1_2" groups=["empty"] instance=ExtResource("6_rmh5j")]
+script = ExtResource("7_lwge3")
+
+[node name="Tile_1_3" parent="." instance=ExtResource("3_0cryg")]
+position = Vector2(1047, 518)
+Type = 4
+
+[node name="Proxy" type="Node2D" parent="Tile_1_3" node_paths=PackedStringArray("ExitTile") groups=["proxy"] instance=ExtResource("9_43h6n")]
+script = ExtResource("10_1vgn2")
+ExitTile = NodePath("../../Tile_4_1")
+
+[node name="Tile_1_4" parent="." instance=ExtResource("3_0cryg")]
+position = Vector2(1143, 518)
+
+[node name="Empty" type="Node2D" parent="Tile_1_4" groups=["empty"] instance=ExtResource("6_rmh5j")]
+script = ExtResource("7_lwge3")
+
+[node name="Tile_2_0" parent="." instance=ExtResource("3_0cryg")]
+position = Vector2(759, 614)
+
+[node name="Empty" type="Node2D" parent="Tile_2_0" groups=["empty"] instance=ExtResource("6_rmh5j")]
+script = ExtResource("7_lwge3")
+
+[node name="Tile_2_1" parent="." instance=ExtResource("3_0cryg")]
+position = Vector2(855, 614)
+Type = 2
+
+[node name="Firewall" type="Node2D" parent="Tile_2_1" groups=["firewall"] instance=ExtResource("11_o1g8h")]
+script = ExtResource("12_h8vjn")
+
+[node name="Tile_2_2" parent="." instance=ExtResource("3_0cryg")]
+position = Vector2(951, 614)
+
+[node name="Empty" type="Node2D" parent="Tile_2_2" groups=["empty"] instance=ExtResource("6_rmh5j")]
+script = ExtResource("7_lwge3")
+
+[node name="Tile_2_3" parent="." instance=ExtResource("3_0cryg")]
+position = Vector2(1047, 614)
+
+[node name="Empty" type="Node2D" parent="Tile_2_3" groups=["empty"] instance=ExtResource("6_rmh5j")]
+script = ExtResource("7_lwge3")
+
+[node name="Tile_2_4" parent="." instance=ExtResource("3_0cryg")]
+position = Vector2(1143, 614)
+
+[node name="Empty" type="Node2D" parent="Tile_2_4" groups=["empty"] instance=ExtResource("6_rmh5j")]
+script = ExtResource("7_lwge3")
+
+[node name="Tile_3_0" parent="." instance=ExtResource("3_0cryg")]
+position = Vector2(759, 710)
+
+[node name="Empty" type="Node2D" parent="Tile_3_0" groups=["empty"] instance=ExtResource("6_rmh5j")]
+script = ExtResource("7_lwge3")
+
+[node name="Tile_3_1" parent="." instance=ExtResource("3_0cryg")]
+position = Vector2(855, 710)
+Type = 0
+
+[node name="Core" type="Node2D" parent="Tile_3_1" groups=["core"] instance=ExtResource("4_x870s")]
+script = ExtResource("5_otdpp")
+
+[node name="Tile_3_2" parent="." instance=ExtResource("3_0cryg")]
+position = Vector2(951, 710)
+
+[node name="Empty" type="Node2D" parent="Tile_3_2" groups=["empty"] instance=ExtResource("6_rmh5j")]
+script = ExtResource("7_lwge3")
+
+[node name="Tile_3_3" parent="." instance=ExtResource("3_0cryg")]
+position = Vector2(1047, 710)
+
+[node name="Empty" type="Node2D" parent="Tile_3_3" groups=["empty"] instance=ExtResource("6_rmh5j")]
+script = ExtResource("7_lwge3")
+
+[node name="Tile_3_4" parent="." instance=ExtResource("3_0cryg")]
+position = Vector2(1143, 710)
+
+[node name="Empty" type="Node2D" parent="Tile_3_4" groups=["empty"] instance=ExtResource("6_rmh5j")]
+script = ExtResource("7_lwge3")
+
+[node name="Tile_4_0" parent="." instance=ExtResource("3_0cryg")]
+position = Vector2(759, 806)
+
+[node name="Empty" type="Node2D" parent="Tile_4_0" groups=["empty"] instance=ExtResource("6_rmh5j")]
+script = ExtResource("7_lwge3")
+
+[node name="Tile_4_1" parent="." instance=ExtResource("3_0cryg")]
+position = Vector2(855, 806)
+Type = 4
+
+[node name="Proxy" type="Node2D" parent="Tile_4_1" node_paths=PackedStringArray("ExitTile") groups=["proxy"] instance=ExtResource("9_43h6n")]
+script = ExtResource("10_1vgn2")
+ExitTile = NodePath("../../Tile_1_3")
+
+[node name="Tile_4_2" parent="." instance=ExtResource("3_0cryg")]
+position = Vector2(951, 806)
+
+[node name="Empty" type="Node2D" parent="Tile_4_2" groups=["empty"] instance=ExtResource("6_rmh5j")]
+script = ExtResource("7_lwge3")
+
+[node name="Tile_4_3" parent="." instance=ExtResource("3_0cryg")]
+position = Vector2(1047, 806)
+Type = 0
+
+[node name="Core" type="Node2D" parent="Tile_4_3" groups=["core"] instance=ExtResource("4_x870s")]
+script = ExtResource("5_otdpp")
+
+[node name="Tile_4_4" parent="." instance=ExtResource("3_0cryg")]
+position = Vector2(1143, 806)
+
+[node name="Empty" type="Node2D" parent="Tile_4_4" groups=["empty"] instance=ExtResource("6_rmh5j")]
+script = ExtResource("7_lwge3")

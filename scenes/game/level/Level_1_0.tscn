@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://baftsx7qrc6n8"]
+[gd_scene load_steps=11 format=3 uid="uid://baftsx7qrc6n8"]
 
 [ext_resource type="Script" path="res://scenes/game/level/Level.cs" id="1_h4huj"]
 [ext_resource type="PackedScene" uid="uid://b1i880hkcmx50" path="res://scenes/game/level/Level_0_1.tscn" id="2_mjbht"]
@@ -10,7 +10,6 @@
 [ext_resource type="PackedScene" uid="uid://bux2ffg7yyub3" path="res://scenes/game/objects/tile/firewall/Firewall.tscn" id="7_4436y"]
 [ext_resource type="Texture2D" uid="uid://be4svj8nr5n1a" path="res://assets/game/objects/tile/router/texture.png" id="9_wbuna"]
 [ext_resource type="PackedScene" uid="uid://cl2lm1lsl8j8i" path="res://scenes/game/objects/tile/proxy/Proxy.tscn" id="10_epi0j"]
-[ext_resource type="Script" path="res://scenes/game/objects/tile/empty/Empty.cs" id="11_ebswy"]
 
 [node name="Level" type="Node2D" node_paths=PackedStringArray("startingTile")]
 script = ExtResource("1_h4huj")
@@ -18,7 +17,7 @@ nextLevel = ExtResource("2_mjbht")
 startingTile = NodePath("Tile_0_0")
 OptimalScore = 2
 LevelTitle = "Level 1.0"
-LevelSubtitle = "// Working With Proxies"
+LevelSubtitle = "// Thinking With Proxies"
 
 [node name="Background" parent="." instance=ExtResource("3_kppp5")]
 
@@ -58,8 +57,7 @@ position = Vector2(864, 584)
 [node name="Tile_1_1" parent="." instance=ExtResource("5_ewbo5")]
 position = Vector2(960, 584)
 
-[node name="Empty" type="Node2D" parent="Tile_1_1" groups=["empty"] instance=ExtResource("7_7vav0")]
-script = ExtResource("11_ebswy")
+[node name="Empty" parent="Tile_1_1" instance=ExtResource("7_7vav0")]
 
 [node name="Tile_1_2" parent="." instance=ExtResource("5_ewbo5")]
 position = Vector2(1056, 584)
@@ -83,8 +81,7 @@ texture = ExtResource("9_wbuna")
 [node name="Tile_2_1" parent="." instance=ExtResource("5_ewbo5")]
 position = Vector2(960, 680)
 
-[node name="Empty" type="Node2D" parent="Tile_2_1" groups=["empty"] instance=ExtResource("7_7vav0")]
-script = ExtResource("11_ebswy")
+[node name="Empty" parent="Tile_2_1" instance=ExtResource("7_7vav0")]
 
 [node name="Tile_2_2" parent="." instance=ExtResource("5_ewbo5")]
 position = Vector2(1056, 680)
