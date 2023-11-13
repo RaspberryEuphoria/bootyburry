@@ -54,7 +54,6 @@ namespace Game
 
     public void OnTileSelected(Tile _tile, Tile _previousTile, Direction _direction)
     {
-      GD.Print($"Router {tile.Name} selected from {_previousTile.Name} in direction {_direction}");
       Level.TriggerInputInDirection(Direction);
     }
   }

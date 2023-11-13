@@ -135,6 +135,8 @@ namespace Game
     {
       if (IsOnBorder(direction)) return null;
 
+      // @todo: maybe this is where we should put the Terrain switch instead of specific methods?
+
       var tiles = level.GetTiles();
 
       try
@@ -178,19 +180,9 @@ namespace Game
       {
         Core => adjacentTile,
         Router router => adjacentTile.GetNextCoreTileInDirection(router.Direction),
-        Proxy proxy => proxy.ExitTile.GetNextSelectableTileInDirection(direction),
+        Proxy proxy => proxy.ExitTile.GetNextCoreTileInDirection(direction),
         _ => adjacentTile.GetNextCoreTileInDirection(direction)
       };
-    }
-
-    public Tile GetNextTileOfTypeInDirection(Direction direction, TileType type)
-    {
-      var adjacentTile = GetAdjacentTile(direction);
-
-      if (adjacentTile == null) return null;
-      if (adjacentTile.Type != type) return adjacentTile.GetNextTileOfTypeInDirection(direction, type);
-
-      return adjacentTile;
     }
 
     public Tile GetBlockerInPathToTile(Direction direction, Tile goalTile)
@@ -199,9 +191,14 @@ namespace Game
 
       if (adjacentTile == null) return null;
       if (adjacentTile == goalTile) return null;
-      if (!adjacentTile.IsBlockedFromDirection(direction)) return adjacentTile.GetBlockerInPathToTile(direction, goalTile);
+      if (adjacentTile.IsBlockedFromDirection(direction)) return adjacentTile;
 
-      return adjacentTile;
+      return adjacentTile.Terrain switch
+      {
+        Router router => adjacentTile.GetBlockerInPathToTile(router.Direction, goalTile),
+        Proxy proxy => proxy.ExitTile.GetBlockerInPathToTile(direction, goalTile),
+        _ => adjacentTile.GetBlockerInPathToTile(direction, goalTile)
+      };
     }
 
     public bool HasBlockerInPathToTile(Direction direction, Tile goalTile)
@@ -211,7 +208,6 @@ namespace Game
 
     public bool IsOnBorder(Direction direction)
     {
-      var level = GetParent<Level>();
       var rowsCount = level.GetRows();
       var columnsCount = level.GetColumns();
       var isOnBorder = false;
@@ -301,7 +297,6 @@ namespace Game
 
     public void Select(Tile previousTile, Direction direction)
     {
-      GD.Print($"{Name} selected from {previousTile?.Name} in direction {direction}.");
       state = TileState.Selected;
       EmitSignal(SignalName.TileSelected, this, previousTile, (int)direction);
     }

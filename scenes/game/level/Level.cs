@@ -242,6 +242,9 @@ namespace Game
 
     private void DrawNavigationPath(Tile startingTile, Tile targetTile, bool expandPreviousPath)
     {
+      // @todo: reproduce a bug where moving immediatly to a Router tile will crash the level
+      // for some reason, the navigationPaths list is empty when it shouldn't be
+
       var navigationPath = expandPreviousPath
         ? navigationPaths.Last()
         : ResourceLoader.Load<PackedScene>("res://NavigationPath.tscn").Instantiate<NavigationPath>();
