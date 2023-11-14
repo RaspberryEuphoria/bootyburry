@@ -198,6 +198,11 @@ namespace Game
       var nextTile = currentTile.GetNextSelectableTileInDirection(direction);
       if (nextTile == null || currentTile == nextTile) return null;
 
+      var nextCoreTile = currentTile.GetNextCoreTileInDirection(direction);
+      if (nextCoreTile == null || currentTile == nextCoreTile) return null;
+
+      // @tdoo replace "CanDockTo" by something more specific to navigation path
+      // a Router should expand previous path, but other tiles should not
       var isMovePlayerControlled = currentTile.CanDockTo();
 
       currentTile.Unselect();
@@ -245,20 +250,27 @@ namespace Game
       // @todo: reproduce a bug where moving immediatly to a Router tile will crash the level
       // for some reason, the navigationPaths list is empty when it shouldn't be
 
-      var navigationPath = expandPreviousPath
-        ? navigationPaths.Last()
-        : ResourceLoader.Load<PackedScene>("res://NavigationPath.tscn").Instantiate<NavigationPath>();
-
-      if (expandPreviousPath)
+      try
       {
-        navigationPath.AddTileToPoints(targetTile);
-        return;
+        var navigationPath = expandPreviousPath
+          ? navigationPaths.Last()
+          : ResourceLoader.Load<PackedScene>("res://NavigationPath.tscn").Instantiate<NavigationPath>();
+
+        if (expandPreviousPath)
+        {
+          navigationPath.AddTileToPoints(targetTile);
+          return;
+        }
+
+        navigationPath.Init(startingTile, targetTile);
+        AddChild(navigationPath);
+
+        navigationPaths = navigationPaths.Append(navigationPath);
       }
-
-      navigationPath.Init(startingTile, targetTile);
-      AddChild(navigationPath);
-
-      navigationPaths = navigationPaths.Append(navigationPath);
+      catch (Exception e)
+      {
+        GD.Print("There was an error while drawing the navigation path: " + e.Message);
+      }
     }
 
     public int GetCoresCount()
