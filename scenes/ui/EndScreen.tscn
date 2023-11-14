@@ -1,6 +1,5 @@
-[gd_scene load_steps=8 format=3 uid="uid://cijympkegs2wn"]
+[gd_scene load_steps=7 format=3 uid="uid://cijympkegs2wn"]
 
-[ext_resource type="Script" path="res://scenes/ui/LevelUI.cs" id="1_2r6ab"]
 [ext_resource type="Texture2D" uid="uid://crq44tibmvmta" path="res://assets/fx/holographic_pattern.png" id="2_xq13t"]
 [ext_resource type="Texture2D" uid="uid://o46g14085m5w" path="res://assets/ui/levelUI/texture.png" id="3_d2ifx"]
 [ext_resource type="Theme" uid="uid://cgruyese0ddm7" path="res://assets/ui/themes/label.tres" id="4_fnmcy"]
@@ -21,7 +20,6 @@ glow_bloom = 0.1
 glow_blend_mode = 0
 
 [node name="EndScreen" type="CanvasLayer"]
-script = ExtResource("1_2r6ab")
 
 [node name="Holo" type="TextureRect" parent="."]
 modulate = Color(0, 0, 0, 1)
