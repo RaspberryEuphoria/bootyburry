@@ -17,11 +17,13 @@ namespace Game
 
     private Level level;
     private Tile rootTile;
+    private AnimationPlayer animationPlayer;
 
     public override void _Ready()
     {
       rootTile = GetParent<Tile>();
       level = rootTile.GetParent<Level>();
+      animationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
 
       level.CurrentTileUpdated += OnCurrentTileUpdated;
 
@@ -59,6 +61,8 @@ namespace Game
     public void OnCurrentTileUpdated(Tile tile, Tile previousTile, Direction direction)
     {
       if (previousTile == null || tile != rootTile) return;
+
+      animationPlayer.Play("shake");
 
       // Case 1: this Proxy was selected by the player
       if (previousTile.Terrain is not Proxy)
