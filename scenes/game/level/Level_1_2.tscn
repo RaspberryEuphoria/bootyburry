@@ -1,0 +1,132 @@
+[gd_scene load_steps=9 format=3 uid="uid://d23rfhjixlueh"]
+
+[ext_resource type="Script" path="res://scenes/game/level/Level.cs" id="1_mikgr"]
+[ext_resource type="PackedScene" uid="uid://btkws4lwu8fi1" path="res://scenes/game/level/LevelBackground.tscn" id="2_qr771"]
+[ext_resource type="PackedScene" uid="uid://dbl0tiuqxnci4" path="res://scenes/ui/LevelUI.tscn" id="3_d5ivh"]
+[ext_resource type="PackedScene" uid="uid://67x0aame80lq" path="res://scenes/game/objects/tile/Tile.tscn" id="4_4o4ge"]
+[ext_resource type="PackedScene" uid="uid://e2gu8wi641jf" path="res://scenes/game/objects/tile/empty/Empty.tscn" id="5_hfili"]
+[ext_resource type="PackedScene" uid="uid://ch1bcttqi5hjk" path="res://scenes/game/objects/tile/core/Core.tscn" id="6_uk75l"]
+[ext_resource type="PackedScene" uid="uid://cl2lm1lsl8j8i" path="res://scenes/game/objects/tile/proxy/Proxy.tscn" id="7_k31ks"]
+[ext_resource type="PackedScene" uid="uid://bux2ffg7yyub3" path="res://scenes/game/objects/tile/firewall/Firewall.tscn" id="8_ghjn0"]
+
+[node name="Level" type="Node2D" node_paths=PackedStringArray("startingTile")]
+script = ExtResource("1_mikgr")
+startingTile = NodePath("Tile_0_1")
+OptimalScore = 7
+LevelTitle = "Level 1.2"
+LevelSubtitle = "// From a Certain Point of View"
+
+[node name="Background" parent="." instance=ExtResource("2_qr771")]
+
+[node name="LevelUI" parent="." instance=ExtResource("3_d5ivh")]
+
+[node name="Tile_0_0" parent="." instance=ExtResource("4_4o4ge")]
+position = Vector2(814, 402)
+
+[node name="Empty" parent="Tile_0_0" instance=ExtResource("5_hfili")]
+
+[node name="Tile_0_1" parent="." instance=ExtResource("4_4o4ge")]
+position = Vector2(910, 402)
+Type = 0
+
+[node name="Core" parent="Tile_0_1" instance=ExtResource("6_uk75l")]
+
+[node name="Tile_0_2" parent="." instance=ExtResource("4_4o4ge")]
+position = Vector2(1006, 402)
+
+[node name="Empty" parent="Tile_0_2" instance=ExtResource("5_hfili")]
+
+[node name="Tile_0_3" parent="." instance=ExtResource("4_4o4ge")]
+position = Vector2(1102, 402)
+
+[node name="Empty" parent="Tile_0_3" instance=ExtResource("5_hfili")]
+
+[node name="Tile_1_0" parent="." instance=ExtResource("4_4o4ge")]
+position = Vector2(814, 498)
+
+[node name="Empty" parent="Tile_1_0" instance=ExtResource("5_hfili")]
+
+[node name="Tile_1_1" parent="." instance=ExtResource("4_4o4ge")]
+position = Vector2(910, 498)
+Type = 0
+
+[node name="Core" parent="Tile_1_1" instance=ExtResource("6_uk75l")]
+
+[node name="Tile_1_2" parent="." instance=ExtResource("4_4o4ge")]
+position = Vector2(1006, 498)
+
+[node name="Empty" parent="Tile_1_2" instance=ExtResource("5_hfili")]
+
+[node name="Tile_1_3" parent="." instance=ExtResource("4_4o4ge")]
+position = Vector2(1102, 498)
+Type = 4
+
+[node name="Proxy" parent="Tile_1_3" node_paths=PackedStringArray("ExitTile") instance=ExtResource("7_k31ks")]
+ExitTile = NodePath("../../Tile_4_0")
+
+[node name="Tile_2_0" parent="." instance=ExtResource("4_4o4ge")]
+position = Vector2(814, 594)
+
+[node name="Empty" parent="Tile_2_0" instance=ExtResource("5_hfili")]
+
+[node name="Tile_2_1" parent="." instance=ExtResource("4_4o4ge")]
+position = Vector2(910, 594)
+Type = 2
+
+[node name="Firewall" parent="Tile_2_1" instance=ExtResource("8_ghjn0")]
+
+[node name="Tile_2_2" parent="." instance=ExtResource("4_4o4ge")]
+position = Vector2(1006, 594)
+
+[node name="Empty" parent="Tile_2_2" instance=ExtResource("5_hfili")]
+
+[node name="Tile_2_3" parent="." instance=ExtResource("4_4o4ge")]
+position = Vector2(1102, 594)
+
+[node name="Empty" parent="Tile_2_3" instance=ExtResource("5_hfili")]
+
+[node name="Tile_3_0" parent="." instance=ExtResource("4_4o4ge")]
+position = Vector2(814, 690)
+Type = 0
+
+[node name="Core" parent="Tile_3_0" instance=ExtResource("6_uk75l")]
+isCoreEnabledOnStart = true
+
+[node name="Tile_3_1" parent="." instance=ExtResource("4_4o4ge")]
+position = Vector2(910, 690)
+Type = 0
+
+[node name="Core" parent="Tile_3_1" instance=ExtResource("6_uk75l")]
+
+[node name="Tile_3_2" parent="." instance=ExtResource("4_4o4ge")]
+position = Vector2(1006, 690)
+
+[node name="Empty" parent="Tile_3_2" instance=ExtResource("5_hfili")]
+
+[node name="Tile_3_3" parent="." instance=ExtResource("4_4o4ge")]
+position = Vector2(1102, 690)
+
+[node name="Empty" parent="Tile_3_3" instance=ExtResource("5_hfili")]
+
+[node name="Tile_4_0" parent="." instance=ExtResource("4_4o4ge")]
+position = Vector2(814, 786)
+Type = 4
+
+[node name="Proxy" parent="Tile_4_0" node_paths=PackedStringArray("ExitTile") instance=ExtResource("7_k31ks")]
+ExitTile = NodePath("../../Tile_1_3")
+
+[node name="Tile_4_1" parent="." instance=ExtResource("4_4o4ge")]
+position = Vector2(910, 786)
+
+[node name="Empty" parent="Tile_4_1" instance=ExtResource("5_hfili")]
+
+[node name="Tile_4_2" parent="." instance=ExtResource("4_4o4ge")]
+position = Vector2(1006, 786)
+
+[node name="Empty" parent="Tile_4_2" instance=ExtResource("5_hfili")]
+
+[node name="Tile_4_3" parent="." instance=ExtResource("4_4o4ge")]
+position = Vector2(1102, 786)
+Type = 0
+
+[node name="Core" parent="Tile_4_3" instance=ExtResource("6_uk75l")]
