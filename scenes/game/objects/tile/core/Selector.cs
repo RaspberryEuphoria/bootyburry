@@ -10,6 +10,7 @@ namespace Game
 
     private AnimationPlayer animationPlayer;
     private Tile parentTile;
+    private StringName idleAnimation = "idle";
 
     public override void _Ready()
     {
@@ -23,6 +24,8 @@ namespace Game
       level.GameWon += OnGameWon;
       parentTile.TileSelected += OnTileSelected;
       parentTile.TileUnselected += OnTileUnselected;
+
+      animationPlayer.AnimationFinished += OnAnimationFinished;
     }
 
     public void OnTileSelected(Tile _tile, Tile _previousTile, Direction _direction)
@@ -49,6 +52,11 @@ namespace Game
     public void OnGameWon()
     {
       Visible = false;
+    }
+
+    private void OnAnimationFinished(StringName animation)
+    {
+      if (animation != idleAnimation) animationPlayer.Play(idleAnimation);
     }
   }
 }
