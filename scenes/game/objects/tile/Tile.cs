@@ -156,6 +156,8 @@ namespace Game
 
     public Tile GetNextSelectableTileInDirection(Direction direction)
     {
+      if (IsBlockedFromDirection(direction)) return null;
+
       var adjacentTile = GetAdjacentTile(direction);
 
       if (adjacentTile == null) return null;
