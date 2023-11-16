@@ -4,6 +4,10 @@ namespace Game
 {
   public partial class Firewall : Node2D
   {
+
+    public static readonly bool IsPlayerControlled = false;
+    public static readonly bool ExpandPreviousPath = false;
+
     private Level level;
     private Tile tile;
 

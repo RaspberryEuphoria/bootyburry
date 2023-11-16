@@ -9,10 +9,12 @@ namespace Game
     [Export]
     private bool isCoreEnabledOnStart = false;
 
+    public static readonly bool IsPlayerControlled = true;
+    public static readonly bool ExpandPreviousPath = false;
+
     private AnimationPlayer animationPlayer;
     private InnerCore innerCore;
     private Tile tile;
-
     private Selector[] selectors;
 
     public override void _Ready()

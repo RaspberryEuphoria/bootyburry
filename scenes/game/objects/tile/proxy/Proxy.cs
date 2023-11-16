@@ -15,6 +15,9 @@ namespace Game
     [Export]
     public Tile ExitTile;
 
+    public static readonly bool IsPlayerControlled = false;
+    public static readonly bool ExpandPreviousPath = false;
+
     private Level level;
     private Tile rootTile;
     private AnimationPlayer animationPlayer;
@@ -72,7 +75,7 @@ namespace Game
       }
 
       // Case 2: this Proxy was selected by its twin
-      Level.TriggerInputInDirection(direction);
+      level.TriggerInputInDirection(direction);
     }
   }
 }

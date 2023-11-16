@@ -261,6 +261,7 @@ namespace Game
       };
     }
 
+    // @deprecated
     public Direction? GetForcedDirection()
     {
       return Terrain switch
@@ -274,9 +275,30 @@ namespace Game
       };
     }
 
-    public bool CanDockTo()
+    public bool ExpandPreviousPath()
     {
-      return Terrain.HasMethod("Dock");
+      return Terrain switch
+      {
+        Core => Core.ExpandPreviousPath,
+        Router => Router.ExpandPreviousPath,
+        Firewall => Firewall.ExpandPreviousPath,
+        Empty => Empty.ExpandPreviousPath,
+        Proxy => Proxy.ExpandPreviousPath,
+        _ => throw new Exception($"Invalid terrain type {Terrain.GetType()} on tile {Name}!"),
+      };
+    }
+
+    public bool IsPlayerControlled()
+    {
+      return Terrain switch
+      {
+        Core => Core.IsPlayerControlled,
+        Router => Router.IsPlayerControlled,
+        Firewall => Firewall.IsPlayerControlled,
+        Empty => Empty.IsPlayerControlled,
+        Proxy => Proxy.IsPlayerControlled,
+        _ => throw new Exception($"Invalid terrain type {Terrain.GetType()} on tile {Name}!"),
+      };
     }
 
     private bool IsBlockedByCurrent(Direction direction)

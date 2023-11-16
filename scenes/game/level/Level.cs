@@ -128,15 +128,11 @@ namespace Game
 
     public void HandleInput()
     {
+      if (!currentTile.IsPlayerControlled()) return;
+
       foreach (var itr in actionToDirection)
       {
-        if (Input.IsActionJustPressed(itr.Key))
-        {
-          var isMovePlayerControlled = NavigateInDirection(itr.Value);
-          if (isMovePlayerControlled == true) AddMove(itr.Value);
-
-          CheckScore();
-        }
+        if (Input.IsActionJustPressed(itr.Key)) NavigateInDirection(itr.Value);
       }
     }
 
@@ -148,30 +144,9 @@ namespace Game
       EmitSignal(SignalName.PlayerMoved, Score);
     }
 
-    public static void TriggerInputInDirection(Direction direction)
+    public void TriggerInputInDirection(Direction direction)
     {
-      /*
-       * When navigating through a Router tile, if the Router direction
-       * is identical to the action just pressed, the input can't be
-       * registered unless we release the action in the same frame!
-       */
-      Input.ActionRelease(actionToDirection.FirstOrDefault(itr => itr.Value == direction).Key);
-
-      var action = actionToDirection.FirstOrDefault(itr => itr.Value == direction).Key;
-
-      var press = new InputEventAction
-      {
-        Action = action,
-        Pressed = true,
-      };
-      Input.ParseInputEvent(press);
-
-      var release = new InputEventAction
-      {
-        Action = action,
-        Pressed = false
-      };
-      Input.ParseInputEvent(release);
+      NavigateInDirection(direction);
     }
 
     public List<string> GetAvailableActions()
@@ -201,9 +176,8 @@ namespace Game
       var nextCoreTile = currentTile.GetNextCoreTileInDirection(direction);
       if (nextCoreTile == null || currentTile == nextCoreTile) return null;
 
-      // @tdoo replace "CanDockTo" by something more specific to navigation path
-      // a Router should expand previous path, but other tiles should not
-      var isMovePlayerControlled = currentTile.CanDockTo();
+      var expandPreviousPath = currentTile.ExpandPreviousPath();
+      var shouldAddMove = currentTile.IsPlayerControlled();
 
       currentTile.Unselect();
 
@@ -214,13 +188,13 @@ namespace Game
         navigationPaths = navigationPaths.Where(np => np != navigationPath);
       }
 
-      if (isMovePlayerControlled) HidePreviousNavigationPath();
-      DrawNavigationPath(currentTile, nextTile, expandPreviousPath: !isMovePlayerControlled);
+      if (!expandPreviousPath) HidePreviousNavigationPath();
+      DrawNavigationPath(currentTile, nextTile, expandPreviousPath);
 
       nextTile.Select(currentTile, direction);
       previousTile = currentTile;
 
-      return isMovePlayerControlled;
+      return shouldAddMove;
     }
 
     private void HidePreviousNavigationPath()
@@ -356,6 +330,10 @@ namespace Game
     private void OnTileSelected(Tile tile, Tile previousTile, Direction direction)
     {
       currentTile = tile;
+
+      if (previousTile != null && currentTile.IsPlayerControlled()) AddMove(direction);
+
+      CheckScore();
       EmitSignal(SignalName.CurrentTileUpdated, currentTile, previousTile, (int)direction);
     }
 

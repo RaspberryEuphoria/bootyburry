@@ -7,15 +7,20 @@ namespace Game
     [Export]
     public Direction Direction { get; private set; } = Direction.Up;
 
-    private Tile tile;
+    public static readonly bool IsPlayerControlled = false;
+    public static readonly bool ExpandPreviousPath = true;
+
+    private Level level;
+    private Tile rootTile;
     private Sprite2D arrows;
 
     public override void _Ready()
     {
+      rootTile = GetParent<Tile>();
+      level = rootTile.GetParent<Level>();
       arrows = GetNode<Sprite2D>("Arrows");
 
-      tile = GetParent<Tile>();
-      tile.TileSelected += OnTileSelected;
+      level.CurrentTileUpdated += OnCurrentTileUpdated;
 
       SetupRotation();
     }
@@ -52,9 +57,11 @@ namespace Game
       };
     }
 
-    public void OnTileSelected(Tile _tile, Tile _previousTile, Direction _direction)
+    public void OnCurrentTileUpdated(Tile tile, Tile previousTile, Direction direction)
     {
-      Level.TriggerInputInDirection(Direction);
+      if (previousTile == null || tile != rootTile) return;
+
+      level.TriggerInputInDirection(Direction);
     }
   }
 }
