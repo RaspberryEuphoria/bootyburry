@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://c68cqukrfhn5s"]
+[gd_scene load_steps=13 format=3 uid="uid://c68cqukrfhn5s"]
 
 [ext_resource type="Script" path="res://scenes/game/level/Level.cs" id="1_nq8v3"]
 [ext_resource type="PackedScene" uid="uid://bgbjtiqfpr23s" path="res://scenes/game/level/Level_0_5.tscn" id="2_2fxfa"]
@@ -9,6 +9,9 @@
 [ext_resource type="PackedScene" uid="uid://e2gu8wi641jf" path="res://scenes/game/objects/tile/empty/Empty.tscn" id="7_7x4yi"]
 [ext_resource type="PackedScene" uid="uid://bux2ffg7yyub3" path="res://scenes/game/objects/tile/firewall/Firewall.tscn" id="8_2o761"]
 [ext_resource type="PackedScene" uid="uid://6oclnkije4cp" path="res://scenes/game/objects/tile/router/Router.tscn" id="8_bye5i"]
+[ext_resource type="Script" path="res://scenes/game/objects/tile/core/Core.cs" id="10_am3f8"]
+[ext_resource type="Script" path="res://scenes/game/objects/tile/router/Router.cs" id="10_h81jv"]
+[ext_resource type="Script" path="res://scenes/game/objects/tile/empty/Empty.cs" id="11_ud2ld"]
 
 [node name="Level" type="Node2D" node_paths=PackedStringArray("startingTile")]
 script = ExtResource("1_nq8v3")
@@ -26,99 +29,105 @@ helperText = "Mind the current, don't let your ship flip,
 It's a one-way trip, your hopes could slip."
 
 [node name="Tile_0_0" parent="." instance=ExtResource("3_noknl")]
-position = Vector2(720, 488)
+position = Vector2(720, 448)
 Type = 0
 
 [node name="Core" parent="Tile_0_0" instance=ExtResource("5_21hbk")]
 
 [node name="Tile_0_1" parent="." instance=ExtResource("3_noknl")]
-position = Vector2(816, 488)
+position = Vector2(816, 448)
 
 [node name="Empty" parent="Tile_0_1" instance=ExtResource("7_7x4yi")]
 
 [node name="Tile_0_2" parent="." instance=ExtResource("3_noknl")]
-position = Vector2(912, 488)
+position = Vector2(912, 448)
 Type = 0
 
 [node name="Core" parent="Tile_0_2" instance=ExtResource("5_21hbk")]
 
 [node name="Tile_0_3" parent="." instance=ExtResource("3_noknl")]
-position = Vector2(1008, 488)
+position = Vector2(1008, 448)
 
 [node name="Empty" parent="Tile_0_3" instance=ExtResource("7_7x4yi")]
 
 [node name="Tile_0_4" parent="." instance=ExtResource("3_noknl")]
-position = Vector2(1104, 488)
+position = Vector2(1104, 448)
 Type = 2
 
 [node name="Firewall" parent="Tile_0_4" instance=ExtResource("8_2o761")]
 
 [node name="Tile_0_5" parent="." instance=ExtResource("3_noknl")]
-position = Vector2(1200, 488)
+position = Vector2(1200, 448)
 Type = 0
 
 [node name="Core" parent="Tile_0_5" instance=ExtResource("5_21hbk")]
 
 [node name="Tile_1_0" parent="." instance=ExtResource("3_noknl")]
-position = Vector2(720, 584)
+position = Vector2(720, 544)
 
 [node name="Empty" parent="Tile_1_0" instance=ExtResource("7_7x4yi")]
 
 [node name="Tile_1_1" parent="." instance=ExtResource("3_noknl")]
-position = Vector2(816, 584)
+position = Vector2(816, 544)
 
 [node name="Empty" parent="Tile_1_1" instance=ExtResource("7_7x4yi")]
 
 [node name="Tile_1_2" parent="." instance=ExtResource("3_noknl")]
-position = Vector2(912, 584)
+position = Vector2(912, 544)
 Type = 3
 
 [node name="Router" parent="Tile_1_2" instance=ExtResource("8_bye5i")]
 
 [node name="Tile_1_3" parent="." instance=ExtResource("3_noknl")]
-position = Vector2(1008, 584)
+position = Vector2(1008, 544)
 
 [node name="Empty" parent="Tile_1_3" instance=ExtResource("7_7x4yi")]
 
 [node name="Tile_1_4" parent="." instance=ExtResource("3_noknl")]
-position = Vector2(1104, 584)
+position = Vector2(1104, 544)
 Type = 0
 
 [node name="Core" parent="Tile_1_4" instance=ExtResource("5_21hbk")]
 
 [node name="Tile_1_5" parent="." instance=ExtResource("3_noknl")]
-position = Vector2(1200, 584)
+position = Vector2(1200, 544)
 Type = 0
 
 [node name="Core" parent="Tile_1_5" instance=ExtResource("5_21hbk")]
 
 [node name="Tile_2_0" parent="." instance=ExtResource("3_noknl")]
-position = Vector2(720, 680)
+position = Vector2(720, 640)
 Type = 0
 
 [node name="Core" parent="Tile_2_0" instance=ExtResource("5_21hbk")]
 
 [node name="Tile_2_1" parent="." instance=ExtResource("3_noknl")]
-position = Vector2(816, 680)
+position = Vector2(816, 640)
 
 [node name="Empty" parent="Tile_2_1" instance=ExtResource("7_7x4yi")]
 
 [node name="Tile_2_2" parent="." instance=ExtResource("3_noknl")]
-position = Vector2(912, 680)
+position = Vector2(912, 640)
 
 [node name="Empty" parent="Tile_2_2" instance=ExtResource("7_7x4yi")]
 
 [node name="Tile_2_3" parent="." instance=ExtResource("3_noknl")]
-position = Vector2(1008, 680)
+position = Vector2(1008, 640)
+Type = 0
 
-[node name="Empty" parent="Tile_2_3" instance=ExtResource("7_7x4yi")]
+[node name="Core" type="Node2D" parent="Tile_2_3" groups=["core"] instance=ExtResource("5_21hbk")]
+script = ExtResource("10_am3f8")
+isCoreEnabledOnStart = true
 
 [node name="Tile_2_4" parent="." instance=ExtResource("3_noknl")]
-position = Vector2(1104, 680)
+position = Vector2(1104, 640)
+Type = 3
 
-[node name="Empty" parent="Tile_2_4" instance=ExtResource("7_7x4yi")]
+[node name="Router" type="Node2D" parent="Tile_2_4" groups=["router"] instance=ExtResource("8_bye5i")]
+script = ExtResource("10_h81jv")
 
 [node name="Tile_2_5" parent="." instance=ExtResource("3_noknl")]
-position = Vector2(1200, 680)
+position = Vector2(1200, 640)
 
-[node name="Empty" parent="Tile_2_5" instance=ExtResource("7_7x4yi")]
+[node name="Empty" type="Node2D" parent="Tile_2_5" groups=["empty"] instance=ExtResource("7_7x4yi")]
+script = ExtResource("11_ud2ld")

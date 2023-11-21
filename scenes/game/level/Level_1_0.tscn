@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=3 uid="uid://baftsx7qrc6n8"]
 
 [ext_resource type="Script" path="res://scenes/game/level/Level.cs" id="1_h4huj"]
-[ext_resource type="PackedScene" uid="uid://bpkkxlbdllil8" path="res://scenes/game/level/Level_1_1.tscn" id="2_bqgjs"]
+[ext_resource type="PackedScene" uid="uid://d23rfhjixlueh" path="res://scenes/game/level/Level_1_1.tscn" id="2_bqgjs"]
 [ext_resource type="PackedScene" uid="uid://btkws4lwu8fi1" path="res://scenes/game/level/LevelBackground.tscn" id="3_kppp5"]
 [ext_resource type="PackedScene" uid="uid://dbl0tiuqxnci4" path="res://scenes/ui/LevelUI.tscn" id="4_3vkwv"]
 [ext_resource type="PackedScene" uid="uid://67x0aame80lq" path="res://scenes/game/objects/tile/Tile.tscn" id="5_ewbo5"]
@@ -14,7 +14,7 @@
 script = ExtResource("1_h4huj")
 nextLevel = ExtResource("2_bqgjs")
 startingTile = NodePath("Tile_0_0")
-OptimalScore = 2
+OptimalScore = 3
 LevelTitle = "Level 1.0"
 LevelSubtitle = "// Thinking With Proxies"
 
@@ -23,54 +23,55 @@ LevelSubtitle = "// Thinking With Proxies"
 [node name="LevelUI" parent="." instance=ExtResource("4_3vkwv")]
 
 [node name="Tile_0_0" parent="." instance=ExtResource("5_ewbo5")]
-position = Vector2(864, 488)
+position = Vector2(864, 448)
 Type = 0
 
 [node name="Core" parent="Tile_0_0" instance=ExtResource("6_ihv14")]
 
 [node name="Tile_0_1" parent="." instance=ExtResource("5_ewbo5")]
-position = Vector2(960, 488)
+position = Vector2(960, 448)
 Type = 2
 
 [node name="Firewall" parent="Tile_0_1" instance=ExtResource("7_4436y")]
 
 [node name="Tile_0_2" parent="." instance=ExtResource("5_ewbo5")]
-position = Vector2(1056, 488)
-Type = 4
+position = Vector2(1056, 448)
+Type = 0
 
-[node name="Proxy" parent="Tile_0_2" node_paths=PackedStringArray("ExitTile") instance=ExtResource("10_epi0j")]
-ExitTile = NodePath("../../Tile_2_0")
+[node name="Core" parent="Tile_0_2" instance=ExtResource("6_ihv14")]
 
 [node name="Tile_1_0" parent="." instance=ExtResource("5_ewbo5")]
-position = Vector2(864, 584)
+position = Vector2(864, 544)
+Type = 4
 
-[node name="Empty" parent="Tile_1_0" instance=ExtResource("7_7vav0")]
+[node name="Proxy" parent="Tile_1_0" node_paths=PackedStringArray("ExitTile") instance=ExtResource("10_epi0j")]
+ExitTile = NodePath("../../Tile_1_2")
 
 [node name="Tile_1_1" parent="." instance=ExtResource("5_ewbo5")]
-position = Vector2(960, 584)
+position = Vector2(960, 544)
 
 [node name="Empty" parent="Tile_1_1" instance=ExtResource("7_7vav0")]
 
 [node name="Tile_1_2" parent="." instance=ExtResource("5_ewbo5")]
-position = Vector2(1056, 584)
-
-[node name="Empty" parent="Tile_1_2" instance=ExtResource("7_7vav0")]
-
-[node name="Tile_2_0" parent="." instance=ExtResource("5_ewbo5")]
-position = Vector2(864, 680)
+position = Vector2(1056, 544)
 Type = 4
 
-[node name="Proxy" parent="Tile_2_0" node_paths=PackedStringArray("ExitTile") instance=ExtResource("10_epi0j")]
-ExitTile = NodePath("../../Tile_0_2")
+[node name="Proxy" parent="Tile_1_2" node_paths=PackedStringArray("ExitTile") instance=ExtResource("10_epi0j")]
+ExitTile = NodePath("../../Tile_1_0")
+
+[node name="Tile_2_0" parent="." instance=ExtResource("5_ewbo5")]
+position = Vector2(864, 640)
+Type = 0
+
+[node name="Core" parent="Tile_2_0" instance=ExtResource("6_ihv14")]
 
 [node name="Tile_2_1" parent="." instance=ExtResource("5_ewbo5")]
-position = Vector2(960, 680)
-Type = 2
+position = Vector2(960, 640)
 
-[node name="Firewall" parent="Tile_2_1" instance=ExtResource("7_4436y")]
+[node name="Empty" parent="Tile_2_1" instance=ExtResource("7_7vav0")]
 
 [node name="Tile_2_2" parent="." instance=ExtResource("5_ewbo5")]
-position = Vector2(1056, 680)
+position = Vector2(1056, 640)
 Type = 0
 
 [node name="Core" parent="Tile_2_2" instance=ExtResource("6_ihv14")]

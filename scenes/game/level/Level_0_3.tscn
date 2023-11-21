@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://bmbrcb5704afu"]
+[gd_scene load_steps=11 format=3 uid="uid://bmbrcb5704afu"]
 
 [ext_resource type="Script" path="res://scenes/game/level/Level.cs" id="1_3py4v"]
 [ext_resource type="PackedScene" uid="uid://c68cqukrfhn5s" path="res://scenes/game/level/Level_0_4.tscn" id="2_0eqrr"]
@@ -8,12 +8,14 @@
 [ext_resource type="PackedScene" uid="uid://ch1bcttqi5hjk" path="res://scenes/game/objects/tile/core/Core.tscn" id="5_ds2y5"]
 [ext_resource type="PackedScene" uid="uid://e2gu8wi641jf" path="res://scenes/game/objects/tile/empty/Empty.tscn" id="7_svxeo"]
 [ext_resource type="PackedScene" uid="uid://bux2ffg7yyub3" path="res://scenes/game/objects/tile/firewall/Firewall.tscn" id="7_yh5r0"]
+[ext_resource type="Script" path="res://scenes/game/objects/tile/core/Core.cs" id="9_yxw0n"]
+[ext_resource type="Script" path="res://scenes/game/objects/tile/empty/Empty.cs" id="10_5cvuw"]
 
 [node name="Level" type="Node2D" node_paths=PackedStringArray("startingTile")]
 script = ExtResource("1_3py4v")
 nextLevel = ExtResource("2_0eqrr")
-startingTile = NodePath("Tile_1_4")
-OptimalScore = 10
+startingTile = NodePath("Tile_1_2")
+OptimalScore = 9
 LevelTitle = "Level 0.3"
 LevelSubtitle = "// There's Always More"
 botDelay = 0.0
@@ -70,8 +72,10 @@ position = Vector2(816, 584)
 
 [node name="Tile_1_2" parent="." instance=ExtResource("3_bj2sm")]
 position = Vector2(912, 584)
+Type = 0
 
-[node name="Empty" parent="Tile_1_2" instance=ExtResource("7_svxeo")]
+[node name="Core" type="Node2D" parent="Tile_1_2" groups=["core"] instance=ExtResource("5_ds2y5")]
+script = ExtResource("9_yxw0n")
 
 [node name="Tile_1_3" parent="." instance=ExtResource("3_bj2sm")]
 position = Vector2(1008, 584)
@@ -80,9 +84,9 @@ position = Vector2(1008, 584)
 
 [node name="Tile_1_4" parent="." instance=ExtResource("3_bj2sm")]
 position = Vector2(1104, 584)
-Type = 0
 
-[node name="Core" parent="Tile_1_4" instance=ExtResource("5_ds2y5")]
+[node name="Empty" type="Node2D" parent="Tile_1_4" groups=["empty"] instance=ExtResource("7_svxeo")]
+script = ExtResource("10_5cvuw")
 
 [node name="Tile_1_5" parent="." instance=ExtResource("3_bj2sm")]
 position = Vector2(1200, 584)
@@ -113,11 +117,14 @@ position = Vector2(1008, 680)
 
 [node name="Tile_2_4" parent="." instance=ExtResource("3_bj2sm")]
 position = Vector2(1104, 680)
-Type = 0
 
-[node name="Core" parent="Tile_2_4" instance=ExtResource("5_ds2y5")]
+[node name="Empty" type="Node2D" parent="Tile_2_4" groups=["empty"] instance=ExtResource("7_svxeo")]
+script = ExtResource("10_5cvuw")
 
 [node name="Tile_2_5" parent="." instance=ExtResource("3_bj2sm")]
 position = Vector2(1200, 680)
+Type = 0
 
-[node name="Empty" parent="Tile_2_5" instance=ExtResource("7_svxeo")]
+[node name="Core" type="Node2D" parent="Tile_2_5" groups=["core"] instance=ExtResource("5_ds2y5")]
+script = ExtResource("9_yxw0n")
+isCoreEnabledOnStart = true
