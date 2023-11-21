@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://cl2lm1lsl8j8i"]
+[gd_scene load_steps=10 format=3 uid="uid://cl2lm1lsl8j8i"]
 
 [ext_resource type="Script" path="res://scenes/game/objects/tile/proxy/Proxy.cs" id="1_mwlb5"]
 [ext_resource type="Texture2D" uid="uid://d36ywp4mlllxu" path="res://assets/game/objects/tile/texture.png" id="1_q46f0"]
-[ext_resource type="Texture2D" uid="uid://dj38kpr3hndk" path="res://assets/game/objects/tile/proxy/portal_texture_alt.png" id="3_iojdh"]
+[ext_resource type="Texture2D" uid="uid://c32ba1i4c8pld" path="res://assets/game/objects/tile/proxy/portal_texture.png" id="3_bjjjc"]
+[ext_resource type="Texture2D" uid="uid://16j4ybhdheri" path="res://assets/game/objects/tile/proxy/portal_texture_alt.png" id="3_iojdh"]
 [ext_resource type="PackedScene" uid="uid://bbqsuuxr821rb" path="res://scenes/game/objects/tile/proxy/ProxyParticles.tscn" id="4_x3pgc"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_24tj5"]
@@ -36,9 +37,39 @@ tracks/1/keys = {
 "values": [0.0, -0.0174533, 0.0, 0.0, 0.0174533, 0.0, 0.0, -0.0174533, 0.0, 0.0, -0.0174533, 0.0174533, 0.0, 0.0, -0.0174533]
 }
 
+[sub_resource type="Animation" id="Animation_sq7eb"]
+resource_name = "shake_alt"
+length = 0.5
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PortalAlt:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2, 0.2001, 0.25, 0.3, 0.3001, 0.35, 0.4, 0.4001, 0.4002, 0.45, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(-1, -2), Vector2(-3, 0), Vector2(3, 2), Vector2(1, -1), Vector2(-20, 0), Vector2(-1, 2), Vector2(-3, 1), Vector2(-3, 1), Vector2(3, 1), Vector2(-10, 0), Vector2(-20, 0), Vector2(-1, 1), Vector2(1, 2), Vector2(1, -2)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PortalAlt:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2, 0.2001, 0.2002, 0.25, 0.3, 0.3001, 0.35, 0.4, 0.45, 0.5001, 0.5002),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, -0.0174533, 0.0, 0.0, 0.0174533, 0.0, 0.0, -0.0174533, 0.0, 0.0, -0.0174533, 0.0174533, 0.0, 0.0, -0.0174533]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_0pm60"]
 _data = {
-"shake": SubResource("Animation_1j2dq")
+"shake": SubResource("Animation_1j2dq"),
+"shake_alt": SubResource("Animation_sq7eb")
 }
 
 [node name="Proxy" type="Node2D" groups=["proxy"]]
@@ -50,15 +81,27 @@ modulate = Color(0.00014103, 0.000112033, 5.24913e-05, 0.290196)
 texture = ExtResource("1_q46f0")
 
 [node name="Portal" type="Sprite2D" parent="." groups=["router"]]
-modulate = Color(0.14, 0.48, 0.93, 1)
+modulate = Color(0.144459, 0.47561, 0.929498, 1)
 material = SubResource("ShaderMaterial_24tj5")
 position = Vector2(1, 1)
 scale = Vector2(0.9, 0.9)
+texture = ExtResource("3_bjjjc")
+region_rect = Rect2(0, 0, 64, 64)
+
+[node name="PortalAlt" type="Sprite2D" parent="." groups=["router"]]
+visible = false
+modulate = Color(0.815686, 0.556863, 0.313726, 1)
+material = SubResource("ShaderMaterial_24tj5")
 texture = ExtResource("3_iojdh")
+flip_v = true
 region_rect = Rect2(0, 0, 64, 64)
 
 [node name="Particles" parent="." instance=ExtResource("4_x3pgc")]
-modulate = Color(0.564706, 0.984314, 0.423529, 0.231373)
+modulate = Color(0.82, 0.56, 0.31, 0.3)
+
+[node name="ParticlesAlt" parent="." instance=ExtResource("4_x3pgc")]
+visible = false
+modulate = Color(0.14, 0.48, 0.93, 0.3)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

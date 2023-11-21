@@ -14,18 +14,29 @@ namespace Game
   {
     [Export]
     public Tile ExitTile;
+    [Export]
+    private bool useAlternativeVisual = false;
 
     public static readonly bool IsPlayerControlled = false;
     public static readonly bool ExpandPreviousPath = false;
 
     private Level level;
     private Tile rootTile;
+    private Sprite2D portal;
+    private Sprite2D portalAlt;
+    private CpuParticles2D particles;
+    private CpuParticles2D particlesAlt;
     private AnimationPlayer animationPlayer;
+    private StringName animationToPlay = "shake";
 
     public override void _Ready()
     {
       rootTile = GetParent<Tile>();
       level = rootTile.GetParent<Level>();
+      portal = GetNode<Sprite2D>("Portal");
+      portalAlt = GetNode<Sprite2D>("PortalAlt");
+      particles = GetNode<CpuParticles2D>("Particles");
+      particlesAlt = GetNode<CpuParticles2D>("ParticlesAlt");
       animationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
 
       level.CurrentTileUpdated += OnCurrentTileUpdated;
@@ -34,6 +45,8 @@ namespace Game
       {
         GD.PrintErr($"Proxy on tile {rootTile.Name} doesn't have an exit.");
       }
+
+      if (useAlternativeVisual) SetupAlternativeVisual();
     }
 
     public bool Dock()
@@ -61,20 +74,31 @@ namespace Game
       return null;
     }
 
+    private void SetupAlternativeVisual()
+    {
+      animationToPlay = "shake_alt";
+
+      portal.Visible = false;
+      portalAlt.Visible = true;
+
+      particles.Visible = false;
+      particlesAlt.Visible = true;
+    }
+
     public void OnCurrentTileUpdated(Tile tile, Tile previousTile, Direction direction)
     {
       if (previousTile == null || tile != rootTile) return;
 
-      animationPlayer.Play("shake");
+      animationPlayer.Play(animationToPlay);
 
       // Case 1: this Proxy was selected by the player
-      if (previousTile.Terrain is not Proxy)
+      if (previousTile != ExitTile)
       {
         ExitTile.Select(rootTile, direction);
         return;
       }
 
-      // Case 2: this Proxy was selected by its twin
+      // Case 2: this Proxy was selected by its ExitTile
       level.TriggerInputInDirection(direction);
     }
   }

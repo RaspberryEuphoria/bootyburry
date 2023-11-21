@@ -28,5 +28,5 @@ orbit_velocity_max = 0.4
 linear_accel_max = 5.0
 radial_accel_min = -20.0
 radial_accel_curve = SubResource("Curve_jd7f7")
-scale_amount_min = 0.2
+scale_amount_min = 0.1
 scale_amount_max = 0.3
