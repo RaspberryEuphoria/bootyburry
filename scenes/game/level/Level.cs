@@ -331,7 +331,7 @@ namespace Game
     {
       currentTile = tile;
 
-      if (previousTile != null && currentTile.IsPlayerControlled()) AddMove(direction);
+      if (previousTile != null && previousTile.IsPlayerControlled()) AddMove(direction);
 
       CheckScore();
       EmitSignal(SignalName.CurrentTileUpdated, currentTile, previousTile, (int)direction);
