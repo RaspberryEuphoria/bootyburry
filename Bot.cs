@@ -89,7 +89,7 @@ namespace Game
 
       lastAction = randomAction;
 
-      if (level.Moves.Count() == maxTries)
+      if (level.Moves.Count() >= maxTries)
       {
         GetTree().ReloadCurrentScene();
         return;
