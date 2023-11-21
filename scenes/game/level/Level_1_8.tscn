@@ -1,0 +1,165 @@
+[gd_scene load_steps=8 format=3 uid="uid://c1jd8vubmm07u"]
+
+[ext_resource type="Script" path="res://scenes/game/level/Level.cs" id="1_6wu75"]
+[ext_resource type="PackedScene" uid="uid://btkws4lwu8fi1" path="res://scenes/game/level/LevelBackground.tscn" id="2_pwdfs"]
+[ext_resource type="PackedScene" uid="uid://dbl0tiuqxnci4" path="res://scenes/ui/LevelUI.tscn" id="3_ygoud"]
+[ext_resource type="PackedScene" uid="uid://67x0aame80lq" path="res://scenes/game/objects/tile/Tile.tscn" id="4_vu6mj"]
+[ext_resource type="PackedScene" uid="uid://e2gu8wi641jf" path="res://scenes/game/objects/tile/empty/Empty.tscn" id="5_g1ue5"]
+[ext_resource type="PackedScene" uid="uid://ch1bcttqi5hjk" path="res://scenes/game/objects/tile/core/Core.tscn" id="6_3xeta"]
+[ext_resource type="PackedScene" uid="uid://cl2lm1lsl8j8i" path="res://scenes/game/objects/tile/proxy/Proxy.tscn" id="7_y8880"]
+
+[node name="Level" type="Node2D" node_paths=PackedStringArray("startingTile")]
+script = ExtResource("1_6wu75")
+startingTile = NodePath("Tile_2_2")
+OptimalScore = 24
+LevelTitle = "Level 1.8"
+LevelSubtitle = "// Twice The Fall"
+botDelay = 0.0
+
+[node name="Background" parent="." instance=ExtResource("2_pwdfs")]
+
+[node name="LevelUI" parent="." instance=ExtResource("3_ygoud")]
+
+[node name="Tile_0_0" parent="." instance=ExtResource("4_vu6mj")]
+position = Vector2(720, 376)
+
+[node name="Empty" parent="Tile_0_0" instance=ExtResource("5_g1ue5")]
+
+[node name="Tile_0_1" parent="." instance=ExtResource("4_vu6mj")]
+position = Vector2(816, 376)
+Type = 0
+
+[node name="Core" parent="Tile_0_1" instance=ExtResource("6_3xeta")]
+
+[node name="Tile_0_2" parent="." instance=ExtResource("4_vu6mj")]
+position = Vector2(912, 376)
+
+[node name="Empty" parent="Tile_0_2" instance=ExtResource("5_g1ue5")]
+
+[node name="Tile_0_3" parent="." instance=ExtResource("4_vu6mj")]
+position = Vector2(1008, 376)
+Type = 0
+
+[node name="Core" parent="Tile_0_3" instance=ExtResource("6_3xeta")]
+
+[node name="Tile_0_4" parent="." instance=ExtResource("4_vu6mj")]
+position = Vector2(1104, 376)
+
+[node name="Empty" parent="Tile_0_4" instance=ExtResource("5_g1ue5")]
+
+[node name="Tile_1_0" parent="." instance=ExtResource("4_vu6mj")]
+position = Vector2(720, 472)
+Type = 0
+
+[node name="Core" parent="Tile_1_0" instance=ExtResource("6_3xeta")]
+
+[node name="Tile_1_1" parent="." instance=ExtResource("4_vu6mj")]
+position = Vector2(816, 472)
+
+[node name="Empty" parent="Tile_1_1" instance=ExtResource("5_g1ue5")]
+
+[node name="Tile_1_2" parent="." instance=ExtResource("4_vu6mj")]
+position = Vector2(912, 472)
+Type = 4
+
+[node name="Proxy" parent="Tile_1_2" node_paths=PackedStringArray("ExitTile") instance=ExtResource("7_y8880")]
+ExitTile = NodePath("../../Tile_2_3")
+
+[node name="Tile_1_3" parent="." instance=ExtResource("4_vu6mj")]
+position = Vector2(1008, 472)
+
+[node name="Empty" parent="Tile_1_3" instance=ExtResource("5_g1ue5")]
+
+[node name="Tile_1_4" parent="." instance=ExtResource("4_vu6mj")]
+position = Vector2(1104, 472)
+Type = 0
+
+[node name="Core" parent="Tile_1_4" instance=ExtResource("6_3xeta")]
+
+[node name="Tile_2_0" parent="." instance=ExtResource("4_vu6mj")]
+position = Vector2(720, 568)
+
+[node name="Empty" parent="Tile_2_0" instance=ExtResource("5_g1ue5")]
+
+[node name="Tile_2_1" parent="." instance=ExtResource("4_vu6mj")]
+position = Vector2(816, 568)
+Type = 4
+
+[node name="Proxy" parent="Tile_2_1" node_paths=PackedStringArray("ExitTile") instance=ExtResource("7_y8880")]
+ExitTile = NodePath("../../Tile_3_2")
+useAlternativeVisual = true
+
+[node name="Tile_2_2" parent="." instance=ExtResource("4_vu6mj")]
+position = Vector2(912, 568)
+Type = 0
+
+[node name="Core" parent="Tile_2_2" instance=ExtResource("6_3xeta")]
+
+[node name="Tile_2_3" parent="." instance=ExtResource("4_vu6mj")]
+position = Vector2(1008, 568)
+Type = 4
+
+[node name="Proxy" parent="Tile_2_3" node_paths=PackedStringArray("ExitTile") instance=ExtResource("7_y8880")]
+ExitTile = NodePath("../../Tile_1_2")
+
+[node name="Tile_2_4" parent="." instance=ExtResource("4_vu6mj")]
+position = Vector2(1104, 568)
+
+[node name="Empty" parent="Tile_2_4" instance=ExtResource("5_g1ue5")]
+
+[node name="Tile_3_0" parent="." instance=ExtResource("4_vu6mj")]
+position = Vector2(720, 664)
+Type = 0
+
+[node name="Core" parent="Tile_3_0" instance=ExtResource("6_3xeta")]
+
+[node name="Tile_3_1" parent="." instance=ExtResource("4_vu6mj")]
+position = Vector2(816, 664)
+
+[node name="Empty" parent="Tile_3_1" instance=ExtResource("5_g1ue5")]
+
+[node name="Tile_3_2" parent="." instance=ExtResource("4_vu6mj")]
+position = Vector2(912, 664)
+Type = 4
+
+[node name="Proxy" parent="Tile_3_2" node_paths=PackedStringArray("ExitTile") instance=ExtResource("7_y8880")]
+ExitTile = NodePath("../../Tile_2_1")
+useAlternativeVisual = true
+
+[node name="Tile_3_3" parent="." instance=ExtResource("4_vu6mj")]
+position = Vector2(1008, 664)
+
+[node name="Empty" parent="Tile_3_3" instance=ExtResource("5_g1ue5")]
+
+[node name="Tile_3_4" parent="." instance=ExtResource("4_vu6mj")]
+position = Vector2(1104, 664)
+Type = 0
+
+[node name="Core" parent="Tile_3_4" instance=ExtResource("6_3xeta")]
+
+[node name="Tile_4_0" parent="." instance=ExtResource("4_vu6mj")]
+position = Vector2(720, 760)
+
+[node name="Empty" parent="Tile_4_0" instance=ExtResource("5_g1ue5")]
+
+[node name="Tile_4_1" parent="." instance=ExtResource("4_vu6mj")]
+position = Vector2(816, 760)
+Type = 0
+
+[node name="Core" parent="Tile_4_1" instance=ExtResource("6_3xeta")]
+
+[node name="Tile_4_2" parent="." instance=ExtResource("4_vu6mj")]
+position = Vector2(912, 760)
+
+[node name="Empty" parent="Tile_4_2" instance=ExtResource("5_g1ue5")]
+
+[node name="Tile_4_3" parent="." instance=ExtResource("4_vu6mj")]
+position = Vector2(1008, 760)
+Type = 0
+
+[node name="Core" parent="Tile_4_3" instance=ExtResource("6_3xeta")]
+
+[node name="Tile_4_4" parent="." instance=ExtResource("4_vu6mj")]
+position = Vector2(1104, 760)
+
+[node name="Empty" parent="Tile_4_4" instance=ExtResource("5_g1ue5")]

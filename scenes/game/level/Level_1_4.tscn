@@ -1,0 +1,131 @@
+[gd_scene load_steps=10 format=3 uid="uid://bjow5qdv8ub05"]
+
+[ext_resource type="Script" path="res://scenes/game/level/Level.cs" id="1_mah6m"]
+[ext_resource type="PackedScene" uid="uid://vr8msqujvj1r" path="res://scenes/game/level/Level_1_5.tscn" id="2_2dy0m"]
+[ext_resource type="PackedScene" uid="uid://btkws4lwu8fi1" path="res://scenes/game/level/LevelBackground.tscn" id="3_yib56"]
+[ext_resource type="PackedScene" uid="uid://dbl0tiuqxnci4" path="res://scenes/ui/LevelUI.tscn" id="4_20bn5"]
+[ext_resource type="PackedScene" uid="uid://67x0aame80lq" path="res://scenes/game/objects/tile/Tile.tscn" id="5_8tf0k"]
+[ext_resource type="PackedScene" uid="uid://ch1bcttqi5hjk" path="res://scenes/game/objects/tile/core/Core.tscn" id="6_pm03e"]
+[ext_resource type="PackedScene" uid="uid://e2gu8wi641jf" path="res://scenes/game/objects/tile/empty/Empty.tscn" id="7_5j0m3"]
+[ext_resource type="PackedScene" uid="uid://6oclnkije4cp" path="res://scenes/game/objects/tile/router/Router.tscn" id="8_qkyd7"]
+[ext_resource type="PackedScene" uid="uid://cl2lm1lsl8j8i" path="res://scenes/game/objects/tile/proxy/Proxy.tscn" id="10_gdu2s"]
+
+[node name="Level" type="Node2D" node_paths=PackedStringArray("startingTile")]
+script = ExtResource("1_mah6m")
+nextLevel = ExtResource("2_2dy0m")
+startingTile = NodePath("Tile_0_5")
+OptimalScore = 8
+LevelTitle = "Level 1.4"
+LevelSubtitle = "// There's Always More"
+botDelay = 0.0
+
+[node name="Background" parent="." instance=ExtResource("3_yib56")]
+
+[node name="LevelUI" parent="." instance=ExtResource("4_20bn5")]
+helperText = "Sail onward under the sun's warm shine,
+On those seas you're doing just fine"
+
+[node name="Tile_0_0" parent="." instance=ExtResource("5_8tf0k")]
+position = Vector2(720, 488)
+Type = 0
+
+[node name="Core" parent="Tile_0_0" instance=ExtResource("6_pm03e")]
+
+[node name="Tile_0_1" parent="." instance=ExtResource("5_8tf0k")]
+position = Vector2(816, 488)
+
+[node name="Empty" parent="Tile_0_1" instance=ExtResource("7_5j0m3")]
+
+[node name="Tile_0_2" parent="." instance=ExtResource("5_8tf0k")]
+position = Vector2(912, 488)
+Type = 0
+
+[node name="Core" parent="Tile_0_2" instance=ExtResource("6_pm03e")]
+isCoreEnabledOnStart = true
+
+[node name="Tile_0_3" parent="." instance=ExtResource("5_8tf0k")]
+position = Vector2(1008, 488)
+Type = 0
+
+[node name="Core" parent="Tile_0_3" instance=ExtResource("6_pm03e")]
+
+[node name="Tile_0_4" parent="." instance=ExtResource("5_8tf0k")]
+position = Vector2(1104, 488)
+Type = 3
+
+[node name="Router" parent="Tile_0_4" instance=ExtResource("8_qkyd7")]
+Direction = 1
+
+[node name="Tile_0_5" parent="." instance=ExtResource("5_8tf0k")]
+position = Vector2(1200, 488)
+Type = 0
+
+[node name="Core" parent="Tile_0_5" instance=ExtResource("6_pm03e")]
+
+[node name="Tile_1_0" parent="." instance=ExtResource("5_8tf0k")]
+position = Vector2(720, 584)
+
+[node name="Empty" parent="Tile_1_0" instance=ExtResource("7_5j0m3")]
+
+[node name="Tile_1_1" parent="." instance=ExtResource("5_8tf0k")]
+position = Vector2(816, 584)
+
+[node name="Empty" parent="Tile_1_1" instance=ExtResource("7_5j0m3")]
+
+[node name="Tile_1_2" parent="." instance=ExtResource("5_8tf0k")]
+position = Vector2(912, 584)
+
+[node name="Empty" parent="Tile_1_2" instance=ExtResource("7_5j0m3")]
+
+[node name="Tile_1_3" parent="." instance=ExtResource("5_8tf0k")]
+position = Vector2(1008, 584)
+Type = 4
+
+[node name="Proxy" parent="Tile_1_3" node_paths=PackedStringArray("ExitTile") instance=ExtResource("10_gdu2s")]
+ExitTile = NodePath("../../Tile_2_2")
+
+[node name="Tile_1_4" parent="." instance=ExtResource("5_8tf0k")]
+position = Vector2(1104, 584)
+Type = 0
+
+[node name="Core" parent="Tile_1_4" instance=ExtResource("6_pm03e")]
+isCoreEnabledOnStart = true
+
+[node name="Tile_1_5" parent="." instance=ExtResource("5_8tf0k")]
+position = Vector2(1200, 584)
+Type = 0
+
+[node name="Core" parent="Tile_1_5" instance=ExtResource("6_pm03e")]
+
+[node name="Tile_2_0" parent="." instance=ExtResource("5_8tf0k")]
+position = Vector2(720, 680)
+Type = 0
+
+[node name="Core" parent="Tile_2_0" instance=ExtResource("6_pm03e")]
+
+[node name="Tile_2_1" parent="." instance=ExtResource("5_8tf0k")]
+position = Vector2(816, 680)
+
+[node name="Empty" parent="Tile_2_1" instance=ExtResource("7_5j0m3")]
+
+[node name="Tile_2_2" parent="." instance=ExtResource("5_8tf0k")]
+position = Vector2(912, 680)
+Type = 4
+
+[node name="Proxy" parent="Tile_2_2" node_paths=PackedStringArray("ExitTile") instance=ExtResource("10_gdu2s")]
+ExitTile = NodePath("../../Tile_1_3")
+
+[node name="Tile_2_3" parent="." instance=ExtResource("5_8tf0k")]
+position = Vector2(1008, 680)
+
+[node name="Empty" parent="Tile_2_3" instance=ExtResource("7_5j0m3")]
+
+[node name="Tile_2_4" parent="." instance=ExtResource("5_8tf0k")]
+position = Vector2(1104, 680)
+
+[node name="Empty" parent="Tile_2_4" instance=ExtResource("7_5j0m3")]
+
+[node name="Tile_2_5" parent="." instance=ExtResource("5_8tf0k")]
+position = Vector2(1200, 680)
+
+[node name="Empty" parent="Tile_2_5" instance=ExtResource("7_5j0m3")]
