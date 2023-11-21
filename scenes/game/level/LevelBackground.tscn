@@ -3,8 +3,10 @@
 [ext_resource type="Texture2D" uid="uid://dear8jvgle5xv" path="res://assets/game/objects/level/background_texture.png" id="1_rajqp"]
 
 [node name="Background" type="Sprite2D"]
+modulate = Color(0.00392157, 0.0196078, 0.0588235, 1)
 texture_repeat = 2
+position = Vector2(-533, -983)
 texture = ExtResource("1_rajqp")
 centered = false
 region_enabled = true
-region_rect = Rect2(0, 0, 1980, 1080)
+region_rect = Rect2(0, 0, 3000, 3000)

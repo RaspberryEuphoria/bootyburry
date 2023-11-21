@@ -48,7 +48,7 @@ _data = {
 script = ExtResource("1_ocx0v")
 
 [node name="Background" type="Sprite2D" parent="."]
-modulate = Color(0, 0, 0, 0.3)
+modulate = Color(0, 0, 0, 1)
 texture = ExtResource("2_fvhh6")
 
 [node name="Circle" type="Sprite2D" parent="."]
