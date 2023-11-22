@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Godot;
+using InputHandler;
 using UI;
 
 namespace Game
@@ -76,6 +77,9 @@ namespace Game
         return;
       }
 
+      var touchScreenHandler = ResourceLoader.Load<PackedScene>("res://scenes/input/TouchScreenHandler.tscn").Instantiate<TouchScreenHandler>();
+      AddChild(touchScreenHandler);
+
       PrepareBoard();
       EmitSignal(SignalName.GameStart);
 
@@ -90,7 +94,7 @@ namespace Game
         return;
       }
 
-      if (!IsReady || GameState != GameState.Playing) return;
+      if (!IsInputAllowed()) return;
       HandleInput();
     }
 
@@ -107,8 +111,8 @@ namespace Game
     {
       tiles = GetChildren().OfType<Tile>();
 
-      columns = tiles.Select(t => t.Position[0]).Distinct().ToList().Count;
-      rows = tiles.Select(t => t.Position[1]).Distinct().ToList().Count;
+      columns = tiles.Select(t => t.Position.X).Distinct().ToList().Count;
+      rows = tiles.Select(t => t.Position.Y).Distinct().ToList().Count;
 
       for (int y = 0; y < rows; y++)
       {
@@ -124,6 +128,11 @@ namespace Game
 
       cores = tiles.Where(t => t.IsCore()).Select(t => t.Terrain.GetNode<InnerCore>("InnerCore"));
       IsReady = true;
+    }
+
+    public bool IsInputAllowed()
+    {
+      return IsReady && GameState == GameState.Playing;
     }
 
     public void HandleInput()

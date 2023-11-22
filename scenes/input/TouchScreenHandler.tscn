@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://d2hu0l3xnetmk"]
+
+[ext_resource type="Script" path="res://scenes/input/TouchScreenHandler.cs" id="1_tr044"]
+
+[node name="TouchScreenHandler" type="Node2D"]
+script = ExtResource("1_tr044")
