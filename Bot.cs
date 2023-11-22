@@ -25,9 +25,9 @@ namespace Game
         return;
       }
 
-      var viewportWidth = GetViewportRect().Size[0];
-      var viewportHeight = GetViewportRect().Size[1];
-      GlobalPosition = new Vector2(viewportWidth / 2 - Size[0] / 2, viewportHeight - Size[1] * 2);
+      var viewportWidth = GetViewportRect().Size.X;
+      var viewportHeight = GetViewportRect().Size.Y;
+      GlobalPosition = new Vector2(viewportWidth / 2 - Size.X / 2, viewportHeight - Size.Y * 2);
 
       level = GetParent<Level>();
       timer = new Timer

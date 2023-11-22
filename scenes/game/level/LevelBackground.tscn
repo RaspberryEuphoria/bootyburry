@@ -2,8 +2,8 @@
 
 [ext_resource type="Texture2D" uid="uid://dear8jvgle5xv" path="res://assets/game/objects/level/background_texture.png" id="1_rajqp"]
 
-[node name="Background" type="Sprite2D"]
-modulate = Color(0.00392157, 0.0196078, 0.0588235, 1)
+[node name="LevelBackground" type="Sprite2D"]
+modulate = Color(0.0117647, 0.0627451, 0.129412, 1)
 texture_repeat = 2
 position = Vector2(-533, -983)
 texture = ExtResource("1_rajqp")
