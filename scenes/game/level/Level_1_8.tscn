@@ -11,9 +11,9 @@
 [node name="Level" type="Node2D" node_paths=PackedStringArray("startingTile")]
 script = ExtResource("1_6wu75")
 startingTile = NodePath("Tile_2_2")
-OptimalScore = 24
+OptimalScore = 20
 LevelTitle = "Level 1.8"
-LevelSubtitle = "// Twice The Fall"
+LevelSubtitle = "// Broken Mirror"
 botDelay = 0.0
 
 [node name="Background" parent="." instance=ExtResource("2_pwdfs")]

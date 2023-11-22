@@ -1,6 +1,7 @@
-[gd_scene load_steps=10 format=3 uid="uid://cxl641op28xim"]
+[gd_scene load_steps=11 format=3 uid="uid://cxl641op28xim"]
 
 [ext_resource type="Script" path="res://scenes/game/level/Level.cs" id="1_6806w"]
+[ext_resource type="PackedScene" uid="uid://c1jd8vubmm07u" path="res://scenes/game/level/Level_1_8.tscn" id="2_455k7"]
 [ext_resource type="PackedScene" uid="uid://btkws4lwu8fi1" path="res://scenes/game/level/LevelBackground.tscn" id="3_1etvx"]
 [ext_resource type="PackedScene" uid="uid://dbl0tiuqxnci4" path="res://scenes/ui/LevelUI.tscn" id="4_8qll0"]
 [ext_resource type="PackedScene" uid="uid://67x0aame80lq" path="res://scenes/game/objects/tile/Tile.tscn" id="5_u6vfe"]
@@ -12,6 +13,7 @@
 
 [node name="Level" type="Node2D" node_paths=PackedStringArray("startingTile")]
 script = ExtResource("1_6806w")
+nextLevel = ExtResource("2_455k7")
 startingTile = NodePath("Tile_1_4")
 OptimalScore = 11
 LevelTitle = "Level 1.7"
