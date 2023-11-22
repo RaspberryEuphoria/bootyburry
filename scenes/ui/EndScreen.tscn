@@ -1,10 +1,25 @@
 [gd_scene load_steps=7 format=3 uid="uid://cijympkegs2wn"]
 
 [ext_resource type="Texture2D" uid="uid://crq44tibmvmta" path="res://assets/fx/holographic_pattern.png" id="2_xq13t"]
-[ext_resource type="Texture2D" uid="uid://o46g14085m5w" path="res://assets/ui/levelUI/texture.png" id="3_d2ifx"]
 [ext_resource type="Theme" uid="uid://cgruyese0ddm7" path="res://assets/ui/themes/label.tres" id="4_fnmcy"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_jlbxm"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_moi5x"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1gsao"]
+bg_color = Color(0, 0, 0, 0.5)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.145, 0.475, 0.929, 0.3)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+expand_margin_left = 5.0
+expand_margin_top = 5.0
+expand_margin_right = 5.0
+expand_margin_bottom = 5.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8ehk2"]
 
@@ -20,16 +35,6 @@ glow_bloom = 0.1
 glow_blend_mode = 0
 
 [node name="EndScreen" type="CanvasLayer"]
-
-[node name="Holo" type="TextureRect" parent="."]
-modulate = Color(0, 0, 0, 1)
-texture_repeat = 2
-offset_left = 673.0
-offset_top = 805.0
-offset_right = 1304.0
-offset_bottom = 1051.0
-texture = ExtResource("2_xq13t")
-stretch_mode = 1
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
@@ -71,10 +76,11 @@ layout_mode = 2
 layout_mode = 2
 alignment = 1
 
-[node name="Header" type="TextureRect" parent="Control/MarginContainer/VBoxContainer/HBoxContainer"]
-material = SubResource("ShaderMaterial_jlbxm")
+[node name="Header" type="Panel" parent="Control/MarginContainer/VBoxContainer/HBoxContainer"]
+material = SubResource("ShaderMaterial_moi5x")
+custom_minimum_size = Vector2(640, 256)
 layout_mode = 2
-texture = ExtResource("3_d2ifx")
+theme_override_styles/panel = SubResource("StyleBoxFlat_1gsao")
 
 [node name="MarginContainer" type="MarginContainer" parent="Control/MarginContainer/VBoxContainer/HBoxContainer/Header"]
 layout_mode = 1
@@ -83,10 +89,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -178.5
-offset_top = -121.5
-offset_right = 178.5
-offset_bottom = 121.5
+offset_left = -316.5
+offset_top = -114.5
+offset_right = 316.5
+offset_bottom = 114.5
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/margin_left = 15
@@ -156,6 +162,19 @@ theme = ExtResource("4_fnmcy")
 theme_override_font_sizes/font_size = 18
 text = "--------------"
 horizontal_alignment = 1
+
+[node name="Holo" type="TextureRect" parent="Control/MarginContainer/VBoxContainer/HBoxContainer/Header"]
+modulate = Color(0, 0, 0, 0.3)
+texture_repeat = 2
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_xq13t")
+expand_mode = 1
+stretch_mode = 1
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_dfevx")
