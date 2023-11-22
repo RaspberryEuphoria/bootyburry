@@ -2,10 +2,25 @@
 
 [ext_resource type="Texture2D" uid="uid://crq44tibmvmta" path="res://assets/fx/holographic_pattern.png" id="1_ba2eh"]
 [ext_resource type="Script" path="res://scenes/ui/LevelUI.cs" id="1_egn7x"]
-[ext_resource type="Texture2D" uid="uid://o46g14085m5w" path="res://assets/ui/levelUI/texture.png" id="2_dwe1a"]
 [ext_resource type="Theme" uid="uid://cgruyese0ddm7" path="res://assets/ui/themes/label.tres" id="2_vrj2x"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_jlbxm"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_da08q"]
+bg_color = Color(0, 0, 0, 0.5)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.145, 0.475, 0.929, 0.3)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+expand_margin_left = 5.0
+expand_margin_top = 5.0
+expand_margin_right = 5.0
+expand_margin_bottom = 5.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8ehk2"]
 
@@ -22,16 +37,6 @@ glow_blend_mode = 0
 
 [node name="LevelUI" type="CanvasLayer"]
 script = ExtResource("1_egn7x")
-
-[node name="Holo" type="TextureRect" parent="."]
-modulate = Color(0, 0, 0, 1)
-texture_repeat = 2
-offset_left = 645.0
-offset_top = 38.0
-offset_right = 1276.0
-offset_bottom = 284.0
-texture = ExtResource("1_ba2eh")
-stretch_mode = 1
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
@@ -62,10 +67,11 @@ layout_mode = 2
 layout_mode = 2
 alignment = 1
 
-[node name="Header" type="TextureRect" parent="Control/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="Header" type="Panel" parent="Control/MarginContainer/VBoxContainer/HBoxContainer"]
 material = SubResource("ShaderMaterial_jlbxm")
+custom_minimum_size = Vector2(640, 256)
 layout_mode = 2
-texture = ExtResource("2_dwe1a")
+theme_override_styles/panel = SubResource("StyleBoxFlat_da08q")
 
 [node name="MarginContainer" type="MarginContainer" parent="Control/MarginContainer/VBoxContainer/HBoxContainer/Header"]
 layout_mode = 1
@@ -121,6 +127,7 @@ theme_override_font_sizes/font_size = 18
 text = "--------------"
 
 [node name="SynchronizationContainer" type="HBoxContainer" parent="Control/MarginContainer/VBoxContainer/HBoxContainer/Header/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
 [node name="SynchronizationLabel" type="Label" parent="Control/MarginContainer/VBoxContainer/HBoxContainer/Header/MarginContainer/VBoxContainer/SynchronizationContainer"]
@@ -236,6 +243,19 @@ theme = ExtResource("2_vrj2x")
 theme_override_colors/font_color = Color(0.564706, 0.984314, 0.423529, 1)
 theme_override_font_sizes/font_size = 18
 text = "{{optimal}}"
+
+[node name="Holo" type="TextureRect" parent="Control/MarginContainer/VBoxContainer/HBoxContainer/Header"]
+modulate = Color(0, 0, 0, 0.3)
+texture_repeat = 2
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_ba2eh")
+expand_mode = 1
+stretch_mode = 1
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_dfevx")
