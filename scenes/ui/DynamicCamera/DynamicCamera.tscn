@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://c1niiwwk0ijat"]
+
+[ext_resource type="Script" path="res://scenes/ui/DynamicCamera/DynamicCamera.cs" id="1_xrgdm"]
+
+[node name="DynamicCamera" type="Camera2D"]
+script = ExtResource("1_xrgdm")

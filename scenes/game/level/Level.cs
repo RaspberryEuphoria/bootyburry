@@ -80,6 +80,9 @@ namespace Game
       var touchScreenHandler = ResourceLoader.Load<PackedScene>("res://scenes/input/TouchScreenHandler.tscn").Instantiate<TouchScreenHandler>();
       AddChild(touchScreenHandler);
 
+      var dynamicCamera = ResourceLoader.Load<PackedScene>("res://scenes/ui/DynamicCamera/DynamicCamera.tscn").Instantiate<DynamicCamera>();
+      AddChild(dynamicCamera);
+
       PrepareBoard();
       EmitSignal(SignalName.GameStart);
 
