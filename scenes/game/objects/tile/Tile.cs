@@ -8,7 +8,7 @@ namespace Game
   public enum TileType { Core, Empty, Firewall, Router, Proxy }
 
   [Tool]
-  public partial class Tile : Node2D
+  public partial class Tile : BoxContainer
   {
     [Signal]
     public delegate void TileSelectedEventHandler(Tile tile, Tile previousTile, Direction direction);
@@ -31,7 +31,6 @@ namespace Game
     public int Id { get; private set; }
     public int Row { get; private set; }
     public int Column { get; private set; }
-    static public readonly int Size = 64;
 
     private Level level;
     private Selector[] selectors;
@@ -44,11 +43,11 @@ namespace Game
 
       try
       {
-        level = GetParent<Level>();
+        level = GetTree().Root.GetNode<Level>("Level");
       }
       catch (Exception)
       {
-        GD.PrintErr("Tile must be a child of Level to be initialized.");
+        GD.PrintErr("Tile must be contained inside of a Level to be initialized.");
         return;
       }
     }
@@ -141,8 +140,8 @@ namespace Game
 
       try
       {
-        if (direction == Direction.Up) return tiles.ElementAt(Id - level.GetColumns());
-        if (direction == Direction.Down) return tiles.ElementAt(Id + level.GetColumns());
+        if (direction == Direction.Up) return tiles.ElementAt(Id - level.ColumnsCount);
+        if (direction == Direction.Down) return tiles.ElementAt(Id + level.ColumnsCount);
         if (direction == Direction.Left) return tiles.ElementAt(Id - 1);
         if (direction == Direction.Right) return tiles.ElementAt(Id + 1);
       }
@@ -210,8 +209,8 @@ namespace Game
 
     public bool IsOnBorder(Direction direction)
     {
-      var rowsCount = level.GetRows();
-      var columnsCount = level.GetColumns();
+      var rowsCount = level.ColumnsCount;
+      var columnsCount = level.ColumnsCount;
       var isOnBorder = false;
 
       if (direction == Direction.Up && Row == 0) isOnBorder = true;
@@ -329,6 +328,17 @@ namespace Game
     {
       state = TileState.Unselected;
       EmitSignal(SignalName.TileUnselected, this);
+    }
+
+    public static Vector2 GetCenterPoint(Tile tile)
+    {
+      var tilePosition = tile.GlobalPosition;
+      var tileDimensions = tile.Size;
+
+      return new Vector2(
+        tilePosition.X + tileDimensions.X / 2,
+        tilePosition.Y + tileDimensions.Y / 2
+      );
     }
   }
 }

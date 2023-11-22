@@ -18,10 +18,10 @@ namespace Game
 
       animationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
 
-      parentTile = GetParent<Core>().GetParent<Tile>();
-      var level = parentTile.GetParent<Level>();
-
+      var level = GetTree().Root.GetNode<Level>("Level");
       level.GameWon += OnGameWon;
+
+      parentTile = GetParent<Core>().GetParent<Tile>();
       parentTile.TileSelected += OnTileSelected;
       parentTile.TileUnselected += OnTileUnselected;
 

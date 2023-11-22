@@ -53,11 +53,11 @@ namespace Game
     public IEnumerable<Direction> Moves { get; private set; } = new List<Direction>();
     public int Score = 0;
 
-    private int columns;
-    private int rows;
+    public int ColumnsCount { get; private set; }
+    public int RowsCount { get; private set; }
     private Tile currentTile;
     private Tile previousTile;
-    private IEnumerable<Tile> tiles;
+    private IEnumerable<Tile> tiles = new List<Tile>();
     private IEnumerable<InnerCore> cores;
     private IEnumerable<NavigationPath> navigationPaths = new List<NavigationPath>();
 
@@ -112,20 +112,22 @@ namespace Game
 
     public void PrepareBoard()
     {
-      tiles = GetChildren().OfType<Tile>();
+      var grid = GetNode<BoxContainer>("Grid");
+      var rows = grid.GetChildren().OfType<BoxContainer>();
+      RowsCount = rows.Count();
+      ColumnsCount = rows.First().GetChildren().OfType<Tile>().Count();
 
-      columns = tiles.Select(t => t.Position.X).Distinct().ToList().Count;
-      rows = tiles.Select(t => t.Position.Y).Distinct().ToList().Count;
-
-      for (int y = 0; y < rows; y++)
+      for (int y = 0; y < RowsCount; y++)
       {
-        for (int x = 0; x < columns; x++)
+        for (int x = 0; x < ColumnsCount; x++)
         {
-          var index = y * columns + x;
-          var tile = tiles.ElementAt(index);
+          var index = y * ColumnsCount + x;
+          var tile = rows.ElementAt(y).GetChildren().OfType<Tile>().ElementAt(x);
 
           tile.TileSelected += OnTileSelected;
           tile.Init(x, y, index);
+
+          tiles = tiles.Append(tile);
         }
       }
 
@@ -322,16 +324,6 @@ namespace Game
       GD.Print(report);
 
       EmitSignal(SignalName.GameLost);
-    }
-
-    public int GetRows()
-    {
-      return rows;
-    }
-
-    public int GetColumns()
-    {
-      return columns;
     }
 
     public IEnumerable<Tile> GetTiles()

@@ -27,6 +27,7 @@ _data = {
 }
 
 [node name="Router" type="Node2D" groups=["router"]]
+position = Vector2(44, 44)
 script = ExtResource("1_15111")
 
 [node name="Arrows" type="Sprite2D" parent="." groups=["router"]]
@@ -36,12 +37,12 @@ material = SubResource("ShaderMaterial_24tj5")
 rotation = 1.5708
 texture = ExtResource("2_73yvn")
 region_enabled = true
-region_rect = Rect2(61.8797, 0, 64, 64)
+region_rect = Rect2(0, 0, 64, 64)
 region_filter_clip_enabled = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 root_node = NodePath("../Arrows")
-autoplay = "idle"
 libraries = {
 "": SubResource("AnimationLibrary_7tygu")
 }
+autoplay = "idle"

@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://bpkkxlbdllil8"]
+[gd_scene load_steps=12 format=3 uid="uid://bpkkxlbdllil8"]
 
 [ext_resource type="Script" path="res://scenes/game/level/Level.cs" id="1_mikgr"]
 [ext_resource type="PackedScene" uid="uid://hi4eduh4w577" path="res://scenes/game/level/Level_1_3.tscn" id="2_77kma"]
@@ -8,11 +8,14 @@
 [ext_resource type="PackedScene" uid="uid://e2gu8wi641jf" path="res://scenes/game/objects/tile/empty/Empty.tscn" id="5_hfili"]
 [ext_resource type="PackedScene" uid="uid://ch1bcttqi5hjk" path="res://scenes/game/objects/tile/core/Core.tscn" id="6_uk75l"]
 [ext_resource type="PackedScene" uid="uid://cl2lm1lsl8j8i" path="res://scenes/game/objects/tile/proxy/Proxy.tscn" id="7_k31ks"]
+[ext_resource type="Script" path="res://scenes/game/objects/tile/empty/Empty.cs" id="7_njqdy"]
+[ext_resource type="Script" path="res://scenes/game/objects/tile/core/Core.cs" id="9_56vpy"]
+[ext_resource type="Script" path="res://scenes/game/objects/tile/proxy/Proxy.cs" id="11_7dikf"]
 
 [node name="Level" type="Node2D" node_paths=PackedStringArray("startingTile")]
 script = ExtResource("1_mikgr")
 nextLevel = ExtResource("2_77kma")
-startingTile = NodePath("Tile_1_2")
+startingTile = NodePath("Grid/Row2/Tile_1_2")
 OptimalScore = 6
 LevelTitle = "Level 1.2"
 LevelSubtitle = "// Practice Makes Perfect"
@@ -22,93 +25,141 @@ botDelay = 0.0
 
 [node name="LevelUI" parent="." instance=ExtResource("3_d5ivh")]
 
-[node name="Tile_0_0" parent="." instance=ExtResource("4_4o4ge")]
-position = Vector2(816, 448)
+[node name="Grid" type="VBoxContainer" parent="."]
+offset_left = 824.0
+offset_top = 464.0
+offset_right = 1188.0
+offset_bottom = 828.0
 
-[node name="Empty" parent="Tile_0_0" instance=ExtResource("5_hfili")]
+[node name="Row1" type="HBoxContainer" parent="Grid"]
+layout_mode = 2
 
-[node name="Tile_0_1" parent="." instance=ExtResource("4_4o4ge")]
-position = Vector2(912, 448)
+[node name="Tile_0_0" parent="Grid/Row1" instance=ExtResource("4_4o4ge")]
+layout_mode = 2
+
+[node name="Empty" type="Node2D" parent="Grid/Row1/Tile_0_0" groups=["empty"] instance=ExtResource("5_hfili")]
+position = Vector2(44, 44)
+script = ExtResource("7_njqdy")
+
+[node name="Tile_0_1" parent="Grid/Row1" instance=ExtResource("4_4o4ge")]
+layout_mode = 2
 Type = 0
 
-[node name="Core" parent="Tile_0_1" instance=ExtResource("6_uk75l")]
+[node name="Core" type="Node2D" parent="Grid/Row1/Tile_0_1" groups=["core"] instance=ExtResource("6_uk75l")]
+position = Vector2(44, 44)
+script = ExtResource("9_56vpy")
 
-[node name="Tile_0_2" parent="." instance=ExtResource("4_4o4ge")]
-position = Vector2(1008, 448)
+[node name="Tile_0_2" parent="Grid/Row1" instance=ExtResource("4_4o4ge")]
+layout_mode = 2
 Type = 0
 
-[node name="Core" parent="Tile_0_2" instance=ExtResource("6_uk75l")]
+[node name="Core" type="Node2D" parent="Grid/Row1/Tile_0_2" groups=["core"] instance=ExtResource("6_uk75l")]
+position = Vector2(44, 44)
+script = ExtResource("9_56vpy")
 
-[node name="Tile_0_3" parent="." instance=ExtResource("4_4o4ge")]
-position = Vector2(1104, 448)
+[node name="Tile_0_3" parent="Grid/Row1" instance=ExtResource("4_4o4ge")]
+layout_mode = 2
 Type = 0
 
-[node name="Core" parent="Tile_0_3" instance=ExtResource("6_uk75l")]
+[node name="Core" parent="Grid/Row1/Tile_0_3" instance=ExtResource("6_uk75l")]
 
-[node name="Tile_1_0" parent="." instance=ExtResource("4_4o4ge")]
-position = Vector2(816, 544)
+[node name="Row2" type="HBoxContainer" parent="Grid"]
+layout_mode = 2
+
+[node name="Tile_1_0" parent="Grid/Row2" instance=ExtResource("4_4o4ge")]
+layout_mode = 2
 Type = 4
 
-[node name="Proxy" parent="Tile_1_0" node_paths=PackedStringArray("ExitTile") instance=ExtResource("7_k31ks")]
-ExitTile = NodePath("../../Tile_3_2")
+[node name="Proxy" type="Node2D" parent="Grid/Row2/Tile_1_0" node_paths=PackedStringArray("ExitTile") groups=["proxy"] instance=ExtResource("7_k31ks")]
+position = Vector2(44, 44)
+script = ExtResource("11_7dikf")
+ExitTile = NodePath("../../../Row4/Tile_3_2")
 
-[node name="Tile_1_1" parent="." instance=ExtResource("4_4o4ge")]
-position = Vector2(912, 544)
+[node name="Tile_1_1" parent="Grid/Row2" instance=ExtResource("4_4o4ge")]
+layout_mode = 2
 
-[node name="Empty" parent="Tile_1_1" instance=ExtResource("5_hfili")]
+[node name="Empty" type="Node2D" parent="Grid/Row2/Tile_1_1" groups=["empty"] instance=ExtResource("5_hfili")]
+position = Vector2(44, 44)
+script = ExtResource("7_njqdy")
 
-[node name="Tile_1_2" parent="." instance=ExtResource("4_4o4ge")]
-position = Vector2(1008, 544)
+[node name="Tile_1_2" parent="Grid/Row2" instance=ExtResource("4_4o4ge")]
+layout_mode = 2
 Type = 0
 
-[node name="Core" parent="Tile_1_2" instance=ExtResource("6_uk75l")]
+[node name="Core" type="Node2D" parent="Grid/Row2/Tile_1_2" groups=["core"] instance=ExtResource("6_uk75l")]
+position = Vector2(44, 44)
+script = ExtResource("9_56vpy")
 
-[node name="Tile_1_3" parent="." instance=ExtResource("4_4o4ge")]
-position = Vector2(1104, 544)
+[node name="Tile_1_3" parent="Grid/Row2" instance=ExtResource("4_4o4ge")]
+layout_mode = 2
 
-[node name="Empty" parent="Tile_1_3" instance=ExtResource("5_hfili")]
+[node name="Empty" type="Node2D" parent="Grid/Row2/Tile_1_3" groups=["empty"] instance=ExtResource("5_hfili")]
+position = Vector2(44, 44)
+script = ExtResource("7_njqdy")
 
-[node name="Tile_2_0" parent="." instance=ExtResource("4_4o4ge")]
-position = Vector2(816, 640)
+[node name="Row3" type="HBoxContainer" parent="Grid"]
+layout_mode = 2
 
-[node name="Empty" parent="Tile_2_0" instance=ExtResource("5_hfili")]
+[node name="Tile_2_0" parent="Grid/Row3" instance=ExtResource("4_4o4ge")]
+layout_mode = 2
 
-[node name="Tile_2_1" parent="." instance=ExtResource("4_4o4ge")]
-position = Vector2(912, 640)
+[node name="Empty" type="Node2D" parent="Grid/Row3/Tile_2_0" groups=["empty"] instance=ExtResource("5_hfili")]
+position = Vector2(44, 44)
+script = ExtResource("7_njqdy")
 
-[node name="Empty" parent="Tile_2_1" instance=ExtResource("5_hfili")]
+[node name="Tile_2_1" parent="Grid/Row3" instance=ExtResource("4_4o4ge")]
+layout_mode = 2
 
-[node name="Tile_2_2" parent="." instance=ExtResource("4_4o4ge")]
-position = Vector2(1008, 640)
+[node name="Empty" type="Node2D" parent="Grid/Row3/Tile_2_1" groups=["empty"] instance=ExtResource("5_hfili")]
+position = Vector2(44, 44)
+script = ExtResource("7_njqdy")
 
-[node name="Empty" parent="Tile_2_2" instance=ExtResource("5_hfili")]
+[node name="Tile_2_2" parent="Grid/Row3" instance=ExtResource("4_4o4ge")]
+layout_mode = 2
 
-[node name="Tile_2_3" parent="." instance=ExtResource("4_4o4ge")]
-position = Vector2(1104, 640)
+[node name="Empty" type="Node2D" parent="Grid/Row3/Tile_2_2" groups=["empty"] instance=ExtResource("5_hfili")]
+position = Vector2(44, 44)
+script = ExtResource("7_njqdy")
 
-[node name="Empty" parent="Tile_2_3" instance=ExtResource("5_hfili")]
+[node name="Tile_2_3" parent="Grid/Row3" instance=ExtResource("4_4o4ge")]
+layout_mode = 2
 
-[node name="Tile_3_0" parent="." instance=ExtResource("4_4o4ge")]
-position = Vector2(816, 736)
+[node name="Empty" type="Node2D" parent="Grid/Row3/Tile_2_3" groups=["empty"] instance=ExtResource("5_hfili")]
+position = Vector2(44, 44)
+script = ExtResource("7_njqdy")
+
+[node name="Row4" type="HBoxContainer" parent="Grid"]
+layout_mode = 2
+
+[node name="Tile_3_0" parent="Grid/Row4" instance=ExtResource("4_4o4ge")]
+layout_mode = 2
 Type = 0
 
-[node name="Core" parent="Tile_3_0" instance=ExtResource("6_uk75l")]
+[node name="Core" type="Node2D" parent="Grid/Row4/Tile_3_0" groups=["core"] instance=ExtResource("6_uk75l")]
+position = Vector2(44, 44)
+script = ExtResource("9_56vpy")
 
-[node name="Tile_3_1" parent="." instance=ExtResource("4_4o4ge")]
-position = Vector2(912, 736)
+[node name="Tile_3_1" parent="Grid/Row4" instance=ExtResource("4_4o4ge")]
+layout_mode = 2
 Type = 0
 
-[node name="Core" parent="Tile_3_1" instance=ExtResource("6_uk75l")]
+[node name="Core" type="Node2D" parent="Grid/Row4/Tile_3_1" groups=["core"] instance=ExtResource("6_uk75l")]
+position = Vector2(44, 44)
+script = ExtResource("9_56vpy")
 
-[node name="Tile_3_2" parent="." instance=ExtResource("4_4o4ge")]
-position = Vector2(1008, 736)
+[node name="Tile_3_2" parent="Grid/Row4" instance=ExtResource("4_4o4ge")]
+layout_mode = 2
 Type = 4
 
-[node name="Proxy" parent="Tile_3_2" node_paths=PackedStringArray("ExitTile") instance=ExtResource("7_k31ks")]
-ExitTile = NodePath("../../Tile_1_0")
+[node name="Proxy" type="Node2D" parent="Grid/Row4/Tile_3_2" node_paths=PackedStringArray("ExitTile") groups=["proxy"] instance=ExtResource("7_k31ks")]
+position = Vector2(44, 44)
+script = ExtResource("11_7dikf")
+ExitTile = NodePath("../../../Row2/Tile_1_0")
 
-[node name="Tile_3_3" parent="." instance=ExtResource("4_4o4ge")]
-position = Vector2(1104, 736)
+[node name="Tile_3_3" parent="Grid/Row4" instance=ExtResource("4_4o4ge")]
+layout_mode = 2
 Type = 0
 
-[node name="Core" parent="Tile_3_3" instance=ExtResource("6_uk75l")]
+[node name="Core" type="Node2D" parent="Grid/Row4/Tile_3_3" groups=["core"] instance=ExtResource("6_uk75l")]
+position = Vector2(44, 44)
+script = ExtResource("9_56vpy")

@@ -2,5 +2,8 @@
 
 [ext_resource type="Script" path="res://scenes/game/objects/tile/Tile.cs" id="1_7f3pl"]
 
-[node name="Tile" type="Node2D"]
+[node name="Tile" type="BoxContainer"]
+custom_minimum_size = Vector2(88, 88)
+offset_right = 88.0
+offset_bottom = 88.0
 script = ExtResource("1_7f3pl")

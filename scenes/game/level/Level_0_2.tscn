@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://fqleqx2cn34q"]
+[gd_scene load_steps=12 format=3 uid="uid://fqleqx2cn34q"]
 
 [ext_resource type="Script" path="res://scenes/game/level/Level.cs" id="1_3py4v"]
 [ext_resource type="PackedScene" uid="uid://bmbrcb5704afu" path="res://scenes/game/level/Level_0_3.tscn" id="2_jbcnm"]
@@ -7,12 +7,15 @@
 [ext_resource type="PackedScene" uid="uid://btkws4lwu8fi1" path="res://scenes/game/level/LevelBackground.tscn" id="4_xvaq6"]
 [ext_resource type="PackedScene" uid="uid://ch1bcttqi5hjk" path="res://scenes/game/objects/tile/core/Core.tscn" id="5_owoer"]
 [ext_resource type="PackedScene" uid="uid://e2gu8wi641jf" path="res://scenes/game/objects/tile/empty/Empty.tscn" id="7_dktpo"]
+[ext_resource type="Script" path="res://scenes/game/objects/tile/core/Core.cs" id="7_ievop"]
 [ext_resource type="PackedScene" uid="uid://bux2ffg7yyub3" path="res://scenes/game/objects/tile/firewall/Firewall.tscn" id="8_ayr1y"]
+[ext_resource type="Script" path="res://scenes/game/objects/tile/empty/Empty.cs" id="9_0s7si"]
+[ext_resource type="Script" path="res://scenes/game/objects/tile/firewall/Firewall.cs" id="11_xjace"]
 
 [node name="Level" type="Node2D" node_paths=PackedStringArray("startingTile")]
 script = ExtResource("1_3py4v")
 nextLevel = ExtResource("2_jbcnm")
-startingTile = NodePath("Tile_2_0")
+startingTile = NodePath("Grid/Row3/Tile_2_0")
 OptimalScore = 4
 LevelTitle = "Level 0.2"
 LevelSubtitle = "// Unfinished Work"
@@ -23,54 +26,86 @@ LevelSubtitle = "// Unfinished Work"
 helperText = "Take my advice, don't pay the price,
 Just be precise, and always check twice."
 
-[node name="Tile_0_0" parent="." instance=ExtResource("3_bj2sm")]
-position = Vector2(864, 488)
+[node name="Grid" type="VBoxContainer" parent="."]
+offset_left = 530.0
+offset_top = 360.0
+offset_right = 802.0
+offset_bottom = 632.0
+
+[node name="Row1" type="HBoxContainer" parent="Grid"]
+layout_mode = 2
+
+[node name="Tile_0_0" parent="Grid/Row1" instance=ExtResource("3_bj2sm")]
+layout_mode = 2
 Type = 0
 
-[node name="Core" parent="Tile_0_0" instance=ExtResource("5_owoer")]
+[node name="Core" type="Node2D" parent="Grid/Row1/Tile_0_0" groups=["core"] instance=ExtResource("5_owoer")]
+position = Vector2(44, 44)
+script = ExtResource("7_ievop")
 
-[node name="Tile_0_1" parent="." instance=ExtResource("3_bj2sm")]
-position = Vector2(960, 488)
+[node name="Tile_0_1" parent="Grid/Row1" instance=ExtResource("3_bj2sm")]
+layout_mode = 2
 
-[node name="Empty" parent="Tile_0_1" instance=ExtResource("7_dktpo")]
+[node name="Empty" type="Node2D" parent="Grid/Row1/Tile_0_1" groups=["empty"] instance=ExtResource("7_dktpo")]
+position = Vector2(44, 44)
+script = ExtResource("9_0s7si")
 
-[node name="Tile_0_2" parent="." instance=ExtResource("3_bj2sm")]
-position = Vector2(1056, 488)
+[node name="Tile_0_2" parent="Grid/Row1" instance=ExtResource("3_bj2sm")]
+layout_mode = 2
 Type = 0
 
-[node name="Core" parent="Tile_0_2" instance=ExtResource("5_owoer")]
-scale = Vector2(1, 1.02003)
+[node name="Core" type="Node2D" parent="Grid/Row1/Tile_0_2" groups=["core"] instance=ExtResource("5_owoer")]
+position = Vector2(44, 44)
+script = ExtResource("7_ievop")
 isCoreEnabledOnStart = true
 
-[node name="Tile_1_0" parent="." instance=ExtResource("3_bj2sm")]
-position = Vector2(864, 584)
+[node name="Row2" type="HBoxContainer" parent="Grid"]
+layout_mode = 2
 
-[node name="Empty" parent="Tile_1_0" instance=ExtResource("7_dktpo")]
+[node name="Tile_1_0" parent="Grid/Row2" instance=ExtResource("3_bj2sm")]
+layout_mode = 2
 
-[node name="Tile_1_1" parent="." instance=ExtResource("3_bj2sm")]
-position = Vector2(960, 584)
+[node name="Empty" type="Node2D" parent="Grid/Row2/Tile_1_0" groups=["empty"] instance=ExtResource("7_dktpo")]
+position = Vector2(44, 44)
+script = ExtResource("9_0s7si")
 
-[node name="Empty" parent="Tile_1_1" instance=ExtResource("7_dktpo")]
+[node name="Tile_1_1" parent="Grid/Row2" instance=ExtResource("3_bj2sm")]
+layout_mode = 2
 
-[node name="Tile_1_2" parent="." instance=ExtResource("3_bj2sm")]
-position = Vector2(1056, 584)
+[node name="Empty" type="Node2D" parent="Grid/Row2/Tile_1_1" groups=["empty"] instance=ExtResource("7_dktpo")]
+position = Vector2(44, 44)
+script = ExtResource("9_0s7si")
 
-[node name="Empty" parent="Tile_1_2" instance=ExtResource("7_dktpo")]
+[node name="Tile_1_2" parent="Grid/Row2" instance=ExtResource("3_bj2sm")]
+layout_mode = 2
 
-[node name="Tile_2_0" parent="." instance=ExtResource("3_bj2sm")]
-position = Vector2(864, 680)
+[node name="Empty" type="Node2D" parent="Grid/Row2/Tile_1_2" groups=["empty"] instance=ExtResource("7_dktpo")]
+position = Vector2(44, 44)
+script = ExtResource("9_0s7si")
+
+[node name="Row3" type="HBoxContainer" parent="Grid"]
+layout_mode = 2
+
+[node name="Tile_2_0" parent="Grid/Row3" instance=ExtResource("3_bj2sm")]
+layout_mode = 2
 Type = 0
 
-[node name="Core" parent="Tile_2_0" instance=ExtResource("5_owoer")]
+[node name="Core" type="Node2D" parent="Grid/Row3/Tile_2_0" groups=["core"] instance=ExtResource("5_owoer")]
+position = Vector2(44, 44)
+script = ExtResource("7_ievop")
 
-[node name="Tile_2_1" parent="." instance=ExtResource("3_bj2sm")]
-position = Vector2(960, 680)
+[node name="Tile_2_1" parent="Grid/Row3" instance=ExtResource("3_bj2sm")]
+layout_mode = 2
 Type = 2
 
-[node name="Firewall" parent="Tile_2_1" instance=ExtResource("8_ayr1y")]
+[node name="Firewall" type="Node2D" parent="Grid/Row3/Tile_2_1" groups=["firewall"] instance=ExtResource("8_ayr1y")]
+position = Vector2(44, 44)
+script = ExtResource("11_xjace")
 
-[node name="Tile_2_2" parent="." instance=ExtResource("3_bj2sm")]
-position = Vector2(1056, 680)
+[node name="Tile_2_2" parent="Grid/Row3" instance=ExtResource("3_bj2sm")]
+layout_mode = 2
 Type = 0
 
-[node name="Core" parent="Tile_2_2" instance=ExtResource("5_owoer")]
+[node name="Core" type="Node2D" parent="Grid/Row3/Tile_2_2" groups=["core"] instance=ExtResource("5_owoer")]
+position = Vector2(44, 44)
+script = ExtResource("7_ievop")

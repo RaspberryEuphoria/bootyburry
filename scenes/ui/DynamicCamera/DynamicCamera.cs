@@ -8,32 +8,45 @@ namespace UI
   public partial class DynamicCamera : Camera2D
   {
     private Level level;
-    private Tile firstTile;
-    private Tile lastTile;
+    private BoxContainer grid;
+    private float zoomIncrement = 1.5f;
 
     public override void _Ready()
     {
       level = GetParent<Level>();
-
-      var tiles = level.GetChildren().OfType<Tile>();
-
-      firstTile = tiles.First();
-      lastTile = tiles.Last();
+      grid = level.GetNode<BoxContainer>("Grid");
 
       SetupCamera();
     }
 
+    public override void _Process(double delta)
+    {
+      if (!level.IsInputAllowed()) return;
+      HandleInput();
+    }
+
     private void SetupCamera()
     {
-      var firstTilePosition = firstTile.GlobalPosition;
-      var lastTilePosition = lastTile.GlobalPosition;
+      var gridRect = grid.GetRect();
+      var topLeftCornerPosition = new Vector2(0, 0);
+      var bottomRightCornerPosition = new Vector2(gridRect.Size.X, gridRect.Size.Y);
 
-      var cameraPosition = new Vector2(
-        (firstTilePosition.X + lastTilePosition.X) / 2,
-        (firstTilePosition.Y + lastTilePosition.Y) / 2
-      );
+      // Set the camera so that the grid is at the center of the screen
+      var cameraPosition = gridRect.Position + grid.Size / 2;
 
       GlobalPosition = cameraPosition;
+    }
+
+    private void HandleInput()
+    {
+      if (Input.IsActionJustPressed("scroll_down"))
+      {
+        Zoom /= zoomIncrement;
+      }
+      else if (Input.IsActionJustPressed("scroll_up"))
+      {
+        Zoom *= zoomIncrement;
+      }
     }
   }
 }

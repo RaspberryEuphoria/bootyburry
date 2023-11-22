@@ -13,7 +13,7 @@
 [node name="Level" type="Node2D" node_paths=PackedStringArray("startingTile")]
 script = ExtResource("1_h4huj")
 nextLevel = ExtResource("2_bqgjs")
-startingTile = NodePath("Tile_0_0")
+startingTile = NodePath("Grid/Row1/Tile_0_0")
 OptimalScore = 3
 LevelTitle = "Level 1.0"
 LevelSubtitle = "// Thinking With Proxies"
@@ -22,56 +22,71 @@ LevelSubtitle = "// Thinking With Proxies"
 
 [node name="LevelUI" parent="." instance=ExtResource("4_3vkwv")]
 
-[node name="Tile_0_0" parent="." instance=ExtResource("5_ewbo5")]
-position = Vector2(864, 448)
+[node name="Grid" type="VBoxContainer" parent="."]
+offset_left = 620.0
+offset_top = 460.0
+offset_right = 892.0
+offset_bottom = 732.0
+
+[node name="Row1" type="HBoxContainer" parent="Grid"]
+layout_mode = 2
+
+[node name="Tile_0_0" parent="Grid/Row1" instance=ExtResource("5_ewbo5")]
+layout_mode = 2
 Type = 0
 
-[node name="Core" parent="Tile_0_0" instance=ExtResource("6_ihv14")]
+[node name="Core" parent="Grid/Row1/Tile_0_0" instance=ExtResource("6_ihv14")]
 
-[node name="Tile_0_1" parent="." instance=ExtResource("5_ewbo5")]
-position = Vector2(960, 448)
+[node name="Tile_0_1" parent="Grid/Row1" instance=ExtResource("5_ewbo5")]
+layout_mode = 2
 Type = 2
 
-[node name="Firewall" parent="Tile_0_1" instance=ExtResource("7_4436y")]
+[node name="Firewall" parent="Grid/Row1/Tile_0_1" instance=ExtResource("7_4436y")]
 
-[node name="Tile_0_2" parent="." instance=ExtResource("5_ewbo5")]
-position = Vector2(1056, 448)
+[node name="Tile_0_2" parent="Grid/Row1" instance=ExtResource("5_ewbo5")]
+layout_mode = 2
 Type = 0
 
-[node name="Core" parent="Tile_0_2" instance=ExtResource("6_ihv14")]
+[node name="Core" parent="Grid/Row1/Tile_0_2" instance=ExtResource("6_ihv14")]
 
-[node name="Tile_1_0" parent="." instance=ExtResource("5_ewbo5")]
-position = Vector2(864, 544)
+[node name="Row2" type="HBoxContainer" parent="Grid"]
+layout_mode = 2
+
+[node name="Tile_1_0" parent="Grid/Row2" instance=ExtResource("5_ewbo5")]
+layout_mode = 2
 Type = 4
 
-[node name="Proxy" parent="Tile_1_0" node_paths=PackedStringArray("ExitTile") instance=ExtResource("10_epi0j")]
+[node name="Proxy" parent="Grid/Row2/Tile_1_0" node_paths=PackedStringArray("ExitTile") instance=ExtResource("10_epi0j")]
 ExitTile = NodePath("../../Tile_1_2")
 
-[node name="Tile_1_1" parent="." instance=ExtResource("5_ewbo5")]
-position = Vector2(960, 544)
+[node name="Tile_1_1" parent="Grid/Row2" instance=ExtResource("5_ewbo5")]
+layout_mode = 2
 
-[node name="Empty" parent="Tile_1_1" instance=ExtResource("7_7vav0")]
+[node name="Empty" parent="Grid/Row2/Tile_1_1" instance=ExtResource("7_7vav0")]
 
-[node name="Tile_1_2" parent="." instance=ExtResource("5_ewbo5")]
-position = Vector2(1056, 544)
+[node name="Tile_1_2" parent="Grid/Row2" instance=ExtResource("5_ewbo5")]
+layout_mode = 2
 Type = 4
 
-[node name="Proxy" parent="Tile_1_2" node_paths=PackedStringArray("ExitTile") instance=ExtResource("10_epi0j")]
+[node name="Proxy" parent="Grid/Row2/Tile_1_2" node_paths=PackedStringArray("ExitTile") instance=ExtResource("10_epi0j")]
 ExitTile = NodePath("../../Tile_1_0")
 
-[node name="Tile_2_0" parent="." instance=ExtResource("5_ewbo5")]
-position = Vector2(864, 640)
+[node name="Row3" type="HBoxContainer" parent="Grid"]
+layout_mode = 2
+
+[node name="Tile_2_0" parent="Grid/Row3" instance=ExtResource("5_ewbo5")]
+layout_mode = 2
 Type = 0
 
-[node name="Core" parent="Tile_2_0" instance=ExtResource("6_ihv14")]
+[node name="Core" parent="Grid/Row3/Tile_2_0" instance=ExtResource("6_ihv14")]
 
-[node name="Tile_2_1" parent="." instance=ExtResource("5_ewbo5")]
-position = Vector2(960, 640)
+[node name="Tile_2_1" parent="Grid/Row3" instance=ExtResource("5_ewbo5")]
+layout_mode = 2
 
-[node name="Empty" parent="Tile_2_1" instance=ExtResource("7_7vav0")]
+[node name="Empty" parent="Grid/Row3/Tile_2_1" instance=ExtResource("7_7vav0")]
 
-[node name="Tile_2_2" parent="." instance=ExtResource("5_ewbo5")]
-position = Vector2(1056, 640)
+[node name="Tile_2_2" parent="Grid/Row3" instance=ExtResource("5_ewbo5")]
+layout_mode = 2
 Type = 0
 
-[node name="Core" parent="Tile_2_2" instance=ExtResource("6_ihv14")]
+[node name="Core" parent="Grid/Row3/Tile_2_2" instance=ExtResource("6_ihv14")]

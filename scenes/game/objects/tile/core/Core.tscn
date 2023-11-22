@@ -1,10 +1,16 @@
 [gd_scene load_steps=9 format=3 uid="uid://ch1bcttqi5hjk"]
 
 [ext_resource type="Script" path="res://scenes/game/objects/tile/core/Core.cs" id="1_ocx0v"]
-[ext_resource type="Texture2D" uid="uid://d36ywp4mlllxu" path="res://assets/game/objects/tile/texture.png" id="2_fvhh6"]
 [ext_resource type="Texture2D" uid="uid://clvqnqb1qgalk" path="res://assets/game/objects/tile/core/outer_texture.png" id="2_nt7fn"]
 [ext_resource type="PackedScene" uid="uid://b52jnvgyagyv2" path="res://scenes/game/objects/tile/core/InnerCore.tscn" id="3_jrwbd"]
 [ext_resource type="PackedScene" uid="uid://b1qg5jsrtqi83" path="res://scenes/game/objects/tile/core/Selector.tscn" id="4_tl3v0"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_j34gw"]
+bg_color = Color(0, 0, 0, 0.5)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
 
 [sub_resource type="Animation" id="Animation_j7g1c"]
 resource_name = "disable"
@@ -45,11 +51,22 @@ _data = {
 }
 
 [node name="Core" type="Node2D" groups=["core"]]
+position = Vector2(44, 44)
 script = ExtResource("1_ocx0v")
 
-[node name="Background" type="Sprite2D" parent="."]
-modulate = Color(0, 0, 0, 0.75)
-texture = ExtResource("2_fvhh6")
+[node name="Background" type="Panel" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -44.0
+offset_top = -44.0
+offset_right = 44.0
+offset_bottom = 44.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_j34gw")
 
 [node name="Circle" type="Sprite2D" parent="."]
 texture = ExtResource("2_nt7fn")

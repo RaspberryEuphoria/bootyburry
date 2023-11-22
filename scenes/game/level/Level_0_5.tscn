@@ -13,7 +13,7 @@
 [node name="Level" type="Node2D" node_paths=PackedStringArray("startingTile")]
 script = ExtResource("1_46kfr")
 nextLevel = ExtResource("2_h1t8n")
-startingTile = NodePath("Tile_2_1")
+startingTile = NodePath("Grid/Row3/Tile_2_1")
 OptimalScore = 16
 LevelTitle = "Level 0.5"
 LevelSubtitle = "// Now With More Grid"
@@ -25,138 +25,159 @@ botDelay = 0.0
 helperText = "Don't waste your moves in a hurry,
 Riches await those who keep sturdy."
 
-[node name="Tile_0_0" parent="." instance=ExtResource("3_tkl7r")]
-position = Vector2(720, 376)
+[node name="Grid" type="VBoxContainer" parent="."]
+offset_left = 728.0
+offset_top = 408.0
+offset_right = 1184.0
+offset_bottom = 864.0
+
+[node name="Row1" type="HBoxContainer" parent="Grid"]
+layout_mode = 2
+
+[node name="Tile_0_0" parent="Grid/Row1" instance=ExtResource("3_tkl7r")]
+layout_mode = 2
 Type = 0
 
-[node name="Core" parent="Tile_0_0" instance=ExtResource("5_i4tkf")]
+[node name="Core" parent="Grid/Row1/Tile_0_0" instance=ExtResource("5_i4tkf")]
 
-[node name="Tile_0_1" parent="." instance=ExtResource("3_tkl7r")]
-position = Vector2(816, 376)
+[node name="Tile_0_1" parent="Grid/Row1" instance=ExtResource("3_tkl7r")]
+layout_mode = 2
 Type = 0
 
-[node name="Core" parent="Tile_0_1" instance=ExtResource("5_i4tkf")]
+[node name="Core" parent="Grid/Row1/Tile_0_1" instance=ExtResource("5_i4tkf")]
 isCoreEnabledOnStart = true
 
-[node name="Tile_0_2" parent="." instance=ExtResource("3_tkl7r")]
-position = Vector2(912, 376)
+[node name="Tile_0_2" parent="Grid/Row1" instance=ExtResource("3_tkl7r")]
+layout_mode = 2
 
-[node name="Empty" parent="Tile_0_2" instance=ExtResource("4_x5rqs")]
+[node name="Empty" parent="Grid/Row1/Tile_0_2" instance=ExtResource("4_x5rqs")]
 
-[node name="Tile_0_3" parent="." instance=ExtResource("3_tkl7r")]
-position = Vector2(1008, 376)
+[node name="Tile_0_3" parent="Grid/Row1" instance=ExtResource("3_tkl7r")]
+layout_mode = 2
 
-[node name="Empty2" parent="Tile_0_3" instance=ExtResource("4_x5rqs")]
+[node name="Empty2" parent="Grid/Row1/Tile_0_3" instance=ExtResource("4_x5rqs")]
 
-[node name="Tile_0_4" parent="." instance=ExtResource("3_tkl7r")]
-position = Vector2(1104, 376)
+[node name="Tile_0_4" parent="Grid/Row1" instance=ExtResource("3_tkl7r")]
+layout_mode = 2
 Type = 0
 
-[node name="Core" parent="Tile_0_4" instance=ExtResource("5_i4tkf")]
+[node name="Core" parent="Grid/Row1/Tile_0_4" instance=ExtResource("5_i4tkf")]
 
-[node name="Tile_1_0" parent="." instance=ExtResource("3_tkl7r")]
-position = Vector2(720, 472)
+[node name="Row2" type="HBoxContainer" parent="Grid"]
+layout_mode = 2
 
-[node name="Empty2" parent="Tile_1_0" instance=ExtResource("4_x5rqs")]
+[node name="Tile_1_0" parent="Grid/Row2" instance=ExtResource("3_tkl7r")]
+layout_mode = 2
 
-[node name="Tile_1_1" parent="." instance=ExtResource("3_tkl7r")]
-position = Vector2(816, 472)
+[node name="Empty2" parent="Grid/Row2/Tile_1_0" instance=ExtResource("4_x5rqs")]
 
-[node name="Empty2" parent="Tile_1_1" instance=ExtResource("4_x5rqs")]
+[node name="Tile_1_1" parent="Grid/Row2" instance=ExtResource("3_tkl7r")]
+layout_mode = 2
 
-[node name="Tile_1_2" parent="." instance=ExtResource("3_tkl7r")]
-position = Vector2(912, 472)
+[node name="Empty2" parent="Grid/Row2/Tile_1_1" instance=ExtResource("4_x5rqs")]
+
+[node name="Tile_1_2" parent="Grid/Row2" instance=ExtResource("3_tkl7r")]
+layout_mode = 2
 Type = 0
 
-[node name="Core" parent="Tile_1_2" instance=ExtResource("5_i4tkf")]
+[node name="Core" parent="Grid/Row2/Tile_1_2" instance=ExtResource("5_i4tkf")]
 
-[node name="Tile_1_3" parent="." instance=ExtResource("3_tkl7r")]
-position = Vector2(1008, 472)
+[node name="Tile_1_3" parent="Grid/Row2" instance=ExtResource("3_tkl7r")]
+layout_mode = 2
 
-[node name="Empty2" parent="Tile_1_3" instance=ExtResource("4_x5rqs")]
+[node name="Empty2" parent="Grid/Row2/Tile_1_3" instance=ExtResource("4_x5rqs")]
 
-[node name="Tile_1_4" parent="." instance=ExtResource("3_tkl7r")]
-position = Vector2(1104, 472)
+[node name="Tile_1_4" parent="Grid/Row2" instance=ExtResource("3_tkl7r")]
+layout_mode = 2
 Type = 0
 
-[node name="Core" parent="Tile_1_4" instance=ExtResource("5_i4tkf")]
+[node name="Core" parent="Grid/Row2/Tile_1_4" instance=ExtResource("5_i4tkf")]
 
-[node name="Tile_2_0" parent="." instance=ExtResource("3_tkl7r")]
-position = Vector2(720, 568)
+[node name="Row3" type="HBoxContainer" parent="Grid"]
+layout_mode = 2
 
-[node name="Empty2" parent="Tile_2_0" instance=ExtResource("4_x5rqs")]
+[node name="Tile_2_0" parent="Grid/Row3" instance=ExtResource("3_tkl7r")]
+layout_mode = 2
 
-[node name="Tile_2_1" parent="." instance=ExtResource("3_tkl7r")]
-position = Vector2(816, 568)
+[node name="Empty2" parent="Grid/Row3/Tile_2_0" instance=ExtResource("4_x5rqs")]
+
+[node name="Tile_2_1" parent="Grid/Row3" instance=ExtResource("3_tkl7r")]
+layout_mode = 2
 Type = 0
 
-[node name="Core" parent="Tile_2_1" instance=ExtResource("5_i4tkf")]
+[node name="Core" parent="Grid/Row3/Tile_2_1" instance=ExtResource("5_i4tkf")]
 
-[node name="Tile_2_2" parent="." instance=ExtResource("3_tkl7r")]
-position = Vector2(912, 568)
+[node name="Tile_2_2" parent="Grid/Row3" instance=ExtResource("3_tkl7r")]
+layout_mode = 2
 
-[node name="Empty" parent="Tile_2_2" instance=ExtResource("4_x5rqs")]
+[node name="Empty" parent="Grid/Row3/Tile_2_2" instance=ExtResource("4_x5rqs")]
 
-[node name="Tile_2_3" parent="." instance=ExtResource("3_tkl7r")]
-position = Vector2(1008, 568)
+[node name="Tile_2_3" parent="Grid/Row3" instance=ExtResource("3_tkl7r")]
+layout_mode = 2
 
-[node name="Empty2" parent="Tile_2_3" instance=ExtResource("4_x5rqs")]
+[node name="Empty2" parent="Grid/Row3/Tile_2_3" instance=ExtResource("4_x5rqs")]
 
-[node name="Tile_2_4" parent="." instance=ExtResource("3_tkl7r")]
-position = Vector2(1104, 568)
+[node name="Tile_2_4" parent="Grid/Row3" instance=ExtResource("3_tkl7r")]
+layout_mode = 2
 Type = 2
 
-[node name="Firewall" parent="Tile_2_4" instance=ExtResource("5_xebwi")]
+[node name="Firewall" parent="Grid/Row3/Tile_2_4" instance=ExtResource("5_xebwi")]
 
-[node name="Tile_3_0" parent="." instance=ExtResource("3_tkl7r")]
-position = Vector2(720, 664)
+[node name="Row4" type="HBoxContainer" parent="Grid"]
+layout_mode = 2
 
-[node name="Empty" parent="Tile_3_0" instance=ExtResource("4_x5rqs")]
+[node name="Tile_3_0" parent="Grid/Row4" instance=ExtResource("3_tkl7r")]
+layout_mode = 2
 
-[node name="Tile_3_1" parent="." instance=ExtResource("3_tkl7r")]
-position = Vector2(816, 664)
+[node name="Empty" parent="Grid/Row4/Tile_3_0" instance=ExtResource("4_x5rqs")]
 
-[node name="Empty2" parent="Tile_3_1" instance=ExtResource("4_x5rqs")]
+[node name="Tile_3_1" parent="Grid/Row4" instance=ExtResource("3_tkl7r")]
+layout_mode = 2
 
-[node name="Tile_3_2" parent="." instance=ExtResource("3_tkl7r")]
-position = Vector2(912, 664)
+[node name="Empty2" parent="Grid/Row4/Tile_3_1" instance=ExtResource("4_x5rqs")]
 
-[node name="Empty2" parent="Tile_3_2" instance=ExtResource("4_x5rqs")]
+[node name="Tile_3_2" parent="Grid/Row4" instance=ExtResource("3_tkl7r")]
+layout_mode = 2
 
-[node name="Tile_3_3" parent="." instance=ExtResource("3_tkl7r")]
-position = Vector2(1008, 664)
+[node name="Empty2" parent="Grid/Row4/Tile_3_2" instance=ExtResource("4_x5rqs")]
 
-[node name="Empty" parent="Tile_3_3" instance=ExtResource("4_x5rqs")]
+[node name="Tile_3_3" parent="Grid/Row4" instance=ExtResource("3_tkl7r")]
+layout_mode = 2
 
-[node name="Tile_3_4" parent="." instance=ExtResource("3_tkl7r")]
-position = Vector2(1104, 664)
+[node name="Empty" parent="Grid/Row4/Tile_3_3" instance=ExtResource("4_x5rqs")]
+
+[node name="Tile_3_4" parent="Grid/Row4" instance=ExtResource("3_tkl7r")]
+layout_mode = 2
 Type = 0
 
-[node name="Core" parent="Tile_3_4" instance=ExtResource("5_i4tkf")]
+[node name="Core" parent="Grid/Row4/Tile_3_4" instance=ExtResource("5_i4tkf")]
 
-[node name="Tile_4_0" parent="." instance=ExtResource("3_tkl7r")]
-position = Vector2(720, 760)
+[node name="Row5" type="HBoxContainer" parent="Grid"]
+layout_mode = 2
 
-[node name="Empty" parent="Tile_4_0" instance=ExtResource("4_x5rqs")]
+[node name="Tile_4_0" parent="Grid/Row5" instance=ExtResource("3_tkl7r")]
+layout_mode = 2
 
-[node name="Tile_4_1" parent="." instance=ExtResource("3_tkl7r")]
-position = Vector2(816, 760)
+[node name="Empty" parent="Grid/Row5/Tile_4_0" instance=ExtResource("4_x5rqs")]
+
+[node name="Tile_4_1" parent="Grid/Row5" instance=ExtResource("3_tkl7r")]
+layout_mode = 2
 Type = 0
 
-[node name="Core" parent="Tile_4_1" instance=ExtResource("5_i4tkf")]
+[node name="Core" parent="Grid/Row5/Tile_4_1" instance=ExtResource("5_i4tkf")]
 
-[node name="Tile_4_2" parent="." instance=ExtResource("3_tkl7r")]
-position = Vector2(912, 760)
+[node name="Tile_4_2" parent="Grid/Row5" instance=ExtResource("3_tkl7r")]
+layout_mode = 2
 
-[node name="Empty2" parent="Tile_4_2" instance=ExtResource("4_x5rqs")]
+[node name="Empty2" parent="Grid/Row5/Tile_4_2" instance=ExtResource("4_x5rqs")]
 
-[node name="Tile_4_3" parent="." instance=ExtResource("3_tkl7r")]
-position = Vector2(1008, 760)
+[node name="Tile_4_3" parent="Grid/Row5" instance=ExtResource("3_tkl7r")]
+layout_mode = 2
 
-[node name="Empty2" parent="Tile_4_3" instance=ExtResource("4_x5rqs")]
+[node name="Empty2" parent="Grid/Row5/Tile_4_3" instance=ExtResource("4_x5rqs")]
 
-[node name="Tile_4_4" parent="." instance=ExtResource("3_tkl7r")]
-position = Vector2(1104, 760)
+[node name="Tile_4_4" parent="Grid/Row5" instance=ExtResource("3_tkl7r")]
+layout_mode = 2
 Type = 3
 
-[node name="Router" parent="Tile_4_4" instance=ExtResource("6_87u1u")]
+[node name="Router" parent="Grid/Row5/Tile_4_4" instance=ExtResource("6_87u1u")]

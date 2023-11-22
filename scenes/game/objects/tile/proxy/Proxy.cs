@@ -32,7 +32,7 @@ namespace Game
     public override void _Ready()
     {
       rootTile = GetParent<Tile>();
-      level = rootTile.GetParent<Level>();
+      level = GetTree().Root.GetNode<Level>("Level");
       portal = GetNode<Sprite2D>("Portal");
       portalAlt = GetNode<Sprite2D>("PortalAlt");
       particles = GetNode<CpuParticles2D>("Particles");

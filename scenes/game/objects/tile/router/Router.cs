@@ -17,7 +17,7 @@ namespace Game
     public override void _Ready()
     {
       rootTile = GetParent<Tile>();
-      level = rootTile.GetParent<Level>();
+      level = GetTree().Root.GetNode<Level>("Level");
       arrows = GetNode<Sprite2D>("Arrows");
 
       level.CurrentTileUpdated += OnCurrentTileUpdated;

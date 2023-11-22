@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://d23rfhjixlueh"]
+[gd_scene load_steps=13 format=3 uid="uid://d23rfhjixlueh"]
 
 [ext_resource type="Script" path="res://scenes/game/level/Level.cs" id="1_xn8kp"]
 [ext_resource type="PackedScene" uid="uid://btkws4lwu8fi1" path="res://scenes/game/level/LevelBackground.tscn" id="2_fwxk1"]
@@ -7,13 +7,16 @@
 [ext_resource type="PackedScene" uid="uid://dbl0tiuqxnci4" path="res://scenes/ui/LevelUI.tscn" id="3_lo8hx"]
 [ext_resource type="PackedScene" uid="uid://ch1bcttqi5hjk" path="res://scenes/game/objects/tile/core/Core.tscn" id="4_x870s"]
 [ext_resource type="PackedScene" uid="uid://e2gu8wi641jf" path="res://scenes/game/objects/tile/empty/Empty.tscn" id="6_rmh5j"]
+[ext_resource type="Script" path="res://scenes/game/objects/tile/empty/Empty.cs" id="7_4vc4y"]
 [ext_resource type="PackedScene" uid="uid://bux2ffg7yyub3" path="res://scenes/game/objects/tile/firewall/Firewall.tscn" id="8_3ljrq"]
 [ext_resource type="PackedScene" uid="uid://cl2lm1lsl8j8i" path="res://scenes/game/objects/tile/proxy/Proxy.tscn" id="9_43h6n"]
+[ext_resource type="Script" path="res://scenes/game/objects/tile/core/Core.cs" id="9_jx1iv"]
+[ext_resource type="Script" path="res://scenes/game/objects/tile/firewall/Firewall.cs" id="12_o6kan"]
 
 [node name="Level" type="Node2D" node_paths=PackedStringArray("startingTile")]
 script = ExtResource("1_xn8kp")
 nextLevel = ExtResource("2_ojath")
-startingTile = NodePath("Tile_1_1")
+startingTile = NodePath("Grid/Row1/Tile_1_1")
 OptimalScore = 4
 LevelTitle = "Level 1.1"
 LevelSubtitle = "// Callback"
@@ -23,92 +26,122 @@ botDelay = 0.0
 
 [node name="LevelUI" parent="." instance=ExtResource("3_lo8hx")]
 
-[node name="Tile_1_0" parent="." instance=ExtResource("3_0cryg")]
-position = Vector2(816, 448)
+[node name="Grid" type="VBoxContainer" parent="."]
+offset_left = 824.0
+offset_top = 496.0
+offset_right = 1188.0
+offset_bottom = 860.0
 
-[node name="Empty" parent="Tile_1_0" instance=ExtResource("6_rmh5j")]
+[node name="Row1" type="HBoxContainer" parent="Grid"]
+layout_mode = 2
 
-[node name="Tile_1_1" parent="." instance=ExtResource("3_0cryg")]
-position = Vector2(912, 448)
+[node name="Tile_1_0" parent="Grid/Row1" instance=ExtResource("3_0cryg")]
+layout_mode = 2
+
+[node name="Empty" type="Node2D" parent="Grid/Row1/Tile_1_0" groups=["empty"] instance=ExtResource("6_rmh5j")]
+position = Vector2(44, 44)
+script = ExtResource("7_4vc4y")
+
+[node name="Tile_1_1" parent="Grid/Row1" instance=ExtResource("3_0cryg")]
+layout_mode = 2
 Type = 0
 
-[node name="Core" parent="Tile_1_1" instance=ExtResource("4_x870s")]
+[node name="Core" type="Node2D" parent="Grid/Row1/Tile_1_1" groups=["core"] instance=ExtResource("4_x870s")]
+position = Vector2(44, 44)
+script = ExtResource("9_jx1iv")
 
-[node name="Tile_1_2" parent="." instance=ExtResource("3_0cryg")]
-position = Vector2(1008, 448)
+[node name="Tile_1_2" parent="Grid/Row1" instance=ExtResource("3_0cryg")]
+layout_mode = 2
 
-[node name="Empty" parent="Tile_1_2" instance=ExtResource("6_rmh5j")]
+[node name="Empty" type="Node2D" parent="Grid/Row1/Tile_1_2" groups=["empty"] instance=ExtResource("6_rmh5j")]
+position = Vector2(44, 44)
+script = ExtResource("7_4vc4y")
 
-[node name="Tile_1_3" parent="." instance=ExtResource("3_0cryg")]
-position = Vector2(1104, 448)
+[node name="Tile_1_3" parent="Grid/Row1" instance=ExtResource("3_0cryg")]
+layout_mode = 2
 Type = 4
 
-[node name="Proxy" parent="Tile_1_3" node_paths=PackedStringArray("ExitTile") instance=ExtResource("9_43h6n")]
-ExitTile = NodePath("../../Tile_4_0")
+[node name="Proxy" parent="Grid/Row1/Tile_1_3" node_paths=PackedStringArray("ExitTile") instance=ExtResource("9_43h6n")]
+ExitTile = NodePath("../../../Row4/Tile_4_0")
 
-[node name="Tile_2_0" parent="." instance=ExtResource("3_0cryg")]
-position = Vector2(816, 544)
+[node name="Row2" type="HBoxContainer" parent="Grid"]
+layout_mode = 2
 
-[node name="Empty" parent="Tile_2_0" instance=ExtResource("6_rmh5j")]
+[node name="Tile_2_0" parent="Grid/Row2" instance=ExtResource("3_0cryg")]
+layout_mode = 2
 
-[node name="Tile_2_1" parent="." instance=ExtResource("3_0cryg")]
-position = Vector2(912, 544)
+[node name="Empty" type="Node2D" parent="Grid/Row2/Tile_2_0" groups=["empty"] instance=ExtResource("6_rmh5j")]
+position = Vector2(44, 44)
+script = ExtResource("7_4vc4y")
+
+[node name="Tile_2_1" parent="Grid/Row2" instance=ExtResource("3_0cryg")]
+layout_mode = 2
 Type = 2
 
-[node name="Firewall" parent="Tile_2_1" instance=ExtResource("8_3ljrq")]
+[node name="Firewall" type="Node2D" parent="Grid/Row2/Tile_2_1" groups=["firewall"] instance=ExtResource("8_3ljrq")]
+position = Vector2(44, 44)
+script = ExtResource("12_o6kan")
 
-[node name="Tile_2_2" parent="." instance=ExtResource("3_0cryg")]
-position = Vector2(1008, 544)
+[node name="Tile_2_2" parent="Grid/Row2" instance=ExtResource("3_0cryg")]
+layout_mode = 2
 
-[node name="Empty" parent="Tile_2_2" instance=ExtResource("6_rmh5j")]
+[node name="Empty" type="Node2D" parent="Grid/Row2/Tile_2_2" groups=["empty"] instance=ExtResource("6_rmh5j")]
+position = Vector2(44, 44)
+script = ExtResource("7_4vc4y")
 
-[node name="Tile_2_3" parent="." instance=ExtResource("3_0cryg")]
-position = Vector2(1104, 544)
+[node name="Tile_2_3" parent="Grid/Row2" instance=ExtResource("3_0cryg")]
+layout_mode = 2
 
-[node name="Empty" parent="Tile_2_3" instance=ExtResource("6_rmh5j")]
+[node name="Empty" parent="Grid/Row2/Tile_2_3" instance=ExtResource("6_rmh5j")]
 
-[node name="Tile_3_0" parent="." instance=ExtResource("3_0cryg")]
-position = Vector2(816, 640)
+[node name="Row3" type="HBoxContainer" parent="Grid"]
+layout_mode = 2
+
+[node name="Tile_3_0" parent="Grid/Row3" instance=ExtResource("3_0cryg")]
+layout_mode = 2
 Type = 0
 
-[node name="Core" parent="Tile_3_0" instance=ExtResource("4_x870s")]
+[node name="Core" parent="Grid/Row3/Tile_3_0" instance=ExtResource("4_x870s")]
 isCoreEnabledOnStart = true
 
-[node name="Tile_3_1" parent="." instance=ExtResource("3_0cryg")]
-position = Vector2(912, 640)
+[node name="Tile_3_1" parent="Grid/Row3" instance=ExtResource("3_0cryg")]
+layout_mode = 2
 Type = 0
 
-[node name="Core" parent="Tile_3_1" instance=ExtResource("4_x870s")]
+[node name="Core" parent="Grid/Row3/Tile_3_1" instance=ExtResource("4_x870s")]
 
-[node name="Tile_3_2" parent="." instance=ExtResource("3_0cryg")]
-position = Vector2(1008, 640)
+[node name="Tile_3_2" parent="Grid/Row3" instance=ExtResource("3_0cryg")]
+layout_mode = 2
 
-[node name="Empty" parent="Tile_3_2" instance=ExtResource("6_rmh5j")]
+[node name="Empty" parent="Grid/Row3/Tile_3_2" instance=ExtResource("6_rmh5j")]
 
-[node name="Tile_3_3" parent="." instance=ExtResource("3_0cryg")]
-position = Vector2(1104, 640)
+[node name="Tile_3_3" parent="Grid/Row3" instance=ExtResource("3_0cryg")]
+layout_mode = 2
 
-[node name="Empty" parent="Tile_3_3" instance=ExtResource("6_rmh5j")]
+[node name="Empty" parent="Grid/Row3/Tile_3_3" instance=ExtResource("6_rmh5j")]
 
-[node name="Tile_4_0" parent="." instance=ExtResource("3_0cryg")]
-position = Vector2(816, 736)
+[node name="Row4" type="HBoxContainer" parent="Grid"]
+layout_mode = 2
+
+[node name="Tile_4_0" parent="Grid/Row4" instance=ExtResource("3_0cryg")]
+layout_mode = 2
 Type = 4
 
-[node name="Proxy" parent="Tile_4_0" node_paths=PackedStringArray("ExitTile") instance=ExtResource("9_43h6n")]
-ExitTile = NodePath("../../Tile_1_3")
+[node name="Proxy" parent="Grid/Row4/Tile_4_0" node_paths=PackedStringArray("ExitTile") instance=ExtResource("9_43h6n")]
+ExitTile = NodePath("../../../Row1/Tile_1_3")
 
-[node name="Tile_4_1" parent="." instance=ExtResource("3_0cryg")]
-position = Vector2(912, 736)
+[node name="Tile_4_1" parent="Grid/Row4" instance=ExtResource("3_0cryg")]
+layout_mode = 2
 
-[node name="Empty" parent="Tile_4_1" instance=ExtResource("6_rmh5j")]
+[node name="Empty" parent="Grid/Row4/Tile_4_1" instance=ExtResource("6_rmh5j")]
 
-[node name="Tile_4_2" parent="." instance=ExtResource("3_0cryg")]
-position = Vector2(1008, 736)
+[node name="Tile_4_2" parent="Grid/Row4" instance=ExtResource("3_0cryg")]
+layout_mode = 2
 
-[node name="Empty" parent="Tile_4_2" instance=ExtResource("6_rmh5j")]
+[node name="Empty" parent="Grid/Row4/Tile_4_2" instance=ExtResource("6_rmh5j")]
 
-[node name="Tile_4_3" parent="." instance=ExtResource("3_0cryg")]
-position = Vector2(1104, 736)
+[node name="Tile_4_3" parent="Grid/Row4" instance=ExtResource("3_0cryg")]
+layout_mode = 2
 Type = 0
 
-[node name="Core" parent="Tile_4_3" instance=ExtResource("4_x870s")]
+[node name="Core" parent="Grid/Row4/Tile_4_3" instance=ExtResource("4_x870s")]

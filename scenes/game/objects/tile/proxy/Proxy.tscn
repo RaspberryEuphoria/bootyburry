@@ -73,6 +73,7 @@ _data = {
 }
 
 [node name="Proxy" type="Node2D" groups=["proxy"]]
+position = Vector2(44, 44)
 script = ExtResource("1_mwlb5")
 
 [node name="Background" type="Sprite2D" parent="."]

@@ -6,14 +6,14 @@ namespace Game
   {
     public void Init(Tile startingTile, Tile endingTile)
     {
-      Points = new Vector2[] { startingTile.Position, endingTile.Position };
+      Points = new Vector2[] { Tile.GetCenterPoint(startingTile), Tile.GetCenterPoint(endingTile) };
     }
 
     public void AddTileToPoints(Tile newTile)
     {
       var newPoints = new Vector2[Points.Length + 1];
       Points.CopyTo(newPoints, 0);
-      newPoints[^1] = newTile.Position;
+      newPoints[^1] = Tile.GetCenterPoint(newTile);
       Points = newPoints;
     }
 

@@ -14,7 +14,7 @@ namespace Game
     public override void _Ready()
     {
       tile = GetParent<Tile>();
-      level = tile.GetParent<Level>();
+      level = GetTree().Root.GetNode<Level>("Level");
     }
 
     public bool IsBlockedFromDirection(Direction _direction)

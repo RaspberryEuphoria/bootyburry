@@ -11,7 +11,7 @@
 [node name="Level" type="Node2D" node_paths=PackedStringArray("startingTile")]
 script = ExtResource("1_gyoap")
 nextLevel = ExtResource("2_jnlk2")
-startingTile = NodePath("Tile_0_0")
+startingTile = NodePath("Grid/Row1/Tile_0_0")
 OptimalScore = 2
 LevelTitle = "Level 0.0"
 LevelSubtitle = "// Hello Cores"
@@ -20,50 +20,72 @@ LevelSubtitle = "// Hello Cores"
 
 [node name="LevelUI" parent="." instance=ExtResource("4_fgq5k")]
 
-[node name="Tile_0_0" parent="." instance=ExtResource("3_xsr66")]
-position = Vector2(864, 488)
+[node name="Grid" type="VBoxContainer" parent="."]
+offset_left = 503.0
+offset_top = 334.0
+offset_right = 817.0
+offset_bottom = 648.0
+size_flags_horizontal = 0
+theme_override_constants/separation = 25
+
+[node name="Row1" type="HBoxContainer" parent="Grid"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = 25
+
+[node name="Tile_0_0" parent="Grid/Row1" instance=ExtResource("3_xsr66")]
+layout_mode = 2
+size_flags_horizontal = 0
 Type = 0
 
-[node name="Core" parent="Tile_0_0" instance=ExtResource("6_86uui")]
+[node name="Core" parent="Grid/Row1/Tile_0_0" instance=ExtResource("6_86uui")]
 
-[node name="Tile_0_1" parent="." instance=ExtResource("3_xsr66")]
-position = Vector2(960, 488)
+[node name="Tile_0_1" parent="Grid/Row1" instance=ExtResource("3_xsr66")]
+layout_mode = 2
 
-[node name="Empty" parent="Tile_0_1" instance=ExtResource("6_rgcdj")]
+[node name="Empty" parent="Grid/Row1/Tile_0_1" instance=ExtResource("6_rgcdj")]
 
-[node name="Tile_0_2" parent="." instance=ExtResource("3_xsr66")]
-position = Vector2(1056, 488)
+[node name="Tile_0_2" parent="Grid/Row1" instance=ExtResource("3_xsr66")]
+layout_mode = 2
 
-[node name="Empty" parent="Tile_0_2" instance=ExtResource("6_rgcdj")]
+[node name="Empty" parent="Grid/Row1/Tile_0_2" instance=ExtResource("6_rgcdj")]
 
-[node name="Tile_1_0" parent="." instance=ExtResource("3_xsr66")]
-position = Vector2(864, 584)
+[node name="Row2" type="HBoxContainer" parent="Grid"]
+layout_mode = 2
+theme_override_constants/separation = 25
 
-[node name="Empty" parent="Tile_1_0" instance=ExtResource("6_rgcdj")]
+[node name="Tile_1_0" parent="Grid/Row2" instance=ExtResource("3_xsr66")]
+layout_mode = 2
 
-[node name="Tile_1_1" parent="." instance=ExtResource("3_xsr66")]
-position = Vector2(960, 584)
+[node name="Empty" parent="Grid/Row2/Tile_1_0" instance=ExtResource("6_rgcdj")]
 
-[node name="Empty" parent="Tile_1_1" instance=ExtResource("6_rgcdj")]
+[node name="Tile_1_1" parent="Grid/Row2" instance=ExtResource("3_xsr66")]
+layout_mode = 2
 
-[node name="Tile_1_2" parent="." instance=ExtResource("3_xsr66")]
-position = Vector2(1056, 584)
+[node name="Empty" parent="Grid/Row2/Tile_1_1" instance=ExtResource("6_rgcdj")]
 
-[node name="Empty" parent="Tile_1_2" instance=ExtResource("6_rgcdj")]
+[node name="Tile_1_2" parent="Grid/Row2" instance=ExtResource("3_xsr66")]
+layout_mode = 2
 
-[node name="Tile_2_0" parent="." instance=ExtResource("3_xsr66")]
-position = Vector2(864, 680)
+[node name="Empty" parent="Grid/Row2/Tile_1_2" instance=ExtResource("6_rgcdj")]
+
+[node name="Row3" type="HBoxContainer" parent="Grid"]
+layout_mode = 2
+theme_override_constants/separation = 25
+
+[node name="Tile_2_0" parent="Grid/Row3" instance=ExtResource("3_xsr66")]
+layout_mode = 2
 Type = 0
 
-[node name="Core" parent="Tile_2_0" instance=ExtResource("6_86uui")]
+[node name="Core" parent="Grid/Row3/Tile_2_0" instance=ExtResource("6_86uui")]
 
-[node name="Tile_2_1" parent="." instance=ExtResource("3_xsr66")]
-position = Vector2(960, 680)
+[node name="Tile_2_1" parent="Grid/Row3" instance=ExtResource("3_xsr66")]
+layout_mode = 2
 
-[node name="Empty" parent="Tile_2_1" instance=ExtResource("6_rgcdj")]
+[node name="Empty" parent="Grid/Row3/Tile_2_1" instance=ExtResource("6_rgcdj")]
 
-[node name="Tile_2_2" parent="." instance=ExtResource("3_xsr66")]
-position = Vector2(1056, 680)
+[node name="Tile_2_2" parent="Grid/Row3" instance=ExtResource("3_xsr66")]
+layout_mode = 2
 Type = 0
 
-[node name="Core" parent="Tile_2_2" instance=ExtResource("6_86uui")]
+[node name="Core" parent="Grid/Row3/Tile_2_2" instance=ExtResource("6_86uui")]
