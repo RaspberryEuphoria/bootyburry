@@ -1,11 +1,13 @@
-[gd_scene load_steps=10 format=3 uid="uid://hi4eduh4w577"]
+[gd_scene load_steps=12 format=3 uid="uid://hi4eduh4w577"]
 
 [ext_resource type="Script" path="res://scenes/game/level/Level.cs" id="1_3dtnc"]
 [ext_resource type="PackedScene" uid="uid://btkws4lwu8fi1" path="res://scenes/game/level/LevelBackground.tscn" id="2_445gq"]
 [ext_resource type="PackedScene" uid="uid://bjow5qdv8ub05" path="res://scenes/game/level/Level_1_4.tscn" id="2_wxv6u"]
 [ext_resource type="PackedScene" uid="uid://dbl0tiuqxnci4" path="res://scenes/ui/LevelUI.tscn" id="3_u5kic"]
 [ext_resource type="PackedScene" uid="uid://67x0aame80lq" path="res://scenes/game/objects/tile/Tile.tscn" id="4_xli8y"]
+[ext_resource type="Theme" uid="uid://xpcajdi0p6eq" path="res://assets/game/objects/tile/row_theme.tres" id="5_8qxbx"]
 [ext_resource type="PackedScene" uid="uid://e2gu8wi641jf" path="res://scenes/game/objects/tile/empty/Empty.tscn" id="5_cfm5b"]
+[ext_resource type="Theme" uid="uid://dosxghxldvbg1" path="res://assets/game/objects/tile/grid_theme.tres" id="5_ptcik"]
 [ext_resource type="PackedScene" uid="uid://ch1bcttqi5hjk" path="res://scenes/game/objects/tile/core/Core.tscn" id="6_o1lp5"]
 [ext_resource type="PackedScene" uid="uid://cl2lm1lsl8j8i" path="res://scenes/game/objects/tile/proxy/Proxy.tscn" id="7_6cnl6"]
 [ext_resource type="PackedScene" uid="uid://6oclnkije4cp" path="res://scenes/game/objects/tile/router/Router.tscn" id="11_dujp2"]
@@ -28,9 +30,12 @@ offset_left = 864.0
 offset_top = 528.0
 offset_right = 1228.0
 offset_bottom = 892.0
+theme = ExtResource("5_ptcik")
 
 [node name="Row1" type="HBoxContainer" parent="Grid"]
 layout_mode = 2
+theme = ExtResource("5_8qxbx")
+theme_override_constants/separation = 25
 
 [node name="Tile_1_0" parent="Grid/Row1" instance=ExtResource("4_xli8y")]
 layout_mode = 2
@@ -56,6 +61,8 @@ Type = 0
 
 [node name="Row3" type="HBoxContainer" parent="Grid"]
 layout_mode = 2
+theme = ExtResource("5_8qxbx")
+theme_override_constants/separation = 25
 
 [node name="Tile_2_0" parent="Grid/Row3" instance=ExtResource("4_xli8y")]
 layout_mode = 2
@@ -82,6 +89,8 @@ layout_mode = 2
 
 [node name="Row4" type="HBoxContainer" parent="Grid"]
 layout_mode = 2
+theme = ExtResource("5_8qxbx")
+theme_override_constants/separation = 25
 
 [node name="Tile_3_0" parent="Grid/Row4" instance=ExtResource("4_xli8y")]
 layout_mode = 2
@@ -111,6 +120,8 @@ Type = 0
 
 [node name="Row5" type="HBoxContainer" parent="Grid"]
 layout_mode = 2
+theme = ExtResource("5_8qxbx")
+theme_override_constants/separation = 25
 
 [node name="Tile_4_0" parent="Grid/Row5" instance=ExtResource("4_xli8y")]
 layout_mode = 2

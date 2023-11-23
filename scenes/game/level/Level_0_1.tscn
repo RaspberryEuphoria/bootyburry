@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://b1i880hkcmx50"]
+[gd_scene load_steps=11 format=3 uid="uid://b1i880hkcmx50"]
 
 [ext_resource type="Script" path="res://scenes/game/level/Level.cs" id="1_3py4v"]
 [ext_resource type="PackedScene" uid="uid://fqleqx2cn34q" path="res://scenes/game/level/Level_0_2.tscn" id="2_f2pqk"]
@@ -6,11 +6,10 @@
 [ext_resource type="PackedScene" uid="uid://67x0aame80lq" path="res://scenes/game/objects/tile/Tile.tscn" id="3_bj2sm"]
 [ext_resource type="PackedScene" uid="uid://dbl0tiuqxnci4" path="res://scenes/ui/LevelUI.tscn" id="4_23kbk"]
 [ext_resource type="PackedScene" uid="uid://ch1bcttqi5hjk" path="res://scenes/game/objects/tile/core/Core.tscn" id="5_0d6oq"]
+[ext_resource type="Theme" uid="uid://dosxghxldvbg1" path="res://assets/game/objects/tile/grid_theme.tres" id="5_60oxg"]
+[ext_resource type="Theme" uid="uid://xpcajdi0p6eq" path="res://assets/game/objects/tile/row_theme.tres" id="5_tqe8g"]
 [ext_resource type="PackedScene" uid="uid://e2gu8wi641jf" path="res://scenes/game/objects/tile/empty/Empty.tscn" id="7_2l4fw"]
-[ext_resource type="Script" path="res://scenes/game/objects/tile/core/Core.cs" id="7_ae56p"]
 [ext_resource type="PackedScene" uid="uid://bux2ffg7yyub3" path="res://scenes/game/objects/tile/firewall/Firewall.tscn" id="7_ism3j"]
-[ext_resource type="Script" path="res://scenes/game/objects/tile/empty/Empty.cs" id="9_075on"]
-[ext_resource type="Script" path="res://scenes/game/objects/tile/firewall/Firewall.cs" id="11_sjeue"]
 
 [node name="Level" type="Node2D" node_paths=PackedStringArray("startingTile")]
 script = ExtResource("1_3py4v")
@@ -27,84 +26,70 @@ helperText = "To protect your adventure from grief,
 Listen closely, and steer clear of the reef."
 
 [node name="Grid" type="VBoxContainer" parent="."]
-offset_left = 462.0
-offset_top = 406.0
-offset_right = 734.0
-offset_bottom = 678.0
+offset_left = 485.0
+offset_top = 264.0
+offset_right = 1063.0
+offset_bottom = 842.0
+theme = ExtResource("5_60oxg")
 
 [node name="Row1" type="HBoxContainer" parent="Grid"]
 layout_mode = 2
+theme = ExtResource("5_tqe8g")
 
 [node name="Tile_0_0" parent="Grid/Row1" instance=ExtResource("3_bj2sm")]
 layout_mode = 2
 Type = 0
 
-[node name="Core" type="Node2D" parent="Grid/Row1/Tile_0_0" groups=["core"] instance=ExtResource("5_0d6oq")]
-position = Vector2(44, 44)
-script = ExtResource("7_ae56p")
+[node name="Core" parent="Grid/Row1/Tile_0_0" instance=ExtResource("5_0d6oq")]
 
 [node name="Tile_0_1" parent="Grid/Row1" instance=ExtResource("3_bj2sm")]
 layout_mode = 2
 
-[node name="Empty" type="Node2D" parent="Grid/Row1/Tile_0_1" groups=["empty"] instance=ExtResource("7_2l4fw")]
-position = Vector2(44, 44)
-script = ExtResource("9_075on")
+[node name="Empty" parent="Grid/Row1/Tile_0_1" instance=ExtResource("7_2l4fw")]
 
 [node name="Tile_0_2" parent="Grid/Row1" instance=ExtResource("3_bj2sm")]
 layout_mode = 2
 Type = 0
 
-[node name="Core" type="Node2D" parent="Grid/Row1/Tile_0_2" groups=["core"] instance=ExtResource("5_0d6oq")]
-position = Vector2(44, 44)
-script = ExtResource("7_ae56p")
+[node name="Core" parent="Grid/Row1/Tile_0_2" instance=ExtResource("5_0d6oq")]
 
 [node name="Row2" type="HBoxContainer" parent="Grid"]
 layout_mode = 2
+theme = ExtResource("5_tqe8g")
 
 [node name="Tile_1_0" parent="Grid/Row2" instance=ExtResource("3_bj2sm")]
 layout_mode = 2
 Type = 2
 
-[node name="Firewall" type="Node2D" parent="Grid/Row2/Tile_1_0" groups=["firewall"] instance=ExtResource("7_ism3j")]
-position = Vector2(44, 44)
-script = ExtResource("11_sjeue")
+[node name="Firewall" parent="Grid/Row2/Tile_1_0" instance=ExtResource("7_ism3j")]
 
 [node name="Tile_1_1" parent="Grid/Row2" instance=ExtResource("3_bj2sm")]
 layout_mode = 2
 
-[node name="Empty" type="Node2D" parent="Grid/Row2/Tile_1_1" groups=["empty"] instance=ExtResource("7_2l4fw")]
-position = Vector2(44, 44)
-script = ExtResource("9_075on")
+[node name="Empty" parent="Grid/Row2/Tile_1_1" instance=ExtResource("7_2l4fw")]
 
 [node name="Tile_1_2" parent="Grid/Row2" instance=ExtResource("3_bj2sm")]
 layout_mode = 2
 
-[node name="Empty" type="Node2D" parent="Grid/Row2/Tile_1_2" groups=["empty"] instance=ExtResource("7_2l4fw")]
-position = Vector2(44, 44)
-script = ExtResource("9_075on")
+[node name="Empty" parent="Grid/Row2/Tile_1_2" instance=ExtResource("7_2l4fw")]
 
 [node name="Row3" type="HBoxContainer" parent="Grid"]
 layout_mode = 2
+theme = ExtResource("5_tqe8g")
 
 [node name="Tile_2_0" parent="Grid/Row3" instance=ExtResource("3_bj2sm")]
 layout_mode = 2
 Type = 0
 
-[node name="Core" type="Node2D" parent="Grid/Row3/Tile_2_0" groups=["core"] instance=ExtResource("5_0d6oq")]
-position = Vector2(44, 44)
-script = ExtResource("7_ae56p")
+[node name="Core" parent="Grid/Row3/Tile_2_0" instance=ExtResource("5_0d6oq")]
 
 [node name="Tile_2_1" parent="Grid/Row3" instance=ExtResource("3_bj2sm")]
 layout_mode = 2
 
-[node name="Empty" type="Node2D" parent="Grid/Row3/Tile_2_1" groups=["empty"] instance=ExtResource("7_2l4fw")]
-position = Vector2(44, 44)
-script = ExtResource("9_075on")
+[node name="Empty" parent="Grid/Row3/Tile_2_1" instance=ExtResource("7_2l4fw")]
 
 [node name="Tile_2_2" parent="Grid/Row3" instance=ExtResource("3_bj2sm")]
 layout_mode = 2
 Type = 0
 
-[node name="Core" type="Node2D" parent="Grid/Row3/Tile_2_2" groups=["core"] instance=ExtResource("5_0d6oq")]
-position = Vector2(44, 44)
-script = ExtResource("7_ae56p")
+[node name="Core" parent="Grid/Row3/Tile_2_2" instance=ExtResource("5_0d6oq")]

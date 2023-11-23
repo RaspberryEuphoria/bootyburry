@@ -1,11 +1,11 @@
 [gd_scene load_steps=3 format=3 uid="uid://bux2ffg7yyub3"]
 
 [ext_resource type="Script" path="res://scenes/game/objects/tile/firewall/Firewall.cs" id="1_nrdpd"]
-[ext_resource type="Texture2D" uid="uid://cbjpenk6juxvn" path="res://assets/game/objects/tile/firewall/texture.png" id="2_4xdbl"]
+[ext_resource type="Texture2D" uid="uid://da5i7o3dkyd50" path="res://assets/game/objects/tile/firewall/texture_md.png" id="2_0yn11"]
 
 [node name="Firewall" type="Node2D" groups=["firewall"]]
-position = Vector2(44, 44)
 script = ExtResource("1_nrdpd")
 
 [node name="Warning" type="Sprite2D" parent="."]
-texture = ExtResource("2_4xdbl")
+texture = ExtResource("2_0yn11")
+centered = false

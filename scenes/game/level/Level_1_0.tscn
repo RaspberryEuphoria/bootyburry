@@ -1,9 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://baftsx7qrc6n8"]
+[gd_scene load_steps=11 format=3 uid="uid://baftsx7qrc6n8"]
 
 [ext_resource type="Script" path="res://scenes/game/level/Level.cs" id="1_h4huj"]
 [ext_resource type="PackedScene" uid="uid://d23rfhjixlueh" path="res://scenes/game/level/Level_1_1.tscn" id="2_bqgjs"]
 [ext_resource type="PackedScene" uid="uid://btkws4lwu8fi1" path="res://scenes/game/level/LevelBackground.tscn" id="3_kppp5"]
 [ext_resource type="PackedScene" uid="uid://dbl0tiuqxnci4" path="res://scenes/ui/LevelUI.tscn" id="4_3vkwv"]
+[ext_resource type="Theme" uid="uid://xpcajdi0p6eq" path="res://assets/game/objects/tile/row_theme.tres" id="5_6rjdu"]
 [ext_resource type="PackedScene" uid="uid://67x0aame80lq" path="res://scenes/game/objects/tile/Tile.tscn" id="5_ewbo5"]
 [ext_resource type="PackedScene" uid="uid://ch1bcttqi5hjk" path="res://scenes/game/objects/tile/core/Core.tscn" id="6_ihv14"]
 [ext_resource type="PackedScene" uid="uid://e2gu8wi641jf" path="res://scenes/game/objects/tile/empty/Empty.tscn" id="7_7vav0"]
@@ -27,9 +28,12 @@ offset_left = 620.0
 offset_top = 460.0
 offset_right = 892.0
 offset_bottom = 732.0
+theme = ExtResource("5_6rjdu")
 
 [node name="Row1" type="HBoxContainer" parent="Grid"]
 layout_mode = 2
+theme = ExtResource("5_6rjdu")
+theme_override_constants/separation = 25
 
 [node name="Tile_0_0" parent="Grid/Row1" instance=ExtResource("5_ewbo5")]
 layout_mode = 2
@@ -51,6 +55,8 @@ Type = 0
 
 [node name="Row2" type="HBoxContainer" parent="Grid"]
 layout_mode = 2
+theme = ExtResource("5_6rjdu")
+theme_override_constants/separation = 25
 
 [node name="Tile_1_0" parent="Grid/Row2" instance=ExtResource("5_ewbo5")]
 layout_mode = 2
@@ -73,6 +79,8 @@ ExitTile = NodePath("../../Tile_1_0")
 
 [node name="Row3" type="HBoxContainer" parent="Grid"]
 layout_mode = 2
+theme = ExtResource("5_6rjdu")
+theme_override_constants/separation = 25
 
 [node name="Tile_2_0" parent="Grid/Row3" instance=ExtResource("5_ewbo5")]
 layout_mode = 2

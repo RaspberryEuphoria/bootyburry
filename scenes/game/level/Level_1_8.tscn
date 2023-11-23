@@ -1,8 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://c1jd8vubmm07u"]
+[gd_scene load_steps=10 format=3 uid="uid://c1jd8vubmm07u"]
 
 [ext_resource type="Script" path="res://scenes/game/level/Level.cs" id="1_6wu75"]
 [ext_resource type="PackedScene" uid="uid://btkws4lwu8fi1" path="res://scenes/game/level/LevelBackground.tscn" id="2_pwdfs"]
 [ext_resource type="PackedScene" uid="uid://dbl0tiuqxnci4" path="res://scenes/ui/LevelUI.tscn" id="3_ygoud"]
+[ext_resource type="Theme" uid="uid://xpcajdi0p6eq" path="res://assets/game/objects/tile/row_theme.tres" id="4_ah67f"]
+[ext_resource type="Theme" uid="uid://dosxghxldvbg1" path="res://assets/game/objects/tile/grid_theme.tres" id="4_oty8f"]
 [ext_resource type="PackedScene" uid="uid://67x0aame80lq" path="res://scenes/game/objects/tile/Tile.tscn" id="4_vu6mj"]
 [ext_resource type="PackedScene" uid="uid://e2gu8wi641jf" path="res://scenes/game/objects/tile/empty/Empty.tscn" id="5_g1ue5"]
 [ext_resource type="PackedScene" uid="uid://ch1bcttqi5hjk" path="res://scenes/game/objects/tile/core/Core.tscn" id="6_3xeta"]
@@ -25,9 +27,12 @@ offset_left = 779.0
 offset_top = 359.0
 offset_right = 1235.0
 offset_bottom = 815.0
+theme = ExtResource("4_oty8f")
 
 [node name="Row1" type="HBoxContainer" parent="Grid"]
 layout_mode = 2
+theme = ExtResource("4_ah67f")
+theme_override_constants/separation = 25
 
 [node name="Tile_0_0" parent="Grid/Row1" instance=ExtResource("4_vu6mj")]
 layout_mode = 2
@@ -58,6 +63,8 @@ layout_mode = 2
 
 [node name="Row2" type="HBoxContainer" parent="Grid"]
 layout_mode = 2
+theme = ExtResource("4_ah67f")
+theme_override_constants/separation = 25
 
 [node name="Tile_1_0" parent="Grid/Row2" instance=ExtResource("4_vu6mj")]
 layout_mode = 2
@@ -90,6 +97,8 @@ Type = 0
 
 [node name="Row3" type="HBoxContainer" parent="Grid"]
 layout_mode = 2
+theme = ExtResource("4_ah67f")
+theme_override_constants/separation = 25
 
 [node name="Tile_2_0" parent="Grid/Row3" instance=ExtResource("4_vu6mj")]
 layout_mode = 2
@@ -124,6 +133,8 @@ layout_mode = 2
 
 [node name="Row4" type="HBoxContainer" parent="Grid"]
 layout_mode = 2
+theme = ExtResource("4_ah67f")
+theme_override_constants/separation = 25
 
 [node name="Tile_3_0" parent="Grid/Row4" instance=ExtResource("4_vu6mj")]
 layout_mode = 2
@@ -157,6 +168,8 @@ Type = 0
 
 [node name="Row5" type="HBoxContainer" parent="Grid"]
 layout_mode = 2
+theme = ExtResource("4_ah67f")
+theme_override_constants/separation = 25
 
 [node name="Tile_4_0" parent="Grid/Row5" instance=ExtResource("4_vu6mj")]
 layout_mode = 2
