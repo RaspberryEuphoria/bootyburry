@@ -9,7 +9,16 @@ namespace UI
   {
     private Level level;
     private BoxContainer grid;
-    private float zoomIncrement = 1.5f;
+
+    private InputEventScreenDrag[] dragEvents = new InputEventScreenDrag[2];
+    private Vector2 lastDragDistance = Vector2.Zero;
+    private float zoomIncrement = 0.25f;
+    private int zoomSensitivity = 10;
+    private Vector2 initialZoom;
+    private Vector2 targetZoom;
+    private Vector2 minZoom = new(0.5f, 0.5f);
+    private Vector2 maxZoom = new(1.5f, 1.5f);
+    private bool isZooming = false;
 
     public override void _Ready()
     {
@@ -23,30 +32,89 @@ namespace UI
     {
       if (!level.IsInputAllowed()) return;
       HandleInput();
+
+      if (isZooming)
+      {
+        if (Zoom.IsEqualApprox(targetZoom))
+        {
+          isZooming = false;
+          Zoom = targetZoom;
+        }
+        else
+        {
+          Zoom = Zoom.Lerp(targetZoom, 0.5f);
+        }
+      }
+    }
+
+    /**
+     * Inspired from https://kidscancode.org/godot_recipes/3.x/2d/touchscreen_camera/index.html
+     */
+    public override void _Input(InputEvent @event)
+    {
+      if (!level.IsInputAllowed()) return;
+
+      if (@event is InputEventScreenDrag dragEvent)
+      {
+        dragEvents[dragEvent.Index] = dragEvent;
+
+        var activeEvents = dragEvents.Where(e => e != null).ToArray();
+
+        if (activeEvents.Length == dragEvents.Length)
+        {
+          var dragDistance = activeEvents[0].Position.DirectionTo(activeEvents[1].Position);
+
+          if (dragDistance < lastDragDistance)
+          {
+            DecreaseZoom();
+          }
+          else if (dragDistance > lastDragDistance)
+          {
+            IncreaseZoom();
+          }
+
+          lastDragDistance = dragDistance;
+          dragEvents = new InputEventScreenDrag[2];
+        }
+      }
     }
 
     private void SetupCamera()
     {
       var gridRect = grid.GetRect();
-      var topLeftCornerPosition = new Vector2(0, 0);
-      var bottomRightCornerPosition = new Vector2(gridRect.Size.X, gridRect.Size.Y);
-
-      // Set the camera so that the grid is at the center of the screen
       var cameraPosition = gridRect.Position + grid.Size / 2;
 
       GlobalPosition = cameraPosition;
+      targetZoom = Zoom;
+      initialZoom = Zoom;
     }
 
     private void HandleInput()
     {
       if (Input.IsActionJustPressed("scroll_down"))
       {
-        Zoom /= zoomIncrement;
+        DecreaseZoom();
       }
       else if (Input.IsActionJustPressed("scroll_up"))
       {
-        Zoom *= zoomIncrement;
+        IncreaseZoom();
       }
+    }
+
+    private void IncreaseZoom()
+    {
+      if (isZooming || Zoom.IsEqualApprox(maxZoom)) return;
+      targetZoom = new Vector2(Zoom.X + zoomIncrement, Zoom.Y + zoomIncrement);
+
+      isZooming = true;
+    }
+
+    private void DecreaseZoom()
+    {
+      if (isZooming || Zoom.IsEqualApprox(minZoom)) return;
+      targetZoom = new Vector2(Zoom.X - zoomIncrement, Zoom.Y - zoomIncrement);
+
+      isZooming = true;
     }
   }
 }
