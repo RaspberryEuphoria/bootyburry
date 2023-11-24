@@ -1,6 +1,5 @@
 using Game;
 using Godot;
-using System.Linq;
 
 namespace UI
 {
@@ -9,12 +8,14 @@ namespace UI
   {
     private Level level;
     private BoxContainer grid;
+    private Label currentZoomLabel;
+    private Button increaseZoomButton;
+    private Button decreaseZoomButton;
 
     private InputEventScreenDrag[] dragEvents = new InputEventScreenDrag[2];
     private Vector2 lastDragDistance = Vector2.Zero;
     private float zoomIncrement = 0.25f;
-    private int zoomSensitivity = 10;
-    private Vector2 initialZoom;
+    private float initialZoomPercentage;
     private Vector2 targetZoom;
     private Vector2 minZoom = new(0.5f, 0.5f);
     private Vector2 maxZoom = new(1.5f, 1.5f);
@@ -24,6 +25,13 @@ namespace UI
     {
       level = GetParent<Level>();
       grid = level.GetNode<BoxContainer>("Grid");
+
+      currentZoomLabel = GetNode<Label>("%CurrentZoomLabel");
+      increaseZoomButton = GetNode<Button>("%IncreaseZoomButton");
+      decreaseZoomButton = GetNode<Button>("%DecreaseZoomButton");
+
+      increaseZoomButton.ButtonUp += IncreaseZoom;
+      decreaseZoomButton.ButtonUp += DecreaseZoom;
 
       SetupCamera();
     }
@@ -47,38 +55,6 @@ namespace UI
       }
     }
 
-    /**
-     * Inspired from https://kidscancode.org/godot_recipes/3.x/2d/touchscreen_camera/index.html
-     */
-    public override void _Input(InputEvent @event)
-    {
-      if (!level.IsInputAllowed()) return;
-
-      if (@event is InputEventScreenDrag dragEvent)
-      {
-        dragEvents[dragEvent.Index] = dragEvent;
-
-        var activeEvents = dragEvents.Where(e => e != null).ToArray();
-
-        if (activeEvents.Length == dragEvents.Length)
-        {
-          var dragDistance = activeEvents[0].Position.DirectionTo(activeEvents[1].Position);
-
-          if (dragDistance < lastDragDistance)
-          {
-            DecreaseZoom();
-          }
-          else if (dragDistance > lastDragDistance)
-          {
-            IncreaseZoom();
-          }
-
-          lastDragDistance = dragDistance;
-          dragEvents = new InputEventScreenDrag[2];
-        }
-      }
-    }
-
     private void SetupCamera()
     {
       var gridRect = grid.GetRect();
@@ -86,7 +62,9 @@ namespace UI
 
       GlobalPosition = cameraPosition;
       targetZoom = Zoom;
-      initialZoom = Zoom;
+
+      var zoomPercentage = Zoom.X * 100;
+      currentZoomLabel.Text = $"{zoomPercentage}%";
     }
 
     private void HandleInput()
@@ -107,6 +85,9 @@ namespace UI
       targetZoom = new Vector2(Zoom.X + zoomIncrement, Zoom.Y + zoomIncrement);
 
       isZooming = true;
+
+      var zoomPercentage = targetZoom.X * 100;
+      currentZoomLabel.Text = $"{zoomPercentage}%";
     }
 
     private void DecreaseZoom()
@@ -115,6 +96,9 @@ namespace UI
       targetZoom = new Vector2(Zoom.X - zoomIncrement, Zoom.Y - zoomIncrement);
 
       isZooming = true;
+
+      var zoomPercentage = targetZoom.X * 100;
+      currentZoomLabel.Text = $"{zoomPercentage}%";
     }
   }
 }
