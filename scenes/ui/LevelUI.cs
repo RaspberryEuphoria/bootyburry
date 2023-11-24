@@ -1,5 +1,4 @@
 
-using System;
 using Game;
 using Godot;
 
@@ -10,6 +9,8 @@ namespace UI
     [Export(PropertyHint.MultilineText)]
     private string helperText;
 
+
+    private ConfigFile config = new();
     private Control helperControl;
     private Level level;
     private Label levelTitleLabel;
@@ -23,6 +24,11 @@ namespace UI
 
     public override void _Ready()
     {
+      config.Load("user://settings.cfg");
+
+      var uiScale = (float)config.GetValue("settings", "ui_scale");
+      Scale = new Vector2(uiScale, uiScale);
+
       level = GetParent<Level>();
       level.GameStart += OnGameStart;
       level.GameWon += OnGameWon;
