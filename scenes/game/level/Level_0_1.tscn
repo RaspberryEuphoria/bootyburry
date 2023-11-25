@@ -22,8 +22,6 @@ LevelSubtitle = "// Beware The Firewall"
 [node name="Background" parent="." instance=ExtResource("3_1am38")]
 
 [node name="LevelUI" parent="." instance=ExtResource("4_23kbk")]
-helperText = "To protect your adventure from grief,
-Listen closely, and steer clear of the reef."
 
 [node name="Grid" type="VBoxContainer" parent="."]
 offset_left = 485.0

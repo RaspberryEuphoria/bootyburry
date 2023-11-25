@@ -24,8 +24,6 @@ botDelay = 0.0
 [node name="Background" parent="." instance=ExtResource("3_vhscl")]
 
 [node name="LevelUI" parent="." instance=ExtResource("4_8ui83")]
-helperText = "Mind the current, don't let your ship flip,
-It's a one-way trip, your hopes could slip."
 
 [node name="Grid" type="VBoxContainer" parent="."]
 offset_left = 376.0

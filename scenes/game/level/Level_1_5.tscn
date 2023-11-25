@@ -24,8 +24,6 @@ botDelay = 0.0
 [node name="Background" parent="." instance=ExtResource("2_qd0ns")]
 
 [node name="LevelUI" parent="." instance=ExtResource("3_e86y3")]
-helperText = "Sail onward under the sun's warm shine,
-On those seas you're doing just fine"
 
 [node name="Grid" type="VBoxContainer" parent="."]
 offset_left = 718.0

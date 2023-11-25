@@ -22,8 +22,6 @@ LevelSubtitle = "// Unfinished Work"
 [node name="Background" parent="." instance=ExtResource("4_xvaq6")]
 
 [node name="LevelUI" parent="." instance=ExtResource("4_whglh")]
-helperText = "Take my advice, don't pay the price,
-Just be precise, and always check twice."
 
 [node name="Grid" type="VBoxContainer" parent="."]
 offset_left = 530.0

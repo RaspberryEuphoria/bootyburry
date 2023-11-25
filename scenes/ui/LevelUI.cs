@@ -6,10 +6,6 @@ namespace UI
 {
   public partial class LevelUI : CanvasLayer
   {
-    [Export(PropertyHint.MultilineText)]
-    private string helperText;
-
-
     private ConfigFile config = new();
     private Control helperControl;
     private Level level;
@@ -84,19 +80,6 @@ namespace UI
     {
       loadingLabel.Text = loadingFrames[level.Score % loadingFrames.Length];
       actualComputationsLabel.Text = level.Score.ToString();
-    }
-
-    private void SetupHelperText()
-    {
-      var helpLabel = helperControl.GetNode<RichTextLabel>("%HelpLabel");
-      if (helperText == null || helperText.Trim() == "")
-      {
-        helpLabel.QueueFree();
-        return;
-      }
-
-      helpLabel.Visible = true;
-      helpLabel.Text = helperText;
     }
 
     private void OnGameStart()
