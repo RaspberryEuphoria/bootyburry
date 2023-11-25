@@ -2,21 +2,29 @@ using Godot;
 
 namespace Game
 {
-  public partial class Router : Node2D
+  public partial class Router : TileTerrain
   {
     [Export]
     public Direction Direction { get; private set; } = Direction.Up;
 
-    public static readonly bool IsPlayerControlled = false;
-    public static readonly bool ExpandPreviousPath = true;
+    private Tile _rootTile;
+    public override Tile RootTile
+    {
+      get => _rootTile;
+      set
+      {
+        _rootTile = value;
+      }
+    }
+    public override bool IsPlayerControlled { get => false; }
+    public override bool ExpandPreviousPath { get => false; }
 
     private Level level;
-    private Tile rootTile;
     private Sprite2D arrows;
 
     public override void _Ready()
     {
-      rootTile = GetParent<Tile>();
+      RootTile = GetParent<Tile>();
       level = GetTree().Root.GetNode<Level>("Level");
       arrows = GetNode<Sprite2D>("Arrows");
 
@@ -25,24 +33,29 @@ namespace Game
       SetupRotation();
     }
 
-    public bool IsBlockedFromDirection(Direction direction)
+    public override Tile GetNextSelectableTileInDirection(Direction direction)
+    {
+      return RootTile.GetNextSelectableTileInDirection(Direction);
+    }
+
+    public override Tile GetNextCoreTileInDirection(Direction direction)
+    {
+      return RootTile.GetNextCoreTileInDirection(Direction);
+    }
+
+    public override bool IsBlockedFromDirection(Direction direction)
     {
       return Direction == Level.GetOpposedDirection(direction);
     }
 
-    public bool IsSelectableFromDirection(Direction direction)
+    public override bool IsSelectableFromDirection(Direction direction)
     {
       return Direction != Level.GetOpposedDirection(direction);
     }
 
-    public bool CanUndockInDirection(Direction direction)
+    public override bool CanUndockInDirection(Direction direction)
     {
       return Direction == direction;
-    }
-
-    public Direction GetForcedDirection()
-    {
-      return Direction;
     }
 
     public void SetupRotation()
@@ -59,7 +72,7 @@ namespace Game
 
     public void OnCurrentTileUpdated(Tile tile, Tile previousTile, Direction direction)
     {
-      if (previousTile == null || tile != rootTile) return;
+      if (previousTile == null || tile != RootTile) return;
 
       level.TriggerInputInDirection(Direction);
     }

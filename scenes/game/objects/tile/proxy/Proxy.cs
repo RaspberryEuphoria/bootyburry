@@ -10,18 +10,26 @@ namespace Game
      when moving to Proxy A
    * 4. Finally, the player is stopped at the next selectable tile.
    */
-  public partial class Proxy : Node2D
+  public partial class Proxy : TileTerrain
   {
     [Export]
     public Tile ExitTile;
     [Export]
     private bool useAlternativeVisual = false;
 
-    public static readonly bool IsPlayerControlled = false;
-    public static readonly bool ExpandPreviousPath = false;
+    private Tile _rootTile;
+    public override Tile RootTile
+    {
+      get => _rootTile;
+      set
+      {
+        _rootTile = value;
+      }
+    }
+    public override bool IsPlayerControlled { get => false; }
+    public override bool ExpandPreviousPath { get => false; }
 
     private Level level;
-    private Tile rootTile;
     private Sprite2D portal;
     private Sprite2D portalAlt;
     private CpuParticles2D particles;
@@ -31,7 +39,7 @@ namespace Game
 
     public override void _Ready()
     {
-      rootTile = GetParent<Tile>();
+      RootTile = GetParent<Tile>();
       level = GetTree().Root.GetNode<Level>("Level");
       portal = GetNode<Sprite2D>("Portal");
       portalAlt = GetNode<Sprite2D>("PortalAlt");
@@ -43,10 +51,20 @@ namespace Game
 
       if (ExitTile == null)
       {
-        GD.PrintErr($"Proxy on tile {rootTile.Name} doesn't have an exit.");
+        GD.PrintErr($"Proxy on tile {RootTile.Name} doesn't have an exit.");
       }
 
       if (useAlternativeVisual) SetupAlternativeVisual();
+    }
+
+    public override Tile GetNextSelectableTileInDirection(Direction direction)
+    {
+      return ExitTile.GetNextSelectableTileInDirection(direction);
+    }
+
+    public override Tile GetNextCoreTileInDirection(Direction direction)
+    {
+      return ExitTile.GetNextCoreTileInDirection(direction);
     }
 
     public bool Dock()
@@ -54,24 +72,19 @@ namespace Game
       return true;
     }
 
-    public bool IsBlockedFromDirection(Direction _direction)
+    public override bool IsBlockedFromDirection(Direction _direction)
     {
       return false;
     }
 
-    public bool IsSelectableFromDirection(Direction _direction)
+    public override bool IsSelectableFromDirection(Direction _direction)
     {
       return true;
     }
 
-    public bool CanUndockInDirection(Direction _direction)
+    public override bool CanUndockInDirection(Direction _direction)
     {
       return true;
-    }
-
-    public Direction? GetForcedDirection()
-    {
-      return null;
     }
 
     private void SetupAlternativeVisual()
@@ -87,14 +100,14 @@ namespace Game
 
     public void OnCurrentTileUpdated(Tile tile, Tile previousTile, Direction direction)
     {
-      if (previousTile == null || tile != rootTile) return;
+      if (previousTile == null || tile != RootTile) return;
 
       animationPlayer.Play(animationToPlay);
 
       // Case 1: this Proxy was selected by the player
       if (previousTile != ExitTile)
       {
-        ExitTile.Select(rootTile, direction);
+        ExitTile.Select(RootTile, direction);
         return;
       }
 

@@ -2,29 +2,49 @@ using Godot;
 
 namespace Game
 {
-  public partial class Empty : Node2D
+  public partial class Empty : TileTerrain
   {
-    public static readonly bool IsPlayerControlled = false;
-    public static readonly bool ExpandPreviousPath = false;
 
-    public bool IsBlockedFromDirection(Direction _direction)
+    private Tile _rootTile;
+    public override Tile RootTile
+    {
+      get => _rootTile;
+      set
+      {
+        _rootTile = value;
+      }
+    }
+    public override bool IsPlayerControlled { get => false; }
+    public override bool ExpandPreviousPath { get => false; }
+
+    public override void _Ready()
+    {
+      RootTile = GetParent<Tile>();
+    }
+
+    public override Tile GetNextSelectableTileInDirection(Direction direction)
+    {
+      return DefaultGetNextSelectableTileInDirection(direction);
+    }
+
+    public override Tile GetNextCoreTileInDirection(Direction direction)
+    {
+      return DefaultGetNextCoreTileInDirection(direction);
+    }
+
+    public override bool IsBlockedFromDirection(Direction _direction)
     {
       return false;
     }
 
-    public bool IsSelectableFromDirection(Direction _direction)
+    public override bool IsSelectableFromDirection(Direction _direction)
     {
       return false;
     }
 
-    public bool CanUndockInDirection(Direction _direction)
+    public override bool CanUndockInDirection(Direction _direction)
     {
       return false;
-    }
-
-    public Direction? GetForcedDirection()
-    {
-      return null;
     }
   }
 }

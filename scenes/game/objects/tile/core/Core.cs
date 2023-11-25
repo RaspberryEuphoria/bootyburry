@@ -1,35 +1,44 @@
+using System;
 using System.Linq;
 using Godot;
 
 namespace Game
 {
-  public partial class Core : Node2D
+  public partial class Core : TileTerrain
   {
     [Export]
     private bool isCoreEnabledOnStart = false;
 
-    public static readonly bool IsPlayerControlled = true;
-    public static readonly bool ExpandPreviousPath = false;
+    private Tile _rootTile;
+    public override Tile RootTile
+    {
+      get => _rootTile;
+      set
+      {
+        _rootTile = value;
+      }
+    }
+    public override bool IsPlayerControlled { get => true; }
+    public override bool ExpandPreviousPath { get => false; }
 
     private AnimationPlayer animationPlayer;
     private InnerCore innerCore;
-    private Tile tile;
     private Selector[] selectors;
 
     public override void _Ready()
     {
-      tile = GetParent<Tile>();
+      RootTile = GetParent<Tile>();
       selectors = GetChildren().OfType<Selector>().ToArray();
       innerCore = GetNode<InnerCore>("InnerCore");
       animationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
 
-      tile.TileSelected += OnTileSelected;
-      tile.TileUnselected += OnTileUnselected;
+      RootTile.TileSelected += OnTileSelected;
+      RootTile.TileUnselected += OnTileUnselected;
 
       for (int i = 0; i < selectors.Length; i++)
       {
-        tile.TileSelected += selectors[i].OnTileSelected;
-        tile.TileUnselected += selectors[i].OnTileUnselected;
+        RootTile.TileSelected += selectors[i].OnTileSelected;
+        RootTile.TileUnselected += selectors[i].OnTileUnselected;
       }
 
       if (isCoreEnabledOnStart)
@@ -39,24 +48,29 @@ namespace Game
       }
     }
 
-    public bool IsBlockedFromDirection(Direction _direction)
+    public override Tile GetNextSelectableTileInDirection(Direction direction)
+    {
+      return DefaultGetNextSelectableTileInDirection(direction);
+    }
+
+    public override Tile GetNextCoreTileInDirection(Direction direction)
+    {
+      return DefaultGetNextCoreTileInDirection(direction);
+    }
+
+    public override bool IsBlockedFromDirection(Direction _direction)
     {
       return false;
     }
 
-    public bool IsSelectableFromDirection(Direction direction)
+    public override bool IsSelectableFromDirection(Direction direction)
     {
       return true;
     }
 
-    public bool CanUndockInDirection(Direction _direction)
+    public override bool CanUndockInDirection(Direction _direction)
     {
       return true;
-    }
-
-    public Direction? GetForcedDirection()
-    {
-      return null;
     }
 
     public void Dock()

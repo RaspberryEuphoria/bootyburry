@@ -8,8 +8,8 @@ namespace Game
     [Export]
     private Direction direction;
 
+    private Tile rootTile;
     private AnimationPlayer animationPlayer;
-    private Tile parentTile;
     private StringName idleAnimation = "idle";
 
     public override void _Ready()
@@ -21,23 +21,23 @@ namespace Game
       var level = GetTree().Root.GetNode<Level>("Level");
       level.GameWon += OnGameWon;
 
-      parentTile = GetParent<Core>().GetParent<Tile>();
-      parentTile.TileSelected += OnTileSelected;
-      parentTile.TileUnselected += OnTileUnselected;
+      rootTile = GetParent<Core>().GetParent<Tile>();
+      rootTile.TileSelected += OnTileSelected;
+      rootTile.TileUnselected += OnTileUnselected;
 
       animationPlayer.AnimationFinished += OnAnimationFinished;
     }
 
     public void OnTileSelected(Tile _tile, Tile _previousTile, Direction _direction)
     {
-      if (parentTile.IsOnBorder(direction)) return;
-      if (parentTile.IsBlockedFromDirection(direction)) return;
+      if (rootTile.IsOnBorder(direction)) return;
+      if (rootTile.IsBlockedFromDirection(direction)) return;
 
-      var nextTileWithCore = parentTile.GetNextCoreTileInDirection(direction);
+      var nextTileWithCore = rootTile.GetNextCoreTileInDirection(direction);
       if (nextTileWithCore == null) return;
-      if (parentTile.HasBlockerInPathToTile(direction, nextTileWithCore)) return;
+      if (rootTile.HasBlockerInPathToTile(direction, nextTileWithCore)) return;
 
-      var tileCore = nextTileWithCore.GetNode<Core>("Core");
+      var tileCore = nextTileWithCore.GetChild<Core>(0);
       var animationToPlay = tileCore.IsEnabled() ? "disable" : "enable";
       animationPlayer.Play(animationToPlay);
 

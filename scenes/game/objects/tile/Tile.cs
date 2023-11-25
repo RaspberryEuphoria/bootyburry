@@ -27,7 +27,7 @@ namespace Game
         GenerateTerrain();
       }
     }
-    public Node Terrain { get; private set; }
+    public TileTerrain Terrain { get; private set; }
     public int Id { get; private set; }
     public int Row { get; private set; }
     public int Column { get; private set; }
@@ -81,6 +81,7 @@ namespace Game
       var childCount = GetChildCount();
       if (childCount == 1)
       {
+        // We cant do GetChild<TileTerrain>(0) because Godot doesn't expect an abstract class at this point
         var child = GetChild(0);
         var isChildRightType = type switch
         {
@@ -94,7 +95,7 @@ namespace Game
 
         if (isChildRightType)
         {
-          Terrain = child;
+          Terrain = child as TileTerrain;
           return;
         }
       }
@@ -117,7 +118,7 @@ namespace Game
         _ => "Empty"
       };
 
-      var newTerrain = ResourceLoader.Load<PackedScene>($"res://scenes/game/objects/tile/{newTerrainPath}.tscn").Instantiate();
+      var newTerrain = ResourceLoader.Load<PackedScene>($"res://scenes/game/objects/tile/{newTerrainPath}.tscn").Instantiate<TileTerrain>();
       newTerrain.Name = Type.ToString();
 
       AddChild(newTerrain);
@@ -163,12 +164,7 @@ namespace Game
       if (adjacentTile.IsBlockedFromDirection(direction)) return null;
       if (adjacentTile.IsSelectableFromDirection(direction)) return adjacentTile;
 
-      return adjacentTile.Terrain switch
-      {
-        Router router => adjacentTile.GetNextSelectableTileInDirection(router.Direction),
-        Proxy proxy => proxy.ExitTile.GetNextSelectableTileInDirection(direction),
-        _ => adjacentTile.GetNextSelectableTileInDirection(direction)
-      };
+      return adjacentTile.Terrain.GetNextSelectableTileInDirection(direction);
     }
 
     public Tile GetNextCoreTileInDirection(Direction direction)
@@ -176,14 +172,9 @@ namespace Game
       var adjacentTile = GetAdjacentTile(direction);
 
       if (adjacentTile == null) return null;
+      if (adjacentTile.IsCore()) return adjacentTile;
 
-      return adjacentTile.Terrain switch
-      {
-        Core => adjacentTile,
-        Router router => adjacentTile.GetNextCoreTileInDirection(router.Direction),
-        Proxy proxy => proxy.ExitTile.GetNextCoreTileInDirection(direction),
-        _ => adjacentTile.GetNextCoreTileInDirection(direction)
-      };
+      return adjacentTile.Terrain.GetNextCoreTileInDirection(direction);
     }
 
     public Tile GetBlockerInPathToTile(Direction direction, Tile goalTile)
@@ -223,81 +214,27 @@ namespace Game
 
     public bool IsBlockedFromDirection(Direction direction)
     {
-      return Terrain switch
-      {
-        Core core => core.IsBlockedFromDirection(direction),
-        Router router => router.IsBlockedFromDirection(direction),
-        Firewall firewall => firewall.IsBlockedFromDirection(direction),
-        Empty empty => empty.IsBlockedFromDirection(direction),
-        Proxy proxy => proxy.IsBlockedFromDirection(direction),
-        _ => throw new Exception($"Invalid terrain type {Terrain.GetType()} on tile {Name}!"),
-      };
+      return Terrain.IsBlockedFromDirection(direction);
     }
 
     public bool IsSelectableFromDirection(Direction direction)
     {
-      return Terrain switch
-      {
-        Core core => core.IsSelectableFromDirection(direction),
-        Router router => router.IsSelectableFromDirection(direction),
-        Firewall firewall => firewall.IsSelectableFromDirection(direction),
-        Empty empty => empty.IsSelectableFromDirection(direction),
-        Proxy proxy => proxy.IsSelectableFromDirection(direction),
-        _ => throw new Exception($"Invalid terrain type {Terrain.GetType()} on tile {Name}!"),
-      };
+      return Terrain.IsSelectableFromDirection(direction);
     }
 
     public bool CanUndockInDirection(Direction direction)
     {
-      return Terrain switch
-      {
-        Core core => core.CanUndockInDirection(direction),
-        Router router => router.CanUndockInDirection(direction),
-        Firewall firewall => firewall.CanUndockInDirection(direction),
-        Empty empty => empty.CanUndockInDirection(direction),
-        Proxy proxy => proxy.CanUndockInDirection(direction),
-        _ => throw new Exception($"Invalid terrain type {Terrain.GetType()} on tile {Name}!"),
-      };
-    }
-
-    // @deprecated
-    public Direction? GetForcedDirection()
-    {
-      return Terrain switch
-      {
-        Core core => core.GetForcedDirection(),
-        Router router => router.GetForcedDirection(),
-        Firewall firewall => firewall.GetForcedDirection(),
-        Empty empty => empty.GetForcedDirection(),
-        Proxy proxy => proxy.GetForcedDirection(),
-        _ => throw new Exception($"Invalid terrain type {Terrain.GetType()} on tile {Name}!"),
-      };
+      return Terrain.CanUndockInDirection(direction);
     }
 
     public bool ExpandPreviousPath()
     {
-      return Terrain switch
-      {
-        Core => Core.ExpandPreviousPath,
-        Router => Router.ExpandPreviousPath,
-        Firewall => Firewall.ExpandPreviousPath,
-        Empty => Empty.ExpandPreviousPath,
-        Proxy => Proxy.ExpandPreviousPath,
-        _ => throw new Exception($"Invalid terrain type {Terrain.GetType()} on tile {Name}!"),
-      };
+      return Terrain.ExpandPreviousPath;
     }
 
     public bool IsPlayerControlled()
     {
-      return Terrain switch
-      {
-        Core => Core.IsPlayerControlled,
-        Router => Router.IsPlayerControlled,
-        Firewall => Firewall.IsPlayerControlled,
-        Empty => Empty.IsPlayerControlled,
-        Proxy => Proxy.IsPlayerControlled,
-        _ => throw new Exception($"Invalid terrain type {Terrain.GetType()} on tile {Name}!"),
-      };
+      return Terrain.IsPlayerControlled;
     }
 
     private bool IsBlockedByCurrent(Direction direction)
@@ -308,14 +245,14 @@ namespace Game
       return terrain.Direction == Level.GetOpposedDirection(direction);
     }
 
-    public bool IsFirewall()
-    {
-      return Terrain is Firewall;
-    }
-
     public bool IsCore()
     {
       return Type == TileType.Core;
+    }
+
+    public bool IsProxy()
+    {
+      return Type == TileType.Proxy;
     }
 
     public void Select(Tile previousTile, Direction direction)

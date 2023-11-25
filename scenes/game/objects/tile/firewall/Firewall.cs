@@ -2,39 +2,48 @@ using Godot;
 
 namespace Game
 {
-  public partial class Firewall : Node2D
+  public partial class Firewall : TileTerrain
   {
-
-    public static readonly bool IsPlayerControlled = false;
-    public static readonly bool ExpandPreviousPath = false;
-
-    private Level level;
-    private Tile tile;
+    private Tile _rootTile;
+    public override Tile RootTile
+    {
+      get => _rootTile;
+      set
+      {
+        _rootTile = value;
+      }
+    }
+    public override bool IsPlayerControlled { get => false; }
+    public override bool ExpandPreviousPath { get => false; }
 
     public override void _Ready()
     {
-      tile = GetParent<Tile>();
-      level = GetTree().Root.GetNode<Level>("Level");
+      RootTile = GetParent<Tile>();
     }
 
-    public bool IsBlockedFromDirection(Direction _direction)
+    public override Tile GetNextSelectableTileInDirection(Direction direction)
+    {
+      return DefaultGetNextSelectableTileInDirection(direction);
+    }
+
+    public override Tile GetNextCoreTileInDirection(Direction direction)
+    {
+      return DefaultGetNextCoreTileInDirection(direction);
+    }
+
+    public override bool IsBlockedFromDirection(Direction _direction)
     {
       return true;
     }
 
-    public bool IsSelectableFromDirection(Direction _direction)
+    public override bool IsSelectableFromDirection(Direction _direction)
     {
       return false;
     }
 
-    public bool CanUndockInDirection(Direction _direction)
+    public override bool CanUndockInDirection(Direction _direction)
     {
       return false;
-    }
-
-    public Direction? GetForcedDirection()
-    {
-      return null;
     }
 
     public void Sunk()
