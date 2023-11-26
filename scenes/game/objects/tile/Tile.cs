@@ -118,7 +118,7 @@ namespace Game
         _ => "Empty"
       };
 
-      var newTerrain = ResourceLoader.Load<PackedScene>($"res://scenes/game/objects/tile/{newTerrainPath}.tscn").Instantiate<TileTerrain>();
+      var newTerrain = ResourceLoader.Load<PackedScene>($"res://scenes/game/objects/tile/{newTerrainPath}.tscn").Instantiate();
       newTerrain.Name = Type.ToString();
 
       AddChild(newTerrain);
@@ -128,7 +128,7 @@ namespace Game
         newTerrain.Owner = GetTree().EditedSceneRoot;
       }
 
-      Terrain = newTerrain;
+      Terrain = newTerrain as TileTerrain;
     }
 
     public Tile GetAdjacentTile(Direction direction)
@@ -145,6 +145,10 @@ namespace Game
         if (direction == Direction.Down) return tiles.ElementAt(Id + level.ColumnsCount);
         if (direction == Direction.Left) return tiles.ElementAt(Id - 1);
         if (direction == Direction.Right) return tiles.ElementAt(Id + 1);
+        if (direction == Direction.TopLeft) return tiles.ElementAt(Id - level.ColumnsCount - 1);
+        if (direction == Direction.TopRight) return tiles.ElementAt(Id - level.ColumnsCount + 1);
+        if (direction == Direction.BottomLeft) return tiles.ElementAt(Id + level.ColumnsCount - 1);
+        if (direction == Direction.BottomRight) return tiles.ElementAt(Id + level.ColumnsCount + 1);
       }
       catch (Exception)
       {

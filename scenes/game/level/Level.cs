@@ -7,7 +7,7 @@ using UI;
 
 namespace Game
 {
-  public enum Direction { Up, Down, Left, Right }
+  public enum Direction { Up, Down, Left, Right, TopLeft, TopRight, BottomLeft, BottomRight }
   public enum GameState { Playing, Won, Lost }
 
   public partial class Level : Node2D

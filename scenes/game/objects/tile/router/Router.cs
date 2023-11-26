@@ -66,6 +66,10 @@ namespace Game
         Direction.Down => -90,
         Direction.Left => 0, // This is how the sprite was drawn
         Direction.Right => -180,
+        Direction.TopLeft => 45,
+        Direction.BottomLeft => -45,
+        Direction.TopRight => 135,
+        Direction.BottomRight => -135,
         _ => 90,
       };
     }
