@@ -21,16 +21,6 @@ namespace Game
       RootTile = GetParent<Tile>();
     }
 
-    public override Tile GetNextSelectableTileInDirection(Direction direction)
-    {
-      return DefaultGetNextSelectableTileInDirection(direction);
-    }
-
-    public override Tile GetNextCoreTileInDirection(Direction direction)
-    {
-      return DefaultGetNextCoreTileInDirection(direction);
-    }
-
     public override bool IsBlockedFromDirection(Direction _direction)
     {
       return true;
@@ -44,10 +34,6 @@ namespace Game
     public override bool CanUndockInDirection(Direction _direction)
     {
       return false;
-    }
-
-    public void Sunk()
-    {
     }
   }
 }

@@ -12,18 +12,21 @@ namespace Game
     public abstract bool IsPlayerControlled { get; }
     public abstract bool ExpandPreviousPath { get; }
 
-    public Tile DefaultGetNextSelectableTileInDirection(Direction direction)
+    public virtual Tile GetNextSelectableTileInDirection(Direction direction)
     {
       return RootTile.GetNextSelectableTileInDirection(direction);
     }
 
-    public Tile DefaultGetNextCoreTileInDirection(Direction direction)
+    public virtual Tile GetNextCoreTileInDirection(Direction direction)
     {
       return RootTile.GetNextCoreTileInDirection(direction);
     }
 
-    public abstract Tile GetNextSelectableTileInDirection(Direction direction);
-    public abstract Tile GetNextCoreTileInDirection(Direction direction);
+    public virtual void Toggle()
+    {
+
+    }
+
     public abstract bool IsBlockedFromDirection(Direction direction);
     public abstract bool IsSelectableFromDirection(Direction direction);
     public abstract bool CanUndockInDirection(Direction direction);

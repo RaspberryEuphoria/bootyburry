@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://bjcfie8ole471"]
+
+[ext_resource type="Shader" path="res://resources/glitch.gdshader" id="1_00g70"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bpfvi"]
+shader = ExtResource("1_00g70")
+shader_parameter/shake_power = 0.03
+shader_parameter/shake_rate = 0.33
+shader_parameter/shake_speed = 1.0
+shader_parameter/shake_block_size = 30.5
+shader_parameter/shake_color_rate = 0.01
+
+[node name="Glitch" type="ColorRect"]
+material = SubResource("ShaderMaterial_bpfvi")
+offset_top = 1.0
+offset_right = 176.0
+offset_bottom = 177.0

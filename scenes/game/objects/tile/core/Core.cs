@@ -8,6 +8,8 @@ namespace Game
   {
     [Export]
     private bool isCoreEnabledOnStart = false;
+    [Export]
+    private bool isCoreGlitched = false;
 
     private Tile _rootTile;
     public override Tile RootTile
@@ -25,6 +27,9 @@ namespace Game
     private InnerCore innerCore;
     private Selector[] selectors;
 
+    private StringName enableAnimation = "enable";
+    private StringName disableAnimation = "disable";
+
     public override void _Ready()
     {
       RootTile = GetParent<Tile>();
@@ -33,7 +38,6 @@ namespace Game
       animationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
 
       RootTile.TileSelected += OnTileSelected;
-      RootTile.TileUnselected += OnTileUnselected;
 
       for (int i = 0; i < selectors.Length; i++)
       {
@@ -46,16 +50,12 @@ namespace Game
         innerCore.Toggle();
         animationPlayer.Play("enable");
       }
-    }
 
-    public override Tile GetNextSelectableTileInDirection(Direction direction)
-    {
-      return DefaultGetNextSelectableTileInDirection(direction);
-    }
-
-    public override Tile GetNextCoreTileInDirection(Direction direction)
-    {
-      return DefaultGetNextCoreTileInDirection(direction);
+      if (isCoreGlitched)
+      {
+        var glitch = ResourceLoader.Load<PackedScene>("res://scenes/game/objects/tile/core/CoreGlitch.tscn").Instantiate();
+        AddChild(glitch);
+      }
     }
 
     public override bool IsBlockedFromDirection(Direction _direction)
@@ -73,22 +73,17 @@ namespace Game
       return true;
     }
 
-    public void Dock()
+    private void TriggerGlitch()
     {
-      innerCore.Toggle();
+      var topCoreTile = GetNextCoreTileInDirection(Direction.Up);
+      var rightCore = GetNextCoreTileInDirection(Direction.Right);
+      var bottomCore = GetNextCoreTileInDirection(Direction.Down);
+      var leftCore = GetNextCoreTileInDirection(Direction.Left);
 
-      if (innerCore.IsEnabled())
-      {
-        animationPlayer.Play("enable");
-      }
-      else
-      {
-        animationPlayer.Play("disable");
-      }
-    }
-
-    public void Undock()
-    {
+      topCoreTile?.Toggle();
+      rightCore?.Toggle();
+      bottomCore?.Toggle();
+      leftCore?.Toggle();
     }
 
     public bool IsEnabled()
@@ -96,14 +91,20 @@ namespace Game
       return innerCore.IsEnabled();
     }
 
-    public void OnTileSelected(Tile _tile, Tile _previousTile, Direction _direction)
+    public override void Toggle()
     {
-      Dock();
+      innerCore.Toggle();
+      animationPlayer.Play(innerCore.IsEnabled() ? enableAnimation : disableAnimation);
     }
 
-    public void OnTileUnselected(Tile tile)
+    public void OnTileSelected(Tile _tile, Tile _previousTile, Direction _direction)
     {
-      Undock();
+      Toggle();
+
+      if (isCoreGlitched)
+      {
+        TriggerGlitch();
+      }
     }
   }
 }

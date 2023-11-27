@@ -197,6 +197,11 @@ namespace Game
       };
     }
 
+    public void Toggle()
+    {
+      Terrain.Toggle();
+    }
+
     public bool HasBlockerInPathToTile(Direction direction, Tile goalTile)
     {
       return GetBlockerInPathToTile(direction, goalTile) != null;
