@@ -1,7 +1,7 @@
 [gd_scene load_steps=12 format=3 uid="uid://nm4glupnox57"]
 
 [ext_resource type="Script" path="res://scenes/game/level/Level.cs" id="1_i86a2"]
-[ext_resource type="PackedScene" uid="uid://b1i880hkcmx50" path="res://scenes/game/level/Level_0_1.tscn" id="2_0rqib"]
+[ext_resource type="PackedScene" uid="uid://dpr51pmpfdxwu" path="res://scenes/game/level/Level_2_1.tscn" id="2_fbt2o"]
 [ext_resource type="PackedScene" uid="uid://btkws4lwu8fi1" path="res://scenes/game/level/LevelBackground.tscn" id="3_pqcvh"]
 [ext_resource type="PackedScene" uid="uid://dbl0tiuqxnci4" path="res://scenes/ui/LevelUI.tscn" id="4_wpqhn"]
 [ext_resource type="Theme" uid="uid://dosxghxldvbg1" path="res://assets/game/objects/tile/grid_theme.tres" id="5_shx2a"]
@@ -10,15 +10,16 @@
 [ext_resource type="PackedScene" uid="uid://ch1bcttqi5hjk" path="res://scenes/game/objects/tile/core/Core.tscn" id="8_fe286"]
 [ext_resource type="PackedScene" uid="uid://bux2ffg7yyub3" path="res://scenes/game/objects/tile/firewall/Firewall.tscn" id="9_14h3n"]
 [ext_resource type="PackedScene" uid="uid://e2gu8wi641jf" path="res://scenes/game/objects/tile/empty/Empty.tscn" id="9_q677k"]
-[ext_resource type="PackedScene" uid="uid://6oclnkije4cp" path="res://scenes/game/objects/tile/router/Router.tscn" id="11_1h8c7"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ijf17"]
 
 [node name="Level" type="Node2D" node_paths=PackedStringArray("startingTile")]
 script = ExtResource("1_i86a2")
-nextLevel = ExtResource("2_0rqib")
+nextLevel = ExtResource("2_fbt2o")
 startingTile = NodePath("Grid/Row1/Tile_0_0")
-OptimalScore = 2
+OptimalScore = 7
 LevelTitle = "Level 2.0"
-LevelSubtitle = "// Diamond Update"
+LevelSubtitle = "// A Glitch In My Grid?!"
 
 [node name="Background" parent="." instance=ExtResource("3_pqcvh")]
 
@@ -52,6 +53,8 @@ layout_mode = 2
 Type = 0
 
 [node name="Core" parent="Grid/Row1/Tile_0_2" instance=ExtResource("8_fe286")]
+material = SubResource("ShaderMaterial_ijf17")
+isCoreGlitched = true
 
 [node name="Row2" type="HBoxContainer" parent="Grid"]
 layout_mode = 2
@@ -78,10 +81,9 @@ theme_override_constants/separation = 25
 
 [node name="Tile_2_0" parent="Grid/Row3" instance=ExtResource("7_y6iel")]
 layout_mode = 2
-Type = 3
+Type = 0
 
-[node name="Router" parent="Grid/Row3/Tile_2_0" instance=ExtResource("11_1h8c7")]
-Direction = 5
+[node name="Core" parent="Grid/Row3/Tile_2_0" instance=ExtResource("8_fe286")]
 
 [node name="Tile_2_1" parent="Grid/Row3" instance=ExtResource("7_y6iel")]
 layout_mode = 2
