@@ -94,7 +94,12 @@ namespace Game
       if (Input.IsActionJustPressed("retry"))
       {
         GetTree().ReloadCurrentScene();
-        return;
+      }
+
+      if (Input.IsActionJustPressed("go_to_menu"))
+      {
+        var mainMenu = ResourceLoader.Load<PackedScene>("res://scenes/game/menus/MainMenu.tscn");
+        GetTree().ChangeSceneToPacked(mainMenu);
       }
 
       if (!IsInputAllowed()) return;

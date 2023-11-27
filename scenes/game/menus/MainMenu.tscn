@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://d3rf2nybsggut"]
+[gd_scene load_steps=10 format=3 uid="uid://d3rf2nybsggut"]
 
 [ext_resource type="PackedScene" uid="uid://btkws4lwu8fi1" path="res://scenes/game/level/LevelBackground.tscn" id="1_irqj4"]
 [ext_resource type="Script" path="res://scenes/game/menus/MainMenu.cs" id="1_pk6b7"]
 [ext_resource type="FontFile" uid="uid://dwweiefoa15ly" path="res://assets/ui/fonts/Cascadia.ttf" id="2_4m8wn"]
+[ext_resource type="PackedScene" uid="uid://wh3fxd12xs2n" path="res://scenes/game/menus/LevelSelector.tscn" id="4_tutq4"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rxenl"]
 
@@ -19,34 +20,38 @@ script = ExtResource("1_pk6b7")
 
 [node name="LevelBackground" parent="." instance=ExtResource("1_irqj4")]
 
-[node name="MarginContainer" type="MarginContainer" parent="LevelBackground"]
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="UI" type="MarginContainer" parent="CanvasLayer"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+pivot_offset = Vector2(990, 510)
 theme_override_constants/margin_top = 200
 theme_override_constants/margin_bottom = 200
 
-[node name="VBoxContainer" type="VBoxContainer" parent="LevelBackground/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/UI"]
 layout_mode = 2
-theme_override_constants/separation = 20
 alignment = 1
 
-[node name="UIScalingLabel" type="Label" parent="LevelBackground/MarginContainer/VBoxContainer"]
+[node name="UIScalingLabel" type="Label" parent="CanvasLayer/UI/VBoxContainer"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_colors/font_color = Color(0.635294, 0.282353, 0.466667, 1)
 theme_override_font_sizes/font_size = 25
-text = "Select UI Scaling:"
+text = "Select text size:"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="LevelBackground/MarginContainer/VBoxContainer"]
+[node name="BoxContainer_Scaling" type="HBoxContainer" parent="CanvasLayer/UI/VBoxContainer"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_constants/separation = 25
 
-[node name="SmallButton" type="Button" parent="LevelBackground/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="SmallButton" type="Button" parent="CanvasLayer/UI/VBoxContainer/BoxContainer_Scaling"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(45, 45)
 layout_mode = 2
@@ -64,7 +69,7 @@ theme_override_styles/focus = SubResource("StyleBoxEmpty_4jng0")
 text = "Small"
 flat = true
 
-[node name="MediumButton" type="Button" parent="LevelBackground/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="MediumButton" type="Button" parent="CanvasLayer/UI/VBoxContainer/BoxContainer_Scaling"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(45, 45)
 layout_mode = 2
@@ -84,7 +89,7 @@ text = "Medium
 "
 flat = true
 
-[node name="LargeButton" type="Button" parent="LevelBackground/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="LargeButton" type="Button" parent="CanvasLayer/UI/VBoxContainer/BoxContainer_Scaling"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(45, 45)
 layout_mode = 2
@@ -104,9 +109,33 @@ text = "Large
 "
 flat = true
 
-[node name="StartButton" type="Button" parent="LevelBackground/MarginContainer/VBoxContainer"]
+[node name="MarginContainer_Start" type="MarginContainer" parent="CanvasLayer/UI/VBoxContainer"]
+visible = false
+layout_mode = 2
+theme_override_constants/margin_top = 50
+
+[node name="StartButton" type="Button" parent="CanvasLayer/UI/VBoxContainer/MarginContainer_Start"]
 unique_name_in_owner = true
+modulate = Color(0.144459, 0.47561, 0.929498, 1)
 layout_mode = 2
 size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("2_4m8wn")
 theme_override_font_sizes/font_size = 50
-text = "START GAME"
+text = "[ START GAME ]"
+
+[node name="LevelSelectorLabel" type="Label" parent="CanvasLayer/UI/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0.635294, 0.282353, 0.466667, 1)
+theme_override_fonts/font = ExtResource("2_4m8wn")
+theme_override_font_sizes/font_size = 38
+text = "[ SELECT LEVEL ]"
+
+[node name="MarginContainer_Levels" type="MarginContainer" parent="CanvasLayer/UI/VBoxContainer"]
+custom_minimum_size = Vector2(1000, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/margin_top = 15
+
+[node name="LevelSelector" parent="CanvasLayer/UI/VBoxContainer/MarginContainer_Levels" instance=ExtResource("4_tutq4")]
+layout_mode = 2
