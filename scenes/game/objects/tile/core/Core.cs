@@ -10,6 +10,8 @@ namespace Game
     private bool isCoreEnabledOnStart = false;
     [Export]
     private bool isCoreGlitched = false;
+    [Export]
+    private Texture2D glitchTexture;
 
     private Tile _rootTile;
     public override Tile RootTile
@@ -53,8 +55,8 @@ namespace Game
 
       if (isCoreGlitched)
       {
-        var glitch = ResourceLoader.Load<PackedScene>("res://scenes/game/objects/tile/core/CoreGlitch.tscn").Instantiate();
-        AddChild(glitch);
+        var outerCircle = GetNode<Sprite2D>("OuterCircle");
+        outerCircle.Texture = glitchTexture;
       }
     }
 

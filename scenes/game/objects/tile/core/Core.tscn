@@ -1,7 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://ch1bcttqi5hjk"]
+[gd_scene load_steps=10 format=3 uid="uid://ch1bcttqi5hjk"]
 
 [ext_resource type="Script" path="res://scenes/game/objects/tile/core/Core.cs" id="1_ocx0v"]
 [ext_resource type="Texture2D" uid="uid://cd8wmkt4v6dq6" path="res://assets/game/objects/tile/core/outer_texture_md.png" id="2_bexyq"]
+[ext_resource type="Texture2D" uid="uid://c443kxmdthor7" path="res://assets/game/objects/tile/core/outer_glitched_texture_md.png" id="2_iobyg"]
 [ext_resource type="PackedScene" uid="uid://b52jnvgyagyv2" path="res://scenes/game/objects/tile/core/InnerCore.tscn" id="3_jrwbd"]
 [ext_resource type="PackedScene" uid="uid://b1qg5jsrtqi83" path="res://scenes/game/objects/tile/core/Selector.tscn" id="4_tl3v0"]
 
@@ -52,6 +53,7 @@ _data = {
 
 [node name="Core" type="Node2D" groups=["core"]]
 script = ExtResource("1_ocx0v")
+glitchTexture = ExtResource("2_iobyg")
 
 [node name="Background" type="Panel" parent="."]
 anchors_preset = 8
@@ -65,7 +67,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_j34gw")
 
-[node name="Circle" type="Sprite2D" parent="."]
+[node name="OuterCircle" type="Sprite2D" parent="."]
 position = Vector2(89, 87)
 texture = ExtResource("2_bexyq")
 
@@ -95,7 +97,7 @@ rotation = -3.14159
 direction = 2
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-root_node = NodePath("../Circle")
+root_node = NodePath("../OuterCircle")
 libraries = {
 "": SubResource("AnimationLibrary_fqg57")
 }
