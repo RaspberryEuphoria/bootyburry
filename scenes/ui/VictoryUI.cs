@@ -1,3 +1,4 @@
+using System;
 using Game;
 using Godot;
 
@@ -38,7 +39,14 @@ namespace UI
 
     private void OnNext()
     {
-      GetTree().ChangeSceneToPacked(nextLevel);
+      try
+      {
+        GetTree().ChangeSceneToPacked(nextLevel);
+      }
+      catch (Exception e)
+      {
+        GD.PrintErr(e.Message);
+      }
     }
   }
 }

@@ -19,7 +19,7 @@ nextLevel = ExtResource("2_fbt2o")
 startingTile = NodePath("Grid/Row1/Tile_0_0")
 OptimalScore = 7
 LevelTitle = "Level 2.0"
-LevelSubtitle = "// A Glitch In My Grid?!"
+LevelSubtitle = "// Glitched Core"
 
 [node name="Background" parent="." instance=ExtResource("3_pqcvh")]
 
