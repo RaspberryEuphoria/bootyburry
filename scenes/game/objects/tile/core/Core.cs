@@ -1,4 +1,4 @@
-using System;
+using System.Collections.Generic;
 using System.Linq;
 using Godot;
 
@@ -10,8 +10,6 @@ namespace Game
     private bool isCoreEnabledOnStart = false;
     [Export]
     private bool isCoreGlitched = false;
-    [Export]
-    private Texture2D glitchTexture;
 
     private Tile _rootTile;
     public override Tile RootTile
@@ -28,6 +26,8 @@ namespace Game
     private AnimationPlayer animationPlayer;
     private InnerCore innerCore;
     private Selector[] selectors;
+    private OuterCoreGlitched outerCoreGlitched;
+    private IEnumerable<Tile> neighbordCoreTiles = new Tile[] { };
 
     private StringName enableAnimation = "enable";
     private StringName disableAnimation = "disable";
@@ -55,9 +55,22 @@ namespace Game
 
       if (isCoreGlitched)
       {
-        var outerCircle = GetNode<Sprite2D>("OuterCircle");
-        outerCircle.Texture = glitchTexture;
+        outerCoreGlitched = ResourceLoader.Load<PackedScene>("res://scenes/game/objects/tile/core/OuterCoreGlitched.tscn").Instantiate<OuterCoreGlitched>();
+
+        var outerCore = GetNode<Sprite2D>("OuterCore");
+        outerCore.ReplaceBy(outerCoreGlitched);
       }
+    }
+
+    private void SetupGlitch()
+    {
+      var topCoreTile = GetNextCoreTileInDirection(Direction.Up);
+      var rightCore = GetNextCoreTileInDirection(Direction.Right);
+      var bottomCore = GetNextCoreTileInDirection(Direction.Down);
+      var leftCore = GetNextCoreTileInDirection(Direction.Left);
+
+      neighbordCoreTiles = new Tile[] { topCoreTile, rightCore, bottomCore, leftCore }.Where(x => x != null);
+      outerCoreGlitched.Init(topCoreTile is not null, rightCore is not null, bottomCore is not null, leftCore is not null);
     }
 
     public override bool IsBlockedFromDirection(Direction _direction)
@@ -77,15 +90,14 @@ namespace Game
 
     private void TriggerGlitch()
     {
-      var topCoreTile = GetNextCoreTileInDirection(Direction.Up);
-      var rightCore = GetNextCoreTileInDirection(Direction.Right);
-      var bottomCore = GetNextCoreTileInDirection(Direction.Down);
-      var leftCore = GetNextCoreTileInDirection(Direction.Left);
+      if (!neighbordCoreTiles.Any()) SetupGlitch();
 
-      topCoreTile?.Toggle();
-      rightCore?.Toggle();
-      bottomCore?.Toggle();
-      leftCore?.Toggle();
+      outerCoreGlitched.EmitWaves();
+
+      foreach (var coreTile in neighbordCoreTiles)
+      {
+        coreTile.Toggle();
+      }
     }
 
     public bool IsEnabled()
@@ -102,11 +114,7 @@ namespace Game
     public void OnTileSelected(Tile _tile, Tile _previousTile, Direction _direction)
     {
       Toggle();
-
-      if (isCoreGlitched)
-      {
-        TriggerGlitch();
-      }
+      if (isCoreGlitched) TriggerGlitch();
     }
   }
 }

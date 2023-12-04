@@ -1,0 +1,37 @@
+[gd_scene load_steps=5 format=3 uid="uid://e7f5f68w1hdf"]
+
+[ext_resource type="Texture2D" uid="uid://c443kxmdthor7" path="res://assets/game/objects/tile/core/outer_glitched_texture_md.png" id="1_77ktj"]
+[ext_resource type="Texture2D" uid="uid://dbhlvx3xlclhb" path="res://assets/game/objects/tile/core/outer_glitched_waves_texture_md.png" id="2_hckx6"]
+[ext_resource type="Script" path="res://scenes/game/objects/tile/core/OuterCoreGlitched.cs" id="2_m8ftk"]
+[ext_resource type="PackedScene" uid="uid://55ok5mbonpw8" path="res://scenes/game/objects/tile/core/WavesParticles.tscn" id="3_ovldo"]
+
+[node name="OuterCore" type="Sprite2D"]
+position = Vector2(88, 88)
+texture = ExtResource("1_77ktj")
+script = ExtResource("2_m8ftk")
+
+[node name="Waves" type="Sprite2D" parent="."]
+texture = ExtResource("2_hckx6")
+
+[node name="Particles" type="Node2D" parent="."]
+
+[node name="WavesParticlesTop" parent="Particles" instance=ExtResource("3_ovldo")]
+position = Vector2(0, -60)
+gravity = Vector2(0, -980)
+angle_min = 0.0
+angle_max = 0.0
+
+[node name="WavesParticlesRight" parent="Particles" instance=ExtResource("3_ovldo")]
+position = Vector2(60, 0)
+gravity = Vector2(980, 0)
+angle_min = -90.0
+angle_max = -90.0
+
+[node name="WavesParticlesBottom" parent="Particles" instance=ExtResource("3_ovldo")]
+position = Vector2(0, 60)
+gravity = Vector2(0, 980)
+angle_min = 180.0
+angle_max = 180.0
+
+[node name="WavesParticlesLeft" parent="Particles" instance=ExtResource("3_ovldo")]
+position = Vector2(-60, 0)
