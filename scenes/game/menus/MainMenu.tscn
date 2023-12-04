@@ -34,7 +34,7 @@ theme_override_constants/margin_bottom = 200
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/UI"]
 layout_mode = 2
-alignment = 1
+size_flags_vertical = 4
 
 [node name="UIScalingLabel" type="Label" parent="CanvasLayer/UI/VBoxContainer"]
 visible = false
@@ -44,21 +44,18 @@ theme_override_colors/font_color = Color(0.635294, 0.282353, 0.466667, 1)
 theme_override_font_sizes/font_size = 25
 text = "Select text size:"
 
-[node name="BoxContainer_Scaling" type="HBoxContainer" parent="CanvasLayer/UI/VBoxContainer"]
-visible = false
+[node name="ScalingContainer" type="HBoxContainer" parent="CanvasLayer/UI/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
-size_flags_vertical = 4
+size_flags_vertical = 8
 theme_override_constants/separation = 25
+alignment = 1
 
-[node name="SmallButton" type="Button" parent="CanvasLayer/UI/VBoxContainer/BoxContainer_Scaling"]
+[node name="SmallButton" type="Button" parent="CanvasLayer/UI/VBoxContainer/ScalingContainer"]
 unique_name_in_owner = true
+modulate = Color(0.564706, 0.984314, 0.423529, 1)
 custom_minimum_size = Vector2(45, 45)
 layout_mode = 2
-theme_override_colors/font_color = Color(0.564706, 0.984314, 0.423529, 1)
-theme_override_colors/font_pressed_color = Color(0.564706, 0.984314, 0.423529, 1)
-theme_override_colors/font_hover_color = Color(0.564706, 0.984314, 0.423529, 1)
-theme_override_colors/font_focus_color = Color(0.564706, 0.984314, 0.423529, 1)
 theme_override_constants/outline_size = 0
 theme_override_fonts/font = ExtResource("2_4m8wn")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_rxenl")
@@ -69,14 +66,11 @@ theme_override_styles/focus = SubResource("StyleBoxEmpty_4jng0")
 text = "Small"
 flat = true
 
-[node name="MediumButton" type="Button" parent="CanvasLayer/UI/VBoxContainer/BoxContainer_Scaling"]
+[node name="MediumButton" type="Button" parent="CanvasLayer/UI/VBoxContainer/ScalingContainer"]
 unique_name_in_owner = true
+modulate = Color(0.905882, 0.905882, 0.905882, 1)
 custom_minimum_size = Vector2(45, 45)
 layout_mode = 2
-theme_override_colors/font_color = Color(0.564706, 0.984314, 0.423529, 1)
-theme_override_colors/font_pressed_color = Color(0.564706, 0.984314, 0.423529, 1)
-theme_override_colors/font_hover_color = Color(0.564706, 0.984314, 0.423529, 1)
-theme_override_colors/font_focus_color = Color(0.564706, 0.984314, 0.423529, 1)
 theme_override_constants/outline_size = 0
 theme_override_fonts/font = ExtResource("2_4m8wn")
 theme_override_font_sizes/font_size = 30
@@ -89,14 +83,11 @@ text = "Medium
 "
 flat = true
 
-[node name="LargeButton" type="Button" parent="CanvasLayer/UI/VBoxContainer/BoxContainer_Scaling"]
+[node name="LargeButton" type="Button" parent="CanvasLayer/UI/VBoxContainer/ScalingContainer"]
 unique_name_in_owner = true
+modulate = Color(0.905882, 0.905882, 0.905882, 1)
 custom_minimum_size = Vector2(45, 45)
 layout_mode = 2
-theme_override_colors/font_color = Color(0.564706, 0.984314, 0.423529, 1)
-theme_override_colors/font_pressed_color = Color(0.564706, 0.984314, 0.423529, 1)
-theme_override_colors/font_hover_color = Color(0.564706, 0.984314, 0.423529, 1)
-theme_override_colors/font_focus_color = Color(0.564706, 0.984314, 0.423529, 1)
 theme_override_constants/outline_size = 0
 theme_override_fonts/font = ExtResource("2_4m8wn")
 theme_override_font_sizes/font_size = 45
@@ -109,33 +100,22 @@ text = "Large
 "
 flat = true
 
-[node name="MarginContainer_Start" type="MarginContainer" parent="CanvasLayer/UI/VBoxContainer"]
-visible = false
-layout_mode = 2
-theme_override_constants/margin_top = 50
-
-[node name="StartButton" type="Button" parent="CanvasLayer/UI/VBoxContainer/MarginContainer_Start"]
-unique_name_in_owner = true
-modulate = Color(0.144459, 0.47561, 0.929498, 1)
-layout_mode = 2
-size_flags_horizontal = 4
-theme_override_fonts/font = ExtResource("2_4m8wn")
-theme_override_font_sizes/font_size = 50
-text = "[ START GAME ]"
-
 [node name="LevelSelectorLabel" type="Label" parent="CanvasLayer/UI/VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_colors/font_color = Color(0.635294, 0.282353, 0.466667, 1)
 theme_override_fonts/font = ExtResource("2_4m8wn")
 theme_override_font_sizes/font_size = 38
-text = "[ SELECT LEVEL ]"
+text = "SELECT LEVEL"
 
-[node name="MarginContainer_Levels" type="MarginContainer" parent="CanvasLayer/UI/VBoxContainer"]
+[node name="LevelsContainer" type="MarginContainer" parent="CanvasLayer/UI/VBoxContainer"]
 custom_minimum_size = Vector2(1000, 0)
 layout_mode = 2
 size_flags_horizontal = 4
+size_flags_vertical = 4
 theme_override_constants/margin_top = 15
 
-[node name="LevelSelector" parent="CanvasLayer/UI/VBoxContainer/MarginContainer_Levels" instance=ExtResource("4_tutq4")]
+[node name="LevelSelector" parent="CanvasLayer/UI/VBoxContainer/LevelsContainer" instance=ExtResource("4_tutq4")]
+unique_name_in_owner = true
 layout_mode = 2

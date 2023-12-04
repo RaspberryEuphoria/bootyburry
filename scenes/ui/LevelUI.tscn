@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://dbl0tiuqxnci4"]
+[gd_scene load_steps=14 format=3 uid="uid://dbl0tiuqxnci4"]
 
 [ext_resource type="Texture2D" uid="uid://crq44tibmvmta" path="res://assets/fx/holographic_pattern.png" id="1_ba2eh"]
 [ext_resource type="Script" path="res://scenes/ui/LevelUI.cs" id="1_egn7x"]
 [ext_resource type="Theme" uid="uid://cgruyese0ddm7" path="res://assets/ui/themes/label.tres" id="2_vrj2x"]
+[ext_resource type="FontFile" uid="uid://dwweiefoa15ly" path="res://assets/ui/fonts/Cascadia.ttf" id="4_l1awj"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_jlbxm"]
 
@@ -23,6 +24,16 @@ expand_margin_right = 5.0
 expand_margin_bottom = 5.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8ehk2"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_28t5a"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3r8c2"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vdeyl"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6kfnk"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tcyig"]
 
 [sub_resource type="Environment" id="Environment_dfevx"]
 background_mode = 3
@@ -60,43 +71,34 @@ theme_override_constants/margin_top = 32
 theme_override_constants/margin_right = 32
 theme_override_constants/margin_bottom = 32
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Control/MarginContainer"]
+[node name="Header" type="Control" parent="Control/MarginContainer"]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Control/MarginContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 0
-alignment = 1
-
-[node name="Header" type="Panel" parent="Control/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="LevelPanel" type="PanelContainer" parent="Control/MarginContainer/Header"]
 material = SubResource("ShaderMaterial_jlbxm")
-custom_minimum_size = Vector2(512, 256)
-layout_mode = 2
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 1
+offset_right = 196.0
+offset_bottom = 54.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
 theme_override_styles/panel = SubResource("StyleBoxFlat_da08q")
 
-[node name="MarginContainer" type="MarginContainer" parent="Control/MarginContainer/VBoxContainer/HBoxContainer/Header"]
-layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_top = -121.5
-offset_right = 357.0
-offset_bottom = 121.5
-grow_vertical = 2
-theme_override_constants/margin_left = 15
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 15
-theme_override_constants/margin_bottom = 10
+[node name="MarginContainer" type="MarginContainer" parent="Control/MarginContainer/Header/LevelPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_right = 10
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Control/MarginContainer/VBoxContainer/HBoxContainer/Header/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/MarginContainer/Header/LevelPanel/MarginContainer"]
 material = SubResource("ShaderMaterial_8ehk2")
 layout_mode = 2
 alignment = 1
 
-[node name="LevelTitleContainer" type="HBoxContainer" parent="Control/MarginContainer/VBoxContainer/HBoxContainer/Header/MarginContainer/VBoxContainer"]
+[node name="LevelTitleContainer" type="HBoxContainer" parent="Control/MarginContainer/Header/LevelPanel/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 
-[node name="[" type="Label" parent="Control/MarginContainer/VBoxContainer/HBoxContainer/Header/MarginContainer/VBoxContainer/LevelTitleContainer"]
+[node name="[" type="Label" parent="Control/MarginContainer/Header/LevelPanel/MarginContainer/VBoxContainer/LevelTitleContainer"]
 modulate = Color(1.2, 1.2, 1.2, 1)
 layout_mode = 2
 theme = ExtResource("2_vrj2x")
@@ -104,7 +106,7 @@ theme_override_colors/font_color = Color(0.517647, 0.27451, 0.298039, 1)
 theme_override_font_sizes/font_size = 24
 text = "["
 
-[node name="LevelTitleLabel" type="Label" parent="Control/MarginContainer/VBoxContainer/HBoxContainer/Header/MarginContainer/VBoxContainer/LevelTitleContainer"]
+[node name="LevelTitleLabel" type="Label" parent="Control/MarginContainer/Header/LevelPanel/MarginContainer/VBoxContainer/LevelTitleContainer"]
 unique_name_in_owner = true
 modulate = Color(1.2, 1.2, 1.2, 1)
 layout_mode = 2
@@ -113,7 +115,7 @@ theme_override_colors/font_color = Color(0.635294, 0.282353, 0.466667, 1)
 theme_override_font_sizes/font_size = 24
 text = "{{level}}"
 
-[node name="]" type="Label" parent="Control/MarginContainer/VBoxContainer/HBoxContainer/Header/MarginContainer/VBoxContainer/LevelTitleContainer"]
+[node name="]" type="Label" parent="Control/MarginContainer/Header/LevelPanel/MarginContainer/VBoxContainer/LevelTitleContainer"]
 modulate = Color(1.2, 1.2, 1.2, 1)
 layout_mode = 2
 theme = ExtResource("2_vrj2x")
@@ -121,18 +123,20 @@ theme_override_colors/font_color = Color(0.517647, 0.27451, 0.298039, 1)
 theme_override_font_sizes/font_size = 24
 text = "]"
 
-[node name="Separator1" type="Label" parent="Control/MarginContainer/VBoxContainer/HBoxContainer/Header/MarginContainer/VBoxContainer"]
+[node name="Separator1" type="Label" parent="Control/MarginContainer/Header/LevelPanel/MarginContainer/VBoxContainer"]
+visible = false
 modulate = Color(1.2, 1.2, 1.2, 1)
 layout_mode = 2
 theme = ExtResource("2_vrj2x")
 theme_override_font_sizes/font_size = 18
 text = "--------------"
 
-[node name="SynchronizationContainer" type="HBoxContainer" parent="Control/MarginContainer/VBoxContainer/HBoxContainer/Header/MarginContainer/VBoxContainer"]
+[node name="SynchronizationContainer" type="HBoxContainer" parent="Control/MarginContainer/Header/LevelPanel/MarginContainer/VBoxContainer"]
+visible = false
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
-[node name="SynchronizationLabel" type="Label" parent="Control/MarginContainer/VBoxContainer/HBoxContainer/Header/MarginContainer/VBoxContainer/SynchronizationContainer"]
+[node name="SynchronizationLabel" type="Label" parent="Control/MarginContainer/Header/LevelPanel/MarginContainer/VBoxContainer/SynchronizationContainer"]
 modulate = Color(1.2, 1.2, 1.2, 1)
 layout_mode = 2
 theme = ExtResource("2_vrj2x")
@@ -140,7 +144,7 @@ theme_override_colors/font_color = Color(0.635294, 0.282353, 0.466667, 1)
 theme_override_font_sizes/font_size = 18
 text = "Cores synchronizing"
 
-[node name="LoadingLabel" type="Label" parent="Control/MarginContainer/VBoxContainer/HBoxContainer/Header/MarginContainer/VBoxContainer/SynchronizationContainer"]
+[node name="LoadingLabel" type="Label" parent="Control/MarginContainer/Header/LevelPanel/MarginContainer/VBoxContainer/SynchronizationContainer"]
 unique_name_in_owner = true
 modulate = Color(1.2, 1.2, 1.2, 1)
 layout_mode = 2
@@ -150,12 +154,12 @@ theme_override_font_sizes/font_size = 18
 text = "⠋"
 justification_flags = 160
 
-[node name="LoadingOverContainer" type="HBoxContainer" parent="Control/MarginContainer/VBoxContainer/HBoxContainer/Header/MarginContainer/VBoxContainer/SynchronizationContainer"]
+[node name="LoadingOverContainer" type="HBoxContainer" parent="Control/MarginContainer/Header/LevelPanel/MarginContainer/VBoxContainer/SynchronizationContainer"]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
 
-[node name="[" type="Label" parent="Control/MarginContainer/VBoxContainer/HBoxContainer/Header/MarginContainer/VBoxContainer/SynchronizationContainer/LoadingOverContainer"]
+[node name="[" type="Label" parent="Control/MarginContainer/Header/LevelPanel/MarginContainer/VBoxContainer/SynchronizationContainer/LoadingOverContainer"]
 modulate = Color(1.2, 1.2, 1.2, 1)
 layout_mode = 2
 theme = ExtResource("2_vrj2x")
@@ -163,7 +167,7 @@ theme_override_colors/font_color = Color(0.517647, 0.27451, 0.298039, 1)
 theme_override_font_sizes/font_size = 24
 text = "["
 
-[node name="DoneLabel" type="Label" parent="Control/MarginContainer/VBoxContainer/HBoxContainer/Header/MarginContainer/VBoxContainer/SynchronizationContainer/LoadingOverContainer"]
+[node name="DoneLabel" type="Label" parent="Control/MarginContainer/Header/LevelPanel/MarginContainer/VBoxContainer/SynchronizationContainer/LoadingOverContainer"]
 modulate = Color(1.2, 1.2, 1.2, 1)
 layout_mode = 2
 theme = ExtResource("2_vrj2x")
@@ -171,7 +175,7 @@ theme_override_colors/font_color = Color(0.564706, 0.984314, 0.423529, 1)
 theme_override_font_sizes/font_size = 18
 text = "OK"
 
-[node name="]" type="Label" parent="Control/MarginContainer/VBoxContainer/HBoxContainer/Header/MarginContainer/VBoxContainer/SynchronizationContainer/LoadingOverContainer"]
+[node name="]" type="Label" parent="Control/MarginContainer/Header/LevelPanel/MarginContainer/VBoxContainer/SynchronizationContainer/LoadingOverContainer"]
 modulate = Color(1.2, 1.2, 1.2, 1)
 layout_mode = 2
 theme = ExtResource("2_vrj2x")
@@ -179,11 +183,12 @@ theme_override_colors/font_color = Color(0.517647, 0.27451, 0.298039, 1)
 theme_override_font_sizes/font_size = 24
 text = "]"
 
-[node name="CoresContainer" type="HBoxContainer" parent="Control/MarginContainer/VBoxContainer/HBoxContainer/Header/MarginContainer/VBoxContainer"]
+[node name="CoresContainer" type="HBoxContainer" parent="Control/MarginContainer/Header/LevelPanel/MarginContainer/VBoxContainer"]
+visible = false
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="ActiveCoresLabel" type="Label" parent="Control/MarginContainer/VBoxContainer/HBoxContainer/Header/MarginContainer/VBoxContainer/CoresContainer"]
+[node name="ActiveCoresLabel" type="Label" parent="Control/MarginContainer/Header/LevelPanel/MarginContainer/VBoxContainer/CoresContainer"]
 unique_name_in_owner = true
 modulate = Color(1.2, 1.2, 1.2, 1)
 layout_mode = 2
@@ -192,7 +197,7 @@ theme_override_colors/font_color = Color(0.564706, 0.984314, 0.423529, 1)
 theme_override_font_sizes/font_size = 18
 text = "◉ ◉"
 
-[node name="RemainingCoresLabel" type="Label" parent="Control/MarginContainer/VBoxContainer/HBoxContainer/Header/MarginContainer/VBoxContainer/CoresContainer"]
+[node name="RemainingCoresLabel" type="Label" parent="Control/MarginContainer/Header/LevelPanel/MarginContainer/VBoxContainer/CoresContainer"]
 unique_name_in_owner = true
 modulate = Color(1.2, 1.2, 1.2, 1)
 layout_mode = 2
@@ -200,26 +205,61 @@ theme = ExtResource("2_vrj2x")
 theme_override_font_sizes/font_size = 18
 text = "◉"
 
-[node name="Separator2" type="Label" parent="Control/MarginContainer/VBoxContainer/HBoxContainer/Header/MarginContainer/VBoxContainer"]
+[node name="Separator2" type="Label" parent="Control/MarginContainer/Header/LevelPanel/MarginContainer/VBoxContainer"]
+visible = false
 modulate = Color(1.2, 1.2, 1.2, 1)
 layout_mode = 2
 theme = ExtResource("2_vrj2x")
 theme_override_font_sizes/font_size = 18
 text = "--------------"
 
-[node name="ComputationsLabel" type="Label" parent="Control/MarginContainer/VBoxContainer/HBoxContainer/Header/MarginContainer/VBoxContainer"]
+[node name="Holo" type="TextureRect" parent="Control/MarginContainer/Header/LevelPanel"]
+modulate = Color(0, 0, 0, 0.3)
+texture_repeat = 2
+layout_mode = 2
+texture = ExtResource("1_ba2eh")
+expand_mode = 1
+stretch_mode = 1
+
+[node name="ScorePanel" type="PanelContainer" parent="Control/MarginContainer/Header"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -276.0
+offset_bottom = 74.0
+grow_horizontal = 0
+size_flags_horizontal = 8
+size_flags_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_da08q")
+
+[node name="MarginContainer" type="MarginContainer" parent="Control/MarginContainer/Header/ScorePanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_right = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/MarginContainer/Header/ScorePanel/MarginContainer"]
+material = SubResource("ShaderMaterial_8ehk2")
+layout_mode = 2
+alignment = 1
+
+[node name="ComputationsLabel" type="Label" parent="Control/MarginContainer/Header/ScorePanel/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
 modulate = Color(1.2, 1.2, 1.2, 1)
 layout_mode = 2
 theme = ExtResource("2_vrj2x")
 theme_override_colors/font_color = Color(0.635294, 0.282353, 0.466667, 1)
-theme_override_font_sizes/font_size = 18
-text = "Computations (Actual / Optimal)
+text = "Computations
 "
+horizontal_alignment = 2
 
-[node name="ComputationsContainer" type="HBoxContainer" parent="Control/MarginContainer/VBoxContainer/HBoxContainer/Header/MarginContainer/VBoxContainer"]
+[node name="ComputationsContainer" type="HBoxContainer" parent="Control/MarginContainer/Header/ScorePanel/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
+alignment = 2
 
-[node name="ActualComputationsLabel" type="Label" parent="Control/MarginContainer/VBoxContainer/HBoxContainer/Header/MarginContainer/VBoxContainer/ComputationsContainer"]
+[node name="ActualComputationsLabel" type="Label" parent="Control/MarginContainer/Header/ScorePanel/MarginContainer/VBoxContainer/ComputationsContainer"]
 unique_name_in_owner = true
 modulate = Color(1.2, 1.2, 1.2, 1)
 layout_mode = 2
@@ -228,7 +268,7 @@ theme_override_colors/font_color = Color(0.564706, 0.984314, 0.423529, 1)
 theme_override_font_sizes/font_size = 18
 text = "{{actual}}"
 
-[node name="Separator" type="Label" parent="Control/MarginContainer/VBoxContainer/HBoxContainer/Header/MarginContainer/VBoxContainer/ComputationsContainer"]
+[node name="Separator" type="Label" parent="Control/MarginContainer/Header/ScorePanel/MarginContainer/VBoxContainer/ComputationsContainer"]
 modulate = Color(1.2, 1.2, 1.2, 1)
 layout_mode = 2
 theme = ExtResource("2_vrj2x")
@@ -237,7 +277,7 @@ theme_override_font_sizes/font_size = 18
 text = "/
 "
 
-[node name="OptimalComputationsLabel" type="Label" parent="Control/MarginContainer/VBoxContainer/HBoxContainer/Header/MarginContainer/VBoxContainer/ComputationsContainer"]
+[node name="OptimalComputationsLabel" type="Label" parent="Control/MarginContainer/Header/ScorePanel/MarginContainer/VBoxContainer/ComputationsContainer"]
 unique_name_in_owner = true
 modulate = Color(1.2, 1.2, 1.2, 1)
 layout_mode = 2
@@ -246,15 +286,65 @@ theme_override_colors/font_color = Color(0.564706, 0.984314, 0.423529, 1)
 theme_override_font_sizes/font_size = 18
 text = "{{optimal}}"
 
-[node name="Holo" type="TextureRect" parent="Control/MarginContainer/VBoxContainer/HBoxContainer/Header"]
+[node name="Holo" type="TextureRect" parent="Control/MarginContainer/Header/ScorePanel"]
 modulate = Color(0, 0, 0, 0.3)
 texture_repeat = 2
+layout_mode = 2
+texture = ExtResource("1_ba2eh")
+expand_mode = 1
+stretch_mode = 1
+
+[node name="MenuPanel" type="PanelContainer" parent="Control/MarginContainer/Header"]
+material = SubResource("ShaderMaterial_jlbxm")
+custom_minimum_size = Vector2(0, 50)
 layout_mode = 1
-anchors_preset = 15
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+offset_left = -49.0
+offset_top = -50.0
+grow_horizontal = 0
+grow_vertical = 0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_da08q")
+
+[node name="MarginContainer" type="MarginContainer" parent="Control/MarginContainer/Header/MenuPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_right = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/MarginContainer/Header/MenuPanel/MarginContainer"]
+material = SubResource("ShaderMaterial_8ehk2")
+layout_mode = 2
+alignment = 2
+
+[node name="BackToMenuButton" type="Button" parent="Control/MarginContainer/Header/MenuPanel/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(45, 45)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.564706, 0.984314, 0.423529, 1)
+theme_override_colors/font_pressed_color = Color(0.564706, 0.984314, 0.423529, 1)
+theme_override_colors/font_hover_color = Color(0.564706, 0.984314, 0.423529, 1)
+theme_override_colors/font_focus_color = Color(0.564706, 0.984314, 0.423529, 1)
+theme_override_constants/outline_size = 0
+theme_override_fonts/font = ExtResource("4_l1awj")
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("StyleBoxEmpty_28t5a")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_3r8c2")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_vdeyl")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_6kfnk")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_tcyig")
+text = "Menu"
+flat = true
+
+[node name="Holo" type="TextureRect" parent="Control/MarginContainer/Header/MenuPanel"]
+modulate = Color(0, 0, 0, 0.3)
+texture_repeat = 2
+layout_mode = 2
+mouse_filter = 2
 texture = ExtResource("1_ba2eh")
 expand_mode = 1
 stretch_mode = 1

@@ -6,6 +6,7 @@ namespace UI
 
   public partial class DynamicCamera : Camera2D
   {
+    private ConfigFile config = new();
     private Level level;
     private BoxContainer grid;
     private Label currentZoomLabel;
@@ -23,6 +24,8 @@ namespace UI
 
     public override void _Ready()
     {
+      config.Load("user://settings.cfg");
+
       level = GetParent<Level>();
       grid = level.GetNode<BoxContainer>("Grid");
 
@@ -34,6 +37,18 @@ namespace UI
       decreaseZoomButton.ButtonUp += DecreaseZoom;
 
       SetupCamera();
+
+      var uiScale = (float)config.GetValue("settings", "ui_scale");
+
+      if (uiScale != 1)
+      {
+        var zoomLabelFontSize = currentZoomLabel.Get("theme_override_font_sizes/font_size");
+        var newFontSize = (int)zoomLabelFontSize * uiScale;
+
+        currentZoomLabel.Set("theme_override_font_sizes/font_size", newFontSize);
+        increaseZoomButton.Set("theme_override_font_sizes/font_size", newFontSize);
+        decreaseZoomButton.Set("theme_override_font_sizes/font_size", newFontSize);
+      }
     }
 
     public override void _Process(double delta)
