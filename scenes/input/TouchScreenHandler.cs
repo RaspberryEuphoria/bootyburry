@@ -8,6 +8,7 @@ namespace InputHandler
     private Level level;
     private InputEventScreenDrag startingDragEvent;
     private readonly int threeshold = 64 * 2;
+    private bool isInputAllowed = true;
 
     public override void _Ready()
     {
@@ -18,7 +19,7 @@ namespace InputHandler
     {
       if (!level.IsInputAllowed()) return;
 
-      if (@event is InputEventScreenDrag dragEvent)
+      if (@event is InputEventScreenDrag dragEvent && isInputAllowed)
       {
         if (startingDragEvent == null)
         {
@@ -43,12 +44,14 @@ namespace InputHandler
         {
           level.TriggerInputInDirection((Direction)direction);
           startingDragEvent = null;
+          isInputAllowed = false;
         }
       }
 
-      if (@event is InputEventScreenTouch && startingDragEvent != null)
+      if (@event is InputEventScreenTouch && !isInputAllowed)
       {
         startingDragEvent = null;
+        isInputAllowed = true;
       }
     }
   }
