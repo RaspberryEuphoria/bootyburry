@@ -15,6 +15,10 @@ run/main_scene="res://scenes/game/menus/MainMenu.tscn"
 config/features=PackedStringArray("4.2", "C#", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+UserSettings="*res://helpers/UserSettings.cs"
+
 [debug]
 
 file_logging/enable_file_logging=true
@@ -29,6 +33,10 @@ window/size/borderless=true
 [dotnet]
 
 project/assembly_name="Kami Star"
+
+[gui]
+
+theme/custom="res://assets/ui/themes/label.tres"
 
 [input]
 
