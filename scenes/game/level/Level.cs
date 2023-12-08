@@ -77,11 +77,14 @@ namespace Game
         return;
       }
 
-      var touchScreenHandler = ResourceLoader.Load<PackedScene>("res://scenes/input/TouchScreenHandler.tscn").Instantiate<TouchScreenHandler>();
+      var touchScreenHandler = ResourceLoader.Load<PackedScene>("res://scenes/input/TouchScreenHandler.tscn").Instantiate();
       AddChild(touchScreenHandler);
 
-      var dynamicCamera = ResourceLoader.Load<PackedScene>("res://scenes/ui/DynamicCamera/DynamicCamera.tscn").Instantiate<DynamicCamera>();
+      var dynamicCamera = ResourceLoader.Load<PackedScene>("res://scenes/ui/DynamicCamera/DynamicCamera.tscn").Instantiate();
       AddChild(dynamicCamera);
+
+      var worldEnvironment = ResourceLoader.Load<PackedScene>("res://scenes/game/level/WorldEnvironment.tscn").Instantiate();
+      AddChild(worldEnvironment);
 
       PrepareBoard();
       EmitSignal(SignalName.GameStart);
@@ -93,7 +96,7 @@ namespace Game
     {
       if (Input.IsActionJustPressed("retry"))
       {
-        GetTree().ReloadCurrentScene();
+        Retry();
       }
 
       if (Input.IsActionJustPressed("go_to_menu"))
@@ -104,6 +107,11 @@ namespace Game
 
       if (!IsInputAllowed()) return;
       HandleInput();
+    }
+
+    public void Retry()
+    {
+      GetTree().ReloadCurrentScene();
     }
 
     public void SetupBot()
