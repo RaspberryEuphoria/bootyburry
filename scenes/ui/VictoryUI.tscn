@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://brwtli7c5nbgq" path="res://assets/ui/ending_body.png" id="1_f6s72"]
 [ext_resource type="Texture2D" uid="uid://dhgwjs2eyr25r" path="res://assets/ui/ending_body_sides.png" id="1_shgsj"]
 [ext_resource type="Texture2D" uid="uid://cppypgehh61m0" path="res://assets/ui/victory_background.png" id="3_ext1k"]
-[ext_resource type="Theme" uid="uid://cgruyese0ddm7" path="res://assets/ui/themes/label.tres" id="4_5und7"]
+[ext_resource type="Theme" uid="uid://dnwf1mhxm5lfe" path="res://assets/ui/themes/label.tres" id="4_5und7"]
 [ext_resource type="Texture2D" uid="uid://dolra0c8q18bd" path="res://assets/ui/victory_effects.png" id="5_q1opr"]
 [ext_resource type="Theme" uid="uid://dca1unmi3vy5x" path="res://assets/ui/themes/button.tres" id="6_6yxqk"]
 [ext_resource type="Texture2D" uid="uid://bte4uaeny4b6g" path="res://assets/ui/cta_background.png" id="6_vvrdk"]
@@ -16,6 +16,7 @@
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_p3fub"]
 
 [node name="VictoryUI" type="CanvasLayer" node_paths=PackedStringArray("retryButton", "nextButton")]
+layer = 3
 script = ExtResource("1_bqx3b")
 retryButton = NodePath("Control/VBoxContainer/HBoxContainer/RightSide/MarginContainer/CTAs/RetryButton")
 nextButton = NodePath("Control/VBoxContainer/HBoxContainer/RightSide/MarginContainer/CTAs/NextButton")

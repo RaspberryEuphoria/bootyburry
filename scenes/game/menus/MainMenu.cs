@@ -1,4 +1,6 @@
 using Godot;
+using Helpers;
+using UI;
 
 namespace Menu
 {
@@ -6,11 +8,11 @@ namespace Menu
   {
     private ConfigFile config = new();
 
+    private UserSettings userSettings;
     private Control UI;
-    private Button smallButton;
-    private Button mediumButton;
-    private Button largeButton;
-    private Button startButton;
+    private KamiButton smallButton;
+    private KamiButton mediumButton;
+    private KamiButton largeButton;
     private int selectLevelLabelFontSize = 0;
     private int levelButtonFontSize = 0;
 
@@ -18,55 +20,36 @@ namespace Menu
     {
       config.Load("user://settings.cfg");
 
+      userSettings = GetNodeOrNull<UserSettings>("/root/UserSettings");
+
       UI = GetNode<CanvasLayer>("CanvasLayer").GetNode<Control>("UI");
-      smallButton = GetNode<Button>("%SmallButton");
-      mediumButton = GetNode<Button>("%MediumButton");
-      largeButton = GetNode<Button>("%LargeButton");
+      smallButton = GetNode<KamiButton>("%SmallButton");
+      mediumButton = GetNode<KamiButton>("%MediumButton");
+      largeButton = GetNode<KamiButton>("%LargeButton");
 
-      smallButton.ButtonUp += () => SetUIScale(1, smallButton);
-      mediumButton.ButtonUp += () => SetUIScale(1.5f, mediumButton);
-      largeButton.ButtonUp += () => SetUIScale(2f, largeButton);
+      smallButton.ButtonUp += () => SetUIScale(0.75f, smallButton);
+      mediumButton.ButtonUp += () => SetUIScale(1f, mediumButton);
+      largeButton.ButtonUp += () => SetUIScale(1.25f, largeButton);
 
-      var scale = (float)config.GetValue("settings", "ui_scale");
+      var scale = userSettings.UIScale;
       SetUIScale(scale, scale switch
       {
-        1 => smallButton,
-        1.5f => mediumButton,
-        2f => largeButton,
+        0.75f => smallButton,
+        1f => mediumButton,
+        1.25f => largeButton,
         _ => smallButton
       });
     }
 
-    private void SetUIScale(float scale, Button button)
+    private void SetUIScale(float scale, KamiButton button)
     {
-      config.SetValue("settings", "ui_scale", scale);
-      config.Save("user://settings.cfg");
+      userSettings?.SetUIScale(scale);
 
-      smallButton.Modulate = Colors.White;
-      mediumButton.Modulate = Colors.White;
-      largeButton.Modulate = Colors.White;
+      smallButton.SetColorType(KamiColors.ColorType.Disabled);
+      mediumButton.SetColorType(KamiColors.ColorType.Disabled);
+      largeButton.SetColorType(KamiColors.ColorType.Disabled);
 
-      button.Modulate = new Color(0.565f, 0.984f, 0.424f);
-
-      var selectLevelLabel = GetNode<Label>("%LevelSelectorLabel");
-      if (selectLevelLabelFontSize == 0)
-      {
-        selectLevelLabelFontSize = (int)selectLevelLabel.Get("theme_override_font_sizes/font_size");
-      }
-      selectLevelLabel.Set("theme_override_font_sizes/font_size", selectLevelLabelFontSize * scale);
-
-      var levelSelectorWorlds = GetNode("%LevelSelector").GetChildren();
-
-      foreach (Node world in levelSelectorWorlds)
-      {
-        var levelButtons = world.GetChildren();
-
-        foreach (Node levelButton in levelButtons)
-        {
-          if (levelButtonFontSize == 0) levelButtonFontSize = (int)levelButton.Get("theme_override_font_sizes/font_size");
-          levelButton.Set("theme_override_font_sizes/font_size", levelButtonFontSize * scale);
-        }
-      }
+      button.SetColorType(KamiColors.ColorType.Primary);
     }
   }
 }

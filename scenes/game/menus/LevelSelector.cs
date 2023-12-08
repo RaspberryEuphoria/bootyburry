@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using Godot;
+using UI;
 
 namespace Menu
 {
@@ -15,7 +16,6 @@ namespace Menu
     // private IEnumerable<string> levels = new List<string> { };
 
     private BoxContainer worldTemplate;
-    private Button levelTemplate;
 
     public override void _Ready()
     {
@@ -78,15 +78,14 @@ namespace Menu
       for (int world = 0; world < worlds.Count; world++)
       {
         var newWorld = worldTemplate.Duplicate() as BoxContainer;
-        var levelTemplate = newWorld.GetNode<Button>("LevelTemplate");
+        var levelTemplate = newWorld.GetNode<KamiButton>("LevelTemplate");
 
         var levels = worlds[world];
         newWorld.Name = $"World{world}";
-        // newWorld.GetNode<Label>("Title").Text = $"World {world + 1}";
 
         for (int level = 0; level < levels.Count; level++)
         {
-          var newLevel = levelTemplate.Duplicate() as Button;
+          var newLevel = levelTemplate.Duplicate() as KamiButton;
           newWorld.AddChild(newLevel);
 
           // local copies for closure

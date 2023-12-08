@@ -1,117 +1,69 @@
-[gd_scene load_steps=13 format=3 uid="uid://c1niiwwk0ijat"]
+[gd_scene load_steps=8 format=3 uid="uid://c1niiwwk0ijat"]
 
 [ext_resource type="Script" path="res://scenes/ui/DynamicCamera/DynamicCamera.cs" id="1_xrgdm"]
-[ext_resource type="FontFile" uid="uid://dwweiefoa15ly" path="res://assets/ui/fonts/Cascadia.ttf" id="2_28myj"]
-[ext_resource type="Theme" uid="uid://cgruyese0ddm7" path="res://assets/ui/themes/label.tres" id="2_grml5"]
+[ext_resource type="StyleBox" uid="uid://cg6o0p0nji62u" path="res://assets/ui/themes/holo_panel.tres" id="2_0nw2i"]
+[ext_resource type="PackedScene" uid="uid://b7e7xmwfmavsq" path="res://scenes/ui/Components/KamiButton.tscn" id="2_21kdu"]
 [ext_resource type="Texture2D" uid="uid://crq44tibmvmta" path="res://assets/fx/holographic_pattern.png" id="3_084ls"]
+[ext_resource type="PackedScene" uid="uid://c6uuckxenfy7" path="res://scenes/ui/Components/KamiLabel.tscn" id="3_iuuth"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_74ngy"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f0dhs"]
-bg_color = Color(0, 0, 0, 0.5)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.145, 0.475, 0.929, 0.3)
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
-expand_margin_left = 5.0
-expand_margin_top = 5.0
-expand_margin_right = 5.0
-expand_margin_bottom = 5.0
-
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_gkiht"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jvogy"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4oqui"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8gxvy"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_756ox"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_etk86"]
 
 [node name="DynamicCamera" type="Camera2D"]
 script = ExtResource("1_xrgdm")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+visible = false
 
 [node name="MarginContainer" type="MarginContainer" parent="CanvasLayer"]
-anchors_preset = 2
-anchor_top = 1.0
+anchors_preset = 15
+anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -81.0
-offset_right = 184.0
-grow_vertical = 0
+grow_horizontal = 2
+grow_vertical = 2
 size_flags_horizontal = 4
-theme_override_constants/margin_left = 32
-theme_override_constants/margin_bottom = 32
+theme_override_constants/margin_left = 64
+theme_override_constants/margin_top = 64
+theme_override_constants/margin_right = 64
+theme_override_constants/margin_bottom = 64
 
-[node name="Zoom" type="PanelContainer" parent="CanvasLayer/MarginContainer"]
+[node name="ZoomPanel" type="PanelContainer" parent="CanvasLayer/MarginContainer"]
 material = SubResource("ShaderMaterial_74ngy")
+custom_minimum_size = Vector2(150, 50)
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_f0dhs")
+theme_override_styles/panel = ExtResource("2_0nw2i")
 
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/MarginContainer/Zoom"]
-layout_mode = 2
-
-[node name="VBoxContainer" type="HBoxContainer" parent="CanvasLayer/MarginContainer/Zoom/MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/MarginContainer/ZoomPanel"]
 material = SubResource("ShaderMaterial_gkiht")
 layout_mode = 2
 size_flags_horizontal = 4
+size_flags_vertical = 0
+alignment = 1
 
-[node name="DecreaseZoomButton" type="Button" parent="CanvasLayer/MarginContainer/Zoom/MarginContainer/VBoxContainer"]
+[node name="DecreaseZoomButton" parent="CanvasLayer/MarginContainer/ZoomPanel/HBoxContainer" instance=ExtResource("2_21kdu")]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(45, 45)
 layout_mode = 2
-theme_override_colors/font_color = Color(0.564706, 0.984314, 0.423529, 1)
-theme_override_colors/font_pressed_color = Color(0.564706, 0.984314, 0.423529, 1)
-theme_override_colors/font_hover_color = Color(0.564706, 0.984314, 0.423529, 1)
-theme_override_colors/font_focus_color = Color(0.564706, 0.984314, 0.423529, 1)
-theme_override_constants/outline_size = 0
-theme_override_fonts/font = ExtResource("2_28myj")
-theme_override_styles/normal = SubResource("StyleBoxEmpty_jvogy")
-theme_override_styles/hover = SubResource("StyleBoxEmpty_4oqui")
-theme_override_styles/pressed = SubResource("StyleBoxEmpty_8gxvy")
-theme_override_styles/disabled = SubResource("StyleBoxEmpty_756ox")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_etk86")
-text = "-"
-flat = true
+theme_override_font_sizes/font_size = 28
+text = "-
+"
+TextSize = 0
 
-[node name="CurrentZoomLabel" type="Label" parent="CanvasLayer/MarginContainer/Zoom/MarginContainer/VBoxContainer"]
+[node name="CurrentZoomLabel" parent="CanvasLayer/MarginContainer/ZoomPanel/HBoxContainer" instance=ExtResource("3_iuuth")]
 unique_name_in_owner = true
-modulate = Color(1.2, 1.2, 1.2, 1)
-custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
-theme = ExtResource("2_grml5")
-theme_override_colors/font_color = Color(0.635294, 0.282353, 0.466667, 1)
-theme_override_font_sizes/font_size = 18
+theme_override_colors/font_color = Color(0.635, 0.282, 0.467, 1)
 text = "100%"
-horizontal_alignment = 1
+ColorType = 1
 
-[node name="IncreaseZoomButton" type="Button" parent="CanvasLayer/MarginContainer/Zoom/MarginContainer/VBoxContainer"]
+[node name="IncreaseZoomButton" parent="CanvasLayer/MarginContainer/ZoomPanel/HBoxContainer" instance=ExtResource("2_21kdu")]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(45, 45)
 layout_mode = 2
-theme_override_colors/font_color = Color(0.564706, 0.984314, 0.423529, 1)
-theme_override_colors/font_pressed_color = Color(0.564706, 0.984314, 0.423529, 1)
-theme_override_colors/font_hover_color = Color(0.564706, 0.984314, 0.423529, 1)
-theme_override_colors/font_focus_color = Color(0.564706, 0.984314, 0.423529, 1)
-theme_override_constants/outline_size = 0
-theme_override_fonts/font = ExtResource("2_28myj")
-theme_override_styles/normal = SubResource("StyleBoxEmpty_jvogy")
-theme_override_styles/hover = SubResource("StyleBoxEmpty_4oqui")
-theme_override_styles/pressed = SubResource("StyleBoxEmpty_8gxvy")
-theme_override_styles/disabled = SubResource("StyleBoxEmpty_756ox")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_etk86")
+theme_override_font_sizes/font_size = 28
 text = "+"
-flat = true
+TextSize = 0
 
-[node name="Holo" type="TextureRect" parent="CanvasLayer/MarginContainer/Zoom"]
+[node name="Holo" type="TextureRect" parent="CanvasLayer/MarginContainer/ZoomPanel"]
 modulate = Color(0, 0, 0, 0.3)
 texture_repeat = 2
 layout_mode = 2

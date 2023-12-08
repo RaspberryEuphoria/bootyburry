@@ -1,21 +1,30 @@
-[gd_scene load_steps=3 format=3 uid="uid://wh3fxd12xs2n"]
+[gd_scene load_steps=4 format=3 uid="uid://wh3fxd12xs2n"]
 
 [ext_resource type="Script" path="res://scenes/game/menus/LevelSelector.cs" id="1_t6wvr"]
-[ext_resource type="FontFile" uid="uid://dwweiefoa15ly" path="res://assets/ui/fonts/Cascadia.ttf" id="2_f7pna"]
+[ext_resource type="PackedScene" uid="uid://b7e7xmwfmavsq" path="res://scenes/ui/Components/KamiButton.tscn" id="2_6rn1s"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5dj0q"]
+bg_color = Color(0, 0, 0, 0.380392)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+expand_margin_left = 10.0
+expand_margin_top = 10.0
+expand_margin_right = 10.0
+expand_margin_bottom = 10.0
 
 [node name="LevelSelector" type="VBoxContainer"]
 size_flags_horizontal = 4
-theme_override_constants/separation = 10
+theme_override_constants/separation = 50
 script = ExtResource("1_t6wvr")
 
 [node name="WorldTemplate" type="HBoxContainer" parent="."]
 layout_mode = 2
-theme_override_constants/separation = 10
+theme_override_constants/separation = 50
 
-[node name="LevelTemplate" type="Button" parent="WorldTemplate"]
+[node name="LevelTemplate" parent="WorldTemplate" instance=ExtResource("2_6rn1s")]
 layout_mode = 2
-size_flags_vertical = 4
-theme_override_colors/font_color = Color(0.564706, 0.984314, 0.423529, 1)
-theme_override_fonts/font = ExtResource("2_f7pna")
-theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_5dj0q")
 text = "0.1"
+flat = false

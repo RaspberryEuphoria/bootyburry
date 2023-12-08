@@ -1,6 +1,5 @@
-[gd_resource type="Theme" load_steps=3 format=3 uid="uid://cgruyese0ddm7"]
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://dnwf1mhxm5lfe"]
 
-[ext_resource type="FontFile" uid="uid://dojg21qmjvllw" path="res://assets/ui/fonts/PiratesBay.ttf" id="1_x60dp"]
 [ext_resource type="FontFile" uid="uid://dwweiefoa15ly" path="res://assets/ui/fonts/Cascadia.ttf" id="1_ymypi"]
 
 [resource]
@@ -9,8 +8,7 @@ Label/colors/font_shadow_color = Color(1, 1, 1, 0)
 Label/constants/shadow_offset_x = 5
 Label/constants/shadow_offset_y = 5
 Label/constants/shadow_outline_size = 5
-Label/font_sizes/font_size = 36
 Label/fonts/font = ExtResource("1_ymypi")
-RichTextLabel/colors/default_color = Color(0, 0, 0, 1)
-RichTextLabel/colors/font_outline_color = Color(0, 0, 0, 1)
-RichTextLabel/fonts/bold_font = ExtResource("1_x60dp")
+TextLG/font_sizes/font_size = 108
+TextMD/font_sizes/font_size = 72
+TextSM/font_sizes/font_size = 42

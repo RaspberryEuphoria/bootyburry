@@ -9,15 +9,12 @@ namespace UI
     private ConfigFile config = new();
     private Level level;
     private BoxContainer grid;
-    private Label currentZoomLabel;
-    private Button increaseZoomButton;
-    private Button decreaseZoomButton;
 
     private InputEventScreenDrag[] dragEvents = new InputEventScreenDrag[2];
     private Vector2 lastDragDistance = Vector2.Zero;
     private float zoomIncrement = 0.25f;
     private float initialZoomPercentage;
-    private Vector2 targetZoom;
+    public Vector2 TargetZoom { get; private set; }
     private Vector2 minZoom = new(0.5f, 0.5f);
     private Vector2 maxZoom = new(1.5f, 1.5f);
     private bool isZooming = false;
@@ -29,43 +26,25 @@ namespace UI
       level = GetParent<Level>();
       grid = level.GetNode<BoxContainer>("Grid");
 
-      currentZoomLabel = GetNode<Label>("%CurrentZoomLabel");
-      increaseZoomButton = GetNode<Button>("%IncreaseZoomButton");
-      decreaseZoomButton = GetNode<Button>("%DecreaseZoomButton");
-
-      increaseZoomButton.ButtonUp += IncreaseZoom;
-      decreaseZoomButton.ButtonUp += DecreaseZoom;
+      var levelUI = level.GetNode<LevelUI>("LevelUI");
+      levelUI.IncrementZoom += IncreaseZoom;
+      levelUI.DecrementZoom += DecreaseZoom;
 
       SetupCamera();
-
-      var uiScale = (float)config.GetValue("settings", "ui_scale");
-
-      if (uiScale != 1)
-      {
-        var zoomLabelFontSize = currentZoomLabel.Get("theme_override_font_sizes/font_size");
-        var newFontSize = (int)zoomLabelFontSize * uiScale;
-
-        currentZoomLabel.Set("theme_override_font_sizes/font_size", newFontSize);
-        increaseZoomButton.Set("theme_override_font_sizes/font_size", newFontSize);
-        decreaseZoomButton.Set("theme_override_font_sizes/font_size", newFontSize);
-      }
     }
 
     public override void _Process(double delta)
     {
-      if (!level.IsInputAllowed()) return;
-      HandleInput();
-
       if (isZooming)
       {
-        if (Zoom.IsEqualApprox(targetZoom))
+        if (Zoom.IsEqualApprox(TargetZoom))
         {
           isZooming = false;
-          Zoom = targetZoom;
+          Zoom = TargetZoom;
         }
         else
         {
-          Zoom = Zoom.Lerp(targetZoom, 0.5f);
+          Zoom = Zoom.Lerp(TargetZoom, 0.5f);
         }
       }
     }
@@ -76,44 +55,31 @@ namespace UI
       var cameraPosition = gridRect.Position + grid.Size / 2;
 
       GlobalPosition = cameraPosition;
-      targetZoom = Zoom;
-
-      var zoomPercentage = Zoom.X * 100;
-      currentZoomLabel.Text = $"{zoomPercentage}%";
+      TargetZoom = Zoom;
     }
 
-    private void HandleInput()
+    private bool IsGridFullyVisible()
     {
-      if (Input.IsActionJustPressed("scroll_down"))
-      {
-        DecreaseZoom();
-      }
-      else if (Input.IsActionJustPressed("scroll_up"))
-      {
-        IncreaseZoom();
-      }
+      var gridRect = grid.GetRect();
+      var cameraRect = GetViewportRect();
+
+      return cameraRect.HasPoint(gridRect.Position) && cameraRect.HasPoint(gridRect.End);
     }
 
     private void IncreaseZoom()
     {
       if (isZooming || Zoom.IsEqualApprox(maxZoom)) return;
-      targetZoom = new Vector2(Zoom.X + zoomIncrement, Zoom.Y + zoomIncrement);
+      TargetZoom = new Vector2(Zoom.X + zoomIncrement, Zoom.Y + zoomIncrement);
 
       isZooming = true;
-
-      var zoomPercentage = targetZoom.X * 100;
-      currentZoomLabel.Text = $"{zoomPercentage}%";
     }
 
     private void DecreaseZoom()
     {
       if (isZooming || Zoom.IsEqualApprox(minZoom)) return;
-      targetZoom = new Vector2(Zoom.X - zoomIncrement, Zoom.Y - zoomIncrement);
+      TargetZoom = new Vector2(Zoom.X - zoomIncrement, Zoom.Y - zoomIncrement);
 
       isZooming = true;
-
-      var zoomPercentage = targetZoom.X * 100;
-      currentZoomLabel.Text = $"{zoomPercentage}%";
     }
   }
 }

@@ -1,19 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://d3rf2nybsggut"]
+[gd_scene load_steps=7 format=3 uid="uid://d3rf2nybsggut"]
 
 [ext_resource type="PackedScene" uid="uid://btkws4lwu8fi1" path="res://scenes/game/level/LevelBackground.tscn" id="1_irqj4"]
 [ext_resource type="Script" path="res://scenes/game/menus/MainMenu.cs" id="1_pk6b7"]
-[ext_resource type="FontFile" uid="uid://dwweiefoa15ly" path="res://assets/ui/fonts/Cascadia.ttf" id="2_4m8wn"]
+[ext_resource type="PackedScene" uid="uid://b7e7xmwfmavsq" path="res://scenes/ui/Components/KamiButton.tscn" id="3_2aot2"]
+[ext_resource type="PackedScene" uid="uid://cnfvt24wdk2qp" path="res://scenes/game/level/WorldEnvironment.tscn" id="3_821dw"]
+[ext_resource type="PackedScene" uid="uid://c6uuckxenfy7" path="res://scenes/ui/Components/KamiLabel.tscn" id="4_rxuia"]
 [ext_resource type="PackedScene" uid="uid://wh3fxd12xs2n" path="res://scenes/game/menus/LevelSelector.tscn" id="4_tutq4"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rxenl"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_76grh"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_oxdb5"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7cvt8"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4jng0"]
 
 [node name="MainMenu" type="Node2D"]
 script = ExtResource("1_pk6b7")
@@ -22,99 +14,72 @@ script = ExtResource("1_pk6b7")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
+[node name="WorldEnvironment" parent="CanvasLayer" instance=ExtResource("3_821dw")]
+
 [node name="UI" type="MarginContainer" parent="CanvasLayer"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-pivot_offset = Vector2(990, 510)
-theme_override_constants/margin_top = 200
-theme_override_constants/margin_bottom = 200
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_override_constants/margin_top = 64
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/UI"]
 layout_mode = 2
-size_flags_vertical = 4
-
-[node name="UIScalingLabel" type="Label" parent="CanvasLayer/UI/VBoxContainer"]
-visible = false
-layout_mode = 2
-size_flags_horizontal = 4
-theme_override_colors/font_color = Color(0.635294, 0.282353, 0.466667, 1)
-theme_override_font_sizes/font_size = 25
-text = "Select text size:"
-
-[node name="ScalingContainer" type="HBoxContainer" parent="CanvasLayer/UI/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 8
+size_flags_vertical = 0
 theme_override_constants/separation = 25
-alignment = 1
 
-[node name="SmallButton" type="Button" parent="CanvasLayer/UI/VBoxContainer/ScalingContainer"]
-unique_name_in_owner = true
-modulate = Color(0.564706, 0.984314, 0.423529, 1)
-custom_minimum_size = Vector2(45, 45)
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/UI/VBoxContainer"]
 layout_mode = 2
-theme_override_constants/outline_size = 0
-theme_override_fonts/font = ExtResource("2_4m8wn")
-theme_override_styles/normal = SubResource("StyleBoxEmpty_rxenl")
-theme_override_styles/hover = SubResource("StyleBoxEmpty_76grh")
-theme_override_styles/pressed = SubResource("StyleBoxEmpty_oxdb5")
-theme_override_styles/disabled = SubResource("StyleBoxEmpty_7cvt8")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_4jng0")
-text = "Small"
-flat = true
+size_flags_vertical = 0
+theme_override_constants/margin_bottom = 150
 
-[node name="MediumButton" type="Button" parent="CanvasLayer/UI/VBoxContainer/ScalingContainer"]
-unique_name_in_owner = true
-modulate = Color(0.905882, 0.905882, 0.905882, 1)
-custom_minimum_size = Vector2(45, 45)
-layout_mode = 2
-theme_override_constants/outline_size = 0
-theme_override_fonts/font = ExtResource("2_4m8wn")
-theme_override_font_sizes/font_size = 30
-theme_override_styles/normal = SubResource("StyleBoxEmpty_rxenl")
-theme_override_styles/hover = SubResource("StyleBoxEmpty_76grh")
-theme_override_styles/pressed = SubResource("StyleBoxEmpty_oxdb5")
-theme_override_styles/disabled = SubResource("StyleBoxEmpty_7cvt8")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_4jng0")
-text = "Medium
-"
-flat = true
-
-[node name="LargeButton" type="Button" parent="CanvasLayer/UI/VBoxContainer/ScalingContainer"]
-unique_name_in_owner = true
-modulate = Color(0.905882, 0.905882, 0.905882, 1)
-custom_minimum_size = Vector2(45, 45)
-layout_mode = 2
-theme_override_constants/outline_size = 0
-theme_override_fonts/font = ExtResource("2_4m8wn")
-theme_override_font_sizes/font_size = 45
-theme_override_styles/normal = SubResource("StyleBoxEmpty_rxenl")
-theme_override_styles/hover = SubResource("StyleBoxEmpty_76grh")
-theme_override_styles/pressed = SubResource("StyleBoxEmpty_oxdb5")
-theme_override_styles/disabled = SubResource("StyleBoxEmpty_7cvt8")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_4jng0")
-text = "Large
-"
-flat = true
-
-[node name="LevelSelectorLabel" type="Label" parent="CanvasLayer/UI/VBoxContainer"]
-unique_name_in_owner = true
+[node name="ScalingContainer" type="VBoxContainer" parent="CanvasLayer/UI/VBoxContainer/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
-theme_override_colors/font_color = Color(0.635294, 0.282353, 0.466667, 1)
-theme_override_fonts/font = ExtResource("2_4m8wn")
-theme_override_font_sizes/font_size = 38
+size_flags_vertical = 4
+theme_override_constants/separation = 25
+
+[node name="SmallButton" parent="CanvasLayer/UI/VBoxContainer/MarginContainer/ScalingContainer" instance=ExtResource("3_2aot2")]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.498, 0.498, 0.498, 1)
+theme_override_font_sizes/font_size = 28
+text = "Small"
+TextSize = 0
+ColorType = 4
+
+[node name="MediumButton" parent="CanvasLayer/UI/VBoxContainer/MarginContainer/ScalingContainer" instance=ExtResource("3_2aot2")]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.498, 0.498, 0.498, 1)
+text = "Medium"
+ColorType = 4
+
+[node name="LargeButton" parent="CanvasLayer/UI/VBoxContainer/MarginContainer/ScalingContainer" instance=ExtResource("3_2aot2")]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.498, 0.498, 0.498, 1)
+theme_override_font_sizes/font_size = 72
+text = "Large"
+TextSize = 2
+ColorType = 4
+
+[node name="LevelSelectorLabel" parent="CanvasLayer/UI/VBoxContainer" instance=ExtResource("4_rxuia")]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0.635, 0.282, 0.467, 1)
 text = "SELECT LEVEL"
+ColorType = 1
 
 [node name="LevelsContainer" type="MarginContainer" parent="CanvasLayer/UI/VBoxContainer"]
 custom_minimum_size = Vector2(1000, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-theme_override_constants/margin_top = 15
+theme_override_constants/margin_top = 25
 
 [node name="LevelSelector" parent="CanvasLayer/UI/VBoxContainer/LevelsContainer" instance=ExtResource("4_tutq4")]
 unique_name_in_owner = true
