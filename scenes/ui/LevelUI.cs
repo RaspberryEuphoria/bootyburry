@@ -2,23 +2,30 @@
 using System.Linq;
 using Game;
 using Godot;
+using Helpers;
 
 namespace UI
 {
   public partial class LevelUI : CanvasLayer
   {
+    [Signal]
+    public delegate void IncrementZoomEventHandler();
+    [Signal]
+    public delegate void DecrementZoomEventHandler();
+
+
     private ConfigFile config = new();
     private Control helperControl;
     private Level level;
-    private Label levelTitleLabel;
-    private Label loadingLabel;
-    private BoxContainer loadingOverContainer;
-    private Label activeCoresLabel;
-    private Label remainingCoresLabel;
-    private BoxContainer computationsContainer;
-    private Label actualComputationsLabel;
-    private Label optimalComputationsLabel;
+    private Label currentMovesLabel;
+    private KamiLabel optimalMovesLabel;
+    private KamiButton retryButton;
     private string[] loadingFrames = new string[] { "⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏" };
+
+    private PanelContainer scorePanel;
+    private StringName panelContainerDisabledVariation = "PanelContainerDisabled";
+    private Label currentZoomLabel;
+    private DynamicCamera dynamicCamera;
 
     public override void _Ready()
     {
@@ -26,94 +33,45 @@ namespace UI
 
       level = GetParent<Level>();
       level.GameStart += OnGameStart;
-      level.GameWon += OnGameWon;
       level.PlayerMoved += OnPlayerMoved;
-      level.CurrentTileUpdated += OnCurrentTileUpdated;
-
-      levelTitleLabel = GetNode<Label>("%LevelTitleLabel");
-      loadingLabel = GetNode<Label>("%LoadingLabel");
-      loadingOverContainer = GetNode<BoxContainer>("%LoadingOverContainer");
-      activeCoresLabel = GetNode<Label>("%ActiveCoresLabel");
-      remainingCoresLabel = GetNode<Label>("%RemainingCoresLabel");
-      actualComputationsLabel = GetNode<Label>("%ActualComputationsLabel");
-      optimalComputationsLabel = GetNode<Label>("%OptimalComputationsLabel");
-      computationsContainer = GetNode<BoxContainer>("%ComputationsContainer");
 
       var backToMenuButton = GetNode<Button>("%BackToMenuButton");
       backToMenuButton.ButtonUp += BackToMainMenu;
 
-      var uiScale = (float)config.GetValue("settings", "ui_scale");
+      var retryButton = GetNode<KamiButton>("%RetryButton");
+      retryButton.ButtonUp += level.Retry;
 
-      if (uiScale != 1)
+      scorePanel = GetNode<PanelContainer>("%ScorePanel");
+      currentMovesLabel = GetNode<Label>("%CurrentMovesLabel");
+      optimalMovesLabel = GetNode<KamiLabel>("%OptimalMovesLabel");
+
+      currentZoomLabel = GetNode<Label>("%CurrentZoomLabel");
+
+      var increaseZoomButton = GetNode<Button>("%IncreaseZoomButton");
+      var decreaseZoomButton = GetNode<Button>("%DecreaseZoomButton");
+
+      increaseZoomButton.ButtonUp += OnIncreaseZoom;
+      decreaseZoomButton.ButtonUp += OnDecreaseZoom;
+    }
+
+    public override void _Process(double delta)
+    {
+      if (!level.IsInputAllowed()) return;
+
+      if (Input.IsActionJustPressed("scroll_down"))
       {
-        var levelTitleLabels = GetNode("%LevelTitleContainer").GetChildren().OfType<Label>().ToArray();
-
-        foreach (Label label in levelTitleLabels)
-        {
-          var fontSize = label.Get("theme_override_font_sizes/font_size");
-          label.Set("theme_override_font_sizes/font_size", (int)fontSize * uiScale);
-        }
-
-        var backToMenuButtonFontSize = backToMenuButton.Get("theme_override_font_sizes/font_size");
-        backToMenuButton.Set("theme_override_font_sizes/font_size", (int)backToMenuButtonFontSize * uiScale);
-
-        var computationLabel = GetNode<Label>("%ComputationsLabel");
-        var computationLabelFontSize = computationLabel.Get("theme_override_font_sizes/font_size");
-        computationLabel.Set("theme_override_font_sizes/font_size", (int)computationLabelFontSize * uiScale);
-
-        var computationsValuesLabel = computationsContainer.GetChildren().OfType<Label>().ToArray();
-
-        foreach (Label label in computationsValuesLabel)
-        {
-          var fontSize = label.Get("theme_override_font_sizes/font_size");
-          label.Set("theme_override_font_sizes/font_size", (int)fontSize * uiScale);
-        }
+        OnDecreaseZoom();
+      }
+      else if (Input.IsActionJustPressed("scroll_up"))
+      {
+        OnIncreaseZoom();
       }
     }
 
     private void Init()
     {
-      SetInitialLabelsText();
-    }
-
-    private void SetInitialLabelsText()
-    {
-      levelTitleLabel.Text = level.LevelTitle;
-      // levelTitleLabel.Text = level.LevelTitle + " " + level.LevelSubtitle;
-      loadingLabel.Text = "";
-      actualComputationsLabel.Text = "0";
-      optimalComputationsLabel.Text = level.OptimalScore.ToString();
-    }
-
-    private void SetCoresText()
-    {
-      if (loadingLabel.Text.Length > 3) loadingLabel.Text = "•";
-
-      var activeCoresCount = level.GetActiveCoresCount();
-      var coresCount = level.GetCoresCount();
-
-      SetCoresLabel(activeCoresLabel, activeCoresCount);
-      SetCoresLabel(remainingCoresLabel, coresCount - activeCoresCount);
-    }
-
-    private static void SetCoresLabel(Label label, int coresCount)
-    {
-      var cores = "";
-      for (int i = 0; i < coresCount; i++)
-      {
-        cores += "◉ ";
-      }
-
-      label.Text = cores.Trim();
-      label.Visible = coresCount > 0;
-    }
-
-    private void SetComputationsText()
-    {
-      loadingLabel.Text = loadingFrames[level.Score % loadingFrames.Length];
-      actualComputationsLabel.Text = level.Score.ToString();
-
-      if (level.Score > level.OptimalScore) computationsContainer.Modulate = new Color(0.75f, 0, 0, 0.75f);
+      optimalMovesLabel.Text = level.OptimalScore.ToString();
+      currentMovesLabel.Text = "0";
     }
 
     private void OnGameStart()
@@ -121,26 +79,45 @@ namespace UI
       Init();
     }
 
-    private void OnGameWon()
+    private void DisableScore()
     {
-      loadingLabel.Visible = false;
-      loadingOverContainer.Visible = true;
-    }
-
-    private void OnPlayerMoved(int _score)
-    {
-      SetComputationsText();
-    }
-
-    private void OnCurrentTileUpdated(Tile _currentTile, Tile _previousTile, Direction _direction)
-    {
-      SetCoresText();
+      optimalMovesLabel.SetColorType(KamiColors.ColorType.Disabled);
+      scorePanel.ThemeTypeVariation = panelContainerDisabledVariation;
     }
 
     private void BackToMainMenu()
     {
       var mainMenu = ResourceLoader.Load<PackedScene>("res://scenes/game/menus/MainMenu.tscn");
       GetTree().ChangeSceneToPacked(mainMenu);
+    }
+
+    private void UpdateZoomLabel()
+    {
+      dynamicCamera ??= level.GetNode<DynamicCamera>("DynamicCamera");
+
+      var zoomPercentage = dynamicCamera.TargetZoom.X * 100;
+      currentZoomLabel.Text = $"{zoomPercentage}%";
+    }
+
+    private void OnIncreaseZoom()
+    {
+      EmitSignal(SignalName.IncrementZoom);
+      UpdateZoomLabel();
+    }
+
+    private void OnDecreaseZoom()
+    {
+      EmitSignal(SignalName.DecrementZoom);
+      UpdateZoomLabel();
+    }
+
+    private void OnPlayerMoved(int _score)
+    {
+      var currentValue = currentMovesLabel.Text.ToInt();
+      currentValue++;
+      currentMovesLabel.Text = currentValue.ToString();
+
+      if (currentValue > level.OptimalScore) DisableScore();
     }
   }
 }

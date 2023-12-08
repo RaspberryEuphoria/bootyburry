@@ -87,7 +87,7 @@ position = Vector2(88, 88)
 texture = ExtResource("2_bexyq")
 
 [node name="InnerCore" parent="." instance=ExtResource("3_jrwbd")]
-position = Vector2(90, 88)
+position = Vector2(88, 88)
 
 [node name="SelectorUp" parent="." instance=ExtResource("4_tl3v0")]
 visible = false
