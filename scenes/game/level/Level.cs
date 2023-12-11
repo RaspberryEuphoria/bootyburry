@@ -40,7 +40,7 @@ namespace Game
     [Export]
     public float botDelay = 0.5f;
 
-    public static readonly Dictionary<string, Direction> actionToDirection = new()
+    private Dictionary<string, Direction> actionToDirection = new()
     {
         { "move_up", Direction.Up },
         { "move_left", Direction.Left },
@@ -55,6 +55,7 @@ namespace Game
 
     public int ColumnsCount { get; private set; }
     public int RowsCount { get; private set; }
+    private BoxContainer grid;
     private Tile currentTile;
     private Tile previousTile;
     private IEnumerable<Tile> tiles = new List<Tile>();
@@ -125,7 +126,19 @@ namespace Game
 
     public void PrepareBoard()
     {
-      var grid = GetNode<BoxContainer>("Grid");
+      grid = GetNode<BoxContainer>("%Grid");
+
+      /**
+       * On mobile screens, we want the grid to be in portrait mode instead of paysage.
+       */
+      if (Mathf.IsEqualApprox(grid.RotationDegrees, 90f, 1f))
+      {
+        actionToDirection["move_up"] = Direction.Left;
+        actionToDirection["move_left"] = Direction.Down;
+        actionToDirection["move_down"] = Direction.Right;
+        actionToDirection["move_right"] = Direction.Up;
+      }
+
       var rows = grid.GetChildren().OfType<BoxContainer>();
       RowsCount = rows.Count();
       ColumnsCount = rows.First().GetChildren().OfType<Tile>().Count();
@@ -251,27 +264,27 @@ namespace Game
       // @todo: reproduce a bug where moving immediatly to a Router tile will crash the level
       // for some reason, the navigationPaths list is empty when it shouldn't be
 
-      try
+      // try
+      // {
+      var navigationPath = expandPreviousPath
+        ? navigationPaths.Last()
+        : ResourceLoader.Load<PackedScene>("res://NavigationPath.tscn").Instantiate<NavigationPath>();
+
+      if (expandPreviousPath)
       {
-        var navigationPath = expandPreviousPath
-          ? navigationPaths.Last()
-          : ResourceLoader.Load<PackedScene>("res://NavigationPath.tscn").Instantiate<NavigationPath>();
-
-        if (expandPreviousPath)
-        {
-          navigationPath.AddTileToPoints(targetTile);
-          return;
-        }
-
-        navigationPath.Init(startingTile, targetTile);
-        AddChild(navigationPath);
-
-        navigationPaths = navigationPaths.Append(navigationPath);
+        navigationPath.AddTileToPoints(targetTile);
+        return;
       }
-      catch (Exception e)
-      {
-        GD.Print("There was an error while drawing the navigation path: " + e.Message);
-      }
+
+      navigationPath.Init(startingTile, targetTile);
+      AddChild(navigationPath);
+
+      navigationPaths = navigationPaths.Append(navigationPath);
+      // }
+      // catch (Exception e)
+      // {
+      //   GD.Print("There was an error while drawing the navigation path: " + e.Message);
+      // }
     }
 
     public int GetCoresCount()

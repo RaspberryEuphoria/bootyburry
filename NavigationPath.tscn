@@ -4,6 +4,7 @@
 [ext_resource type="Script" path="res://NavigationPath.cs" id="2_j0kx0"]
 
 [node name="NavigationPath" type="Line2D" groups=["navigation_path"]]
+z_index = 1
 texture_repeat = 2
 points = PackedVector2Array(0, 0, 0, 192)
 width = 3.0

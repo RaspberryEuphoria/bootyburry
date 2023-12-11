@@ -24,10 +24,11 @@ LevelSubtitle = "// Beware The Firewall"
 [node name="LevelUI" parent="." instance=ExtResource("4_23kbk")]
 
 [node name="Grid" type="VBoxContainer" parent="."]
-offset_left = 485.0
-offset_top = 264.0
-offset_right = 1063.0
-offset_bottom = 842.0
+unique_name_in_owner = true
+offset_left = 263.0
+offset_top = 305.0
+offset_right = 841.0
+offset_bottom = 883.0
 theme = ExtResource("5_60oxg")
 
 [node name="Row1" type="HBoxContainer" parent="Grid"]

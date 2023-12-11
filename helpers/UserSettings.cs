@@ -18,8 +18,6 @@ namespace Helpers
 
     public void SetUIScale(float scale)
     {
-      if (Device.IsMobile()) scale *= 1.5f;
-
       UIScale = scale;
 
       config.SetValue("settings", "ui_scale", scale);

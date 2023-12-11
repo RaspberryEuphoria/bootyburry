@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://scenes/game/objects/tile/empty/Empty.cs" id="1_6him3"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pragh"]
-bg_color = Color(0.345, 0.345, 0.345, 0.2)
+bg_color = Color(0.004, 0.031, 0.078, 0.25)
 corner_radius_top_left = 5
 corner_radius_top_right = 5
 corner_radius_bottom_right = 5

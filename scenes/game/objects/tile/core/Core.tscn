@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://b1qg5jsrtqi83" path="res://scenes/game/objects/tile/core/Selector.tscn" id="4_tl3v0"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_j34gw"]
-bg_color = Color(0, 0, 0, 0.5)
+bg_color = Color(0, 0, 0, 1)
 corner_radius_top_left = 5
 corner_radius_top_right = 5
 corner_radius_bottom_right = 5

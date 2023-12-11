@@ -25,6 +25,7 @@ theme_override_constants/separation = 50
 
 [node name="LevelTemplate" parent="WorldTemplate" instance=ExtResource("2_6rn1s")]
 layout_mode = 2
+theme_override_colors/font_color = Color(0.467, 0.867, 0.467, 1)
 theme_override_styles/normal = SubResource("StyleBoxFlat_5dj0q")
 text = "0.1"
 flat = false

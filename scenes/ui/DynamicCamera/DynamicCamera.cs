@@ -15,8 +15,8 @@ namespace UI
     private float zoomIncrement = 0.25f;
     private float initialZoomPercentage;
     public Vector2 TargetZoom { get; private set; }
-    private Vector2 minZoom = new(0.5f, 0.5f);
-    private Vector2 maxZoom = new(1.5f, 1.5f);
+    private Vector2 minZoom = new(0.75f, 0.75f);
+    private Vector2 maxZoom = new(1.25f, 1.25f);
     private bool isZooming = false;
 
     public override void _Ready()
@@ -24,13 +24,13 @@ namespace UI
       config.Load("user://settings.cfg");
 
       level = GetParent<Level>();
-      grid = level.GetNode<BoxContainer>("Grid");
+      grid = level.GetNode<BoxContainer>("%Grid");
 
       var levelUI = level.GetNode<LevelUI>("LevelUI");
       levelUI.IncrementZoom += IncreaseZoom;
       levelUI.DecrementZoom += DecreaseZoom;
 
-      SetupCamera();
+      // SetupCamera();
     }
 
     public override void _Process(double delta)

@@ -18,14 +18,18 @@ bg_color = Color(0, 0.00392157, 0.0156863, 1)
 corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_jlbxm"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dl5qn"]
+bg_color = Color(0, 0, 0, 0.75)
+corner_radius_top_left = 250
+corner_radius_top_right = 250
+corner_radius_bottom_right = 250
+corner_radius_bottom_left = 250
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_dm376"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_bdt3n"]
 
 [node name="LevelUI" type="CanvasLayer"]
-layer = 0
 script = ExtResource("1_egn7x")
 
 [node name="Control" type="Control" parent="."]
@@ -40,44 +44,52 @@ size_flags_vertical = 0
 
 [node name="MarginContainer" type="MarginContainer" parent="Control"]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -326.0
+offset_right = 326.0
+offset_bottom = 128.0
 grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 48
-theme_override_constants/margin_top = 48
-theme_override_constants/margin_right = 48
-theme_override_constants/margin_bottom = 48
+theme_override_constants/margin_top = 80
+theme_override_constants/margin_bottom = 80
 
-[node name="Header" type="Control" parent="Control/MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/MarginContainer"]
 layout_mode = 2
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Control/MarginContainer/Header"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+theme_override_constants/separation = 25
 alignment = 1
 
-[node name="ScorePanel" type="PanelContainer" parent="Control/MarginContainer/Header/VBoxContainer"]
+[node name="RetryButton" parent="Control/MarginContainer/HBoxContainer" instance=ExtResource("7_82ktx")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_colors/font_color = Color(0.467, 0.867, 0.467, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 20
+theme_override_font_sizes/font_size = 96
+text = "⟲"
+TextSize = 3
+
+[node name="ScorePanel" type="PanelContainer" parent="Control/MarginContainer/HBoxContainer"]
 unique_name_in_owner = true
 clip_children = 2
 layout_mode = 2
-size_flags_vertical = 0
+size_flags_horizontal = 4
+size_flags_vertical = 4
 theme = SubResource("Theme_np0ys")
 
-[node name="MarginContainer" type="MarginContainer" parent="Control/MarginContainer/Header/VBoxContainer/ScorePanel"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/MarginContainer/HBoxContainer/ScorePanel"]
 layout_mode = 2
+size_flags_vertical = 4
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Control/MarginContainer/Header/VBoxContainer/ScorePanel/MarginContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="Control/MarginContainer/HBoxContainer/ScorePanel/HBoxContainer"]
 layout_mode = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="Control/MarginContainer/Header/VBoxContainer/ScorePanel/MarginContainer/HBoxContainer"]
-layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_right = 20
 
-[node name="CurrentMovesLabel" parent="Control/MarginContainer/Header/VBoxContainer/ScorePanel/MarginContainer/HBoxContainer/MarginContainer" instance=ExtResource("4_lml61")]
+[node name="CurrentMovesLabel" parent="Control/MarginContainer/HBoxContainer/ScorePanel/HBoxContainer/MarginContainer" instance=ExtResource("4_lml61")]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_color = Color(0.002, 0.021, 0.073, 1)
@@ -86,31 +98,30 @@ text = "X"
 TextSize = 2
 ColorType = 5
 
-[node name="PanelContainer" type="PanelContainer" parent="Control/MarginContainer/Header/VBoxContainer/ScorePanel/MarginContainer/HBoxContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="Control/MarginContainer/HBoxContainer/ScorePanel/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_07h6j")
 
-[node name="MarginContainer" type="MarginContainer" parent="Control/MarginContainer/Header/VBoxContainer/ScorePanel/MarginContainer/HBoxContainer/PanelContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="Control/MarginContainer/HBoxContainer/ScorePanel/HBoxContainer/PanelContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 25
 theme_override_constants/margin_right = 25
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Control/MarginContainer/Header/VBoxContainer/ScorePanel/MarginContainer/HBoxContainer/PanelContainer/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/MarginContainer/HBoxContainer/ScorePanel/HBoxContainer/PanelContainer/MarginContainer"]
 layout_mode = 2
-theme_override_constants/separation = 0
+theme_override_constants/separation = -10
 alignment = 1
 
-[node name="OptimalMovesLabel" parent="Control/MarginContainer/Header/VBoxContainer/ScorePanel/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer" instance=ExtResource("4_lml61")]
+[node name="OptimalMovesLabel" parent="Control/MarginContainer/HBoxContainer/ScorePanel/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer" instance=ExtResource("4_lml61")]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 1
 size_flags_vertical = 1
-theme_override_colors/font_color = Color(0.144, 0.476, 0.929, 1)
+theme_override_colors/font_color = Color(0.467, 0.867, 0.467, 1)
 text = "X"
-ColorType = 2
 
-[node name="MaxLabel" parent="Control/MarginContainer/Header/VBoxContainer/ScorePanel/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer" instance=ExtResource("4_lml61")]
+[node name="MaxLabel" parent="Control/MarginContainer/HBoxContainer/ScorePanel/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer" instance=ExtResource("4_lml61")]
 layout_mode = 2
 size_flags_horizontal = 1
 size_flags_vertical = 1
@@ -120,95 +131,58 @@ text = "max."
 TextSize = 0
 ColorType = 4
 
-[node name="Holo" type="TextureRect" parent="Control/MarginContainer/Header/VBoxContainer/ScorePanel"]
-modulate = Color(0, 0, 0, 0.3)
-texture_repeat = 2
-layout_mode = 2
-texture = ExtResource("1_ba2eh")
-stretch_mode = 1
-
-[node name="RetryButton" parent="Control/MarginContainer/Header/VBoxContainer" instance=ExtResource("7_82ktx")]
+[node name="BackToMenuButton" parent="Control/MarginContainer/HBoxContainer" instance=ExtResource("7_82ktx")]
 unique_name_in_owner = true
 layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(0.467, 0.867, 0.467, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 20
 theme_override_font_sizes/font_size = 96
-text = "⟲"
-alignment = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_dl5qn")
+text = "☰"
 TextSize = 3
 
-[node name="MenuPanel" type="PanelContainer" parent="Control/MarginContainer/Header"]
-material = SubResource("ShaderMaterial_jlbxm")
-custom_minimum_size = Vector2(250, 50)
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -150.0
-offset_top = -50.0
-grow_horizontal = 0
-grow_vertical = 0
-size_flags_horizontal = 0
-size_flags_vertical = 0
-theme_override_styles/panel = ExtResource("2_e242j")
-
-[node name="BackToMenuButton" parent="Control/MarginContainer/Header/MenuPanel" instance=ExtResource("7_82ktx")]
-unique_name_in_owner = true
-layout_mode = 2
-text = "Menu
-"
-
-[node name="Holo" type="TextureRect" parent="Control/MarginContainer/Header/MenuPanel"]
-modulate = Color(0, 0, 0, 0.3)
-texture_repeat = 2
-layout_mode = 2
-mouse_filter = 2
-texture = ExtResource("1_ba2eh")
-expand_mode = 1
-stretch_mode = 1
-
-[node name="ZoomPanel" type="PanelContainer" parent="Control/MarginContainer/Header"]
+[node name="ZoomPanel" type="PanelContainer" parent="Control/MarginContainer"]
+visible = false
 material = SubResource("ShaderMaterial_dm376")
 custom_minimum_size = Vector2(250, 50)
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -214.0
-offset_bottom = 63.0
-grow_horizontal = 0
+layout_mode = 2
 theme_override_styles/panel = ExtResource("2_e242j")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Control/MarginContainer/Header/ZoomPanel"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/MarginContainer/ZoomPanel"]
 material = SubResource("ShaderMaterial_bdt3n")
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 alignment = 1
 
-[node name="DecreaseZoomButton" parent="Control/MarginContainer/Header/ZoomPanel/HBoxContainer" instance=ExtResource("7_82ktx")]
+[node name="DecreaseZoomButton" parent="Control/MarginContainer/ZoomPanel/HBoxContainer" instance=ExtResource("7_82ktx")]
 unique_name_in_owner = true
 layout_mode = 2
+theme_override_colors/font_color = Color(0.467, 0.867, 0.467, 1)
 theme_override_font_sizes/font_size = 28
 text = "-
 "
 TextSize = 0
 
-[node name="CurrentZoomLabel" parent="Control/MarginContainer/Header/ZoomPanel/HBoxContainer" instance=ExtResource("4_lml61")]
+[node name="CurrentZoomLabel" parent="Control/MarginContainer/ZoomPanel/HBoxContainer" instance=ExtResource("4_lml61")]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_color = Color(0.635, 0.282, 0.467, 1)
 text = "100%"
 ColorType = 1
 
-[node name="IncreaseZoomButton" parent="Control/MarginContainer/Header/ZoomPanel/HBoxContainer" instance=ExtResource("7_82ktx")]
+[node name="IncreaseZoomButton" parent="Control/MarginContainer/ZoomPanel/HBoxContainer" instance=ExtResource("7_82ktx")]
 unique_name_in_owner = true
 layout_mode = 2
+theme_override_colors/font_color = Color(0.467, 0.867, 0.467, 1)
 theme_override_font_sizes/font_size = 28
 text = "+"
 TextSize = 0
 
-[node name="Holo" type="TextureRect" parent="Control/MarginContainer/Header/ZoomPanel"]
+[node name="Holo" type="TextureRect" parent="Control/MarginContainer/ZoomPanel"]
 modulate = Color(0, 0, 0, 0.3)
 texture_repeat = 2
 layout_mode = 2

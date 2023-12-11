@@ -58,14 +58,14 @@ namespace UI
     {
       if (!level.IsInputAllowed()) return;
 
-      if (Input.IsActionJustPressed("scroll_down"))
-      {
-        OnDecreaseZoom();
-      }
-      else if (Input.IsActionJustPressed("scroll_up"))
-      {
-        OnIncreaseZoom();
-      }
+      // if (Input.IsActionJustPressed("scroll_down"))
+      // {
+      //   OnDecreaseZoom();
+      // }
+      // else if (Input.IsActionJustPressed("scroll_up"))
+      // {
+      //   OnIncreaseZoom();
+      // }
     }
 
     private void Init()

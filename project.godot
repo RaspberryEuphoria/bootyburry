@@ -25,10 +25,11 @@ file_logging/enable_file_logging=true
 
 [display]
 
-window/size/viewport_width=1980
-window/size/viewport_height=1020
+window/size/viewport_width=1020
+window/size/viewport_height=1980
 window/size/mode=4
 window/size/borderless=true
+window/handheld/orientation=1
 
 [dotnet]
 

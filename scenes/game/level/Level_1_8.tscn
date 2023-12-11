@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://c1jd8vubmm07u"]
+[gd_scene load_steps=12 format=3 uid="uid://c1jd8vubmm07u"]
 
 [ext_resource type="Script" path="res://scenes/game/level/Level.cs" id="1_6wu75"]
 [ext_resource type="PackedScene" uid="uid://btkws4lwu8fi1" path="res://scenes/game/level/LevelBackground.tscn" id="2_pwdfs"]
@@ -10,12 +10,13 @@
 [ext_resource type="PackedScene" uid="uid://e2gu8wi641jf" path="res://scenes/game/objects/tile/empty/Empty.tscn" id="5_g1ue5"]
 [ext_resource type="PackedScene" uid="uid://ch1bcttqi5hjk" path="res://scenes/game/objects/tile/core/Core.tscn" id="6_3xeta"]
 [ext_resource type="PackedScene" uid="uid://cl2lm1lsl8j8i" path="res://scenes/game/objects/tile/proxy/Proxy.tscn" id="7_y8880"]
+[ext_resource type="PackedScene" uid="uid://6oclnkije4cp" path="res://scenes/game/objects/tile/router/Router.tscn" id="10_isrw1"]
 
 [node name="Level" type="Node2D" node_paths=PackedStringArray("startingTile")]
 script = ExtResource("1_6wu75")
 nextLevel = ExtResource("2_rxkqi")
-startingTile = NodePath("Grid/Row3/Tile_2_2")
-OptimalScore = 20
+startingTile = NodePath("GridUI/Control/PanelContainer/MarginContainer/Grid/Row1/Tile_0_2")
+OptimalScore = 6
 LevelTitle = "Level 1.8"
 LevelSubtitle = "// Broken Mirror"
 botDelay = 0.0
@@ -24,178 +25,181 @@ botDelay = 0.0
 
 [node name="LevelUI" parent="." instance=ExtResource("3_ygoud")]
 
-[node name="Grid" type="VBoxContainer" parent="."]
-offset_left = 779.0
-offset_top = 359.0
-offset_right = 1235.0
-offset_bottom = 815.0
+[node name="GridUI" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="GridUI"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="GridUI/Control"]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -421.5
+offset_bottom = 421.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="GridUI/Control/PanelContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 32
+
+[node name="Grid" type="VBoxContainer" parent="GridUI/Control/PanelContainer/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 4
 theme = ExtResource("4_oty8f")
 
-[node name="Row1" type="HBoxContainer" parent="Grid"]
+[node name="Row1" type="HBoxContainer" parent="GridUI/Control/PanelContainer/MarginContainer/Grid"]
 layout_mode = 2
 theme = ExtResource("4_ah67f")
 theme_override_constants/separation = 25
 
-[node name="Tile_0_0" parent="Grid/Row1" instance=ExtResource("4_vu6mj")]
+[node name="Tile_0_0" parent="GridUI/Control/PanelContainer/MarginContainer/Grid/Row1" instance=ExtResource("4_vu6mj")]
 layout_mode = 2
 
-[node name="Empty" parent="Grid/Row1/Tile_0_0" instance=ExtResource("5_g1ue5")]
+[node name="Empty" parent="GridUI/Control/PanelContainer/MarginContainer/Grid/Row1/Tile_0_0" instance=ExtResource("5_g1ue5")]
 
-[node name="Tile_0_1" parent="Grid/Row1" instance=ExtResource("4_vu6mj")]
-layout_mode = 2
-Type = 0
-
-[node name="Core" parent="Grid/Row1/Tile_0_1" instance=ExtResource("6_3xeta")]
-
-[node name="Tile_0_2" parent="Grid/Row1" instance=ExtResource("4_vu6mj")]
+[node name="Tile_0_1" parent="GridUI/Control/PanelContainer/MarginContainer/Grid/Row1" instance=ExtResource("4_vu6mj")]
 layout_mode = 2
 
-[node name="Empty" parent="Grid/Row1/Tile_0_2" instance=ExtResource("5_g1ue5")]
+[node name="Empty" parent="GridUI/Control/PanelContainer/MarginContainer/Grid/Row1/Tile_0_1" instance=ExtResource("5_g1ue5")]
 
-[node name="Tile_0_3" parent="Grid/Row1" instance=ExtResource("4_vu6mj")]
+[node name="Tile_0_2" parent="GridUI/Control/PanelContainer/MarginContainer/Grid/Row1" instance=ExtResource("4_vu6mj")]
 layout_mode = 2
 Type = 0
 
-[node name="Core" parent="Grid/Row1/Tile_0_3" instance=ExtResource("6_3xeta")]
+[node name="Core" parent="GridUI/Control/PanelContainer/MarginContainer/Grid/Row1/Tile_0_2" instance=ExtResource("6_3xeta")]
 
-[node name="Tile_0_4" parent="Grid/Row1" instance=ExtResource("4_vu6mj")]
+[node name="Tile_0_3" parent="GridUI/Control/PanelContainer/MarginContainer/Grid/Row1" instance=ExtResource("4_vu6mj")]
 layout_mode = 2
 
-[node name="Empty" parent="Grid/Row1/Tile_0_4" instance=ExtResource("5_g1ue5")]
+[node name="Empty" parent="GridUI/Control/PanelContainer/MarginContainer/Grid/Row1/Tile_0_3" instance=ExtResource("5_g1ue5")]
 
-[node name="Row2" type="HBoxContainer" parent="Grid"]
+[node name="Tile_0_4" parent="GridUI/Control/PanelContainer/MarginContainer/Grid/Row1" instance=ExtResource("4_vu6mj")]
+layout_mode = 2
+
+[node name="Empty" parent="GridUI/Control/PanelContainer/MarginContainer/Grid/Row1/Tile_0_4" instance=ExtResource("5_g1ue5")]
+
+[node name="Row2" type="HBoxContainer" parent="GridUI/Control/PanelContainer/MarginContainer/Grid"]
 layout_mode = 2
 theme = ExtResource("4_ah67f")
 theme_override_constants/separation = 25
 
-[node name="Tile_1_0" parent="Grid/Row2" instance=ExtResource("4_vu6mj")]
-layout_mode = 2
-Type = 0
-
-[node name="Core" parent="Grid/Row2/Tile_1_0" instance=ExtResource("6_3xeta")]
-
-[node name="Tile_1_1" parent="Grid/Row2" instance=ExtResource("4_vu6mj")]
-layout_mode = 2
-
-[node name="Empty" parent="Grid/Row2/Tile_1_1" instance=ExtResource("5_g1ue5")]
-
-[node name="Tile_1_2" parent="Grid/Row2" instance=ExtResource("4_vu6mj")]
+[node name="Tile_1_0" parent="GridUI/Control/PanelContainer/MarginContainer/Grid/Row2" instance=ExtResource("4_vu6mj")]
 layout_mode = 2
 Type = 4
 
-[node name="Proxy" parent="Grid/Row2/Tile_1_2" node_paths=PackedStringArray("ExitTile") instance=ExtResource("7_y8880")]
+[node name="Proxy" parent="GridUI/Control/PanelContainer/MarginContainer/Grid/Row2/Tile_1_0" node_paths=PackedStringArray("ExitTile") instance=ExtResource("7_y8880")]
 ExitTile = NodePath("../../../Row3/Tile_2_3")
 
-[node name="Tile_1_3" parent="Grid/Row2" instance=ExtResource("4_vu6mj")]
-layout_mode = 2
-
-[node name="Empty" parent="Grid/Row2/Tile_1_3" instance=ExtResource("5_g1ue5")]
-
-[node name="Tile_1_4" parent="Grid/Row2" instance=ExtResource("4_vu6mj")]
+[node name="Tile_1_1" parent="GridUI/Control/PanelContainer/MarginContainer/Grid/Row2" instance=ExtResource("4_vu6mj")]
 layout_mode = 2
 Type = 0
 
-[node name="Core" parent="Grid/Row2/Tile_1_4" instance=ExtResource("6_3xeta")]
+[node name="Core" parent="GridUI/Control/PanelContainer/MarginContainer/Grid/Row2/Tile_1_1" instance=ExtResource("6_3xeta")]
 
-[node name="Row3" type="HBoxContainer" parent="Grid"]
-layout_mode = 2
-theme = ExtResource("4_ah67f")
-theme_override_constants/separation = 25
-
-[node name="Tile_2_0" parent="Grid/Row3" instance=ExtResource("4_vu6mj")]
+[node name="Tile_1_2" parent="GridUI/Control/PanelContainer/MarginContainer/Grid/Row2" instance=ExtResource("4_vu6mj")]
 layout_mode = 2
 
-[node name="Empty" parent="Grid/Row3/Tile_2_0" instance=ExtResource("5_g1ue5")]
+[node name="Empty" parent="GridUI/Control/PanelContainer/MarginContainer/Grid/Row2/Tile_1_2" instance=ExtResource("5_g1ue5")]
 
-[node name="Tile_2_1" parent="Grid/Row3" instance=ExtResource("4_vu6mj")]
-layout_mode = 2
-Type = 4
-
-[node name="Proxy" parent="Grid/Row3/Tile_2_1" node_paths=PackedStringArray("ExitTile") instance=ExtResource("7_y8880")]
-ExitTile = NodePath("../../../Row4/Tile_3_2")
-useAlternativeVisual = true
-
-[node name="Tile_2_2" parent="Grid/Row3" instance=ExtResource("4_vu6mj")]
+[node name="Tile_1_3" parent="GridUI/Control/PanelContainer/MarginContainer/Grid/Row2" instance=ExtResource("4_vu6mj")]
 layout_mode = 2
 Type = 0
 
-[node name="Core" parent="Grid/Row3/Tile_2_2" instance=ExtResource("6_3xeta")]
+[node name="Core" parent="GridUI/Control/PanelContainer/MarginContainer/Grid/Row2/Tile_1_3" instance=ExtResource("6_3xeta")]
 
-[node name="Tile_2_3" parent="Grid/Row3" instance=ExtResource("4_vu6mj")]
+[node name="Tile_1_4" parent="GridUI/Control/PanelContainer/MarginContainer/Grid/Row2" instance=ExtResource("4_vu6mj")]
 layout_mode = 2
 Type = 4
 
-[node name="Proxy" parent="Grid/Row3/Tile_2_3" node_paths=PackedStringArray("ExitTile") instance=ExtResource("7_y8880")]
-ExitTile = NodePath("../../../Row2/Tile_1_2")
-
-[node name="Tile_2_4" parent="Grid/Row3" instance=ExtResource("4_vu6mj")]
-layout_mode = 2
-
-[node name="Empty" parent="Grid/Row3/Tile_2_4" instance=ExtResource("5_g1ue5")]
-
-[node name="Row4" type="HBoxContainer" parent="Grid"]
-layout_mode = 2
-theme = ExtResource("4_ah67f")
-theme_override_constants/separation = 25
-
-[node name="Tile_3_0" parent="Grid/Row4" instance=ExtResource("4_vu6mj")]
-layout_mode = 2
-Type = 0
-
-[node name="Core" parent="Grid/Row4/Tile_3_0" instance=ExtResource("6_3xeta")]
-
-[node name="Tile_3_1" parent="Grid/Row4" instance=ExtResource("4_vu6mj")]
-layout_mode = 2
-
-[node name="Empty" parent="Grid/Row4/Tile_3_1" instance=ExtResource("5_g1ue5")]
-
-[node name="Tile_3_2" parent="Grid/Row4" instance=ExtResource("4_vu6mj")]
-layout_mode = 2
-Type = 4
-
-[node name="Proxy" parent="Grid/Row4/Tile_3_2" node_paths=PackedStringArray("ExitTile") instance=ExtResource("7_y8880")]
+[node name="Proxy" parent="GridUI/Control/PanelContainer/MarginContainer/Grid/Row2/Tile_1_4" node_paths=PackedStringArray("ExitTile") instance=ExtResource("7_y8880")]
 ExitTile = NodePath("../../../Row3/Tile_2_1")
 useAlternativeVisual = true
 
-[node name="Tile_3_3" parent="Grid/Row4" instance=ExtResource("4_vu6mj")]
-layout_mode = 2
-
-[node name="Empty" parent="Grid/Row4/Tile_3_3" instance=ExtResource("5_g1ue5")]
-
-[node name="Tile_3_4" parent="Grid/Row4" instance=ExtResource("4_vu6mj")]
-layout_mode = 2
-Type = 0
-
-[node name="Core" parent="Grid/Row4/Tile_3_4" instance=ExtResource("6_3xeta")]
-
-[node name="Row5" type="HBoxContainer" parent="Grid"]
+[node name="Row3" type="HBoxContainer" parent="GridUI/Control/PanelContainer/MarginContainer/Grid"]
 layout_mode = 2
 theme = ExtResource("4_ah67f")
 theme_override_constants/separation = 25
 
-[node name="Tile_4_0" parent="Grid/Row5" instance=ExtResource("4_vu6mj")]
-layout_mode = 2
-
-[node name="Empty" parent="Grid/Row5/Tile_4_0" instance=ExtResource("5_g1ue5")]
-
-[node name="Tile_4_1" parent="Grid/Row5" instance=ExtResource("4_vu6mj")]
+[node name="Tile_2_0" parent="GridUI/Control/PanelContainer/MarginContainer/Grid/Row3" instance=ExtResource("4_vu6mj")]
 layout_mode = 2
 Type = 0
 
-[node name="Core" parent="Grid/Row5/Tile_4_1" instance=ExtResource("6_3xeta")]
+[node name="Core" parent="GridUI/Control/PanelContainer/MarginContainer/Grid/Row3/Tile_2_0" instance=ExtResource("6_3xeta")]
+isCoreEnabledOnStart = true
 
-[node name="Tile_4_2" parent="Grid/Row5" instance=ExtResource("4_vu6mj")]
+[node name="Tile_2_1" parent="GridUI/Control/PanelContainer/MarginContainer/Grid/Row3" instance=ExtResource("4_vu6mj")]
 layout_mode = 2
+Type = 4
 
-[node name="Empty" parent="Grid/Row5/Tile_4_2" instance=ExtResource("5_g1ue5")]
+[node name="Proxy" parent="GridUI/Control/PanelContainer/MarginContainer/Grid/Row3/Tile_2_1" node_paths=PackedStringArray("ExitTile") instance=ExtResource("7_y8880")]
+ExitTile = NodePath("../../../Row2/Tile_1_4")
+useAlternativeVisual = true
 
-[node name="Tile_4_3" parent="Grid/Row5" instance=ExtResource("4_vu6mj")]
+[node name="Tile_2_2" parent="GridUI/Control/PanelContainer/MarginContainer/Grid/Row3" instance=ExtResource("4_vu6mj")]
 layout_mode = 2
 Type = 0
 
-[node name="Core" parent="Grid/Row5/Tile_4_3" instance=ExtResource("6_3xeta")]
+[node name="Core" parent="GridUI/Control/PanelContainer/MarginContainer/Grid/Row3/Tile_2_2" instance=ExtResource("6_3xeta")]
 
-[node name="Tile_4_4" parent="Grid/Row5" instance=ExtResource("4_vu6mj")]
+[node name="Tile_2_3" parent="GridUI/Control/PanelContainer/MarginContainer/Grid/Row3" instance=ExtResource("4_vu6mj")]
+layout_mode = 2
+Type = 4
+
+[node name="Proxy" parent="GridUI/Control/PanelContainer/MarginContainer/Grid/Row3/Tile_2_3" node_paths=PackedStringArray("ExitTile") instance=ExtResource("7_y8880")]
+ExitTile = NodePath("../../../Row2/Tile_1_0")
+
+[node name="Tile_2_4" parent="GridUI/Control/PanelContainer/MarginContainer/Grid/Row3" instance=ExtResource("4_vu6mj")]
+layout_mode = 2
+Type = 0
+
+[node name="Core" parent="GridUI/Control/PanelContainer/MarginContainer/Grid/Row3/Tile_2_4" instance=ExtResource("6_3xeta")]
+isCoreEnabledOnStart = true
+
+[node name="Row4" type="HBoxContainer" parent="GridUI/Control/PanelContainer/MarginContainer/Grid"]
+layout_mode = 2
+theme = ExtResource("4_ah67f")
+theme_override_constants/separation = 25
+
+[node name="Tile_3_0" parent="GridUI/Control/PanelContainer/MarginContainer/Grid/Row4" instance=ExtResource("4_vu6mj")]
+layout_mode = 2
+Type = 3
+
+[node name="Router" parent="GridUI/Control/PanelContainer/MarginContainer/Grid/Row4/Tile_3_0" instance=ExtResource("10_isrw1")]
+Direction = 3
+
+[node name="Tile_3_1" parent="GridUI/Control/PanelContainer/MarginContainer/Grid/Row4" instance=ExtResource("4_vu6mj")]
 layout_mode = 2
 
-[node name="Empty" parent="Grid/Row5/Tile_4_4" instance=ExtResource("5_g1ue5")]
+[node name="Empty" parent="GridUI/Control/PanelContainer/MarginContainer/Grid/Row4/Tile_3_1" instance=ExtResource("5_g1ue5")]
+
+[node name="Tile_3_2" parent="GridUI/Control/PanelContainer/MarginContainer/Grid/Row4" instance=ExtResource("4_vu6mj")]
+layout_mode = 2
+Type = 0
+
+[node name="Core" parent="GridUI/Control/PanelContainer/MarginContainer/Grid/Row4/Tile_3_2" instance=ExtResource("6_3xeta")]
+
+[node name="Tile_3_3" parent="GridUI/Control/PanelContainer/MarginContainer/Grid/Row4" instance=ExtResource("4_vu6mj")]
+layout_mode = 2
+
+[node name="Empty" parent="GridUI/Control/PanelContainer/MarginContainer/Grid/Row4/Tile_3_3" instance=ExtResource("5_g1ue5")]
+
+[node name="Tile_3_4" parent="GridUI/Control/PanelContainer/MarginContainer/Grid/Row4" instance=ExtResource("4_vu6mj")]
+layout_mode = 2
+Type = 3
+
+[node name="Router" parent="GridUI/Control/PanelContainer/MarginContainer/Grid/Row4/Tile_3_4" instance=ExtResource("10_isrw1")]
+Direction = 2

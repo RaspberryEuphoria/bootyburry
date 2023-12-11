@@ -26,10 +26,11 @@ botDelay = 0.0
 [node name="LevelUI" parent="." instance=ExtResource("4_hfr1c")]
 
 [node name="Grid" type="VBoxContainer" parent="."]
-offset_left = 774.0
-offset_top = 390.0
-offset_right = 1230.0
-offset_bottom = 846.0
+unique_name_in_owner = true
+offset_left = 542.0
+offset_top = 69.0
+offset_right = 1522.0
+offset_bottom = 1049.0
 theme = ExtResource("5_8ec0t")
 
 [node name="Row1" type="HBoxContainer" parent="Grid"]
@@ -136,20 +137,20 @@ theme = ExtResource("6_mbq1b")
 
 [node name="Tile_3_0" parent="Grid/Row4" instance=ExtResource("3_busqj")]
 layout_mode = 2
-Type = 2
+Type = 0
 
-[node name="Firewall" parent="Grid/Row4/Tile_3_0" instance=ExtResource("6_jkwmb")]
+[node name="Core" parent="Grid/Row4/Tile_3_0" instance=ExtResource("4_ok1ew")]
 
 [node name="Tile_3_1" parent="Grid/Row4" instance=ExtResource("3_busqj")]
 layout_mode = 2
-Type = 2
 
-[node name="Firewall" parent="Grid/Row4/Tile_3_1" instance=ExtResource("6_jkwmb")]
+[node name="Empty" parent="Grid/Row4/Tile_3_1" instance=ExtResource("5_p5dah")]
 
 [node name="Tile_3_2" parent="Grid/Row4" instance=ExtResource("3_busqj")]
 layout_mode = 2
+Type = 0
 
-[node name="Empty" parent="Grid/Row4/Tile_3_2" instance=ExtResource("5_p5dah")]
+[node name="Core" parent="Grid/Row4/Tile_3_2" instance=ExtResource("4_ok1ew")]
 
 [node name="Tile_3_3" parent="Grid/Row4" instance=ExtResource("3_busqj")]
 layout_mode = 2
@@ -162,34 +163,3 @@ layout_mode = 2
 Type = 0
 
 [node name="Core" parent="Grid/Row4/Tile_3_4" instance=ExtResource("4_ok1ew")]
-
-[node name="Row5" type="HBoxContainer" parent="Grid"]
-layout_mode = 2
-theme = ExtResource("6_mbq1b")
-
-[node name="Tile_4_0" parent="Grid/Row5" instance=ExtResource("3_busqj")]
-layout_mode = 2
-Type = 0
-
-[node name="Core" parent="Grid/Row5/Tile_4_0" instance=ExtResource("4_ok1ew")]
-
-[node name="Tile_4_1" parent="Grid/Row5" instance=ExtResource("3_busqj")]
-layout_mode = 2
-
-[node name="Empty" parent="Grid/Row5/Tile_4_1" instance=ExtResource("5_p5dah")]
-
-[node name="Tile_4_2" parent="Grid/Row5" instance=ExtResource("3_busqj")]
-layout_mode = 2
-Type = 0
-
-[node name="Core" parent="Grid/Row5/Tile_4_2" instance=ExtResource("4_ok1ew")]
-
-[node name="Tile_4_3" parent="Grid/Row5" instance=ExtResource("3_busqj")]
-layout_mode = 2
-
-[node name="Empty" parent="Grid/Row5/Tile_4_3" instance=ExtResource("5_p5dah")]
-
-[node name="Tile_4_4" parent="Grid/Row5" instance=ExtResource("3_busqj")]
-layout_mode = 2
-
-[node name="Empty" parent="Grid/Row5/Tile_4_4" instance=ExtResource("5_p5dah")]
