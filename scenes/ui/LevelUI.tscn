@@ -37,13 +37,11 @@ offset_right = 213.0
 offset_bottom = 144.5
 grow_horizontal = 2
 grow_vertical = 2
-size_flags_horizontal = 4
-size_flags_vertical = 0
+size_flags_vertical = 4
 
 [node name="HUD" type="MarginContainer" parent="LevelRoot"]
 layout_mode = 2
-theme_override_constants/margin_top = 80
-theme_override_constants/margin_bottom = 80
+theme_override_constants/margin_bottom = 40
 
 [node name="HBoxContainer" type="HBoxContainer" parent="LevelRoot/HUD"]
 layout_mode = 2
