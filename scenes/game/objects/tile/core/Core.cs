@@ -65,7 +65,6 @@ namespace Game
       }
     }
 
-
     public override void _ExitTree()
     {
       RootTile.TileSelected -= OnTileSelected;

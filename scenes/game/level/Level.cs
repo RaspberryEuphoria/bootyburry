@@ -123,14 +123,14 @@ namespace Game
     {
       grid = GetNode<VBoxContainer>("LevelUI/LevelRoot/GridContainer/%Grid");
 
-      var rows = grid.GetChildren().OfType<BoxContainer>();
+      var rows = grid.GetChildren().OfType<HBoxContainer>();
       RowsCount = rows.Count();
       ColumnsCount = rows.First().GetChildren().OfType<Tile>().Count();
 
       /**
-       * On mobile screens, we want the grid to be in portrait mode instead of paysage.
+       * On desktop screens, we want the grid to be in landscape mode instead of portrait.
        */
-      if (Device.IsMobile() && RowsCount != ColumnsCount && !hasRotated)
+      if (!Device.IsMobile() && RowsCount != ColumnsCount && !hasRotated)
       {
         RotateBoard();
         return;
@@ -152,17 +152,19 @@ namespace Game
 
       cores = tiles.Where(t => t.IsCore()).Select(t => t.Terrain.GetNode<InnerCore>("InnerCore"));
       IsReady = true;
+
       startingTile.Select(null, Direction.Up);
     }
 
     private async void RotateBoard()
     {
-      var rows = grid.GetChildren().OfType<BoxContainer>();
+      var rows = grid.GetChildren().OfType<HBoxContainer>();
       RowsCount = rows.Count();
       ColumnsCount = rows.First().GetChildren().OfType<Tile>().Count();
 
       if (RowsCount == ColumnsCount) return;
 
+      var rowTheme = rows.First().Theme;
       var newTiles = new List<Tile>();
       var startingTileName = startingTile.Name;
 
@@ -185,9 +187,10 @@ namespace Game
       int i = 0;
       for (int x = 0; x < ColumnsCount; x++)
       {
-        var row = new BoxContainer
+        var row = new HBoxContainer
         {
-          Name = $"Row_{x}"
+          Name = $"Row_{x}",
+          Theme = rowTheme,
         };
         grid.AddChild(row);
 
@@ -198,7 +201,7 @@ namespace Game
 
           if (startingTileName == newTile.Name) startingTile = newTile;
 
-          newTile.Name = $"Tile_{x}_{y}_rotated";
+          // newTile.Name = $"Tile_{x}_{y}";
           i++;
         }
       }
