@@ -29,6 +29,14 @@ namespace Game
       arrows = GetNode<Sprite2D>("Arrows");
 
       level.CurrentTileUpdated += OnCurrentTileUpdated;
+    }
+
+    public override void Init()
+    {
+      if (level.HasRotated)
+      {
+        Direction = Level.GetRotatedDirection(Direction);
+      }
 
       SetupRotation();
     }

@@ -52,9 +52,10 @@ namespace Game
     public GameState GameState { get; private set; } = GameState.Playing;
     public IEnumerable<Direction> Moves { get; private set; } = new List<Direction>();
     public int Score = 0;
-
     public int ColumnsCount { get; private set; }
     public int RowsCount { get; private set; }
+    public bool HasRotated { get; private set; } = false;
+
     private VBoxContainer grid;
     private Tile currentTile;
     private Tile previousTile;
@@ -119,7 +120,7 @@ namespace Game
       AddChild(bot);
     }
 
-    private void PrepareBoard(bool hasRotated = false)
+    private void PrepareBoard()
     {
       grid = GetNode<VBoxContainer>("LevelUI/LevelRoot/GridContainer/%Grid");
 
@@ -130,7 +131,7 @@ namespace Game
       /**
        * On desktop screens, we want the grid to be in landscape mode instead of portrait.
        */
-      if (!Device.IsMobile() && RowsCount != ColumnsCount && !hasRotated)
+      if (!Device.IsMobile() && RowsCount != ColumnsCount && !HasRotated)
       {
         RotateBoard();
         return;
@@ -169,11 +170,11 @@ namespace Game
       var startingTileName = startingTile.Name;
 
       // We want to moves tiles from the bottom to the top, and from the right to the left.
-      for (int x = 0; x < ColumnsCount; x++)
+      for (int x = ColumnsCount - 1; x >= 0; x--)
       {
         for (int y = 0; y < RowsCount; y++)
         {
-          var newTile = rows.ElementAt(RowsCount - 1 - y).GetChildren().OfType<Tile>().ElementAt(ColumnsCount - 1 - x);
+          var newTile = rows.ElementAt(y).GetChildren().OfType<Tile>().ElementAt(x);
           newTiles.Add(newTile.Duplicate() as Tile);
         }
       }
@@ -206,7 +207,9 @@ namespace Game
         }
       }
 
-      PrepareBoard(true);
+      HasRotated = true;
+
+      PrepareBoard();
     }
 
     public bool IsInputAllowed()
@@ -421,6 +424,24 @@ namespace Game
       if (direction == Direction.Down) return Direction.Up;
       if (direction == Direction.Left) return Direction.Right;
       if (direction == Direction.Right) return Direction.Left;
+      if (direction == Direction.TopRight) return Direction.BottomLeft;
+      if (direction == Direction.BottomRight) return Direction.TopLeft;
+      if (direction == Direction.TopLeft) return Direction.BottomRight;
+      if (direction == Direction.BottomLeft) return Direction.TopRight;
+
+      return Direction.Up;
+    }
+
+    public static Direction GetRotatedDirection(Direction direction)
+    {
+      if (direction == Direction.Up) return Direction.Left;
+      if (direction == Direction.Down) return Direction.Right;
+      if (direction == Direction.Left) return Direction.Down;
+      if (direction == Direction.Right) return Direction.Up;
+      if (direction == Direction.TopRight) return Direction.BottomRight;
+      if (direction == Direction.BottomRight) return Direction.BottomLeft;
+      if (direction == Direction.TopLeft) return Direction.TopRight;
+      if (direction == Direction.BottomLeft) return Direction.TopLeft;
 
       return Direction.Up;
     }
