@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://dbl0tiuqxnci4"]
+[gd_scene load_steps=12 format=3 uid="uid://dbl0tiuqxnci4"]
 
 [ext_resource type="Texture2D" uid="uid://crq44tibmvmta" path="res://assets/fx/holographic_pattern.png" id="1_ba2eh"]
 [ext_resource type="Script" path="res://scenes/ui/LevelUI.cs" id="1_egn7x"]
@@ -18,13 +18,6 @@ bg_color = Color(0, 0.00392157, 0.0156863, 1)
 corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dl5qn"]
-bg_color = Color(0, 0, 0, 0.75)
-corner_radius_top_left = 250
-corner_radius_top_right = 250
-corner_radius_bottom_right = 250
-corner_radius_bottom_left = 250
-
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_dm376"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_bdt3n"]
@@ -32,45 +25,42 @@ corner_radius_bottom_left = 250
 [node name="LevelUI" type="CanvasLayer"]
 script = ExtResource("1_egn7x")
 
-[node name="Control" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+[node name="LevelRoot" type="VBoxContainer" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -213.0
+offset_top = -144.5
+offset_right = 213.0
+offset_bottom = 144.5
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
 
-[node name="MarginContainer" type="MarginContainer" parent="Control"]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -326.0
-offset_right = 326.0
-offset_bottom = 128.0
-grow_horizontal = 2
+[node name="HUD" type="MarginContainer" parent="LevelRoot"]
+layout_mode = 2
 theme_override_constants/margin_top = 80
 theme_override_constants/margin_bottom = 80
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Control/MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="LevelRoot/HUD"]
 layout_mode = 2
 theme_override_constants/separation = 25
 alignment = 1
 
-[node name="RetryButton" parent="Control/MarginContainer/HBoxContainer" instance=ExtResource("7_82ktx")]
+[node name="RetryButton" parent="LevelRoot/HUD/HBoxContainer" instance=ExtResource("7_82ktx")]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 0
+theme_type_variation = &"OutlineButton"
 theme_override_colors/font_color = Color(0.467, 0.867, 0.467, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 20
 theme_override_font_sizes/font_size = 96
 text = "⟲"
 TextSize = 3
 
-[node name="ScorePanel" type="PanelContainer" parent="Control/MarginContainer/HBoxContainer"]
+[node name="ScorePanel" type="PanelContainer" parent="LevelRoot/HUD/HBoxContainer"]
 unique_name_in_owner = true
 clip_children = 2
 layout_mode = 2
@@ -78,18 +68,18 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 theme = SubResource("Theme_np0ys")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Control/MarginContainer/HBoxContainer/ScorePanel"]
+[node name="HBoxContainer" type="HBoxContainer" parent="LevelRoot/HUD/HBoxContainer/ScorePanel"]
 layout_mode = 2
 size_flags_vertical = 4
 
-[node name="MarginContainer" type="MarginContainer" parent="Control/MarginContainer/HBoxContainer/ScorePanel/HBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="LevelRoot/HUD/HBoxContainer/ScorePanel/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_right = 20
 
-[node name="CurrentMovesLabel" parent="Control/MarginContainer/HBoxContainer/ScorePanel/HBoxContainer/MarginContainer" instance=ExtResource("4_lml61")]
+[node name="CurrentMovesLabel" parent="LevelRoot/HUD/HBoxContainer/ScorePanel/HBoxContainer/MarginContainer" instance=ExtResource("4_lml61")]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_color = Color(0.002, 0.021, 0.073, 1)
@@ -98,22 +88,22 @@ text = "X"
 TextSize = 2
 ColorType = 5
 
-[node name="PanelContainer" type="PanelContainer" parent="Control/MarginContainer/HBoxContainer/ScorePanel/HBoxContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="LevelRoot/HUD/HBoxContainer/ScorePanel/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_07h6j")
 
-[node name="MarginContainer" type="MarginContainer" parent="Control/MarginContainer/HBoxContainer/ScorePanel/HBoxContainer/PanelContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="LevelRoot/HUD/HBoxContainer/ScorePanel/HBoxContainer/PanelContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 25
 theme_override_constants/margin_right = 25
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Control/MarginContainer/HBoxContainer/ScorePanel/HBoxContainer/PanelContainer/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="LevelRoot/HUD/HBoxContainer/ScorePanel/HBoxContainer/PanelContainer/MarginContainer"]
 layout_mode = 2
 theme_override_constants/separation = -10
 alignment = 1
 
-[node name="OptimalMovesLabel" parent="Control/MarginContainer/HBoxContainer/ScorePanel/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer" instance=ExtResource("4_lml61")]
+[node name="OptimalMovesLabel" parent="LevelRoot/HUD/HBoxContainer/ScorePanel/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer" instance=ExtResource("4_lml61")]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 1
@@ -121,7 +111,7 @@ size_flags_vertical = 1
 theme_override_colors/font_color = Color(0.467, 0.867, 0.467, 1)
 text = "X"
 
-[node name="MaxLabel" parent="Control/MarginContainer/HBoxContainer/ScorePanel/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer" instance=ExtResource("4_lml61")]
+[node name="MaxLabel" parent="LevelRoot/HUD/HBoxContainer/ScorePanel/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer" instance=ExtResource("4_lml61")]
 layout_mode = 2
 size_flags_horizontal = 1
 size_flags_vertical = 1
@@ -131,34 +121,32 @@ text = "max."
 TextSize = 0
 ColorType = 4
 
-[node name="BackToMenuButton" parent="Control/MarginContainer/HBoxContainer" instance=ExtResource("7_82ktx")]
+[node name="BackToMenuButton" parent="LevelRoot/HUD/HBoxContainer" instance=ExtResource("7_82ktx")]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 4
+theme_type_variation = &"OutlineButton"
 theme_override_colors/font_color = Color(0.467, 0.867, 0.467, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 20
 theme_override_font_sizes/font_size = 96
-theme_override_styles/normal = SubResource("StyleBoxFlat_dl5qn")
 text = "☰"
 TextSize = 3
 
-[node name="ZoomPanel" type="PanelContainer" parent="Control/MarginContainer"]
+[node name="ZoomPanel" type="PanelContainer" parent="LevelRoot/HUD"]
 visible = false
 material = SubResource("ShaderMaterial_dm376")
 custom_minimum_size = Vector2(250, 50)
 layout_mode = 2
 theme_override_styles/panel = ExtResource("2_e242j")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Control/MarginContainer/ZoomPanel"]
+[node name="HBoxContainer" type="HBoxContainer" parent="LevelRoot/HUD/ZoomPanel"]
 material = SubResource("ShaderMaterial_bdt3n")
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 alignment = 1
 
-[node name="DecreaseZoomButton" parent="Control/MarginContainer/ZoomPanel/HBoxContainer" instance=ExtResource("7_82ktx")]
+[node name="DecreaseZoomButton" parent="LevelRoot/HUD/ZoomPanel/HBoxContainer" instance=ExtResource("7_82ktx")]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_color = Color(0.467, 0.867, 0.467, 1)
@@ -167,14 +155,14 @@ text = "-
 "
 TextSize = 0
 
-[node name="CurrentZoomLabel" parent="Control/MarginContainer/ZoomPanel/HBoxContainer" instance=ExtResource("4_lml61")]
+[node name="CurrentZoomLabel" parent="LevelRoot/HUD/ZoomPanel/HBoxContainer" instance=ExtResource("4_lml61")]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_color = Color(0.635, 0.282, 0.467, 1)
 text = "100%"
 ColorType = 1
 
-[node name="IncreaseZoomButton" parent="Control/MarginContainer/ZoomPanel/HBoxContainer" instance=ExtResource("7_82ktx")]
+[node name="IncreaseZoomButton" parent="LevelRoot/HUD/ZoomPanel/HBoxContainer" instance=ExtResource("7_82ktx")]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_color = Color(0.467, 0.867, 0.467, 1)
@@ -182,7 +170,7 @@ theme_override_font_sizes/font_size = 28
 text = "+"
 TextSize = 0
 
-[node name="Holo" type="TextureRect" parent="Control/MarginContainer/ZoomPanel"]
+[node name="Holo" type="TextureRect" parent="LevelRoot/HUD/ZoomPanel"]
 modulate = Color(0, 0, 0, 0.3)
 texture_repeat = 2
 layout_mode = 2

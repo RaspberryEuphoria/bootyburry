@@ -33,6 +33,11 @@ namespace Game
       SetupRotation();
     }
 
+    public override void _ExitTree()
+    {
+      level.CurrentTileUpdated -= OnCurrentTileUpdated;
+    }
+
     public override Tile GetNextSelectableTileInDirection(Direction direction)
     {
       return RootTile.GetNextSelectableTileInDirection(Direction);

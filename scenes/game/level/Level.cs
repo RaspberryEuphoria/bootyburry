@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Godot;
-using InputHandler;
+using Helpers;
 using UI;
 
 namespace Game
@@ -55,7 +55,7 @@ namespace Game
 
     public int ColumnsCount { get; private set; }
     public int RowsCount { get; private set; }
-    private BoxContainer grid;
+    private VBoxContainer grid;
     private Tile currentTile;
     private Tile previousTile;
     private IEnumerable<Tile> tiles = new List<Tile>();
@@ -81,16 +81,11 @@ namespace Game
       var touchScreenHandler = ResourceLoader.Load<PackedScene>("res://scenes/input/TouchScreenHandler.tscn").Instantiate();
       AddChild(touchScreenHandler);
 
-      var dynamicCamera = ResourceLoader.Load<PackedScene>("res://scenes/ui/DynamicCamera/DynamicCamera.tscn").Instantiate();
-      AddChild(dynamicCamera);
-
       var worldEnvironment = ResourceLoader.Load<PackedScene>("res://scenes/game/level/WorldEnvironment.tscn").Instantiate();
       AddChild(worldEnvironment);
 
       PrepareBoard();
       EmitSignal(SignalName.GameStart);
-
-      startingTile.Select(null, Direction.Up);
     }
 
     public override void _Process(double delta)
@@ -124,24 +119,22 @@ namespace Game
       AddChild(bot);
     }
 
-    public void PrepareBoard()
+    private void PrepareBoard(bool hasRotated = false)
     {
-      grid = GetNode<BoxContainer>("%Grid");
-
-      /**
-       * On mobile screens, we want the grid to be in portrait mode instead of paysage.
-       */
-      if (Mathf.IsEqualApprox(grid.RotationDegrees, 90f, 1f))
-      {
-        actionToDirection["move_up"] = Direction.Left;
-        actionToDirection["move_left"] = Direction.Down;
-        actionToDirection["move_down"] = Direction.Right;
-        actionToDirection["move_right"] = Direction.Up;
-      }
+      grid = GetNode<VBoxContainer>("LevelUI/LevelRoot/GridContainer/%Grid");
 
       var rows = grid.GetChildren().OfType<BoxContainer>();
       RowsCount = rows.Count();
       ColumnsCount = rows.First().GetChildren().OfType<Tile>().Count();
+
+      /**
+       * On mobile screens, we want the grid to be in portrait mode instead of paysage.
+       */
+      if (Device.IsMobile() && RowsCount != ColumnsCount && !hasRotated)
+      {
+        RotateBoard();
+        return;
+      }
 
       for (int y = 0; y < RowsCount; y++)
       {
@@ -159,6 +152,58 @@ namespace Game
 
       cores = tiles.Where(t => t.IsCore()).Select(t => t.Terrain.GetNode<InnerCore>("InnerCore"));
       IsReady = true;
+      startingTile.Select(null, Direction.Up);
+    }
+
+    private async void RotateBoard()
+    {
+      var rows = grid.GetChildren().OfType<BoxContainer>();
+      RowsCount = rows.Count();
+      ColumnsCount = rows.First().GetChildren().OfType<Tile>().Count();
+
+      if (RowsCount == ColumnsCount) return;
+
+      var newTiles = new List<Tile>();
+      var startingTileName = startingTile.Name;
+
+      // We want to moves tiles from the bottom to the top, and from the right to the left.
+      for (int x = 0; x < ColumnsCount; x++)
+      {
+        for (int y = 0; y < RowsCount; y++)
+        {
+          var newTile = rows.ElementAt(RowsCount - 1 - y).GetChildren().OfType<Tile>().ElementAt(ColumnsCount - 1 - x);
+          newTiles.Add(newTile.Duplicate() as Tile);
+        }
+      }
+
+      foreach (var child in grid.GetChildren())
+      {
+        child.QueueFree();
+        await ToSignal(child, SignalName.TreeExited);
+      }
+
+      int i = 0;
+      for (int x = 0; x < ColumnsCount; x++)
+      {
+        var row = new BoxContainer
+        {
+          Name = $"Row_{x}"
+        };
+        grid.AddChild(row);
+
+        for (int y = 0; y < RowsCount; y++)
+        {
+          var newTile = newTiles.ElementAt(i);
+          row.AddChild(newTile);
+
+          if (startingTileName == newTile.Name) startingTile = newTile;
+
+          newTile.Name = $"Tile_{x}_{y}_rotated";
+          i++;
+        }
+      }
+
+      PrepareBoard(true);
     }
 
     public bool IsInputAllowed()

@@ -45,11 +45,11 @@ namespace Menu
     {
       userSettings?.SetUIScale(scale);
 
-      smallButton.SetColorType(KamiColors.ColorType.Disabled);
-      mediumButton.SetColorType(KamiColors.ColorType.Disabled);
-      largeButton.SetColorType(KamiColors.ColorType.Disabled);
+      smallButton.SetColorType(KamiColors.ColorType.Primary);
+      mediumButton.SetColorType(KamiColors.ColorType.Primary);
+      largeButton.SetColorType(KamiColors.ColorType.Primary);
 
-      button.SetColorType(KamiColors.ColorType.Primary);
+      button.SetColorType(KamiColors.ColorType.Light);
     }
   }
 }

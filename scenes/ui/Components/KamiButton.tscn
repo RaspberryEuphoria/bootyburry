@@ -1,31 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://b7e7xmwfmavsq"]
+[gd_scene load_steps=3 format=3 uid="uid://b7e7xmwfmavsq"]
 
-[ext_resource type="FontFile" uid="uid://dwweiefoa15ly" path="res://assets/ui/fonts/Cascadia.ttf" id="1_55c7a"]
+[ext_resource type="Theme" uid="uid://dca1unmi3vy5x" path="res://assets/ui/themes/button.tres" id="1_dbmop"]
 [ext_resource type="Script" path="res://scenes/ui/Components/KamiButton.cs" id="2_0oerw"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jvogy"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4oqui"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8gxvy"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_756ox"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_etk86"]
 
 [node name="KamiButton" type="Button"]
 custom_minimum_size = Vector2(45, 45)
-theme_override_colors/font_color = Color(0.565, 0.984, 0.424, 1)
-theme_override_colors/font_pressed_color = Color(0.564706, 0.984314, 0.423529, 1)
-theme_override_colors/font_hover_color = Color(0.564706, 0.984314, 0.423529, 1)
-theme_override_colors/font_focus_color = Color(0.564706, 0.984314, 0.423529, 1)
-theme_override_constants/outline_size = 0
-theme_override_fonts/font = ExtResource("1_55c7a")
-theme_override_font_sizes/font_size = 48
-theme_override_styles/normal = SubResource("StyleBoxEmpty_jvogy")
-theme_override_styles/hover = SubResource("StyleBoxEmpty_4oqui")
-theme_override_styles/pressed = SubResource("StyleBoxEmpty_8gxvy")
-theme_override_styles/disabled = SubResource("StyleBoxEmpty_756ox")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_etk86")
+theme = ExtResource("1_dbmop")
 flat = true
 script = ExtResource("2_0oerw")

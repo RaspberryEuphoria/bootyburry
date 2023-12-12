@@ -57,6 +57,11 @@ namespace Game
       if (useAlternativeVisual) SetupAlternativeVisual();
     }
 
+    public override void _ExitTree()
+    {
+      level.CurrentTileUpdated -= OnCurrentTileUpdated;
+    }
+
     public override Tile GetNextSelectableTileInDirection(Direction direction)
     {
       return ExitTile.GetNextSelectableTileInDirection(direction);

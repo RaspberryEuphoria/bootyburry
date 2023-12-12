@@ -62,6 +62,17 @@ namespace Game
       }
     }
 
+
+    public override void _ExitTree()
+    {
+      RootTile.TileSelected -= OnTileSelected;
+
+      for (int i = 0; i < selectors.Length; i++)
+      {
+        RootTile.TileSelected -= selectors[i].OnTileSelected;
+        RootTile.TileUnselected -= selectors[i].OnTileUnselected;
+      }
+    }
     private void SetupGlitch()
     {
       var topCoreTile = GetNextCoreTileInDirection(Direction.Up);

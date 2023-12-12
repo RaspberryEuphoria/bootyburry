@@ -8,6 +8,7 @@ namespace Game
     [Export]
     private Direction direction;
 
+    private Level level;
     private Tile rootTile;
     private AnimationPlayer animationPlayer;
     private StringName idleAnimation = "idle";
@@ -18,7 +19,7 @@ namespace Game
 
       animationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
 
-      var level = GetTree().Root.GetNode<Level>("Level");
+      level = GetTree().Root.GetNode<Level>("Level");
       level.GameWon += OnGameWon;
 
       rootTile = GetParent<Core>().GetParent<Tile>();
@@ -26,6 +27,13 @@ namespace Game
       rootTile.TileUnselected += OnTileUnselected;
 
       animationPlayer.AnimationFinished += OnAnimationFinished;
+    }
+
+    public override void _ExitTree()
+    {
+      level.GameWon -= OnGameWon;
+      rootTile.TileSelected -= OnTileSelected;
+      rootTile.TileUnselected -= OnTileUnselected;
     }
 
     public void OnTileSelected(Tile _tile, Tile _previousTile, Direction _direction)

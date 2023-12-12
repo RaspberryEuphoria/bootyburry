@@ -64,6 +64,8 @@ namespace Game
       Row = row;
       Column = column;
 
+      GD.Print($"Initializing tile {Name} at {Column}, {Row} with id {Id}.");
+
       GenerateTerrain();
     }
 
@@ -72,16 +74,17 @@ namespace Game
       if (!IsInsideTree()) return;
 
       /**
-        * DON'T GENERATE A TERRAIN WHEN VIEWING THE TILE DIRECTLY IN THE EDITOR!
+        * DON'T GENERATE A TERRAIN WHEN RUNNING THE TILE DIRECTLY (ie. with F6) IN THE EDITOR!
         * This will cause issues when working on a level, since the tiles will have
         * a hidden terrain that doesn't appear in the tree.
         */
-      if (GetOwner<Node>() == null) return;
+      if (GetOwner<Node>() == null && Engine.IsEditorHint()) return;
 
       var childCount = GetChildCount();
       if (childCount == 1)
       {
-        // We cant do GetChild<TileTerrain>(0) because Godot doesn't expect an abstract class at this point
+        // We cant do GetChild<TileTerrain>(0) because Godot doesn't expect an abstract class at this point,
+        // which will throw an error
         var child = GetChild(0);
         var isChildRightType = type switch
         {
@@ -134,8 +137,6 @@ namespace Game
     public Tile GetAdjacentTile(Direction direction)
     {
       if (IsOnBorder(direction)) return null;
-
-      // @todo: maybe this is where we should put the Terrain switch instead of specific methods?
 
       var tiles = level.GetTiles();
 
@@ -209,7 +210,7 @@ namespace Game
 
     public bool IsOnBorder(Direction direction)
     {
-      var rowsCount = level.ColumnsCount;
+      var rowsCount = level.RowsCount;
       var columnsCount = level.ColumnsCount;
       var isOnBorder = false;
 

@@ -1,6 +1,6 @@
 [gd_resource type="Theme" load_steps=7 format=3 uid="uid://dca1unmi3vy5x"]
 
-[ext_resource type="FontFile" uid="uid://dojg21qmjvllw" path="res://assets/ui/fonts/PiratesBay.ttf" id="1_m0xb2"]
+[ext_resource type="FontFile" uid="uid://dwweiefoa15ly" path="res://assets/ui/fonts/Cascadia.ttf" id="2_f63wd"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_oxblc"]
 
@@ -8,20 +8,32 @@
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_al2ja"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ftjy8"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6txf2"]
+bg_color = Color(0, 0, 0, 0.407843)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_j0l3c"]
 
 [resource]
-Button/colors/icon_focus_color = Color(0, 0.584314, 0.886275, 1)
-Button/colors/icon_hover_color = Color(0, 0.584314, 0.886275, 1)
-Button/colors/icon_hover_pressed_color = Color(0, 0.584314, 0.886275, 1)
+Button/colors/font_color = Color(0.466667, 0.866667, 0.466667, 1)
+Button/colors/font_focus_color = Color(0.466667, 0.866667, 0.466667, 1)
+Button/colors/font_hover_color = Color(0.466667, 0.866667, 0.466667, 1)
+Button/colors/font_outline_color = Color(0.307149, 0.599901, 0.307954, 1)
+Button/colors/icon_focus_color = Color(0.466667, 0.866667, 0.466667, 1)
+Button/colors/icon_hover_color = Color(0.466667, 0.866667, 0.466667, 1)
+Button/colors/icon_hover_pressed_color = Color(0.466667, 0.866667, 0.466667, 1)
 Button/colors/icon_normal_color = Color(0.266667, 0.282353, 1, 0)
-Button/colors/icon_pressed_color = Color(0, 0.584314, 0.886275, 1)
+Button/colors/icon_pressed_color = Color(0.466667, 0.866667, 0.466667, 1)
+Button/constants/outline_size = 0
 Button/font_sizes/font_size = 48
-Button/fonts/font = ExtResource("1_m0xb2")
+Button/fonts/font = ExtResource("2_f63wd")
 Button/styles/disabled = SubResource("StyleBoxEmpty_oxblc")
 Button/styles/focus = SubResource("StyleBoxEmpty_13sui")
 Button/styles/hover = SubResource("StyleBoxEmpty_al2ja")
-Button/styles/normal = SubResource("StyleBoxEmpty_ftjy8")
+Button/styles/normal = SubResource("StyleBoxFlat_6txf2")
 Button/styles/pressed = SubResource("StyleBoxEmpty_j0l3c")
+OutlineButton/base_type = &"Button"
+OutlineButton/constants/outline_size = 20

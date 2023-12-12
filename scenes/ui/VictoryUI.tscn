@@ -1,17 +1,12 @@
-[gd_scene load_steps=13 format=3 uid="uid://dyly8uhhlu2ry"]
+[gd_scene load_steps=9 format=3 uid="uid://dyly8uhhlu2ry"]
 
 [ext_resource type="Script" path="res://scenes/ui/VictoryUI.cs" id="1_bqx3b"]
 [ext_resource type="Texture2D" uid="uid://brwtli7c5nbgq" path="res://assets/ui/ending_body.png" id="1_f6s72"]
 [ext_resource type="Texture2D" uid="uid://dhgwjs2eyr25r" path="res://assets/ui/ending_body_sides.png" id="1_shgsj"]
-[ext_resource type="Texture2D" uid="uid://cppypgehh61m0" path="res://assets/ui/victory_background.png" id="3_ext1k"]
 [ext_resource type="Theme" uid="uid://dnwf1mhxm5lfe" path="res://assets/ui/themes/label.tres" id="4_5und7"]
 [ext_resource type="Texture2D" uid="uid://dolra0c8q18bd" path="res://assets/ui/victory_effects.png" id="5_q1opr"]
 [ext_resource type="Theme" uid="uid://dca1unmi3vy5x" path="res://assets/ui/themes/button.tres" id="6_6yxqk"]
-[ext_resource type="Texture2D" uid="uid://bte4uaeny4b6g" path="res://assets/ui/cta_background.png" id="6_vvrdk"]
-[ext_resource type="Texture2D" uid="uid://bsal116m1jy8y" path="res://assets/ui/cta_background_sm.png" id="8_v3ajf"]
 [ext_resource type="Script" path="res://scenes/ui/ActionButton.cs" id="9_eitwp"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_pmg6s"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_p3fub"]
 
@@ -71,39 +66,8 @@ layout_mode = 2
 size_flags_vertical = 4
 theme_override_constants/separation = 20
 
-[node name="Header" type="VBoxContainer" parent="Control/VBoxContainer/HBoxContainer/Body/MarginContainer/VBoxContainer"]
+[node name="VictoryLabel" type="Label" parent="Control/VBoxContainer/HBoxContainer/Body/MarginContainer/VBoxContainer"]
 layout_mode = 2
-size_flags_vertical = 3
-
-[node name="Victory" type="TextureRect" parent="Control/VBoxContainer/HBoxContainer/Body/MarginContainer/VBoxContainer/Header"]
-material = SubResource("ShaderMaterial_pmg6s")
-layout_mode = 2
-texture = ExtResource("3_ext1k")
-stretch_mode = 3
-
-[node name="Effects" type="TextureRect" parent="Control/VBoxContainer/HBoxContainer/Body/MarginContainer/VBoxContainer/Header/Victory"]
-material = SubResource("ShaderMaterial_p3fub")
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -140.5
-offset_top = -35.0
-offset_right = 140.5
-offset_bottom = 74.0
-grow_horizontal = 2
-texture = ExtResource("5_q1opr")
-
-[node name="Label" type="Label" parent="Control/VBoxContainer/HBoxContainer/Body/MarginContainer/VBoxContainer/Header/Victory"]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -256.0
-offset_top = -10.0
-offset_right = 256.0
-offset_bottom = 58.0
-grow_horizontal = 2
 theme = ExtResource("4_5und7")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0.0196078, 0.572549, 0.870588, 1)
@@ -111,6 +75,21 @@ theme_override_constants/outline_size = 10
 theme_override_font_sizes/font_size = 48
 text = "Victory!"
 horizontal_alignment = 1
+
+[node name="Effects" type="TextureRect" parent="Control/VBoxContainer/HBoxContainer/Body/MarginContainer/VBoxContainer/VictoryLabel"]
+material = SubResource("ShaderMaterial_p3fub")
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -140.5
+offset_top = -109.0
+offset_right = 140.5
+grow_horizontal = 2
+grow_vertical = 0
+texture = ExtResource("5_q1opr")
 
 [node name="CompletedLabel" type="RichTextLabel" parent="Control/VBoxContainer/HBoxContainer/Body/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
@@ -157,7 +136,7 @@ alignment = 1
 layout_mode = 2
 theme = ExtResource("6_6yxqk")
 text = "reload"
-icon = ExtResource("8_v3ajf")
+flat = true
 icon_alignment = 1
 script = ExtResource("9_eitwp")
 
@@ -166,7 +145,7 @@ layout_mode = 2
 theme = ExtResource("6_6yxqk")
 text = "next task
 "
-icon = ExtResource("6_vvrdk")
+flat = true
 icon_alignment = 1
 script = ExtResource("9_eitwp")
 autoFocus = true
