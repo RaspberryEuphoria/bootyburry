@@ -67,6 +67,7 @@ namespace Game
       GD.Print($"Initializing tile {Name} at {Column}, {Row} with id {Id}.");
 
       GenerateTerrain();
+      Terrain.Init();
     }
 
     private void GenerateTerrain()

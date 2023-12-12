@@ -46,7 +46,10 @@ namespace Game
         RootTile.TileSelected += selectors[i].OnTileSelected;
         RootTile.TileUnselected += selectors[i].OnTileUnselected;
       }
+    }
 
+    public override void Init()
+    {
       if (isCoreEnabledOnStart)
       {
         innerCore.Toggle();
@@ -73,6 +76,7 @@ namespace Game
         RootTile.TileUnselected -= selectors[i].OnTileUnselected;
       }
     }
+
     private void SetupGlitch()
     {
       var topCoreTile = GetNextCoreTileInDirection(Direction.Up);

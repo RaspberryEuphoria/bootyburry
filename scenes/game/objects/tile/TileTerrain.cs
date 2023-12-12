@@ -27,6 +27,11 @@ namespace Game
 
     }
 
+    public virtual void Init()
+    {
+
+    }
+
     public abstract bool IsBlockedFromDirection(Direction direction);
     public abstract bool IsSelectableFromDirection(Direction direction);
     public abstract bool CanUndockInDirection(Direction direction);
