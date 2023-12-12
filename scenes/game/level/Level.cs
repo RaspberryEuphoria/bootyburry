@@ -144,10 +144,10 @@ namespace Game
           var index = y * ColumnsCount + x;
           var tile = rows.ElementAt(y).GetChildren().OfType<Tile>().ElementAt(x);
 
+          tiles = tiles.Append(tile);
+
           tile.TileSelected += OnTileSelected;
           tile.Init(x, y, index);
-
-          tiles = tiles.Append(tile);
         }
       }
 
