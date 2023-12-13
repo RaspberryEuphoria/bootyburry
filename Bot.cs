@@ -67,12 +67,7 @@ namespace Game
 
       timer.Start(delay);
 
-      var press = new InputEventAction
-      {
-        Action = randomAction,
-        Pressed = true
-      };
-      Input.ParseInputEvent(press);
+      level.TriggerInputInDirection(level.ActionToDirection[randomAction]);
 
       Text = "Last action: " + lastAction;
       Text += "\nCurrent action: " + randomAction;
@@ -80,12 +75,6 @@ namespace Game
 
       thinking += ".";
       if (thinking == "......") thinking = ".";
-      var release = new InputEventAction
-      {
-        Action = randomAction,
-        Pressed = false
-      };
-      Input.ParseInputEvent(release);
 
       lastAction = randomAction;
 

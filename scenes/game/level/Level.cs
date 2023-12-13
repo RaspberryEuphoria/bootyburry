@@ -40,7 +40,7 @@ namespace Game
     [Export]
     public float botDelay = 0.5f;
 
-    private Dictionary<string, Direction> actionToDirection = new()
+    public readonly Dictionary<string, Direction> ActionToDirection = new()
     {
         { "move_up", Direction.Up },
         { "move_left", Direction.Left },
@@ -221,7 +221,7 @@ namespace Game
     {
       if (!currentTile.IsPlayerControlled()) return;
 
-      foreach (var itr in actionToDirection)
+      foreach (var itr in ActionToDirection)
       {
         if (Input.IsActionJustPressed(itr.Key)) NavigateInDirection(itr.Value);
       }
@@ -243,7 +243,7 @@ namespace Game
     public List<string> GetAvailableActions()
     {
       var availableActions = new List<string>();
-      foreach (var itr in actionToDirection)
+      foreach (var itr in ActionToDirection)
       {
         var nextTile = currentTile.GetNextSelectableTileInDirection(itr.Value);
         if (nextTile == null) continue;
