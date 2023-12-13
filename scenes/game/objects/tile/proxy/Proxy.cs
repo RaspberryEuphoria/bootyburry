@@ -70,8 +70,6 @@ namespace Game
       var exitTile = proxyTiles.Where(tile => tile.Name != RootTile.Name && (tile.Terrain as Proxy).ProxyId == ProxyId).FirstOrDefault();
       if (exitTile == null) return;
 
-      GD.Print(exitTile.Name);
-
       ExitTile = exitTile;
 
       if ((ExitTile.Terrain as Proxy).ExitTile == null) ExitTile.Terrain.Init();

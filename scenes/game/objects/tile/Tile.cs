@@ -60,11 +60,10 @@ namespace Game
 
     public void Init(int column, int row, int id)
     {
+      Name = $"Tile_{row}_{column}_[{id}]";
       Id = id;
       Row = row;
       Column = column;
-
-      GD.Print($"Initializing tile {Name} at {Column}, {Row} with id {Id}.");
 
       GenerateTerrain();
       Terrain.Init();

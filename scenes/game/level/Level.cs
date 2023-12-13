@@ -174,8 +174,11 @@ namespace Game
       {
         for (int y = 0; y < RowsCount; y++)
         {
-          var newTile = rows.ElementAt(y).GetChildren().OfType<Tile>().ElementAt(x);
-          newTiles.Add(newTile.Duplicate() as Tile);
+          var originalTile = rows.ElementAt(y).GetChildren().OfType<Tile>().ElementAt(x);
+          var newTile = originalTile.Duplicate() as Tile;
+          newTiles.Add(newTile);
+
+          if (startingTileName == originalTile.Name) startingTile = newTile;
         }
       }
 
@@ -199,10 +202,6 @@ namespace Game
         {
           var newTile = newTiles.ElementAt(i);
           row.AddChild(newTile);
-
-          if (startingTileName == newTile.Name) startingTile = newTile;
-
-          // newTile.Name = $"Tile_{x}_{y}";
           i++;
         }
       }
