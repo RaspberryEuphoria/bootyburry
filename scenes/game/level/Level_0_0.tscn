@@ -27,7 +27,6 @@ offset_left = -378.0
 offset_top = -460.5
 offset_right = 378.0
 offset_bottom = 460.5
-size_flags_vertical = 4
 
 [node name="GridContainer" parent="LevelUI/LevelRoot" index="1" instance=ExtResource("5_2ab66")]
 layout_mode = 2

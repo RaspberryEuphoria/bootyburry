@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://67x0aame80lq" path="res://scenes/game/objects/tile/Tile.tscn" id="4_xli8y"]
 [ext_resource type="Theme" uid="uid://xpcajdi0p6eq" path="res://assets/game/objects/tile/row_theme.tres" id="5_8qxbx"]
 [ext_resource type="PackedScene" uid="uid://e2gu8wi641jf" path="res://scenes/game/objects/tile/empty/Empty.tscn" id="5_cfm5b"]
-[ext_resource type="Theme" uid="uid://dosxghxldvbg1" path="res://assets/game/objects/tile/grid_theme.tres" id="5_ptcik"]
+[ext_resource type="PackedScene" uid="uid://bucaotbosry0r" path="res://scenes/game/objects/tile/GridContainer.tscn" id="5_cjrdm"]
 [ext_resource type="PackedScene" uid="uid://ch1bcttqi5hjk" path="res://scenes/game/objects/tile/core/Core.tscn" id="6_o1lp5"]
 [ext_resource type="PackedScene" uid="uid://cl2lm1lsl8j8i" path="res://scenes/game/objects/tile/proxy/Proxy.tscn" id="7_6cnl6"]
 [ext_resource type="PackedScene" uid="uid://6oclnkije4cp" path="res://scenes/game/objects/tile/router/Router.tscn" id="11_dujp2"]
@@ -15,7 +15,7 @@
 [node name="Level" type="Node2D" node_paths=PackedStringArray("startingTile")]
 script = ExtResource("1_3dtnc")
 nextLevel = ExtResource("2_wxv6u")
-startingTile = NodePath("Grid/Row4/Tile_3_1")
+startingTile = NodePath("LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row4/Tile_3_1")
 OptimalScore = 8
 LevelTitle = "Level 1.3"
 LevelSubtitle = "// Out of Control"
@@ -25,123 +25,120 @@ botDelay = 0.0
 
 [node name="LevelUI" parent="." instance=ExtResource("3_u5kic")]
 
-[node name="Grid" type="VBoxContainer" parent="."]
-offset_left = 864.0
-offset_top = 528.0
-offset_right = 1228.0
-offset_bottom = 892.0
-theme = ExtResource("5_ptcik")
+[node name="GridContainer" parent="LevelUI/LevelRoot" index="1" instance=ExtResource("5_cjrdm")]
+layout_mode = 2
 
-[node name="Row1" type="HBoxContainer" parent="Grid"]
+[node name="Row1" type="HBoxContainer" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid" index="0"]
 layout_mode = 2
 theme = ExtResource("5_8qxbx")
 theme_override_constants/separation = 25
 
-[node name="Tile_1_0" parent="Grid/Row1" instance=ExtResource("4_xli8y")]
+[node name="Tile_1_0" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row1" instance=ExtResource("4_xli8y")]
 layout_mode = 2
 
-[node name="Empty" parent="Grid/Row1/Tile_1_0" instance=ExtResource("5_cfm5b")]
+[node name="Empty" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row1/Tile_1_0" instance=ExtResource("5_cfm5b")]
 
-[node name="Tile_1_1" parent="Grid/Row1" instance=ExtResource("4_xli8y")]
-layout_mode = 2
-Type = 0
-
-[node name="Core" parent="Grid/Row1/Tile_1_1" instance=ExtResource("6_o1lp5")]
-
-[node name="Tile_1_2" parent="Grid/Row1" instance=ExtResource("4_xli8y")]
-layout_mode = 2
-
-[node name="Empty" parent="Grid/Row1/Tile_1_2" instance=ExtResource("5_cfm5b")]
-
-[node name="Tile_1_3" parent="Grid/Row1" instance=ExtResource("4_xli8y")]
+[node name="Tile_1_1" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row1" instance=ExtResource("4_xli8y")]
 layout_mode = 2
 Type = 0
 
-[node name="Core" parent="Grid/Row1/Tile_1_3" instance=ExtResource("6_o1lp5")]
+[node name="Core" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row1/Tile_1_1" instance=ExtResource("6_o1lp5")]
 
-[node name="Row3" type="HBoxContainer" parent="Grid"]
+[node name="Tile_1_2" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row1" instance=ExtResource("4_xli8y")]
+layout_mode = 2
+
+[node name="Empty" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row1/Tile_1_2" instance=ExtResource("5_cfm5b")]
+
+[node name="Tile_1_3" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row1" instance=ExtResource("4_xli8y")]
+layout_mode = 2
+Type = 0
+
+[node name="Core" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row1/Tile_1_3" instance=ExtResource("6_o1lp5")]
+
+[node name="Row3" type="HBoxContainer" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid" index="1"]
 layout_mode = 2
 theme = ExtResource("5_8qxbx")
 theme_override_constants/separation = 25
 
-[node name="Tile_2_0" parent="Grid/Row3" instance=ExtResource("4_xli8y")]
+[node name="Tile_2_0" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row3" instance=ExtResource("4_xli8y")]
 layout_mode = 2
 Type = 0
 
-[node name="Core" parent="Grid/Row3/Tile_2_0" instance=ExtResource("6_o1lp5")]
+[node name="Core" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row3/Tile_2_0" instance=ExtResource("6_o1lp5")]
 
-[node name="Tile_2_1" parent="Grid/Row3" instance=ExtResource("4_xli8y")]
+[node name="Tile_2_1" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row3" instance=ExtResource("4_xli8y")]
 layout_mode = 2
 Type = 4
 
-[node name="Proxy" parent="Grid/Row3/Tile_2_1" node_paths=PackedStringArray("ExitTile") instance=ExtResource("7_6cnl6")]
-ExitTile = NodePath("../../../Row4/Tile_3_2")
+[node name="Proxy" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row3/Tile_2_1" instance=ExtResource("7_6cnl6")]
 
-[node name="Tile_2_2" parent="Grid/Row3" instance=ExtResource("4_xli8y")]
+[node name="Tile_2_2" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row3" instance=ExtResource("4_xli8y")]
 layout_mode = 2
 
-[node name="Empty" parent="Grid/Row3/Tile_2_2" instance=ExtResource("5_cfm5b")]
+[node name="Empty" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row3/Tile_2_2" instance=ExtResource("5_cfm5b")]
 
-[node name="Tile_2_3" parent="Grid/Row3" instance=ExtResource("4_xli8y")]
+[node name="Tile_2_3" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row3" instance=ExtResource("4_xli8y")]
 layout_mode = 2
 
-[node name="Empty" parent="Grid/Row3/Tile_2_3" instance=ExtResource("5_cfm5b")]
+[node name="Empty" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row3/Tile_2_3" instance=ExtResource("5_cfm5b")]
 
-[node name="Row4" type="HBoxContainer" parent="Grid"]
+[node name="Row4" type="HBoxContainer" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid" index="2"]
 layout_mode = 2
 theme = ExtResource("5_8qxbx")
 theme_override_constants/separation = 25
 
-[node name="Tile_3_0" parent="Grid/Row4" instance=ExtResource("4_xli8y")]
+[node name="Tile_3_0" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row4" instance=ExtResource("4_xli8y")]
 layout_mode = 2
 Type = 3
 
-[node name="Router" parent="Grid/Row4/Tile_3_0" instance=ExtResource("11_dujp2")]
+[node name="Router" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row4/Tile_3_0" instance=ExtResource("11_dujp2")]
 Direction = 1
 
-[node name="Tile_3_1" parent="Grid/Row4" instance=ExtResource("4_xli8y")]
+[node name="Tile_3_1" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row4" instance=ExtResource("4_xli8y")]
 layout_mode = 2
 Type = 0
 
-[node name="Core" parent="Grid/Row4/Tile_3_1" instance=ExtResource("6_o1lp5")]
+[node name="Core" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row4/Tile_3_1" instance=ExtResource("6_o1lp5")]
 
-[node name="Tile_3_2" parent="Grid/Row4" instance=ExtResource("4_xli8y")]
+[node name="Tile_3_2" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row4" instance=ExtResource("4_xli8y")]
 layout_mode = 2
 Type = 4
 
-[node name="Proxy" parent="Grid/Row4/Tile_3_2" node_paths=PackedStringArray("ExitTile") instance=ExtResource("7_6cnl6")]
-ExitTile = NodePath("../../../Row3/Tile_2_1")
+[node name="Proxy" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row4/Tile_3_2" instance=ExtResource("7_6cnl6")]
 
-[node name="Tile_3_3" parent="Grid/Row4" instance=ExtResource("4_xli8y")]
+[node name="Tile_3_3" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row4" instance=ExtResource("4_xli8y")]
 layout_mode = 2
 Type = 0
 
-[node name="Core" parent="Grid/Row4/Tile_3_3" instance=ExtResource("6_o1lp5")]
+[node name="Core" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row4/Tile_3_3" instance=ExtResource("6_o1lp5")]
 
-[node name="Row5" type="HBoxContainer" parent="Grid"]
+[node name="Row5" type="HBoxContainer" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid" index="3"]
 layout_mode = 2
 theme = ExtResource("5_8qxbx")
 theme_override_constants/separation = 25
 
-[node name="Tile_4_0" parent="Grid/Row5" instance=ExtResource("4_xli8y")]
+[node name="Tile_4_0" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row5" instance=ExtResource("4_xli8y")]
 layout_mode = 2
 Type = 0
 
-[node name="Core" parent="Grid/Row5/Tile_4_0" instance=ExtResource("6_o1lp5")]
+[node name="Core" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row5/Tile_4_0" instance=ExtResource("6_o1lp5")]
 
-[node name="Tile_4_1" parent="Grid/Row5" instance=ExtResource("4_xli8y")]
+[node name="Tile_4_1" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row5" instance=ExtResource("4_xli8y")]
 layout_mode = 2
 
-[node name="Empty" parent="Grid/Row5/Tile_4_1" instance=ExtResource("5_cfm5b")]
+[node name="Empty" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row5/Tile_4_1" instance=ExtResource("5_cfm5b")]
 
-[node name="Tile_4_2" parent="Grid/Row5" instance=ExtResource("4_xli8y")]
+[node name="Tile_4_2" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row5" instance=ExtResource("4_xli8y")]
 layout_mode = 2
 Type = 3
 
-[node name="Router" parent="Grid/Row5/Tile_4_2" instance=ExtResource("11_dujp2")]
+[node name="Router" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row5/Tile_4_2" instance=ExtResource("11_dujp2")]
 
-[node name="Tile_4_3" parent="Grid/Row5" instance=ExtResource("4_xli8y")]
+[node name="Tile_4_3" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row5" instance=ExtResource("4_xli8y")]
 layout_mode = 2
 Type = 0
 
-[node name="Core" parent="Grid/Row5/Tile_4_3" instance=ExtResource("6_o1lp5")]
+[node name="Core" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row5/Tile_4_3" instance=ExtResource("6_o1lp5")]
+
+[editable path="LevelUI"]
+[editable path="LevelUI/LevelRoot/GridContainer"]
