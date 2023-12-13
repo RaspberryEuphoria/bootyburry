@@ -65,6 +65,7 @@ theme_override_constants/margin_bottom = 10
 layout_mode = 2
 size_flags_vertical = 4
 theme_override_constants/separation = 20
+alignment = 1
 
 [node name="VictoryLabel" type="Label" parent="Control/VBoxContainer/HBoxContainer/Body/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -73,10 +74,11 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0.0196078, 0.572549, 0.870588, 1)
 theme_override_constants/outline_size = 10
 theme_override_font_sizes/font_size = 48
-text = "Victory!"
+text = "Ready to use!"
 horizontal_alignment = 1
 
 [node name="Effects" type="TextureRect" parent="Control/VBoxContainer/HBoxContainer/Body/MarginContainer/VBoxContainer/VictoryLabel"]
+visible = false
 material = SubResource("ShaderMaterial_p3fub")
 layout_mode = 1
 anchors_preset = 7
@@ -102,7 +104,8 @@ theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 5
 theme_override_font_sizes/normal_font_size = 24
 bbcode_enabled = true
-text = "completed with [color=\"#ffcf4f\"]{{movesCount}}[/color] computations"
+text = "[center]Module successfuly installed
+in [color=\"#ffcf4f\"][{{movesCount}}][/color] cycles[/center]"
 fit_content = true
 scroll_active = false
 autowrap_mode = 0
@@ -143,7 +146,7 @@ script = ExtResource("9_eitwp")
 [node name="NextButton" type="Button" parent="Control/VBoxContainer/HBoxContainer/RightSide/MarginContainer/CTAs"]
 layout_mode = 2
 theme = ExtResource("6_6yxqk")
-text = "next task
+text = "next module
 "
 flat = true
 icon_alignment = 1

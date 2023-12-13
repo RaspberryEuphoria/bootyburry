@@ -1,17 +1,16 @@
-[gd_scene load_steps=7 format=3 uid="uid://cijympkegs2wn"]
+[gd_scene load_steps=6 format=3 uid="uid://cijympkegs2wn"]
 
-[ext_resource type="Texture2D" uid="uid://crq44tibmvmta" path="res://assets/fx/holographic_pattern.png" id="2_xq13t"]
-[ext_resource type="Theme" uid="uid://cgruyese0ddm7" path="res://assets/ui/themes/label.tres" id="4_fnmcy"]
+[ext_resource type="Theme" uid="uid://dnwf1mhxm5lfe" path="res://assets/ui/themes/label.tres" id="4_fnmcy"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_moi5x"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1gsao"]
-bg_color = Color(0, 0, 0, 0.5)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.145, 0.475, 0.929, 0.3)
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 10
+border_width_top = 10
+border_width_right = 10
+border_width_bottom = 10
+border_color = Color(0, 0, 0, 0.75)
 corner_radius_top_left = 10
 corner_radius_top_right = 10
 corner_radius_bottom_right = 10
@@ -38,15 +37,9 @@ glow_blend_mode = 0
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = 26.0
-offset_top = 388.0
-offset_right = 26.0
-offset_bottom = 388.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_vertical = 4
@@ -162,19 +155,6 @@ theme = ExtResource("4_fnmcy")
 theme_override_font_sizes/font_size = 18
 text = "--------------"
 horizontal_alignment = 1
-
-[node name="Holo" type="TextureRect" parent="Control/MarginContainer/VBoxContainer/HBoxContainer/Header"]
-modulate = Color(0, 0, 0, 0.3)
-texture_repeat = 2
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("2_xq13t")
-expand_mode = 1
-stretch_mode = 1
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_dfevx")
