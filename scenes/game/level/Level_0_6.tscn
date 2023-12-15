@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://t44hvggcdygj"]
+[gd_scene load_steps=12 format=3 uid="uid://t44hvggcdygj"]
 
 [ext_resource type="Script" path="res://scenes/game/level/Level.cs" id="1_hqjmi"]
 [ext_resource type="PackedScene" uid="uid://d0mrskclosgl2" path="res://scenes/game/level/Level_0_7.tscn" id="2_ceqfw"]
@@ -11,10 +11,6 @@
 [ext_resource type="PackedScene" uid="uid://bux2ffg7yyub3" path="res://scenes/game/objects/tile/firewall/Firewall.tscn" id="6_jkwmb"]
 [ext_resource type="Theme" uid="uid://xpcajdi0p6eq" path="res://assets/game/objects/tile/row_theme.tres" id="6_mbq1b"]
 [ext_resource type="PackedScene" uid="uid://6oclnkije4cp" path="res://scenes/game/objects/tile/router/Router.tscn" id="7_1iaos"]
-[ext_resource type="Script" path="res://scenes/game/objects/tile/empty/Empty.cs" id="10_54xog"]
-[ext_resource type="Script" path="res://scenes/game/objects/tile/core/Core.cs" id="11_3ul4r"]
-[ext_resource type="Script" path="res://scenes/game/objects/tile/router/Router.cs" id="13_ednmg"]
-[ext_resource type="Script" path="res://scenes/game/objects/tile/firewall/Firewall.cs" id="15_j41d0"]
 
 [node name="Level" type="Node2D" node_paths=PackedStringArray("startingTile")]
 script = ExtResource("1_hqjmi")
@@ -45,22 +41,18 @@ Type = 0
 [node name="Tile_1_4" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row_0" instance=ExtResource("3_busqj")]
 layout_mode = 2
 
-[node name="Empty" type="Node2D" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row_0/Tile_1_4" groups=["empty"] instance=ExtResource("5_p5dah")]
-script = ExtResource("10_54xog")
+[node name="Empty" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row_0/Tile_1_4" instance=ExtResource("5_p5dah")]
 
 [node name="Tile_2_4" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row_0" instance=ExtResource("3_busqj")]
 layout_mode = 2
 Type = 0
 
-[node name="Core" type="Node2D" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row_0/Tile_2_4" groups=["core"] instance=ExtResource("4_ok1ew")]
-position = Vector2(1, 1)
-script = ExtResource("11_3ul4r")
+[node name="Core" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row_0/Tile_2_4" instance=ExtResource("4_ok1ew")]
 
 [node name="Tile_3_4" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row_0" instance=ExtResource("3_busqj")]
 layout_mode = 2
 
-[node name="Empty" type="Node2D" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row_0/Tile_3_4" groups=["empty"] instance=ExtResource("5_p5dah")]
-script = ExtResource("10_54xog")
+[node name="Empty" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row_0/Tile_3_4" instance=ExtResource("5_p5dah")]
 
 [node name="Row_1" type="HBoxContainer" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid" index="1"]
 layout_mode = 2
@@ -70,25 +62,20 @@ theme = ExtResource("6_mbq1b")
 layout_mode = 2
 Type = 3
 
-[node name="Router" type="Node2D" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row_1/Tile_0_3" groups=["router"] instance=ExtResource("7_1iaos")]
-position = Vector2(88, 88)
-script = ExtResource("13_ednmg")
+[node name="Router" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row_1/Tile_0_3" instance=ExtResource("7_1iaos")]
 Direction = 1
 
 [node name="Tile_1_3" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row_1" instance=ExtResource("3_busqj")]
 layout_mode = 2
 Type = 2
 
-[node name="Firewall" type="Node2D" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row_1/Tile_1_3" groups=["firewall"] instance=ExtResource("6_jkwmb")]
-script = ExtResource("15_j41d0")
+[node name="Firewall" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row_1/Tile_1_3" instance=ExtResource("6_jkwmb")]
 
 [node name="Tile_2_3" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row_1" instance=ExtResource("3_busqj")]
 layout_mode = 2
 Type = 3
 
-[node name="Router" type="Node2D" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row_1/Tile_2_3" groups=["router"] instance=ExtResource("7_1iaos")]
-position = Vector2(88, 88)
-script = ExtResource("13_ednmg")
+[node name="Router" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row_1/Tile_2_3" instance=ExtResource("7_1iaos")]
 
 [node name="Tile_3_3" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row_1" instance=ExtResource("3_busqj")]
 layout_mode = 2
@@ -114,8 +101,7 @@ Type = 0
 [node name="Tile_2_2" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row_2" instance=ExtResource("3_busqj")]
 layout_mode = 2
 
-[node name="Empty" type="Node2D" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row_2/Tile_2_2" groups=["empty"] instance=ExtResource("5_p5dah")]
-script = ExtResource("10_54xog")
+[node name="Empty" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row_2/Tile_2_2" instance=ExtResource("5_p5dah")]
 
 [node name="Tile_3_2" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row_2" instance=ExtResource("3_busqj")]
 layout_mode = 2
@@ -149,9 +135,7 @@ Type = 0
 layout_mode = 2
 Type = 3
 
-[node name="Router" type="Node2D" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row_3/Tile_3_1" groups=["router"] instance=ExtResource("7_1iaos")]
-position = Vector2(88, 88)
-script = ExtResource("13_ednmg")
+[node name="Router" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row_3/Tile_3_1" instance=ExtResource("7_1iaos")]
 Direction = 2
 
 [node name="Row_4" type="HBoxContainer" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid" index="4"]
@@ -167,8 +151,7 @@ Type = 0
 [node name="Tile_1_0" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row_4" instance=ExtResource("3_busqj")]
 layout_mode = 2
 
-[node name="Empty" type="Node2D" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row_4/Tile_1_0" groups=["empty"] instance=ExtResource("5_p5dah")]
-script = ExtResource("10_54xog")
+[node name="Empty" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row_4/Tile_1_0" instance=ExtResource("5_p5dah")]
 
 [node name="Tile_2_0" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row_4" instance=ExtResource("3_busqj")]
 layout_mode = 2
