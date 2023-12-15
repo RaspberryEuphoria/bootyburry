@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://dpr51pmpfdxwu"]
+[gd_scene load_steps=14 format=3 uid="uid://dpr51pmpfdxwu"]
 
 [ext_resource type="Script" path="res://scenes/game/level/Level.cs" id="1_6loi0"]
 [ext_resource type="PackedScene" uid="uid://btkws4lwu8fi1" path="res://scenes/game/level/LevelBackground.tscn" id="3_tuqqa"]
@@ -6,14 +6,18 @@
 [ext_resource type="PackedScene" uid="uid://dbl0tiuqxnci4" path="res://scenes/ui/LevelUI.tscn" id="4_pvnuq"]
 [ext_resource type="Theme" uid="uid://xpcajdi0p6eq" path="res://assets/game/objects/tile/row_theme.tres" id="6_c3igr"]
 [ext_resource type="PackedScene" uid="uid://67x0aame80lq" path="res://scenes/game/objects/tile/Tile.tscn" id="7_kl16x"]
+[ext_resource type="Script" path="res://scenes/game/objects/tile/core/Core.cs" id="8_3olru"]
 [ext_resource type="PackedScene" uid="uid://e2gu8wi641jf" path="res://scenes/game/objects/tile/empty/Empty.tscn" id="8_x2hnw"]
 [ext_resource type="PackedScene" uid="uid://ch1bcttqi5hjk" path="res://scenes/game/objects/tile/core/Core.tscn" id="9_cyerk"]
+[ext_resource type="Script" path="res://scenes/game/objects/tile/empty/Empty.cs" id="10_0pwd1"]
+[ext_resource type="PackedScene" uid="uid://bux2ffg7yyub3" path="res://scenes/game/objects/tile/firewall/Firewall.tscn" id="11_helcb"]
+[ext_resource type="Script" path="res://scenes/game/objects/tile/firewall/Firewall.cs" id="12_hbav7"]
 [ext_resource type="PackedScene" uid="uid://6oclnkije4cp" path="res://scenes/game/objects/tile/router/Router.tscn" id="12_pkglf"]
 
 [node name="Level" type="Node2D" node_paths=PackedStringArray("startingTile")]
 script = ExtResource("1_6loi0")
 startingTile = NodePath("LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row4/Tile_4_3")
-OptimalScore = 12
+OptimalScore = 9
 LevelTitle = "Level 2.1"
 LevelSubtitle = "// Stack Overflow"
 botDelay = 0.0
@@ -32,8 +36,11 @@ theme_override_constants/separation = 25
 
 [node name="Tile_1_0" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row1" instance=ExtResource("7_kl16x")]
 layout_mode = 2
+Type = 0
 
-[node name="Empty" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row1/Tile_1_0" instance=ExtResource("8_x2hnw")]
+[node name="Core" type="Node2D" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row1/Tile_1_0" groups=["core"] instance=ExtResource("9_cyerk")]
+position = Vector2(1, 1)
+script = ExtResource("8_3olru")
 
 [node name="Tile_1_1" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row1" instance=ExtResource("7_kl16x")]
 layout_mode = 2
@@ -59,9 +66,9 @@ theme_override_constants/separation = 25
 
 [node name="Tile_2_0" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row2" instance=ExtResource("7_kl16x")]
 layout_mode = 2
-Type = 0
 
-[node name="Core" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row2/Tile_2_0" instance=ExtResource("9_cyerk")]
+[node name="Empty" type="Node2D" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row2/Tile_2_0" groups=["empty"] instance=ExtResource("8_x2hnw")]
+script = ExtResource("10_0pwd1")
 
 [node name="Tile_2_1" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row2" instance=ExtResource("7_kl16x")]
 layout_mode = 2
@@ -91,8 +98,10 @@ Type = 0
 
 [node name="Tile_3_1" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row3" instance=ExtResource("7_kl16x")]
 layout_mode = 2
+Type = 2
 
-[node name="Empty" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row3/Tile_3_1" instance=ExtResource("8_x2hnw")]
+[node name="Firewall" type="Node2D" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row3/Tile_3_1" groups=["firewall"] instance=ExtResource("11_helcb")]
+script = ExtResource("12_hbav7")
 
 [node name="Tile_3_2" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row3" instance=ExtResource("7_kl16x")]
 layout_mode = 2
