@@ -46,12 +46,12 @@ namespace Game
       level.CurrentTileUpdated -= OnCurrentTileUpdated;
     }
 
-    public override Tile GetNextSelectableTileInDirection(Direction direction)
+    public override Tile GetNextSelectableTileInDirection(Direction _direction)
     {
       return RootTile.GetNextSelectableTileInDirection(Direction);
     }
 
-    public override Tile GetNextCoreTileInDirection(Direction direction)
+    public override Tile GetNextCoreTileInDirection(Direction _direction)
     {
       return RootTile.GetNextCoreTileInDirection(Direction);
     }
