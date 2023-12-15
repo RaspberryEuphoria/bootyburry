@@ -78,10 +78,10 @@ namespace Game
 
     private void SetupGlitch()
     {
-      var topCoreTile = GetNextCoreTileInDirection(Direction.Up);
-      var rightCore = GetNextCoreTileInDirection(Direction.Right);
-      var bottomCore = GetNextCoreTileInDirection(Direction.Down);
-      var leftCore = GetNextCoreTileInDirection(Direction.Left);
+      var topCoreTile = _rootTile.GetNextCoreTileInDirectionWhileIgnoringTerrain(Direction.Up);
+      var rightCore = _rootTile.GetNextCoreTileInDirectionWhileIgnoringTerrain(Direction.Right);
+      var bottomCore = _rootTile.GetNextCoreTileInDirectionWhileIgnoringTerrain(Direction.Down);
+      var leftCore = _rootTile.GetNextCoreTileInDirectionWhileIgnoringTerrain(Direction.Left);
 
       neighbordCoreTiles = new Tile[] { topCoreTile, rightCore, bottomCore, leftCore }.Where(x => x != null);
       outerCoreGlitched.Init(topCoreTile is not null, rightCore is not null, bottomCore is not null, leftCore is not null);

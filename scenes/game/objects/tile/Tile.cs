@@ -182,6 +182,16 @@ namespace Game
       return adjacentTile.Terrain.GetNextCoreTileInDirection(direction);
     }
 
+    public Tile GetNextCoreTileInDirectionWhileIgnoringTerrain(Direction direction)
+    {
+      var adjacentTile = GetAdjacentTile(direction);
+
+      if (adjacentTile == null) return null;
+      if (adjacentTile.IsCore()) return adjacentTile;
+
+      return adjacentTile.GetNextCoreTileInDirectionWhileIgnoringTerrain(direction);
+    }
+
     public Tile GetBlockerInPathToTile(Direction direction, Tile goalTile)
     {
       var adjacentTile = GetAdjacentTile(direction);

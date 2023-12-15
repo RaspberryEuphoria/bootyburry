@@ -8,10 +8,6 @@ namespace Game
   {
     private IEnumerable<CpuParticles2D> particles = System.Array.Empty<CpuParticles2D>();
 
-    public override void _Ready()
-    {
-    }
-
     public void Init(bool hasTopParticles, bool hasRightParticles, bool hasBottomParticles, bool hasLeftParticles)
     {
       var particlesNodes = GetParticles();
