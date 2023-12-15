@@ -13,7 +13,7 @@ namespace Helpers
     public override void _Ready()
     {
       config.Load("user://settings.cfg");
-      UIScale = (float)config.GetValue("settings", "ui_scale");
+      UIScale = (float)config.GetValue("settings", "ui_scale", 1);
     }
 
     public void SetUIScale(float scale)
