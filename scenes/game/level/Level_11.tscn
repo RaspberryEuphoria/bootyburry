@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scenes/game/level/Level.cs" id="1_xn8kp"]
 [ext_resource type="PackedScene" uid="uid://btkws4lwu8fi1" path="res://scenes/game/level/LevelBackground.tscn" id="2_fwxk1"]
-[ext_resource type="PackedScene" uid="uid://bpkkxlbdllil8" path="res://scenes/game/level/Level_1_2.tscn" id="2_ojath"]
+[ext_resource type="PackedScene" uid="uid://bpkkxlbdllil8" path="res://scenes/game/level/Level_12.tscn" id="2_ojath"]
 [ext_resource type="PackedScene" uid="uid://67x0aame80lq" path="res://scenes/game/objects/tile/Tile.tscn" id="3_0cryg"]
 [ext_resource type="PackedScene" uid="uid://dbl0tiuqxnci4" path="res://scenes/ui/LevelUI.tscn" id="3_lo8hx"]
 [ext_resource type="PackedScene" uid="uid://ch1bcttqi5hjk" path="res://scenes/game/objects/tile/core/Core.tscn" id="4_x870s"]

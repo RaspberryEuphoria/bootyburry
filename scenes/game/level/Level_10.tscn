@@ -1,7 +1,7 @@
 [gd_scene load_steps=12 format=3 uid="uid://baftsx7qrc6n8"]
 
 [ext_resource type="Script" path="res://scenes/game/level/Level.cs" id="1_h4huj"]
-[ext_resource type="PackedScene" uid="uid://d23rfhjixlueh" path="res://scenes/game/level/Level_1_1.tscn" id="2_bqgjs"]
+[ext_resource type="PackedScene" uid="uid://d23rfhjixlueh" path="res://scenes/game/level/Level_11.tscn" id="2_bqgjs"]
 [ext_resource type="PackedScene" uid="uid://btkws4lwu8fi1" path="res://scenes/game/level/LevelBackground.tscn" id="3_kppp5"]
 [ext_resource type="PackedScene" uid="uid://dbl0tiuqxnci4" path="res://scenes/ui/LevelUI.tscn" id="4_3vkwv"]
 [ext_resource type="Theme" uid="uid://xpcajdi0p6eq" path="res://assets/game/objects/tile/row_theme.tres" id="5_6rjdu"]
