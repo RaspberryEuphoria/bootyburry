@@ -437,10 +437,10 @@ namespace Game
       if (direction == Direction.Down) return Direction.Right;
       if (direction == Direction.Left) return Direction.Down;
       if (direction == Direction.Right) return Direction.Up;
-      if (direction == Direction.TopRight) return Direction.BottomRight;
-      if (direction == Direction.BottomRight) return Direction.BottomLeft;
-      if (direction == Direction.TopLeft) return Direction.TopRight;
-      if (direction == Direction.BottomLeft) return Direction.TopLeft;
+      if (direction == Direction.TopRight) return Direction.TopLeft;
+      if (direction == Direction.BottomRight) return Direction.TopRight;
+      if (direction == Direction.TopLeft) return Direction.BottomLeft;
+      if (direction == Direction.BottomLeft) return Direction.BottomRight;
 
       return Direction.Up;
     }
