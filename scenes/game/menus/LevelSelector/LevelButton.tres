@@ -1,6 +1,7 @@
-[gd_resource type="Theme" load_steps=7 format=3 uid="uid://dca1unmi3vy5x"]
+[gd_resource type="Theme" load_steps=7 format=3 uid="uid://bul7mev7aj8lj"]
 
-[ext_resource type="FontFile" uid="uid://dwweiefoa15ly" path="res://assets/ui/fonts/Cascadia.ttf" id="2_f63wd"]
+[ext_resource type="FontFile" uid="uid://dwweiefoa15ly" path="res://assets/ui/fonts/Cascadia.ttf" id="1_4hk8q"]
+[ext_resource type="StyleBox" uid="uid://ggqrtwspd1xm" path="res://scenes/game/menus/LevelSelector/LevelButtonStyleBox.tres" id="2_acb3m"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_oxblc"]
 
@@ -8,22 +9,13 @@
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_al2ja"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6txf2"]
-bg_color = Color(0, 0, 0, 0.407843)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
-
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_j0l3c"]
 
 [resource]
 Button/colors/font_color = Color(0.466667, 0.866667, 0.466667, 1)
 Button/colors/font_focus_color = Color(0.466667, 0.866667, 0.466667, 1)
 Button/colors/font_hover_color = Color(0.466667, 0.866667, 0.466667, 1)
-Button/colors/font_hover_pressed_color = Color(0.466667, 0.866667, 0.466667, 1)
 Button/colors/font_outline_color = Color(0.305882, 0.6, 0.309804, 1)
-Button/colors/font_pressed_color = Color(0.466667, 0.866667, 0.466667, 1)
 Button/colors/icon_focus_color = Color(0.466667, 0.866667, 0.466667, 1)
 Button/colors/icon_hover_color = Color(0.466667, 0.866667, 0.466667, 1)
 Button/colors/icon_hover_pressed_color = Color(0.466667, 0.866667, 0.466667, 1)
@@ -31,11 +23,11 @@ Button/colors/icon_normal_color = Color(0.266667, 0.282353, 1, 0)
 Button/colors/icon_pressed_color = Color(0.466667, 0.866667, 0.466667, 1)
 Button/constants/outline_size = 0
 Button/font_sizes/font_size = 48
-Button/fonts/font = ExtResource("2_f63wd")
+Button/fonts/font = ExtResource("1_4hk8q")
 Button/styles/disabled = SubResource("StyleBoxEmpty_oxblc")
 Button/styles/focus = SubResource("StyleBoxEmpty_13sui")
 Button/styles/hover = SubResource("StyleBoxEmpty_al2ja")
-Button/styles/normal = SubResource("StyleBoxFlat_6txf2")
+Button/styles/normal = ExtResource("2_acb3m")
 Button/styles/pressed = SubResource("StyleBoxEmpty_j0l3c")
 OutlineButton/base_type = &"Button"
 OutlineButton/constants/outline_size = 20

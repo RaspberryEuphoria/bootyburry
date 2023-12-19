@@ -4,10 +4,10 @@ namespace Helpers
   {
     public enum TextSize { SM, MD, LG, XL }
 
-    private static readonly float default_sm = 28f;
-    private static readonly float default_md = 48f;
-    private static readonly float default_lg = 72f;
-    private static readonly float default_xl = 96f;
+    private static readonly float default_sm = 56f;
+    private static readonly float default_md = 72f;
+    private static readonly float default_lg = 86f;
+    private static readonly float default_xl = 100f;
 
     public static float GetFontSizeByType(TextSize textSize, float scale = 1f)
     {

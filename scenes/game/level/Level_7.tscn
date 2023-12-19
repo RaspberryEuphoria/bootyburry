@@ -25,6 +25,30 @@ botDelay = 0.0
 
 [node name="LevelUI" parent="." instance=ExtResource("4_hfr1c")]
 
+[node name="RetryButton" parent="LevelUI/LevelRoot/HUD/HBoxContainer" index="0"]
+theme_override_font_sizes/font_size = 100
+
+[node name="CurrentMovesLabel" parent="LevelUI/LevelRoot/HUD/HBoxContainer/ScorePanel/HBoxContainer/MarginContainer" index="0"]
+theme_override_font_sizes/font_size = 86
+
+[node name="OptimalMovesLabel" parent="LevelUI/LevelRoot/HUD/HBoxContainer/ScorePanel/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer" index="0"]
+theme_override_font_sizes/font_size = 72
+
+[node name="MaxLabel" parent="LevelUI/LevelRoot/HUD/HBoxContainer/ScorePanel/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer" index="1"]
+theme_override_font_sizes/font_size = 56
+
+[node name="BackToMenuButton" parent="LevelUI/LevelRoot/HUD/HBoxContainer" index="2"]
+theme_override_font_sizes/font_size = 100
+
+[node name="DecreaseZoomButton" parent="LevelUI/LevelRoot/HUD/ZoomPanel/HBoxContainer" index="0"]
+theme_override_font_sizes/font_size = 56
+
+[node name="CurrentZoomLabel" parent="LevelUI/LevelRoot/HUD/ZoomPanel/HBoxContainer" index="1"]
+theme_override_font_sizes/font_size = 72
+
+[node name="IncreaseZoomButton" parent="LevelUI/LevelRoot/HUD/ZoomPanel/HBoxContainer" index="2"]
+theme_override_font_sizes/font_size = 56
+
 [node name="GridContainer" parent="LevelUI/LevelRoot" index="1" instance=ExtResource("5_if4h8")]
 layout_mode = 2
 

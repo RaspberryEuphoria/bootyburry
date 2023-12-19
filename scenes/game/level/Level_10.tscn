@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://baftsx7qrc6n8"]
+[gd_scene load_steps=14 format=3 uid="uid://cgmmq1ew3v33f"]
 
 [ext_resource type="Script" path="res://scenes/game/level/Level.cs" id="1_h4huj"]
 [ext_resource type="PackedScene" uid="uid://d23rfhjixlueh" path="res://scenes/game/level/Level_11.tscn" id="2_bqgjs"]
@@ -9,8 +9,10 @@
 [ext_resource type="PackedScene" uid="uid://67x0aame80lq" path="res://scenes/game/objects/tile/Tile.tscn" id="5_ewbo5"]
 [ext_resource type="PackedScene" uid="uid://ch1bcttqi5hjk" path="res://scenes/game/objects/tile/core/Core.tscn" id="6_ihv14"]
 [ext_resource type="PackedScene" uid="uid://e2gu8wi641jf" path="res://scenes/game/objects/tile/empty/Empty.tscn" id="7_7vav0"]
-[ext_resource type="PackedScene" uid="uid://bux2ffg7yyub3" path="res://scenes/game/objects/tile/firewall/Firewall.tscn" id="7_4436y"]
+[ext_resource type="Script" path="res://scenes/game/objects/tile/core/Core.cs" id="9_5r44l"]
 [ext_resource type="PackedScene" uid="uid://cl2lm1lsl8j8i" path="res://scenes/game/objects/tile/proxy/Proxy.tscn" id="10_epi0j"]
+[ext_resource type="Script" path="res://scenes/game/objects/tile/proxy/Proxy.cs" id="11_eo8ol"]
+[ext_resource type="Script" path="res://scenes/game/objects/tile/empty/Empty.cs" id="13_6yrtw"]
 
 [node name="Level" type="Node2D" node_paths=PackedStringArray("startingTile")]
 script = ExtResource("1_h4huj")
@@ -23,6 +25,30 @@ LevelSubtitle = "// Thinking With Proxies"
 [node name="Background" parent="." instance=ExtResource("3_kppp5")]
 
 [node name="LevelUI" parent="." instance=ExtResource("4_3vkwv")]
+
+[node name="RetryButton" parent="LevelUI/LevelRoot/HUD/HBoxContainer" index="0"]
+theme_override_font_sizes/font_size = 100
+
+[node name="CurrentMovesLabel" parent="LevelUI/LevelRoot/HUD/HBoxContainer/ScorePanel/HBoxContainer/MarginContainer" index="0"]
+theme_override_font_sizes/font_size = 86
+
+[node name="OptimalMovesLabel" parent="LevelUI/LevelRoot/HUD/HBoxContainer/ScorePanel/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer" index="0"]
+theme_override_font_sizes/font_size = 72
+
+[node name="MaxLabel" parent="LevelUI/LevelRoot/HUD/HBoxContainer/ScorePanel/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer" index="1"]
+theme_override_font_sizes/font_size = 56
+
+[node name="BackToMenuButton" parent="LevelUI/LevelRoot/HUD/HBoxContainer" index="2"]
+theme_override_font_sizes/font_size = 100
+
+[node name="DecreaseZoomButton" parent="LevelUI/LevelRoot/HUD/ZoomPanel/HBoxContainer" index="0"]
+theme_override_font_sizes/font_size = 56
+
+[node name="CurrentZoomLabel" parent="LevelUI/LevelRoot/HUD/ZoomPanel/HBoxContainer" index="1"]
+theme_override_font_sizes/font_size = 72
+
+[node name="IncreaseZoomButton" parent="LevelUI/LevelRoot/HUD/ZoomPanel/HBoxContainer" index="2"]
+theme_override_font_sizes/font_size = 56
 
 [node name="GridContainer" parent="LevelUI/LevelRoot" index="1" instance=ExtResource("5_8sk2e")]
 layout_mode = 2
@@ -39,15 +65,19 @@ Type = 0
 
 [node name="Tile_0_1" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row1" instance=ExtResource("5_ewbo5")]
 layout_mode = 2
-Type = 2
+Type = 0
 
-[node name="Firewall" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row1/Tile_0_1" instance=ExtResource("7_4436y")]
+[node name="Core" type="Node2D" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row1/Tile_0_1" groups=["core"] instance=ExtResource("6_ihv14")]
+position = Vector2(1, 1)
+script = ExtResource("9_5r44l")
 
 [node name="Tile_0_2" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row1" instance=ExtResource("5_ewbo5")]
 layout_mode = 2
-Type = 0
+Type = 4
 
-[node name="Core" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row1/Tile_0_2" instance=ExtResource("6_ihv14")]
+[node name="Proxy" type="Node2D" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row1/Tile_0_2" groups=["proxy"] instance=ExtResource("10_epi0j")]
+position = Vector2(88, 88)
+script = ExtResource("11_eo8ol")
 
 [node name="Row2" type="HBoxContainer" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid" index="1"]
 layout_mode = 2
@@ -55,20 +85,23 @@ theme = ExtResource("5_6rjdu")
 
 [node name="Tile_1_0" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row2" instance=ExtResource("5_ewbo5")]
 layout_mode = 2
-Type = 4
 
-[node name="Proxy" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row2/Tile_1_0" instance=ExtResource("10_epi0j")]
+[node name="Empty" type="Node2D" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row2/Tile_1_0" groups=["empty"] instance=ExtResource("7_7vav0")]
+script = ExtResource("13_6yrtw")
 
 [node name="Tile_1_1" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row2" instance=ExtResource("5_ewbo5")]
 layout_mode = 2
+Type = 0
 
-[node name="Empty" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row2/Tile_1_1" instance=ExtResource("7_7vav0")]
+[node name="Core" type="Node2D" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row2/Tile_1_1" groups=["core"] instance=ExtResource("6_ihv14")]
+position = Vector2(1, 1)
+script = ExtResource("9_5r44l")
 
 [node name="Tile_1_2" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row2" instance=ExtResource("5_ewbo5")]
 layout_mode = 2
-Type = 4
 
-[node name="Proxy" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row2/Tile_1_2" instance=ExtResource("10_epi0j")]
+[node name="Empty" type="Node2D" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row2/Tile_1_2" groups=["empty"] instance=ExtResource("7_7vav0")]
+script = ExtResource("13_6yrtw")
 
 [node name="Row3" type="HBoxContainer" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid" index="2"]
 layout_mode = 2
@@ -76,9 +109,11 @@ theme = ExtResource("5_6rjdu")
 
 [node name="Tile_2_0" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row3" instance=ExtResource("5_ewbo5")]
 layout_mode = 2
-Type = 0
+Type = 4
 
-[node name="Core" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row3/Tile_2_0" instance=ExtResource("6_ihv14")]
+[node name="Proxy" type="Node2D" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row3/Tile_2_0" groups=["proxy"] instance=ExtResource("10_epi0j")]
+position = Vector2(88, 88)
+script = ExtResource("11_eo8ol")
 
 [node name="Tile_2_1" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row3" instance=ExtResource("5_ewbo5")]
 layout_mode = 2
