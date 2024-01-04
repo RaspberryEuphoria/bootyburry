@@ -2,8 +2,10 @@ namespace Helpers
 {
   public class KamiFonts
   {
-    public enum TextSize { SM, MD, LG, XL }
+    public enum TextSize { XS, SM, MD, LG, XL }
 
+
+    private static readonly float default_xs = 42f;
     private static readonly float default_sm = 56f;
     private static readonly float default_md = 72f;
     private static readonly float default_lg = 86f;
@@ -13,6 +15,7 @@ namespace Helpers
     {
       return textSize switch
       {
+        TextSize.XS => default_xs * scale,
         TextSize.SM => default_sm * scale,
         TextSize.MD => default_md * scale,
         TextSize.LG => default_lg * scale,
