@@ -23,29 +23,11 @@ LevelSubtitle = "// Beware The Firewall"
 
 [node name="LevelUI" parent="." instance=ExtResource("4_23kbk")]
 
-[node name="RetryButton" parent="LevelUI/LevelRoot/HUD/HBoxContainer" index="0"]
-theme_override_font_sizes/font_size = 100
-
-[node name="CurrentMovesLabel" parent="LevelUI/LevelRoot/HUD/HBoxContainer/ScorePanel/HBoxContainer/MarginContainer" index="0"]
-theme_override_font_sizes/font_size = 86
-
-[node name="OptimalMovesLabel" parent="LevelUI/LevelRoot/HUD/HBoxContainer/ScorePanel/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer" index="0"]
-theme_override_font_sizes/font_size = 72
-
-[node name="MaxLabel" parent="LevelUI/LevelRoot/HUD/HBoxContainer/ScorePanel/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer" index="1"]
-theme_override_font_sizes/font_size = 56
-
-[node name="BackToMenuButton" parent="LevelUI/LevelRoot/HUD/HBoxContainer" index="2"]
-theme_override_font_sizes/font_size = 100
-
-[node name="DecreaseZoomButton" parent="LevelUI/LevelRoot/HUD/ZoomPanel/HBoxContainer" index="0"]
-theme_override_font_sizes/font_size = 56
-
-[node name="CurrentZoomLabel" parent="LevelUI/LevelRoot/HUD/ZoomPanel/HBoxContainer" index="1"]
-theme_override_font_sizes/font_size = 72
-
-[node name="IncreaseZoomButton" parent="LevelUI/LevelRoot/HUD/ZoomPanel/HBoxContainer" index="2"]
-theme_override_font_sizes/font_size = 56
+[node name="LevelRoot" parent="LevelUI" index="0"]
+offset_left = -378.0
+offset_top = -393.5
+offset_right = 378.0
+offset_bottom = 393.5
 
 [node name="GridContainer" parent="LevelUI/LevelRoot" index="1" instance=ExtResource("5_6yqpf")]
 layout_mode = 2

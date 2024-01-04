@@ -23,6 +23,14 @@ LevelSubtitle = "// Unfinished Work"
 
 [node name="LevelUI" parent="." instance=ExtResource("4_whglh")]
 
+[node name="LevelRoot" parent="LevelUI" index="0"]
+offset_left = -378.0
+offset_top = -393.5
+offset_right = 378.0
+offset_bottom = 393.5
+size_flags_horizontal = 8
+size_flags_vertical = 1
+
 [node name="GridContainer" parent="LevelUI/LevelRoot" index="1" instance=ExtResource("5_8nhog")]
 layout_mode = 2
 
