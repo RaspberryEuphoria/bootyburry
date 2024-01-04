@@ -6,10 +6,8 @@ namespace UI
 {
   public partial class VictoryUI : CanvasLayer
   {
-    [Export]
     private Button retryButton;
-    [Export]
-    private Button nextButton;
+    private KamiButton nextButton;
 
     private Level level;
     private int movesCount = 0;
@@ -17,8 +15,11 @@ namespace UI
 
     public override void _Ready()
     {
-      var completedLabel = GetNode<RichTextLabel>("%CompletedLabel");
+      var completedLabel = GetNode<KamiLabel>("%CompletedLabel");
       completedLabel.Text = completedLabel.Text.Replace("{{movesCount}}", movesCount.ToString());
+
+      retryButton = GetNode<Button>("%RetryButton");
+      nextButton = GetNode<KamiButton>("%NextButton");
 
       retryButton.Pressed += OnRetry;
       nextButton.Pressed += OnNext;
