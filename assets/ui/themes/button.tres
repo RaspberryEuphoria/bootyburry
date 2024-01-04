@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=7 format=3 uid="uid://dca1unmi3vy5x"]
+[gd_resource type="Theme" load_steps=8 format=3 uid="uid://dca1unmi3vy5x"]
 
 [ext_resource type="FontFile" uid="uid://dwweiefoa15ly" path="res://assets/ui/fonts/Cascadia.ttf" id="2_f63wd"]
 
@@ -16,6 +16,19 @@ corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_j0l3c"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_56h15"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+bg_color = Color(0.0509804, 0.0509804, 0.0509804, 1)
+corner_radius_top_left = 50
+corner_radius_top_right = 50
+corner_radius_bottom_right = 50
+corner_radius_bottom_left = 50
+expand_margin_left = 25.0
+expand_margin_right = 25.0
 
 [resource]
 Button/colors/font_color = Color(0.466667, 0.866667, 0.466667, 1)
@@ -37,5 +50,7 @@ Button/styles/focus = SubResource("StyleBoxEmpty_13sui")
 Button/styles/hover = SubResource("StyleBoxEmpty_al2ja")
 Button/styles/normal = SubResource("StyleBoxFlat_6txf2")
 Button/styles/pressed = SubResource("StyleBoxEmpty_j0l3c")
+FullButton/base_type = &"Button"
+FullButton/styles/normal = SubResource("StyleBoxFlat_56h15")
 OutlineButton/base_type = &"Button"
 OutlineButton/constants/outline_size = 20

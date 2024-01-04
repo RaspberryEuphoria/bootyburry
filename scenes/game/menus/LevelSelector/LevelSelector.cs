@@ -7,7 +7,7 @@ using UI;
 
 namespace Menu
 {
-  public partial class LevelSelector : BoxContainer
+  public partial class LevelSelector : MarginContainer
   {
     [Export]
     public float levelsPerWorld = 16f;
@@ -16,8 +16,8 @@ namespace Menu
     private static partial Regex LevelRegex();
     [GeneratedRegex("\\d+")]
     private static partial Regex DigitRegex();
-    private GridContainer levelsContainer;
     private BoxContainer worldsContainer;
+    private GridContainer levelsContainer;
     private StringName levelsFolder = "res://scenes/game/level";
     private string sceneExtension = ".tscn";
     private float currentWorld = 0f;
@@ -26,14 +26,14 @@ namespace Menu
     public override void _Ready()
     {
       levels = KamiFiles.GetFilesFromFolder(levelsFolder, LevelRegex())
-        .Select(RemoveSceneExtension)
-        .OrderBy(SortLevels).ToList();
+       .ConvertAll(RemoveSceneExtension)
+       .OrderBy(SortLevels).ToList();
 
       var levelsCount = (float)levels.Count;
       var worldsCount = Mathf.Ceil(levelsCount / levelsPerWorld);
 
-      levelsContainer = GetNode<GridContainer>("LevelsContainer");
-      worldsContainer = GetNode<BoxContainer>("WorldsContainer");
+      worldsContainer = GetNode<BoxContainer>("%WorldsContainer");
+      levelsContainer = GetNode<GridContainer>("%LevelsContainer");
 
       // @Todo: load levels progress from Saves,
       // and set currentWorld to the last world the player has unlocked
@@ -51,32 +51,43 @@ namespace Menu
         worldButton.Name = worldButton.Text;
         worldButton.Theme = ResourceLoader.Load<Theme>("res://scenes/game/menus/LevelSelector/WorldButton.tres");
         worldButton.SetTextSize(KamiFonts.TextSize.SM);
+        worldButton.SetColorType(KamiColors.ColorType.Dark);
 
         // local copies for closure
         var _world = world;
 
         if (world == currentWorld)
         {
-          SetupLevelsButtons(world);
+          SetupLevelsButtons(worldButton, world);
         }
 
         worldButton.ButtonUp += () =>
         {
           currentWorld = _world;
-          SetupLevelsButtons(_world);
+          SetupLevelsButtons(worldButton, _world);
         };
 
         worldsContainer.AddChild(worldButton);
       }
     }
 
-    private void SetupLevelsButtons(float world)
+    private void SetupLevelsButtons(KamiButton worldButton, float world)
     {
-      var previousLevelsButtons = levelsContainer.GetChildren();
-      foreach (var button in previousLevelsButtons)
+      worldsContainer.GetChildren().ToList().ForEach(child =>
       {
-        levelsContainer.RemoveChild(button);
-        button.QueueFree();
+        var button = (KamiButton)child;
+        button.SetColorType(KamiColors.ColorType.Dark);
+        button.Flat = false;
+      });
+
+      worldButton.SetColorType(KamiColors.ColorType.Primary);
+      worldButton.Flat = true;
+
+      var previousLevelsButtons = levelsContainer.GetChildren();
+      foreach (var levelButton in previousLevelsButtons)
+      {
+        levelsContainer.RemoveChild(levelButton);
+        levelButton.QueueFree();
       }
 
       var levelsInWorld = levels.Skip((int)(world * levelsPerWorld)).Take((int)levelsPerWorld);
@@ -90,6 +101,7 @@ namespace Menu
         levelButton.Name = levelName;
         levelButton.Theme = ResourceLoader.Load<Theme>("res://scenes/game/menus/LevelSelector/LevelButton.tres");
         levelButton.SetTextSize(KamiFonts.TextSize.SM);
+        levelButton.SetColorType(KamiColors.ColorType.Light);
 
         // local copies for closure
         var _level = levelName;
@@ -109,8 +121,8 @@ namespace Menu
       GetTree().ChangeSceneToPacked(nextLevel);
     }
 
-    private int SortLevels(string a) => int.Parse(a.Split('_')[1]);
-    private string RemoveSceneExtension(string fileName) => fileName.Remove(fileName.Length - sceneExtension.Length);
+    private int SortLevels(string a) => int.Parse(a.Split('_').Last());
+    private string RemoveSceneExtension(string fileName) => fileName.Split(".").First();
     private string AddTrailingZero(float number)
     {
       if (number >= 10) return $"{number}";

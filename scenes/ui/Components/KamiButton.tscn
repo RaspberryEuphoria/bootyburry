@@ -6,5 +6,7 @@
 [node name="KamiButton" type="Button"]
 custom_minimum_size = Vector2(45, 45)
 theme = ExtResource("1_dbmop")
+theme_override_colors/font_color = Color(0.467, 0.867, 0.467, 1)
+theme_override_font_sizes/font_size = 72
 flat = true
 script = ExtResource("2_0oerw")

@@ -51,5 +51,10 @@ namespace Menu
 
       button.SetColorType(KamiColors.ColorType.Primary);
     }
+
+    public void InitResumePlayButton()
+    {
+
+    }
   }
 }
