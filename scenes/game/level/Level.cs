@@ -37,8 +37,6 @@ namespace Game
     [ExportGroup("Bot Properties")]
     [Export]
     public bool useBot = false;
-    [Export]
-    public float botDelay = 0.5f;
 
     public readonly Dictionary<string, Direction> ActionToDirection = new()
     {
@@ -121,7 +119,6 @@ namespace Game
     {
       var bot = ResourceLoader.Load<PackedScene>("res://Bot.tscn").Instantiate<Bot>();
       bot.maxTries = OptimalScore;
-      bot.delay = botDelay;
       bot.disabled = false;
       AddChild(bot);
     }
