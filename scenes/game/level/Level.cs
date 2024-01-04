@@ -8,7 +8,7 @@ using UI;
 namespace Game
 {
   public enum Direction { Up, Down, Left, Right, TopLeft, TopRight, BottomLeft, BottomRight }
-  public enum GameState { Playing, Won, Lost }
+  public enum GameState { Initializing, Playing, Won, Lost }
 
   public partial class Level : Node2D
   {
@@ -49,7 +49,7 @@ namespace Game
     };
 
     public bool IsReady { get; private set; } = false;
-    public GameState GameState { get; private set; } = GameState.Playing;
+    public GameState GameState { get; private set; } = GameState.Initializing;
     public IEnumerable<Direction> Moves { get; private set; } = new List<Direction>();
     public int Score = 0;
     public int ColumnsCount { get; private set; }
@@ -86,7 +86,7 @@ namespace Game
       AddChild(worldEnvironment);
 
       PrepareBoard();
-      EmitSignal(SignalName.GameStart);
+      StartGame();
     }
 
     public override void _Process(double delta)
@@ -104,6 +104,12 @@ namespace Game
 
       if (!IsInputAllowed()) return;
       HandleInput();
+    }
+
+    public void StartGame()
+    {
+      EmitSignal(SignalName.GameStart);
+      GameState = GameState.Playing;
     }
 
     public void Retry()
