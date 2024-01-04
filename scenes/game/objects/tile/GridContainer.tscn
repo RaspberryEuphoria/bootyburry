@@ -11,6 +11,7 @@ corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 
 [node name="GridContainer" type="MarginContainer"]
+mouse_filter = 2
 theme_override_constants/margin_left = 64
 theme_override_constants/margin_right = 64
 
@@ -18,10 +19,12 @@ theme_override_constants/margin_right = 64
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_vnmo2")
 
 [node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
 layout_mode = 2
+mouse_filter = 2
 theme_override_constants/margin_left = 25
 theme_override_constants/margin_top = 25
 theme_override_constants/margin_right = 25
@@ -32,4 +35,5 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+mouse_filter = 2
 theme = ExtResource("1_10oyu")

@@ -1,7 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://b1qg5jsrtqi83"]
+[gd_scene load_steps=8 format=3 uid="uid://b1qg5jsrtqi83"]
 
 [ext_resource type="Script" path="res://scenes/game/objects/tile/core/Selector.cs" id="1_fu52n"]
 [ext_resource type="Texture2D" uid="uid://c55adfflw5vht" path="res://assets/game/objects/tile/core/selector_texture_md.png" id="2_r5opc"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rchu0"]
+size = Vector2(128, 176)
 
 [sub_resource type="Animation" id="Animation_1nr6p"]
 resource_name = "disable"
@@ -9,7 +12,7 @@ length = 0.3
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:modulate")
+tracks/0/path = NodePath("Area2D/Sprite2D:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -25,7 +28,7 @@ length = 0.3
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:modulate")
+tracks/0/path = NodePath("Area2D/Sprite2D:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -41,7 +44,7 @@ loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/path = NodePath("Area2D/Sprite2D:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -59,11 +62,16 @@ _data = {
 }
 
 [node name="Selector" type="Node2D"]
-z_index = 10
 scale = Vector2(0.5, 0.5)
 script = ExtResource("1_fu52n")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(12, 0)
+shape = SubResource("RectangleShape2D_rchu0")
+
+[node name="Sprite2D" type="Sprite2D" parent="Area2D"]
 modulate = Color(0.564706, 0.984314, 0.423529, 1)
 texture = ExtResource("2_r5opc")
 
