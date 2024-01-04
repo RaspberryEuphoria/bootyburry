@@ -1,5 +1,7 @@
+using System.Collections.Generic;
 using System.Linq;
 using Godot;
+using Helpers;
 
 namespace Game
 {
@@ -8,53 +10,31 @@ namespace Game
     [Export]
     public int maxTries = 50;
     [Export]
-    public float delay = 0.5f;
-    [Export]
     public bool disabled = true;
 
     private Level level;
-    private string lastAction;
-    private Timer timer = null;
-    private string thinking = ".";
 
     public override void _Ready()
     {
+      GD.Print("Bot ready");
       if (disabled)
       {
         Visible = false;
+        QueueFree();
         return;
       }
 
-      var viewportWidth = GetViewportRect().Size.X;
-      var viewportHeight = GetViewportRect().Size.Y;
-      GlobalPosition = new Vector2(viewportWidth / 2 - Size.X / 2, viewportHeight - Size.Y * 2);
+      RenderingServer.RenderLoopEnabled = false;
+      AudioServer.SetBusMute(AudioServer.GetBusIndex("Master"), true);
 
       level = GetParent<Level>();
-      timer = new Timer
-      {
-        OneShot = true
-      };
-
-      AddChild(timer);
-      timer.Start(delay);
     }
 
     public override void _Process(double delta)
     {
       if (disabled) return;
-      if (!level.IsReady || (delay > 0 && !timer.IsStopped())) return;
-
-      if (level.GameState == GameState.Won)
-      {
-        Text = "Level complete! Moves (" + level.Moves.Count() + "): \n";
-
-        for (int i = 0; i < level.Moves.Count(); i++)
-        {
-          Text += MoveToArrowEmoji(level.Moves.ElementAt(i)) + " ";
-        }
-
-        return;
-      }
+      if (!level.IsReady) return;
+      if (level.GameState == GameState.Won) return;
 
       if (level.GameState == GameState.Lost)
       {
@@ -62,21 +42,14 @@ namespace Game
         return;
       }
 
-      var availableActions = level.GetAvailableActions();
-      var randomAction = availableActions.ElementAt((System.Index)(GD.Randi() % availableActions.Count));
-
-      timer.Start(delay);
+      var randomAction = GetRandomAction();
+      if (randomAction == null)
+      {
+        GetTree().ReloadCurrentScene();
+        return;
+      }
 
       level.TriggerInputInDirection(level.ActionToDirection[randomAction]);
-
-      Text = "Last action: " + lastAction;
-      Text += "\nCurrent action: " + randomAction;
-      Text += "\n" + thinking;
-
-      thinking += ".";
-      if (thinking == "......") thinking = ".";
-
-      lastAction = randomAction;
 
       if (level.Moves.Count() >= maxTries)
       {
@@ -85,16 +58,12 @@ namespace Game
       }
     }
 
-    public static string MoveToArrowEmoji(Direction direction)
+    private string GetRandomAction()
     {
-      return direction switch
-      {
-        Direction.Up => "⬆️",
-        Direction.Down => "⬇️",
-        Direction.Left => "⬅️",
-        Direction.Right => "➡️",
-        _ => "Unsupported direction: " + direction.ToString()
-      };
+      var availableActions = level.GetAvailableActions();
+      if (availableActions.Count == 0) return null;
+      var randomAction = availableActions.ElementAt((System.Index)(GD.Randi() % availableActions.Count));
+      return randomAction;
     }
   }
 }
