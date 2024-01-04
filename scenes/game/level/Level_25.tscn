@@ -1,0 +1,141 @@
+[gd_scene load_steps=11 format=3 uid="uid://ch5lxxqt3r0hi"]
+
+[ext_resource type="Script" path="res://scenes/game/level/Level.cs" id="1_trx6l"]
+[ext_resource type="PackedScene" uid="uid://btkws4lwu8fi1" path="res://scenes/game/level/LevelBackground.tscn" id="2_qipis"]
+[ext_resource type="PackedScene" uid="uid://dbl0tiuqxnci4" path="res://scenes/ui/LevelUI.tscn" id="3_7smbx"]
+[ext_resource type="PackedScene" uid="uid://bucaotbosry0r" path="res://scenes/game/objects/tile/GridContainer.tscn" id="4_ryjub"]
+[ext_resource type="Theme" uid="uid://xpcajdi0p6eq" path="res://assets/game/objects/tile/row_theme.tres" id="5_rwcmk"]
+[ext_resource type="PackedScene" uid="uid://67x0aame80lq" path="res://scenes/game/objects/tile/Tile.tscn" id="6_ecb2i"]
+[ext_resource type="PackedScene" uid="uid://ch1bcttqi5hjk" path="res://scenes/game/objects/tile/core/Core.tscn" id="7_a85ua"]
+[ext_resource type="PackedScene" uid="uid://cl2lm1lsl8j8i" path="res://scenes/game/objects/tile/proxy/Proxy.tscn" id="7_h75jq"]
+[ext_resource type="PackedScene" uid="uid://e2gu8wi641jf" path="res://scenes/game/objects/tile/empty/Empty.tscn" id="11_amewh"]
+[ext_resource type="PackedScene" uid="uid://bux2ffg7yyub3" path="res://scenes/game/objects/tile/firewall/Firewall.tscn" id="14_fff1k"]
+
+[node name="Level" type="Node2D" node_paths=PackedStringArray("startingTile")]
+script = ExtResource("1_trx6l")
+startingTile = NodePath("LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row_3/Tile_0_1")
+OptimalScore = 9
+LevelTitle = "Level 1.8"
+LevelSubtitle = "// Broken Mirror"
+
+[node name="Background" parent="." instance=ExtResource("2_qipis")]
+
+[node name="LevelUI" parent="." instance=ExtResource("3_7smbx")]
+
+[node name="GridContainer" parent="LevelUI/LevelRoot" index="1" instance=ExtResource("4_ryjub")]
+layout_mode = 2
+
+[node name="Row_0" type="HBoxContainer" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid" index="0"]
+layout_mode = 2
+theme = ExtResource("5_rwcmk")
+
+[node name="Tile_0_4" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row_0" instance=ExtResource("6_ecb2i")]
+layout_mode = 2
+Type = 0
+
+[node name="Core" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row_0/Tile_0_4" instance=ExtResource("7_a85ua")]
+
+[node name="Tile_1_4" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row_0" instance=ExtResource("6_ecb2i")]
+layout_mode = 2
+Type = 0
+
+[node name="Core" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row_0/Tile_1_4" instance=ExtResource("7_a85ua")]
+isCoreGlitched = true
+
+[node name="Tile_2_4" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row_0" instance=ExtResource("6_ecb2i")]
+layout_mode = 2
+
+[node name="Empty" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row_0/Tile_2_4" instance=ExtResource("11_amewh")]
+
+[node name="Tile_3_4" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row_0" instance=ExtResource("6_ecb2i")]
+layout_mode = 2
+Type = 0
+
+[node name="Core" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row_0/Tile_3_4" instance=ExtResource("7_a85ua")]
+
+[node name="Row_1" type="HBoxContainer" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid" index="1"]
+layout_mode = 2
+theme = ExtResource("5_rwcmk")
+
+[node name="Tile_0_3" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row_1" instance=ExtResource("6_ecb2i")]
+layout_mode = 2
+Type = 0
+
+[node name="Core" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row_1/Tile_0_3" instance=ExtResource("7_a85ua")]
+isCoreGlitched = true
+
+[node name="Tile_1_3" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row_1" instance=ExtResource("6_ecb2i")]
+layout_mode = 2
+Type = 4
+
+[node name="Proxy" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row_1/Tile_1_3" instance=ExtResource("7_h75jq")]
+
+[node name="Tile_2_3" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row_1" instance=ExtResource("6_ecb2i")]
+layout_mode = 2
+Type = 2
+
+[node name="Firewall" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row_1/Tile_2_3" instance=ExtResource("14_fff1k")]
+
+[node name="Tile_3_3" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row_1" instance=ExtResource("6_ecb2i")]
+layout_mode = 2
+Type = 0
+
+[node name="Core" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row_1/Tile_3_3" instance=ExtResource("7_a85ua")]
+
+[node name="Row_2" type="HBoxContainer" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid" index="2"]
+layout_mode = 2
+theme = ExtResource("5_rwcmk")
+
+[node name="Tile_0_2" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row_2" instance=ExtResource("6_ecb2i")]
+layout_mode = 2
+
+[node name="Empty" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row_2/Tile_0_2" instance=ExtResource("11_amewh")]
+
+[node name="Tile_1_2" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row_2" instance=ExtResource("6_ecb2i")]
+layout_mode = 2
+Type = 2
+
+[node name="Firewall" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row_2/Tile_1_2" instance=ExtResource("14_fff1k")]
+
+[node name="Tile_2_2" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row_2" instance=ExtResource("6_ecb2i")]
+layout_mode = 2
+Type = 4
+
+[node name="Proxy" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row_2/Tile_2_2" instance=ExtResource("7_h75jq")]
+
+[node name="Tile_3_2" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row_2" instance=ExtResource("6_ecb2i")]
+layout_mode = 2
+Type = 0
+
+[node name="Core" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row_2/Tile_3_2" instance=ExtResource("7_a85ua")]
+
+[node name="Row_3" type="HBoxContainer" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid" index="3"]
+layout_mode = 2
+theme = ExtResource("5_rwcmk")
+
+[node name="Tile_0_1" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row_3" instance=ExtResource("6_ecb2i")]
+layout_mode = 2
+Type = 0
+
+[node name="Core" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row_3/Tile_0_1" instance=ExtResource("7_a85ua")]
+
+[node name="Tile_1_1" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row_3" instance=ExtResource("6_ecb2i")]
+layout_mode = 2
+Type = 0
+
+[node name="Core" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row_3/Tile_1_1" instance=ExtResource("7_a85ua")]
+
+[node name="Tile_2_1" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row_3" instance=ExtResource("6_ecb2i")]
+layout_mode = 2
+Type = 0
+
+[node name="Core" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row_3/Tile_2_1" instance=ExtResource("7_a85ua")]
+
+[node name="Tile_3_1" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row_3" instance=ExtResource("6_ecb2i")]
+layout_mode = 2
+Type = 0
+
+[node name="Core" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row_3/Tile_3_1" instance=ExtResource("7_a85ua")]
+
+[editable path="LevelUI"]
+[editable path="LevelUI/LevelRoot/GridContainer"]
