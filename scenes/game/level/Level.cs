@@ -24,15 +24,13 @@ namespace Game
     public delegate void CurrentTileUpdatedEventHandler(Tile currentTile, Tile previousTile, Direction direction);
 
     [Export]
+    public int Id;
+    [Export]
     public PackedScene nextLevel;
     [Export]
     public Tile startingTile;
     [Export]
     public int OptimalScore { get; private set; } = 0;
-    [Export]
-    public string LevelTitle;
-    [Export]
-    public string LevelSubtitle;
 
     [ExportGroup("Bot Properties")]
     [Export]

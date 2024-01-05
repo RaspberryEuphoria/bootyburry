@@ -21,6 +21,7 @@ OptimalScore = 10
 LevelTitle = "Level 1.7"
 LevelSubtitle = "// Twice The Fall"
 botDelay = 0.0
+Id = 21
 
 [node name="Background" parent="." instance=ExtResource("3_dhngd")]
 

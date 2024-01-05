@@ -20,6 +20,7 @@ startingTile = NodePath("LevelUI/LevelRoot/GridContainer/PanelContainer/MarginCo
 OptimalScore = 6
 LevelTitle = "Level 2.2"
 botDelay = 0.0
+Id = 20
 
 [node name="Background" parent="." instance=ExtResource("3_1am38")]
 

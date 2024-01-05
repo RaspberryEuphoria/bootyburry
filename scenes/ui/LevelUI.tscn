@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://dbl0tiuqxnci4"]
+[gd_scene load_steps=13 format=3 uid="uid://dbl0tiuqxnci4"]
 
 [ext_resource type="Texture2D" uid="uid://crq44tibmvmta" path="res://assets/fx/holographic_pattern.png" id="1_ba2eh"]
 [ext_resource type="Script" path="res://scenes/ui/LevelUI.cs" id="1_egn7x"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://c6uuckxenfy7" path="res://scenes/ui/Components/KamiLabel.tscn" id="4_lml61"]
 [ext_resource type="StyleBox" uid="uid://bkd7nnt3cq2c6" path="res://assets/ui/themes/score_panel.tres" id="5_jf3g3"]
 [ext_resource type="StyleBox" uid="uid://nwsghwrwb76p" path="res://assets/ui/themes/score_panel_disabled.tres" id="5_wlt43"]
+[ext_resource type="Texture2D" uid="uid://bujh18w6mfhtt" path="res://assets/ui/GameUITrophy.png" id="6_a7khs"]
 [ext_resource type="PackedScene" uid="uid://b7e7xmwfmavsq" path="res://scenes/ui/Components/KamiButton.tscn" id="7_82ktx"]
 
 [sub_resource type="Theme" id="Theme_np0ys"]
@@ -40,6 +41,7 @@ grow_vertical = 2
 size_flags_vertical = 4
 
 [node name="HUD" type="MarginContainer" parent="LevelRoot"]
+unique_name_in_owner = true
 layout_mode = 2
 theme_override_constants/margin_bottom = 40
 
@@ -53,8 +55,7 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 0
 theme_type_variation = &"OutlineButton"
-theme_override_colors/font_color = Color(0.467, 0.867, 0.467, 1)
-theme_override_font_sizes/font_size = 96
+theme_override_font_sizes/font_size = 86
 text = "⟲"
 TextSize = 3
 
@@ -77,13 +78,30 @@ size_flags_vertical = 4
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_right = 20
 
-[node name="CurrentMovesLabel" parent="LevelRoot/HUD/HBoxContainer/ScorePanel/HBoxContainer/MarginContainer" instance=ExtResource("4_lml61")]
+[node name="HBoxContainer" type="HBoxContainer" parent="LevelRoot/HUD/HBoxContainer/ScorePanel/HBoxContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="CurrentMovesLabel" parent="LevelRoot/HUD/HBoxContainer/ScorePanel/HBoxContainer/MarginContainer/HBoxContainer" instance=ExtResource("4_lml61")]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_color = Color(0.002, 0.021, 0.073, 1)
 theme_override_font_sizes/font_size = 72
 text = "X"
-TextSize = 2
+ColorType = 5
+
+[node name="Separator" parent="LevelRoot/HUD/HBoxContainer/ScorePanel/HBoxContainer/MarginContainer/HBoxContainer" instance=ExtResource("4_lml61")]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.002, 0.021, 0.073, 1)
+theme_override_font_sizes/font_size = 72
+text = "/"
+ColorType = 5
+
+[node name="OptimalMovesLabel" parent="LevelRoot/HUD/HBoxContainer/ScorePanel/HBoxContainer/MarginContainer/HBoxContainer" instance=ExtResource("4_lml61")]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.002, 0.021, 0.073, 1)
+theme_override_font_sizes/font_size = 72
+text = "X"
 ColorType = 5
 
 [node name="PanelContainer" type="PanelContainer" parent="LevelRoot/HUD/HBoxContainer/ScorePanel/HBoxContainer"]
@@ -97,27 +115,38 @@ theme_override_constants/margin_left = 25
 theme_override_constants/margin_right = 25
 
 [node name="VBoxContainer" type="VBoxContainer" parent="LevelRoot/HUD/HBoxContainer/ScorePanel/HBoxContainer/PanelContainer/MarginContainer"]
+custom_minimum_size = Vector2(90, 90)
 layout_mode = 2
 theme_override_constants/separation = -10
 alignment = 1
 
-[node name="OptimalMovesLabel" parent="LevelRoot/HUD/HBoxContainer/ScorePanel/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer" instance=ExtResource("4_lml61")]
-unique_name_in_owner = true
+[node name="MaxLabel" parent="LevelRoot/HUD/HBoxContainer/ScorePanel/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer" instance=ExtResource("4_lml61")]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 1
 size_flags_vertical = 1
 theme_override_colors/font_color = Color(0.467, 0.867, 0.467, 1)
-text = "X"
-
-[node name="MaxLabel" parent="LevelRoot/HUD/HBoxContainer/ScorePanel/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer" instance=ExtResource("4_lml61")]
-layout_mode = 2
-size_flags_horizontal = 1
-size_flags_vertical = 1
-theme_override_colors/font_color = Color(0.498, 0.498, 0.498, 1)
-theme_override_font_sizes/font_size = 28
-text = "max."
+theme_override_font_sizes/font_size = 42
+text = ":)"
 TextSize = 0
-ColorType = 4
+
+[node name="TrophyIcon" type="TextureRect" parent="LevelRoot/HUD/HBoxContainer/ScorePanel/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+modulate = Color(0.466667, 0.866667, 0.466667, 1)
+layout_mode = 2
+texture = ExtResource("6_a7khs")
+expand_mode = 4
+
+[node name="Holo" type="TextureRect" parent="LevelRoot/HUD/HBoxContainer/ScorePanel/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/TrophyIcon"]
+modulate = Color(0, 0, 0, 0.172549)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_ba2eh")
+stretch_mode = 1
 
 [node name="BackToMenuButton" parent="LevelRoot/HUD/HBoxContainer" instance=ExtResource("7_82ktx")]
 unique_name_in_owner = true
@@ -125,8 +154,7 @@ layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 4
 theme_type_variation = &"OutlineButton"
-theme_override_colors/font_color = Color(0.467, 0.867, 0.467, 1)
-theme_override_font_sizes/font_size = 96
+theme_override_font_sizes/font_size = 86
 text = "☰"
 TextSize = 3
 
@@ -147,8 +175,7 @@ alignment = 1
 [node name="DecreaseZoomButton" parent="LevelRoot/HUD/ZoomPanel/HBoxContainer" instance=ExtResource("7_82ktx")]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_colors/font_color = Color(0.467, 0.867, 0.467, 1)
-theme_override_font_sizes/font_size = 28
+theme_override_font_sizes/font_size = 42
 text = "-
 "
 TextSize = 0
@@ -157,14 +184,15 @@ TextSize = 0
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_color = Color(0.635, 0.282, 0.467, 1)
+theme_override_font_sizes/font_size = 56
 text = "100%"
+TextSize = 1
 ColorType = 1
 
 [node name="IncreaseZoomButton" parent="LevelRoot/HUD/ZoomPanel/HBoxContainer" instance=ExtResource("7_82ktx")]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_colors/font_color = Color(0.467, 0.867, 0.467, 1)
-theme_override_font_sizes/font_size = 28
+theme_override_font_sizes/font_size = 42
 text = "+"
 TextSize = 0
 

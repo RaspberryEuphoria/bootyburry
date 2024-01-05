@@ -1,8 +1,7 @@
-
-using System.Linq;
 using Game;
 using Godot;
 using Helpers;
+using Menu;
 
 namespace UI
 {
@@ -16,6 +15,7 @@ namespace UI
 
     private ConfigFile config = new();
     private Control helperControl;
+    private MainMenu mainMenu;
     private Level level;
     private Label currentMovesLabel;
     private KamiLabel optimalMovesLabel;
@@ -24,8 +24,7 @@ namespace UI
 
     private PanelContainer scorePanel;
     private StringName panelContainerDisabledVariation = "PanelContainerDisabled";
-    private Label currentZoomLabel;
-    private DynamicCamera dynamicCamera;
+    private MarginContainer hud;
 
     public override void _Ready()
     {
@@ -36,7 +35,7 @@ namespace UI
       level.PlayerMoved += OnPlayerMoved;
 
       var backToMenuButton = GetNode<Button>("%BackToMenuButton");
-      backToMenuButton.ButtonUp += BackToMainMenu;
+      backToMenuButton.ButtonUp += OpenMainMenu;
 
       var retryButton = GetNode<KamiButton>("%RetryButton");
       retryButton.ButtonUp += level.Retry;
@@ -44,28 +43,7 @@ namespace UI
       scorePanel = GetNode<PanelContainer>("%ScorePanel");
       currentMovesLabel = GetNode<Label>("%CurrentMovesLabel");
       optimalMovesLabel = GetNode<KamiLabel>("%OptimalMovesLabel");
-
-      currentZoomLabel = GetNode<Label>("%CurrentZoomLabel");
-
-      var increaseZoomButton = GetNode<Button>("%IncreaseZoomButton");
-      var decreaseZoomButton = GetNode<Button>("%DecreaseZoomButton");
-
-      increaseZoomButton.ButtonUp += OnIncreaseZoom;
-      decreaseZoomButton.ButtonUp += OnDecreaseZoom;
-    }
-
-    public override void _Process(double delta)
-    {
-      if (!level.IsInputAllowed()) return;
-
-      // if (Input.IsActionJustPressed("scroll_down"))
-      // {
-      //   OnDecreaseZoom();
-      // }
-      // else if (Input.IsActionJustPressed("scroll_up"))
-      // {
-      //   OnIncreaseZoom();
-      // }
+      hud = GetNode<MarginContainer>("%HUD");
     }
 
     private void Init()
@@ -81,34 +59,32 @@ namespace UI
 
     private void DisableScore()
     {
-      optimalMovesLabel.SetColorType(KamiColors.ColorType.Disabled);
       scorePanel.ThemeTypeVariation = panelContainerDisabledVariation;
+
+      GetNode<TextureRect>("%TrophyIcon").Modulate = KamiColors.GetDisabled();
     }
 
-    private void BackToMainMenu()
+    private void OpenMainMenu()
     {
-      var mainMenu = ResourceLoader.Load<PackedScene>("res://scenes/game/menus/MainMenu.tscn");
-      GetTree().ChangeSceneToPacked(mainMenu);
+      if (mainMenu == null)
+      {
+        mainMenu = ResourceLoader.Load<PackedScene>("res://scenes/game/menus/MainMenu.tscn").Instantiate<MainMenu>();
+        AddChild(mainMenu);
+
+        mainMenu.InitFromLevel(level.Id);
+        mainMenu.MainMenuResumePlay += OnMainMenuResumePlay;
+      }
+
+      Hide();
+      level.Hide();
+      mainMenu.ShowUI();
     }
 
-    private void UpdateZoomLabel()
+    private void OnMainMenuResumePlay()
     {
-      dynamicCamera ??= level.GetNode<DynamicCamera>("DynamicCamera");
-
-      var zoomPercentage = dynamicCamera.TargetZoom.X * 100;
-      currentZoomLabel.Text = $"{zoomPercentage}%";
-    }
-
-    private void OnIncreaseZoom()
-    {
-      EmitSignal(SignalName.IncrementZoom);
-      UpdateZoomLabel();
-    }
-
-    private void OnDecreaseZoom()
-    {
-      EmitSignal(SignalName.DecrementZoom);
-      UpdateZoomLabel();
+      Show();
+      level.Show();
+      mainMenu.HideUI();
     }
 
     private void OnPlayerMoved(int _score)

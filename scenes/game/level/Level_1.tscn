@@ -12,11 +12,10 @@
 
 [node name="Level" type="Node2D" node_paths=PackedStringArray("startingTile")]
 script = ExtResource("1_7jko6")
+Id = 1
 nextLevel = ExtResource("2_2i7a2")
 startingTile = NodePath("LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row1/Tile_0_0")
 OptimalScore = 2
-LevelTitle = "Level 0.0"
-LevelSubtitle = "// Hello Cores"
 
 [node name="Background" parent="." instance=ExtResource("3_5yjq4")]
 

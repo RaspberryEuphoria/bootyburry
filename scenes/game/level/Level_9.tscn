@@ -17,8 +17,7 @@ script = ExtResource("1_igvo4")
 nextLevel = ExtResource("2_d1gvw")
 startingTile = NodePath("LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row1/Tile_0_0")
 OptimalScore = 3
-LevelTitle = "Level 1.0"
-LevelSubtitle = "// Thinking With Proxies"
+Id = 9
 
 [node name="Background" parent="." instance=ExtResource("2_t3ne7")]
 

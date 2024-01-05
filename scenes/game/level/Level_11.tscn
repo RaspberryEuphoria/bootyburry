@@ -20,6 +20,7 @@ OptimalScore = 4
 LevelTitle = "Level 1.1"
 LevelSubtitle = "// Callback"
 botDelay = 0.0
+Id = 11
 
 [node name="Background" parent="." instance=ExtResource("2_fwxk1")]
 

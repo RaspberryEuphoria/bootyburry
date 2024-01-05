@@ -20,6 +20,7 @@ OptimalScore = 13
 LevelTitle = "Level 1.5"
 LevelSubtitle = "// It Works On My Machine"
 botDelay = 0.0
+Id = 15
 
 [node name="Background" parent="." instance=ExtResource("2_qd0ns")]
 

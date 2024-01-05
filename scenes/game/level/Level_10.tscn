@@ -18,6 +18,7 @@ startingTile = NodePath("LevelUI/LevelRoot/GridContainer/PanelContainer/MarginCo
 OptimalScore = 3
 LevelTitle = "Level 1.0"
 LevelSubtitle = "// Thinking With Proxies"
+Id = 10
 
 [node name="Background" parent="." instance=ExtResource("3_kppp5")]
 

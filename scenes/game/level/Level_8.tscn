@@ -22,6 +22,7 @@ OptimalScore = 5
 LevelTitle = "Level 0.8"
 LevelSubtitle = "// A* Would Have Helped"
 botDelay = 0.0
+Id = 8
 
 [node name="Background" parent="." instance=ExtResource("2_t3ne7")]
 

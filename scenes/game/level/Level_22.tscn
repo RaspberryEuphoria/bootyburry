@@ -20,6 +20,7 @@ startingTile = NodePath("LevelUI/LevelRoot/GridContainer/PanelContainer/MarginCo
 OptimalScore = 6
 LevelTitle = "Level 1.8"
 LevelSubtitle = "// Broken Mirror"
+Id = 22
 
 [node name="Background" parent="." instance=ExtResource("3_p5urs")]
 

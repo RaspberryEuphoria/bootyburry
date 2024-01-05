@@ -19,6 +19,7 @@ OptimalScore = 6
 LevelTitle = "Level 1.6"
 LevelSubtitle = "// Twice The Pride"
 botDelay = 0.0
+Id = 16
 
 [node name="Background" parent="." instance=ExtResource("3_1etvx")]
 

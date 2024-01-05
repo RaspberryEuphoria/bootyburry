@@ -1,6 +1,7 @@
-[gd_scene load_steps=10 format=3 uid="uid://bjnopm3n2a1d7"]
+[gd_scene load_steps=11 format=3 uid="uid://bjnopm3n2a1d7"]
 
 [ext_resource type="Script" path="res://scenes/game/level/Level.cs" id="1_n2pqx"]
+[ext_resource type="PackedScene" uid="uid://cvphsad0g4sjv" path="res://scenes/game/level/Level_27.tscn" id="2_cvfgt"]
 [ext_resource type="PackedScene" uid="uid://btkws4lwu8fi1" path="res://scenes/game/level/LevelBackground.tscn" id="2_stuts"]
 [ext_resource type="PackedScene" uid="uid://dbl0tiuqxnci4" path="res://scenes/ui/LevelUI.tscn" id="3_6omsg"]
 [ext_resource type="PackedScene" uid="uid://bucaotbosry0r" path="res://scenes/game/objects/tile/GridContainer.tscn" id="4_oce0a"]
@@ -12,10 +13,10 @@
 
 [node name="Level" type="Node2D" node_paths=PackedStringArray("startingTile")]
 script = ExtResource("1_n2pqx")
+Id = 26
+nextLevel = ExtResource("2_cvfgt")
 startingTile = NodePath("LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row_3/Tile_0_1")
 OptimalScore = 13
-LevelTitle = "Level 1.8"
-LevelSubtitle = "// Broken Mirror"
 
 [node name="Background" parent="." instance=ExtResource("2_stuts")]
 

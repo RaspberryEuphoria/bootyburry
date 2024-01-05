@@ -20,6 +20,7 @@ OptimalScore = 6
 LevelTitle = "Level 2.1"
 LevelSubtitle = "// Stack Overflow"
 botDelay = 0.0
+Id = 18
 
 [node name="Background" parent="." instance=ExtResource("2_pwdfs")]
 

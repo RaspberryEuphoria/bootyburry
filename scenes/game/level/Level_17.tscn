@@ -20,6 +20,7 @@ startingTile = NodePath("LevelUI/LevelRoot/GridContainer/PanelContainer/MarginCo
 OptimalScore = 7
 LevelTitle = "Level 2.0"
 LevelSubtitle = "// Glitched Core"
+Id = 17
 
 [node name="Background" parent="." instance=ExtResource("3_1etvx")]
 
