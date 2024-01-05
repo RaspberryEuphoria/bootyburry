@@ -1,0 +1,83 @@
+[gd_scene load_steps=5 format=3 uid="uid://bsjfsxuu8osoo"]
+
+[ext_resource type="Script" path="res://scenes/ui/HelpUI.cs" id="1_mnyr8"]
+[ext_resource type="PackedScene" uid="uid://b7e7xmwfmavsq" path="res://scenes/ui/Components/KamiButton.tscn" id="2_7ki54"]
+[ext_resource type="PackedScene" uid="uid://c6uuckxenfy7" path="res://scenes/ui/Components/KamiLabel.tscn" id="4_si0ti"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xcln4"]
+content_margin_left = 32.0
+content_margin_top = 32.0
+content_margin_right = 32.0
+content_margin_bottom = 32.0
+bg_color = Color(0, 0, 0, 0.9)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.466667, 0.866667, 0.466667, 1)
+corner_radius_top_left = 32
+corner_radius_top_right = 32
+corner_radius_bottom_right = 32
+corner_radius_bottom_left = 32
+
+[node name="HelpUI" type="CanvasLayer"]
+script = ExtResource("1_mnyr8")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -261.0
+offset_bottom = 261.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+mouse_filter = 0
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 32
+
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_xcln4")
+
+[node name="CloseButton" parent="MarginContainer/PanelContainer" instance=ExtResource("2_7ki54")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+theme_override_colors/font_color = Color(0.467, 0.867, 0.467, 1)
+theme_override_font_sizes/font_size = 56
+text = "✕"
+TextSize = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/PanelContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 0
+
+[node name="TitleLabel" parent="MarginContainer/PanelContainer/VBoxContainer" instance=ExtResource("4_si0ti")]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.467, 0.867, 0.467, 1)
+theme_override_font_sizes/font_size = 56
+text = "Core"
+TextSize = 1
+
+[node name="HelpLabel" parent="MarginContainer/PanelContainer/VBoxContainer" instance=ExtResource("4_si0ti")]
+custom_minimum_size = Vector2(900, 150)
+layout_mode = 2
+size_flags_horizontal = 1
+size_flags_vertical = 6
+theme_override_colors/font_color = Color(0.895, 0.895, 0.895, 1)
+theme_override_font_sizes/font_size = 42
+text = "You can only move on the grid from one Core to another.
+Move to a Core to activate it.
+Activate all of them to complete the level!"
+horizontal_alignment = 0
+autowrap_mode = 2
+TextSize = 0
+ColorType = 6
