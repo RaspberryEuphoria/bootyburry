@@ -11,6 +11,7 @@ namespace Game
     [Export]
     private bool isCoreGlitched = false;
 
+    private Level level;
     private Tile _rootTile;
     public override Tile RootTile
     {
@@ -30,10 +31,12 @@ namespace Game
     private IEnumerable<Tile> neighbordCoreTiles = new Tile[] { };
 
     private StringName enableAnimation = "enable";
+    private StringName enableOnStartAnimation = "enable_on_start";
     private StringName disableAnimation = "disable";
 
     public override void _Ready()
     {
+      level = GetTree().Root.GetNode<Level>("Level");
       RootTile = GetParent<Tile>();
       selectors = GetChildren().OfType<Selector>().ToArray();
       innerCore = GetNode<InnerCore>("InnerCore");
@@ -53,7 +56,7 @@ namespace Game
       if (isCoreEnabledOnStart)
       {
         innerCore.Toggle();
-        animationPlayer.Play("enable");
+        animationPlayer.Play("enable_on_start");
       }
 
       if (isCoreGlitched)
@@ -122,7 +125,14 @@ namespace Game
     public override void Toggle()
     {
       innerCore.Toggle();
-      animationPlayer.Play(innerCore.IsEnabled() ? enableAnimation : disableAnimation);
+
+      if (!innerCore.IsEnabled())
+      {
+        animationPlayer.Play(disableAnimation);
+        return;
+      }
+
+      animationPlayer.Play(level.GameState == GameState.Initializing ? enableOnStartAnimation : enableAnimation);
     }
 
     public void OnTileSelected(Tile _tile, Tile _previousTile, Direction _direction)
