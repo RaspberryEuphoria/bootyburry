@@ -132,7 +132,7 @@ namespace Game
       /**
        * On desktop screens, we want the grid to be in landscape mode instead of portrait.
        */
-      if (!Device.IsMobile() && RowsCount != ColumnsCount && !HasRotated)
+      if (!Device.IsMobile() && RowsCount > ColumnsCount && !HasRotated)
       {
         RotateBoard();
         return;
