@@ -22,6 +22,11 @@ namespace Game
       return RootTile.GetNextCoreTileInDirection(direction);
     }
 
+    public virtual Tile GetAdjacentTile(Direction direction)
+    {
+      return RootTile.GetAdjacentTile(direction);
+    }
+
     public virtual void Toggle()
     {
 

@@ -1,0 +1,30 @@
+[gd_scene load_steps=3 format=3 uid="uid://ck5rwloifwd2k"]
+
+[ext_resource type="Script" path="res://scenes/game/objects/tile/firewall/FirewallTracking.cs" id="1_bf64n"]
+[ext_resource type="Texture2D" uid="uid://b0xidjjxkavsk" path="res://scenes/game/objects/tile/firewall/assets/arrow_texture.png" id="2_ammbe"]
+
+[node name="FirewallTracking" type="Node2D"]
+position = Vector2(88, 60)
+script = ExtResource("1_bf64n")
+
+[node name="ArrowUp" type="Sprite2D" parent="."]
+modulate = Color(0.144459, 0.47561, 0.929498, 1)
+texture = ExtResource("2_ammbe")
+
+[node name="ArrowRight" type="Sprite2D" parent="."]
+modulate = Color(0.144459, 0.47561, 0.929498, 1)
+position = Vector2(23, 23)
+rotation = 1.5708
+texture = ExtResource("2_ammbe")
+
+[node name="ArrowDown" type="Sprite2D" parent="."]
+modulate = Color(0.144459, 0.47561, 0.929498, 1)
+position = Vector2(0, 47)
+rotation = 3.14159
+texture = ExtResource("2_ammbe")
+
+[node name="ArrowLeft" type="Sprite2D" parent="."]
+modulate = Color(0.144459, 0.47561, 0.929498, 1)
+position = Vector2(-23, 23)
+rotation = 4.71239
+texture = ExtResource("2_ammbe")

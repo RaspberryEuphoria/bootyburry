@@ -19,7 +19,7 @@ namespace Game
     [Signal]
     public delegate void GameLostEventHandler();
     [Signal]
-    public delegate void PlayerMovedEventHandler(int score);
+    public delegate void PlayerMovedEventHandler(int scoren, Direction direction);
     [Signal]
     public delegate void CurrentTileUpdatedEventHandler(Tile currentTile, Tile previousTile, Direction direction);
 
@@ -124,6 +124,7 @@ namespace Game
     private void PrepareBoard()
     {
       grid = GetNode<VBoxContainer>("LevelUI/LevelRoot/GridContainer/%Grid");
+      grid.Visible = false;
 
       var rows = grid.GetChildren().OfType<HBoxContainer>();
       RowsCount = rows.Count();
@@ -154,6 +155,7 @@ namespace Game
 
       cores = tiles.Where(t => t.IsCore()).Select(t => t.Terrain.GetNode<InnerCore>("InnerCore"));
       IsReady = true;
+      grid.Visible = true;
 
       startingTile.Select(null, Direction.Up);
     }
@@ -232,7 +234,7 @@ namespace Game
       Score++;
       Moves = Moves.Append(direction);
 
-      EmitSignal(SignalName.PlayerMoved, Score);
+      EmitSignal(SignalName.PlayerMoved, Score, (int)direction);
     }
 
     public void TriggerInputInDirection(Direction direction)

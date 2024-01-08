@@ -87,7 +87,7 @@ namespace UI
       mainMenu.HideUI();
     }
 
-    private void OnPlayerMoved(int _score)
+    private void OnPlayerMoved(int _score, Direction _direction)
     {
       var currentValue = currentMovesLabel.Text.ToInt();
       currentValue++;

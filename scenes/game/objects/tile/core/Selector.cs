@@ -38,6 +38,7 @@ namespace Game
       level.GameWon -= OnGameWon;
       rootTile.TileSelected -= OnTileSelected;
       rootTile.TileUnselected -= OnTileUnselected;
+      area2D.InputEvent -= OnInput;
     }
 
     private void OnInput(Node viewport, InputEvent @event, long shapeIdx)

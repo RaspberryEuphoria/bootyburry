@@ -6,6 +6,6 @@
 [node name="Firewall" type="Node2D" groups=["firewall"]]
 script = ExtResource("1_nrdpd")
 
-[node name="Warning" type="Sprite2D" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_0yn11")
 centered = false

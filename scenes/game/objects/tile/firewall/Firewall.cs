@@ -4,6 +4,27 @@ namespace Game
 {
   public partial class Firewall : TileTerrain
   {
+    [Export]
+    public bool IsFirewallTracking
+    {
+      get => isFirewallTracking;
+      set
+      {
+        isFirewallTracking = value;
+        if (Engine.IsEditorHint()) return;
+
+        if (isFirewallTracking)
+        {
+          AddTracking();
+        }
+        else
+        {
+          RemoveTracking();
+        }
+      }
+    }
+
+    private bool isFirewallTracking = false;
     private Tile _rootTile;
     public override Tile RootTile
     {
@@ -19,6 +40,22 @@ namespace Game
     public override void _Ready()
     {
       RootTile = GetParent<Tile>();
+      if (isFirewallTracking) AddTracking();
+    }
+
+    private void AddTracking()
+    {
+      var hasTracking = GetNodeOrNull<FirewallTracking>("FirewallTracking") != null;
+      if (hasTracking) return;
+
+      var firewallTracking = ResourceLoader.Load<PackedScene>("res://scenes/game/objects/tile/firewall/FirewallTracking.tscn").Instantiate();
+      AddChild(firewallTracking);
+    }
+
+    private void RemoveTracking()
+    {
+      var firewallTracking = GetNodeOrNull<FirewallTracking>("FirewallTracking");
+      firewallTracking?.QueueFree();
     }
 
     public override bool IsBlockedFromDirection(Direction _direction)

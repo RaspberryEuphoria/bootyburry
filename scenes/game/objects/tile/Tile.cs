@@ -58,6 +58,14 @@ namespace Game
       GenerateTerrain();
     }
 
+    public void UpdateTerrainDuringGameplay(TileType newType)
+    {
+      if (Type == newType || level.GameState != GameState.Playing) return;
+
+      Type = newType;
+      GenerateTerrain();
+    }
+
     public void Init(int column, int row, int id)
     {
       Name = $"Tile_{row}_{column}_[{id}]";
@@ -103,7 +111,7 @@ namespace Game
         }
       }
 
-      GD.Print($"Generating a new terrain for {Name}.");
+      // GD.Print($"Generating a new terrain for {Name}.");
 
       var children = GetChildren();
       foreach (var child in children)
