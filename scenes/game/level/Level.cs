@@ -272,6 +272,7 @@ namespace Game
 
       var nextCoreTile = currentTile.GetNextCoreTileInDirection(direction);
       if (nextCoreTile == null || currentTile == nextCoreTile) return null;
+      if (currentTile.HasBlockerInPathToTile(direction, nextCoreTile)) return null;
 
       var expandPreviousPath = currentTile.ExpandPreviousPath();
       var shouldAddMove = currentTile.IsPlayerControlled();
