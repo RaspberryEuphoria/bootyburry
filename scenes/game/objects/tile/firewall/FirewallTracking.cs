@@ -26,23 +26,25 @@ namespace Game
     {
       if (level.GameState != GameState.Playing) return;
 
-      var nextEmptyTile = firewall.GetAdjacentTile(direction);
-      if (nextEmptyTile == null || nextEmptyTile.Type != TileType.Empty) return;
+      var nextAdjacentTile = firewall.GetAdjacentTile(direction);
+      if (nextAdjacentTile == null || nextAdjacentTile.Type != TileType.Empty) return;
 
       while (true)
       {
-        var nextTile = nextEmptyTile.GetAdjacentTile(direction);
-        if (nextTile == null || nextTile.Type != TileType.Empty) break;
-        nextEmptyTile = nextTile;
+        var adjacentTile = nextAdjacentTile.GetAdjacentTile(direction);
+        if (adjacentTile == null || adjacentTile.Type != TileType.Empty) break;
+        nextAdjacentTile = adjacentTile;
       }
 
-      if (nextEmptyTile.Type == TileType.Empty)
+      if (nextAdjacentTile.Type == TileType.Empty)
       {
-        nextEmptyTile.UpdateTerrainDuringGameplay(TileType.Firewall);
-        var nextFirewall = nextEmptyTile.Terrain as Firewall;
-        nextFirewall.IsFirewallTracking = true;
+        nextAdjacentTile.ReplaceTerrain(TileType.Firewall);
 
-        rootTile.UpdateTerrainDuringGameplay(TileType.Empty);
+        var nextFirewall = nextAdjacentTile.Terrain as Firewall;
+        nextFirewall.IsFirewallTracking = true;
+        nextFirewall.Init();
+
+        rootTile.ReplaceTerrain(TileType.Empty);
       }
     }
   }

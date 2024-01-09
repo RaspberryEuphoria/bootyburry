@@ -5,26 +5,7 @@ namespace Game
   public partial class Firewall : TileTerrain
   {
     [Export]
-    public bool IsFirewallTracking
-    {
-      get => isFirewallTracking;
-      set
-      {
-        isFirewallTracking = value;
-        if (Engine.IsEditorHint()) return;
-
-        if (isFirewallTracking)
-        {
-          AddTracking();
-        }
-        else
-        {
-          RemoveTracking();
-        }
-      }
-    }
-
-    private bool isFirewallTracking = false;
+    public bool IsFirewallTracking = false;
     private Tile _rootTile;
     public override Tile RootTile
     {
@@ -40,14 +21,30 @@ namespace Game
     public override void _Ready()
     {
       RootTile = GetParent<Tile>();
-      if (isFirewallTracking) AddTracking();
+      if (IsFirewallTracking) ToggleTracking();
+    }
+
+    public override void Init()
+    {
+      if (IsFirewallTracking) ToggleTracking();
+    }
+
+    private void ToggleTracking()
+    {
+      if (IsFirewallTracking)
+      {
+        AddTracking();
+      }
+      else
+      {
+        RemoveTracking();
+      }
     }
 
     private void AddTracking()
     {
       var hasTracking = GetNodeOrNull<FirewallTracking>("FirewallTracking") != null;
       if (hasTracking) return;
-
       var firewallTracking = ResourceLoader.Load<PackedScene>("res://scenes/game/objects/tile/firewall/FirewallTracking.tscn").Instantiate();
       AddChild(firewallTracking);
     }

@@ -14,6 +14,8 @@ namespace Game
     public delegate void TileSelectedEventHandler(Tile tile, Tile previousTile, Direction direction);
     [Signal]
     public delegate void TileUnselectedEventHandler(Tile tile);
+    [Signal]
+    public delegate void TerrainReplacedEventHandler();
 
     [Export]
     public TileType Type
@@ -58,12 +60,14 @@ namespace Game
       GenerateTerrain();
     }
 
-    public void UpdateTerrainDuringGameplay(TileType newType)
+    public void ReplaceTerrain(TileType newType)
     {
       if (Type == newType || level.GameState != GameState.Playing) return;
 
       Type = newType;
+
       GenerateTerrain();
+      EmitSignal(SignalName.TerrainReplaced);
     }
 
     public void Init(int column, int row, int id)

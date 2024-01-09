@@ -26,7 +26,6 @@ namespace Game
 
     private AnimationPlayer animationPlayer;
     private InnerCore innerCore;
-    private Selector[] selectors;
     private OuterCoreGlitched outerCoreGlitched;
     private IEnumerable<Tile> neighbordCoreTiles = new Tile[] { };
 
@@ -38,7 +37,6 @@ namespace Game
     {
       level = GetTree().Root.GetNode<Level>("Level");
       RootTile = GetParent<Tile>();
-      selectors = GetChildren().OfType<Selector>().ToArray();
       innerCore = GetNode<InnerCore>("InnerCore");
       animationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
 

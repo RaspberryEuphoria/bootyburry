@@ -16,29 +16,34 @@ namespace Game
 
     public override void _Ready()
     {
-      Visible = false;
-
-      area2D = GetNode<Area2D>("Area2D");
-      animationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
+      Hide();
 
       level = GetTree().Root.GetNode<Level>("Level");
       level.GameWon += OnGameWon;
+      level.BoardTilesUpdated += OnBoardTilesUpdated;
 
       rootTile = GetParent<Core>().GetParent<Tile>();
       rootTile.TileSelected += OnTileSelected;
       rootTile.TileUnselected += OnTileUnselected;
 
+      area2D = GetNode<Area2D>("Area2D");
       area2D.InputEvent += OnInput;
 
+      animationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
       animationPlayer.AnimationFinished += OnAnimationFinished;
     }
 
     public override void _ExitTree()
     {
       level.GameWon -= OnGameWon;
+      level.BoardTilesUpdated -= OnBoardTilesUpdated;
+
       rootTile.TileSelected -= OnTileSelected;
       rootTile.TileUnselected -= OnTileUnselected;
+
       area2D.InputEvent -= OnInput;
+
+      animationPlayer.AnimationFinished -= OnAnimationFinished;
     }
 
     private void OnInput(Node viewport, InputEvent @event, long shapeIdx)
@@ -49,7 +54,24 @@ namespace Game
       level.TriggerInputInDirection(direction);
     }
 
-    public void OnTileSelected(Tile _tile, Tile _previousTile, Direction _direction)
+    private void OnTileSelected(Tile _tile, Tile _previousTile, Direction _direction)
+    {
+      ShowIfDirectionIsAvailable();
+    }
+
+    private void OnTileUnselected(Tile _tile)
+    {
+      Hide();
+    }
+
+    private void OnBoardTilesUpdated()
+    {
+      if (rootTile.Id != level.GetCurrentTileId()) return;
+
+      ShowIfDirectionIsAvailable();
+    }
+
+    private void ShowIfDirectionIsAvailable()
     {
       if (rootTile.IsOnBorder(direction)) return;
       if (rootTile.IsBlockedFromDirection(direction)) return;
@@ -62,17 +84,12 @@ namespace Game
       var animationToPlay = tileCore.IsEnabled() ? "disable" : "enable";
       animationPlayer.Play(animationToPlay);
 
-      Visible = true;
+      Show();
     }
 
-    public void OnTileUnselected(Tile _tile)
+    private void OnGameWon()
     {
-      Visible = false;
-    }
-
-    public void OnGameWon()
-    {
-      Visible = false;
+      Hide();
     }
 
     private void OnAnimationFinished(StringName animation)

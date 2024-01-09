@@ -22,6 +22,8 @@ namespace Game
     public delegate void PlayerMovedEventHandler(int scoren, Direction direction);
     [Signal]
     public delegate void CurrentTileUpdatedEventHandler(Tile currentTile, Tile previousTile, Direction direction);
+    [Signal]
+    public delegate void BoardTilesUpdatedEventHandler();
 
     [Export]
     public int Id;
@@ -149,6 +151,8 @@ namespace Game
           tiles = tiles.Append(tile);
 
           tile.TileSelected += OnTileSelected;
+          tile.TerrainReplaced += OnTerrainReplaced;
+
           tile.Init(x, y, index);
         }
       }
@@ -418,6 +422,16 @@ namespace Game
 
       CheckScore();
       EmitSignal(SignalName.CurrentTileUpdated, currentTile, previousTile, (int)direction);
+    }
+
+    private void OnTerrainReplaced()
+    {
+      EmitSignal(SignalName.BoardTilesUpdated);
+    }
+
+    public int GetCurrentTileId()
+    {
+      return currentTile.Id;
     }
 
     public static Direction GetOpposedDirection(Direction direction)
