@@ -68,6 +68,7 @@ namespace Game
     {
       if (rootTile.Id != level.GetCurrentTileId()) return;
 
+      Hide();
       ShowIfDirectionIsAvailable();
     }
 

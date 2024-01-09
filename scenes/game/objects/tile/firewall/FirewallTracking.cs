@@ -22,13 +22,25 @@ namespace Game
       level.PlayerMoved -= OnPlayerMoved;
     }
 
-    public void OnPlayerMoved(int _score, Direction direction)
+    private async void OnPlayerMoved(int _score, Direction direction)
     {
       if (level.GameState != GameState.Playing) return;
 
       var nextAdjacentTile = firewall.GetAdjacentTile(direction);
       if (nextAdjacentTile == null || nextAdjacentTile.Type != TileType.Empty) return;
 
+      /**
+       * We want to do the next task asynchronously in case multiple firewalls are
+       * on the same row or column: if we did this synchronously, the tracking could
+       * behave unexpectedly because the neighbord tiles would be updated too soon.
+       */
+      await ToSignal(GetTree().CreateTimer(0f), SceneTreeTimer.SignalName.Timeout);
+
+      MoveTo(nextAdjacentTile, direction);
+    }
+
+    private void MoveTo(Tile nextAdjacentTile, Direction direction)
+    {
       while (true)
       {
         var adjacentTile = nextAdjacentTile.GetAdjacentTile(direction);

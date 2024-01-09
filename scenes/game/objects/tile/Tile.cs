@@ -120,7 +120,7 @@ namespace Game
       var children = GetChildren();
       foreach (var child in children)
       {
-        child.Free();
+        child.QueueFree();
       }
 
       var newTerrainPath = Type switch
