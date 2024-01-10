@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://cg7hr73p5sl7l"]
+[gd_scene load_steps=11 format=3 uid="uid://cg7hr73p5sl7l"]
 
 [ext_resource type="Script" path="res://scenes/game/level/Level.cs" id="1_7jko6"]
 [ext_resource type="PackedScene" uid="uid://b1i880hkcmx50" path="res://scenes/game/level/Level_2.tscn" id="2_2i7a2"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://67x0aame80lq" path="res://scenes/game/objects/tile/Tile.tscn" id="7_8bpoe"]
 [ext_resource type="PackedScene" uid="uid://ch1bcttqi5hjk" path="res://scenes/game/objects/tile/core/Core.tscn" id="8_ou25x"]
 [ext_resource type="PackedScene" uid="uid://e2gu8wi641jf" path="res://scenes/game/objects/tile/empty/Empty.tscn" id="9_ljyax"]
+[ext_resource type="Script" path="res://scenes/game/objects/tile/empty/Empty.cs" id="10_wsrkq"]
 
 [node name="Level" type="Node2D" node_paths=PackedStringArray("startingTile")]
 script = ExtResource("1_7jko6")
@@ -43,12 +44,14 @@ Type = 0
 [node name="Tile_0_1" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row1" instance=ExtResource("7_8bpoe")]
 layout_mode = 2
 
-[node name="Empty" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row1/Tile_0_1" instance=ExtResource("9_ljyax")]
+[node name="Empty" type="Node2D" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row1/Tile_0_1" groups=["empty"] instance=ExtResource("9_ljyax")]
+script = ExtResource("10_wsrkq")
 
 [node name="Tile_0_2" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row1" instance=ExtResource("7_8bpoe")]
 layout_mode = 2
 
-[node name="Empty" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row1/Tile_0_2" instance=ExtResource("9_ljyax")]
+[node name="Empty" type="Node2D" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row1/Tile_0_2" groups=["empty"] instance=ExtResource("9_ljyax")]
+script = ExtResource("10_wsrkq")
 
 [node name="Row2" type="HBoxContainer" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid" index="1"]
 layout_mode = 2
@@ -67,7 +70,8 @@ layout_mode = 2
 [node name="Tile_1_2" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row2" instance=ExtResource("7_8bpoe")]
 layout_mode = 2
 
-[node name="Empty" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row2/Tile_1_2" instance=ExtResource("9_ljyax")]
+[node name="Empty" type="Node2D" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row2/Tile_1_2" groups=["empty"] instance=ExtResource("9_ljyax")]
+script = ExtResource("10_wsrkq")
 
 [node name="Row3" type="HBoxContainer" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid" index="2"]
 layout_mode = 2
