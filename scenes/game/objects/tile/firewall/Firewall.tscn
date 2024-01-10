@@ -1,11 +1,11 @@
 [gd_scene load_steps=3 format=3 uid="uid://bux2ffg7yyub3"]
 
 [ext_resource type="Script" path="res://scenes/game/objects/tile/firewall/Firewall.cs" id="1_nrdpd"]
-[ext_resource type="Texture2D" uid="uid://da5i7o3dkyd50" path="res://assets/game/objects/tile/firewall/texture_md.png" id="2_0yn11"]
+[ext_resource type="Texture2D" uid="uid://bf3edoqs735xa" path="res://scenes/game/objects/tile/firewall/assets/FirewallTexture.png" id="2_3k2kr"]
 
 [node name="Firewall" type="Node2D" groups=["firewall"]]
 script = ExtResource("1_nrdpd")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_0yn11")
+texture = ExtResource("2_3k2kr")
 centered = false

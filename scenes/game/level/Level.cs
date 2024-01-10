@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Godot;
 using Helpers;
 using UI;
@@ -84,7 +85,6 @@ namespace Game
       AddChild(worldEnvironment);
 
       PrepareBoard();
-      StartGame();
     }
 
     public override void _Process(double delta)
@@ -123,7 +123,7 @@ namespace Game
       AddChild(bot);
     }
 
-    private void PrepareBoard()
+    private async void PrepareBoard()
     {
       grid = GetNode<VBoxContainer>("LevelUI/LevelRoot/GridContainer/%Grid");
       grid.Visible = false;
@@ -137,7 +137,7 @@ namespace Game
        */
       if (!Device.IsMobile() && RowsCount > ColumnsCount && !HasRotated)
       {
-        RotateBoard();
+        await RotateBoard();
         return;
       }
 
@@ -162,9 +162,10 @@ namespace Game
       grid.Visible = true;
 
       startingTile.Select(null, Direction.Up);
+      StartGame();
     }
 
-    private async void RotateBoard()
+    private async Task RotateBoard()
     {
       var rows = grid.GetChildren().OfType<HBoxContainer>();
       RowsCount = rows.Count();
