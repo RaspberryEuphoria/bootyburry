@@ -13,6 +13,7 @@ namespace Menu
 
     private UserSettings userSettings;
     private Control UI;
+    private LevelSelector levelSelector;
     private KamiButton resumePlayButton;
     private KamiButton settingsButton;
     private KamiButton smallButton;
@@ -29,6 +30,7 @@ namespace Menu
       userSettings = GetNodeOrNull<UserSettings>("/root/UserSettings");
 
       UI = GetNode<CanvasLayer>("CanvasLayer").GetNode<Control>("UI");
+      levelSelector = GetNode<LevelSelector>("%LevelSelector");
       resumePlayButton = GetNode<KamiButton>("%ResumePlayButton");
       settingsButton = GetNode<KamiButton>("%SettingsButton");
       smallButton = GetNode<KamiButton>("%SmallButton");
@@ -59,6 +61,8 @@ namespace Menu
       resumePlayButton.ButtonUp += ResumePlay;
 
       GetNode("LevelBackground").QueueFree();
+
+      levelSelector.InitFromLevel(currentLevel, ResumePlay);
     }
 
     public void ShowUI()
@@ -71,7 +75,7 @@ namespace Menu
       UI.Visible = false;
     }
 
-    private void ResumePlay()
+    public void ResumePlay()
     {
       if (currentLevel != null)
       {

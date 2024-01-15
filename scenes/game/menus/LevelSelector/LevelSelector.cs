@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -22,6 +23,7 @@ namespace Menu
     private string sceneExtension = ".tscn";
     private float currentWorld = 0f;
     private List<string> levels;
+    private int? currentLevel = null;
 
     public override void _Ready()
     {
@@ -41,17 +43,25 @@ namespace Menu
       SetupWorldsButtons(worldsCount);
     }
 
+    public void InitFromLevel(int currentLevel, Action ResumePlay)
+    {
+      this.currentLevel = currentLevel;
+      currentWorld = Mathf.Ceil(currentLevel / levelsPerWorld) - 1;
+
+      SetupLevelsButtons((KamiButton)worldsContainer.GetChild((int)currentWorld), currentWorld, ResumePlay);
+    }
+
     private void SetupWorldsButtons(float worldsCount)
     {
       for (int world = 0; world < worldsCount; world++)
       {
         var worldButton = ResourceLoader.Load<PackedScene>("res://scenes/ui/Components/KamiButton.tscn").Instantiate<KamiButton>();
-        worldButton.Flat = false;
-        worldButton.Text = $"{AddTrailingZero(levelsPerWorld * world + 1)}-{levelsPerWorld * (world + 1)}";
+        worldButton.Flat = true;
+        worldButton.Text = $"◇ {AddTrailingZero(levelsPerWorld * world + 1)}-{levelsPerWorld * (world + 1)}";
         worldButton.Name = worldButton.Text;
         worldButton.Theme = ResourceLoader.Load<Theme>("res://scenes/game/menus/LevelSelector/WorldButton.tres");
         worldButton.SetTextSize(KamiFonts.TextSize.SM);
-        worldButton.SetColorType(KamiColors.ColorType.Dark);
+        worldButton.SetColorType(KamiColors.ColorType.Light);
 
         // local copies for closure
         var _world = world;
@@ -71,17 +81,17 @@ namespace Menu
       }
     }
 
-    private void SetupLevelsButtons(KamiButton worldButton, float world)
+    private void SetupLevelsButtons(KamiButton worldButton, float world, Action ResumePlay = null)
     {
       worldsContainer.GetChildren().ToList().ForEach(child =>
       {
         var button = (KamiButton)child;
-        button.SetColorType(KamiColors.ColorType.Dark);
-        button.Flat = false;
+        button.SetColorType(KamiColors.ColorType.Light);
+        button.Text = button.Text.Replace("◈", "◇");
       });
 
       worldButton.SetColorType(KamiColors.ColorType.Primary);
-      worldButton.Flat = true;
+      worldButton.Text = worldButton.Text.Replace("◇", "◈");
 
       var previousLevelsButtons = levelsContainer.GetChildren();
       foreach (var levelButton in previousLevelsButtons)
@@ -91,7 +101,6 @@ namespace Menu
       }
 
       var levelsInWorld = levels.Skip((int)(world * levelsPerWorld)).Take((int)levelsPerWorld);
-
       foreach (var levelName in levelsInWorld)
       {
         var level = int.Parse(levelName.Split('_')[1]);
@@ -103,13 +112,23 @@ namespace Menu
         levelButton.SetTextSize(KamiFonts.TextSize.SM);
         levelButton.SetColorType(KamiColors.ColorType.Light);
 
-        // local copies for closure
-        var _level = levelName;
-
-        levelButton.ButtonUp += () =>
+        if (level == currentLevel)
         {
-          GoToLevel(level);
-        };
+          levelButton.SetColorType(KamiColors.ColorType.Primary);
+          levelButton.Flat = true;
+
+          levelButton.ButtonUp += () => ResumePlay();
+        }
+        else
+        {
+          // local copies for closure
+          var _level = levelName;
+
+          levelButton.ButtonUp += () =>
+          {
+            GoToLevel(level);
+          };
+        }
 
         levelsContainer.AddChild(levelButton);
       }
