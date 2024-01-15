@@ -22,7 +22,6 @@ script = ExtResource("1_gujsh")
 Id = 32
 startingTile = NodePath("LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row1/Tile_0_2")
 OptimalScore = 9
-useBot = true
 
 [node name="Background" parent="." instance=ExtResource("2_bh8ie")]
 
