@@ -1,7 +1,7 @@
 [gd_scene load_steps=12 format=3 uid="uid://cytb541tddry2"]
 
 [ext_resource type="Script" path="res://scenes/game/level/Level.cs" id="1_k4fim"]
-[ext_resource type="PackedScene" uid="uid://y5p1gacbc401" path="res://scenes/game/level/Level_32.tscn" id="2_kotuj"]
+[ext_resource type="PackedScene" uid="uid://cx8peqnjtfrdv" path="res://scenes/game/level/Level_32.tscn" id="2_lu1ud"]
 [ext_resource type="PackedScene" uid="uid://btkws4lwu8fi1" path="res://scenes/game/level/LevelBackground.tscn" id="3_qok81"]
 [ext_resource type="PackedScene" uid="uid://dbl0tiuqxnci4" path="res://scenes/ui/LevelUI.tscn" id="4_e140f"]
 [ext_resource type="PackedScene" uid="uid://bucaotbosry0r" path="res://scenes/game/objects/tile/GridContainer.tscn" id="5_fgt4r"]
@@ -15,9 +15,9 @@
 [node name="Level" type="Node2D" node_paths=PackedStringArray("startingTile")]
 script = ExtResource("1_k4fim")
 Id = 31
-nextLevel = ExtResource("2_kotuj")
+nextLevel = ExtResource("2_lu1ud")
 startingTile = NodePath("LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row2/Tile_1_0")
-OptimalScore = 12
+OptimalScore = 10
 
 [node name="Background" parent="." instance=ExtResource("3_qok81")]
 
@@ -44,20 +44,16 @@ Type = 0
 
 [node name="Tile_0_1" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row1" instance=ExtResource("7_f64oi")]
 layout_mode = 2
+Type = 2
 
-[node name="Empty" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row1/Tile_0_1" instance=ExtResource("11_vmicl")]
+[node name="Firewall" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row1/Tile_0_1" instance=ExtResource("10_m0e0n")]
+IsFirewallTracking = true
 
 [node name="Tile_0_2" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row1" instance=ExtResource("7_f64oi")]
 layout_mode = 2
 Type = 0
 
 [node name="Core" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row1/Tile_0_2" instance=ExtResource("8_voakj")]
-
-[node name="Tile_0_3" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row1" instance=ExtResource("7_f64oi")]
-layout_mode = 2
-Type = 0
-
-[node name="Core" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row1/Tile_0_3" instance=ExtResource("8_voakj")]
 
 [node name="Row2" type="HBoxContainer" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid" index="1"]
 layout_mode = 2
@@ -71,20 +67,14 @@ Type = 0
 
 [node name="Tile_1_1" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row2" instance=ExtResource("7_f64oi")]
 layout_mode = 2
-Type = 2
 
-[node name="Firewall" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row2/Tile_1_1" instance=ExtResource("10_m0e0n")]
-IsFirewallTracking = true
+[node name="Empty" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row2/Tile_1_1" instance=ExtResource("11_vmicl")]
 
 [node name="Tile_1_2" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row2" instance=ExtResource("7_f64oi")]
 layout_mode = 2
+Type = 0
 
-[node name="Empty" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row2/Tile_1_2" instance=ExtResource("11_vmicl")]
-
-[node name="Tile_1_3" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row2" instance=ExtResource("7_f64oi")]
-layout_mode = 2
-
-[node name="Empty" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row2/Tile_1_3" instance=ExtResource("11_vmicl")]
+[node name="Core" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row2/Tile_1_2" instance=ExtResource("8_voakj")]
 
 [node name="Row3" type="HBoxContainer" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid" index="2"]
 layout_mode = 2
@@ -97,21 +87,14 @@ layout_mode = 2
 
 [node name="Tile_2_1" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row3" instance=ExtResource("7_f64oi")]
 layout_mode = 2
-Type = 2
 
-[node name="Firewall" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row3/Tile_2_1" instance=ExtResource("10_m0e0n")]
-IsFirewallTracking = true
+[node name="Empty" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row3/Tile_2_1" instance=ExtResource("11_vmicl")]
 
 [node name="Tile_2_2" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row3" instance=ExtResource("7_f64oi")]
 layout_mode = 2
-Type = 0
+Type = 3
 
-[node name="Core" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row3/Tile_2_2" instance=ExtResource("8_voakj")]
-
-[node name="Tile_2_3" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row3" instance=ExtResource("7_f64oi")]
-layout_mode = 2
-
-[node name="Empty" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row3/Tile_2_3" instance=ExtResource("11_vmicl")]
+[node name="Router" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row3/Tile_2_2" instance=ExtResource("12_6r03d")]
 
 [node name="Row4" type="HBoxContainer" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid" index="3"]
 layout_mode = 2
@@ -131,41 +114,9 @@ Type = 0
 
 [node name="Tile_2_2" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row4" instance=ExtResource("7_f64oi")]
 layout_mode = 2
-Type = 3
-
-[node name="Router" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row4/Tile_2_2" instance=ExtResource("12_6r03d")]
-Direction = 2
-
-[node name="Tile_2_3" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row4" instance=ExtResource("7_f64oi")]
-layout_mode = 2
-
-[node name="Empty" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row4/Tile_2_3" instance=ExtResource("11_vmicl")]
-
-[node name="Row5" type="HBoxContainer" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid" index="4"]
-layout_mode = 2
-theme_override_constants/separation = 25
-
-[node name="Tile_2_0" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row5" instance=ExtResource("7_f64oi")]
-layout_mode = 2
 Type = 0
 
-[node name="Core" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row5/Tile_2_0" instance=ExtResource("8_voakj")]
-
-[node name="Tile_2_1" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row5" instance=ExtResource("7_f64oi")]
-layout_mode = 2
-
-[node name="Empty" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row5/Tile_2_1" instance=ExtResource("11_vmicl")]
-
-[node name="Tile_2_3" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row5" instance=ExtResource("7_f64oi")]
-layout_mode = 2
-
-[node name="Empty" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row5/Tile_2_3" instance=ExtResource("11_vmicl")]
-
-[node name="Tile_2_2" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row5" instance=ExtResource("7_f64oi")]
-layout_mode = 2
-Type = 0
-
-[node name="Core" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row5/Tile_2_2" instance=ExtResource("8_voakj")]
+[node name="Core" parent="LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row4/Tile_2_2" instance=ExtResource("8_voakj")]
 
 [editable path="LevelUI"]
 [editable path="LevelUI/LevelRoot/GridContainer"]
