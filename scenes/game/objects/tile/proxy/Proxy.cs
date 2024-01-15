@@ -90,11 +90,6 @@ namespace Game
       return ExitTile.GetNextCoreTileInDirection(direction);
     }
 
-    public bool Dock()
-    {
-      return true;
-    }
-
     public override bool IsBlockedFromDirection(Direction _direction)
     {
       return false;
