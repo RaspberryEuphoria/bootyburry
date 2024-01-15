@@ -44,6 +44,9 @@ namespace UI
       currentMovesLabel = GetNode<Label>("%CurrentMovesLabel");
       optimalMovesLabel = GetNode<KamiLabel>("%OptimalMovesLabel");
       hud = GetNode<MarginContainer>("%HUD");
+
+      var levelIdLabel = GetNode<Label>("%LevelIdLabel");
+      levelIdLabel.Text = level.Id.ToString();
     }
 
     private void Init()
