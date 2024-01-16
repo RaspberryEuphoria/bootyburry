@@ -29,8 +29,6 @@ namespace Game
     [Export]
     public int Id;
     [Export]
-    public PackedScene nextLevel;
-    [Export]
     public Tile startingTile;
     [Export]
     public int OptimalScore { get; private set; } = 0;
@@ -381,6 +379,9 @@ namespace Game
       GD.Print(report);
 
       EmitSignal(SignalName.GameWon);
+
+      var nextLevelId = Id + 1;
+      var nextLevel = GD.Load<PackedScene>($"res://scenes/game/level/Level_{nextLevelId}.tscn");
 
       if (nextLevel == null)
       {

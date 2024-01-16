@@ -35,11 +35,11 @@ theme_override_constants/margin_top = 15
 [node name="LevelIdLabel" parent="LevelIdContainer" instance=ExtResource("4_lml61")]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_colors/font_color = Color(0.002, 0.021, 0.073, 1)
+theme_override_colors/font_outline_color = Color(0.0509804, 0.0509804, 0.0509804, 1)
+theme_override_constants/outline_size = 20
 theme_override_font_sizes/font_size = 56
 text = "15"
 TextSize = 1
-ColorType = 5
 
 [node name="LevelRoot" type="VBoxContainer" parent="."]
 anchors_preset = 8
@@ -100,14 +100,12 @@ layout_mode = 2
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_color = Color(0.002, 0.021, 0.073, 1)
-theme_override_font_sizes/font_size = 72
 text = "X"
 ColorType = 5
 
 [node name="Separator" parent="LevelRoot/HUD/HBoxContainer/ScorePanel/HBoxContainer/MarginContainer/HBoxContainer" instance=ExtResource("4_lml61")]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.002, 0.021, 0.073, 1)
-theme_override_font_sizes/font_size = 72
 text = "/"
 ColorType = 5
 
@@ -115,7 +113,6 @@ ColorType = 5
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_color = Color(0.002, 0.021, 0.073, 1)
-theme_override_font_sizes/font_size = 72
 text = "X"
 ColorType = 5
 
@@ -140,7 +137,6 @@ visible = false
 layout_mode = 2
 size_flags_horizontal = 1
 size_flags_vertical = 1
-theme_override_colors/font_color = Color(0.467, 0.867, 0.467, 1)
 theme_override_font_sizes/font_size = 42
 text = ":)"
 TextSize = 0
