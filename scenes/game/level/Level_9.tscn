@@ -1,7 +1,6 @@
-[gd_scene load_steps=12 format=3 uid="uid://baftsx7qrc6n8"]
+[gd_scene load_steps=11 format=3 uid="uid://baftsx7qrc6n8"]
 
 [ext_resource type="Script" path="res://scenes/game/level/Level.cs" id="1_igvo4"]
-[ext_resource type="PackedScene" uid="uid://cgmmq1ew3v33f" path="res://scenes/game/level/Level_10.tscn" id="2_d1gvw"]
 [ext_resource type="PackedScene" uid="uid://btkws4lwu8fi1" path="res://scenes/game/level/LevelBackground.tscn" id="2_t3ne7"]
 [ext_resource type="PackedScene" uid="uid://dbl0tiuqxnci4" path="res://scenes/ui/LevelUI.tscn" id="3_b5s7n"]
 [ext_resource type="PackedScene" uid="uid://67x0aame80lq" path="res://scenes/game/objects/tile/Tile.tscn" id="3_javoo"]
@@ -14,14 +13,28 @@
 
 [node name="Level" type="Node2D" node_paths=PackedStringArray("startingTile")]
 script = ExtResource("1_igvo4")
-nextLevel = ExtResource("2_d1gvw")
+Id = 9
 startingTile = NodePath("LevelUI/LevelRoot/GridContainer/PanelContainer/MarginContainer/Grid/Row1/Tile_0_0")
 OptimalScore = 3
-Id = 9
 
 [node name="Background" parent="." instance=ExtResource("2_t3ne7")]
 
 [node name="LevelUI" parent="." instance=ExtResource("3_b5s7n")]
+
+[node name="LevelIdLabel" parent="LevelUI/LevelIdContainer" index="0"]
+theme_override_colors/font_color = Color(0.467, 0.867, 0.467, 1)
+
+[node name="CurrentMovesLabel" parent="LevelUI/LevelRoot/HUD/HBoxContainer/ScorePanel/HBoxContainer/MarginContainer/HBoxContainer" index="0"]
+theme_override_font_sizes/font_size = 72
+
+[node name="Separator" parent="LevelUI/LevelRoot/HUD/HBoxContainer/ScorePanel/HBoxContainer/MarginContainer/HBoxContainer" index="1"]
+theme_override_font_sizes/font_size = 72
+
+[node name="OptimalMovesLabel" parent="LevelUI/LevelRoot/HUD/HBoxContainer/ScorePanel/HBoxContainer/MarginContainer/HBoxContainer" index="2"]
+theme_override_font_sizes/font_size = 72
+
+[node name="MaxLabel" parent="LevelUI/LevelRoot/HUD/HBoxContainer/ScorePanel/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer" index="0"]
+theme_override_colors/font_color = Color(0.467, 0.867, 0.467, 1)
 
 [node name="GridContainer" parent="LevelUI/LevelRoot" index="1" instance=ExtResource("5_ldru1")]
 layout_mode = 2
