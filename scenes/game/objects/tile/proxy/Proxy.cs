@@ -1,6 +1,7 @@
 using System.Linq;
 using Godot;
 using Helpers;
+using UI;
 
 namespace Game
 {
@@ -14,8 +15,6 @@ namespace Game
    */
   public partial class Proxy : TileTerrain
   {
-    [Export]
-    private bool useAlternativeVisual = false;
     [Export]
     public int ProxyId { get; private set; } = 0;
 
@@ -37,7 +36,6 @@ namespace Game
     private Sprite2D portal;
     private Sprite2D portalAlt;
     private CpuParticles2D particles;
-    private CpuParticles2D particlesAlt;
     private AnimationPlayer animationPlayer;
     private StringName animationToPlay = "shake";
 
@@ -46,14 +44,10 @@ namespace Game
       RootTile = GetParent<Tile>();
       level = GetTree().Root.GetNode<Level>("Level");
       portal = GetNode<Sprite2D>("Portal");
-      portalAlt = GetNode<Sprite2D>("PortalAlt");
       particles = GetNode<CpuParticles2D>("Particles");
-      particlesAlt = GetNode<CpuParticles2D>("ParticlesAlt");
       animationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
 
       level.CurrentTileUpdated += OnCurrentTileUpdated;
-
-      if (useAlternativeVisual) SetupAlternativeVisual();
     }
 
     /**
@@ -70,14 +64,28 @@ namespace Game
       var exitTile = proxyTiles.Where(tile => tile.Name != RootTile.Name && (tile.Terrain as Proxy).ProxyId == ProxyId).FirstOrDefault();
       if (exitTile == null) return;
 
+      particles.Emitting = true;
       ExitTile = exitTile;
 
-      if ((ExitTile.Terrain as Proxy).ExitTile == null) ExitTile.Terrain.Init();
+      if ((ExitTile.Terrain as Proxy).ExitTile == null)
+      {
+        ExitTile.Terrain.Init();
+      }
+
+      if (proxyTiles.Count() > 2) SetupIdLabel();
     }
 
     public override void _ExitTree()
     {
       level.CurrentTileUpdated -= OnCurrentTileUpdated;
+    }
+
+    private void AddNavigationPathToExitTile()
+    {
+      var navigationPath = ResourceLoader.Load<PackedScene>("res://NavigationPath.tscn").Instantiate<NavigationPath>();
+
+      navigationPath.Init(RootTile, ExitTile);
+      level.AddChild(navigationPath);
     }
 
     public override Tile GetNextSelectableTileInDirection(Direction direction)
@@ -105,15 +113,15 @@ namespace Game
       return true;
     }
 
-    private void SetupAlternativeVisual()
+    private void SetupIdLabel()
     {
-      animationToPlay = "shake_alt";
+      var idLabel = GetNode<KamiLabel>("IdLabel");
+      idLabel.Show();
 
-      portal.Visible = false;
-      portalAlt.Visible = true;
-
-      particles.Visible = false;
-      particlesAlt.Visible = true;
+      for (int i = 0; i <= ProxyId; i++)
+      {
+        idLabel.Text += ".";
+      }
     }
 
     public void OnCurrentTileUpdated(Tile tile, Tile previousTile, Direction direction)
@@ -125,6 +133,7 @@ namespace Game
       // Case 1: this Proxy was selected by the player
       if (previousTile != ExitTile)
       {
+        level.DrawNavigationPath(RootTile, ExitTile, true);
         ExitTile.Select(RootTile, direction);
         return;
       }

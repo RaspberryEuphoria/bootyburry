@@ -10,7 +10,6 @@ namespace Menu
     public delegate void MainMenuResumePlayEventHandler();
 
     private ConfigFile config = new();
-
     private UserSettings userSettings;
     private Control UI;
     private LevelSelector levelSelector;
